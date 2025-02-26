@@ -34,10 +34,11 @@
 #include "ics2_RA6T3.h"
 #include "r_mtr_ics.h"
 
-#define     CONF_MOTOR_TYPE ("Brushless DC Motor")
+
+#define     CONF_MOTOR_TYPE ("DB56L036030-A, Nanotec")
 #define     CONF_CONTROL ("Sensorless vector control (Speed control)")
 #define     CONF_INVERTER ("MCI-LV-1")
-#define     CONF_MOTOR_TYPE_LEN (18)
+#define     CONF_MOTOR_TYPE_LEN (22)
 #define     CONF_CONTROL_LEN (41)
 #define     CONF_INVERTER_LEN (8)
 /***********************************************************************************************************************
@@ -76,6 +77,21 @@ motor_driver_cfg_t g_user_motor_driver_cfg;
 motor_driver_extended_cfg_t g_user_motor_driver_extended_cfg;
 motor_current_motor_parameter_t g_user_motor_current_motor_parameter;
 motor_current_design_parameter_t g_user_motor_current_design_parameter;
+
+
+
+/* Apostolis extra on-the-fly changing of speed, current gains*/
+float    com_f4_on_the_fly_speed_omega  ;
+float    com_f4_on_the_fly_speed_zeta;
+float    com_f4_on_the_fly_current_omega;
+float    com_f4_on_the_fly_current_zeta;
+float    com_f4_on_the_fly_obs_omega;
+float    com_f4_on_the_fly_obs_zeta;
+float    com_f4_on_the_fly_pll_omega;
+float    com_f4_on_the_fly_pll_zeta;
+uint8_t   g_u1_on_the_fly_activate = 0;
+/* Apostolis extra on-the-fly changing of speed, current gains*/
+
 
 /***********************************************************************************************************************
 * Private functions
@@ -129,6 +145,9 @@ void mtr_init(void)
 
     motor_fsp_init();
     software_init();                              /* Initialize private global variables */
+
+
+
 
 #if USE_BUILT_IN
     ics2_init(ICS_SCI9_P110_P109, ICS_BRR, ICS_INT_MODE);
@@ -396,6 +415,11 @@ static void motor_fsp_init(void)
     g_user_motor_driver_cfg = *(g_motor_driver0_ctrl.p_cfg);
     g_user_motor_driver_extended_cfg = *(motor_driver_extended_cfg_t *)g_user_motor_driver_cfg.p_extend;
     g_user_motor_driver_cfg.p_extend = &g_user_motor_driver_extended_cfg;
+
+
+    // flux estimator
+
+
 } /* End of function motor_fsp_init */
 
 /***********************************************************************************************************************

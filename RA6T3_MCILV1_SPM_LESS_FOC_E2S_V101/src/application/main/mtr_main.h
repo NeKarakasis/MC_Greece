@@ -48,7 +48,7 @@
 #define MTR_LED_OFF              (BSP_IO_LEVEL_HIGH)            /* Inactive level of LED */
 #define ICS_UI                   (0)                            /* ICS (Analyzer) */
 #define BOARD_UI                 (1)                            /* Board */
-#define MTR_MAX_SPEED_RPM        (2400)
+#define MTR_MAX_SPEED_RPM        (5000)
 #define STOP_RPM                 (400)
 #define MTR_AD12BIT_DATA         (4095.0f)                      /* A/D 12Bit data */
 #define VR1_SCALING              (-(MTR_MAX_SPEED_RPM + 100 ) / (MTR_AD12BIT_DATA * 0.5f))

@@ -245,7 +245,7 @@
       <property id="module.middleware.motor_speed.f_ol_fb_speed_limit_rate" value="0.20"/>
       <property id="module.middleware.motor_speed.f_natural_frequency" value="100.0"/>
       <property id="module.middleware.motor_speed.openloop_damping" value="module.middleware.motor_speed.openloop_damping.enable"/>
-      <property id="module.middleware.motor_speed.fluxweakening" value="module.middleware.motor_speed.fluxweakening.disable"/>
+      <property id="module.middleware.motor_speed.fluxweakening" value="module.middleware.motor_speed.fluxweakening.enable"/>
       <property id="module.middleware.motor_speed.less_switch" value="module.middleware.motor_speed.less_switch.enable"/>
       <property id="module.middleware.motor_speed.observer" value="module.middleware.motor_speed.observer.enable"/>
       <property id="module.middleware.motor_speed.observer_select" value="module.middleware.motor_speed.observer_select.normal"/>
@@ -267,11 +267,11 @@
       <property id="module.middleware.motor_speed.sob_omega" value="200.0"/>
       <property id="module.middleware.motor_speed.sob_zeta" value="1.0"/>
       <property id="module.middleware.motor_speed.u2_mtr_pp" value="4"/>
-      <property id="module.middleware.motor_speed.f4_mtr_r" value="1.3"/>
-      <property id="module.middleware.motor_speed.f4_mtr_ld" value="0.0013"/>
-      <property id="module.middleware.motor_speed.f4_mtr_lq" value="0.0013"/>
-      <property id="module.middleware.motor_speed.f4_mtr_m" value="0.01119"/>
-      <property id="module.middleware.motor_speed.f4_mtr_j" value="0.000003666"/>
+      <property id="module.middleware.motor_speed.f4_mtr_r" value="0.4069514f"/>
+      <property id="module.middleware.motor_speed.f4_mtr_ld" value="0.0004193683f"/>
+      <property id="module.middleware.motor_speed.f4_mtr_lq" value="0.0004331033f"/>
+      <property id="module.middleware.motor_speed.f4_mtr_m" value="0.0160805f"/>
+      <property id="module.middleware.motor_speed.f4_mtr_j" value="0.00002887"/>
       <property id="module.middleware.motor_speed.sc_callback" value="NULL"/>
       <property id="module.middleware.motor_speed.st_input" value="NULL"/>
       <property id="module.middleware.motor_speed.st_output" value="NULL"/>
@@ -282,7 +282,7 @@
       <property id="module.middleware.motor_current.shunt" value="module.middleware.motor_current.shunt.2_shunt"/>
       <property id="module.middleware.motor_current.u_decimation" value="0"/>
       <property id="module.middleware.motor_current.f_carrier_freq" value="20.0"/>
-      <property id="module.middleware.motor_current.f_ilimit" value="24.0"/>
+      <property id="module.middleware.motor_current.f_ilimit" value="36.0"/>
       <property id="module.middleware.motor_current.smpl_dly_comp" value="module.middleware.motor_current.smpl_dly_comp.enable"/>
       <property id="module.middleware.motor_current.period_magnitude" value="1.5"/>
       <property id="module.middleware.motor_current.voltage_comp" value="module.middleware.motor_current.voltage_comp.enable"/>
@@ -300,11 +300,11 @@
       <property id="module.middleware.motor_current.f_current_omega" value="300.0"/>
       <property id="module.middleware.motor_current.f_current_zeta" value="1.0"/>
       <property id="module.middleware.motor_current.u2_mtr_pp" value="4"/>
-      <property id="module.middleware.motor_current.f4_mtr_r" value="1.3"/>
-      <property id="module.middleware.motor_current.f4_mtr_ld" value="0.0013"/>
-      <property id="module.middleware.motor_current.f4_mtr_lq" value="0.0013"/>
-      <property id="module.middleware.motor_current.f4_mtr_m" value="0.01119"/>
-      <property id="module.middleware.motor_current.f4_mtr_j" value="0.000003666"/>
+      <property id="module.middleware.motor_current.f4_mtr_r" value="0.4069514"/>
+      <property id="module.middleware.motor_current.f4_mtr_ld" value="0.0004193683"/>
+      <property id="module.middleware.motor_current.f4_mtr_lq" value="0.0004331033f"/>
+      <property id="module.middleware.motor_current.f4_mtr_m" value="0.0160805f"/>
+      <property id="module.middleware.motor_current.f4_mtr_j" value="0.00002887"/>
     </module>
     <module id="module.middleware.motor_driver.128773342">
       <property id="module.middleware.motor_driver.name" value="g_motor_driver0"/>
@@ -346,7 +346,7 @@
       <property id="module.middleware.motor_driver.ad_voltage_conversion" value="1.0"/>
       <property id="module.middleware.motor_driver.gtioca_stop_level" value="module.middleware.motor_driver.gtioca_stop_level.pin_level_low"/>
       <property id="module.middleware.motor_driver.gtiocb_stop_level" value="module.middleware.motor_driver.gtiocb_stop_level.pin_level_high"/>
-      <property id="module.middleware.motor_driver.max_duty" value="0.9375"/>
+      <property id="module.middleware.motor_driver.max_duty" value="1.15"/>
       <property id="module.middleware.motor_driver.driver_callback" value="NULL"/>
     </module>
     <module id="module.driver.adc_on_adc.522747670">

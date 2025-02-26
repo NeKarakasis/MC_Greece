@@ -38,7 +38,7 @@
 /****************************************************************************** 
 * Macro definitions                                                             
 ******************************************************************************/ 
-#define    MTR_CONTROL_PARAMETER     (0)
+#define    MTR_CONTROL_PARAMETER     (1)
 
 /* Target control parameter definitions */                                      
 #define    CP_CURRENT_OMEGA        (300.0f)                /* Natural frequency for current loop */
@@ -51,8 +51,8 @@
 #define    CP_PLL_EST_ZETA         (1.0f)                  /* Damping ratio of PLL Speed estimate loop */
 #define    CP_ID_DOWN_SPEED_RPM    (500)                   /* Speed to start decreasing id [rpm]  (mechanical) */
 #define    CP_ID_UP_SPEED_RPM      (400)                   /* Speed to start increasing id [rpm]  (mechanical) */
-#define    CP_MAX_SPEED_RPM        (2400)                  /* Maximum speed[rpm] (mechanical) */
-#define    CP_OVERSPEED_LIMIT_RPM  (4500)                  /* Over speed limit [rpm] (mechanical) */
+#define    CP_MAX_SPEED_RPM        (5000)                  /* Maximum speed[rpm] (mechanical) */
+#define    CP_OVERSPEED_LIMIT_RPM  (6000)                  /* Over speed limit [rpm] (mechanical) */
 #define    CP_OL_ID_REF            (0.3f)                  /* Id reference when low speed [A] */
 
 #endif /* R_MTR_CONTROL_PARAMETER_H */                                          

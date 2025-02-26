@@ -38,15 +38,15 @@
 /****************************************************************************** 
 * Macro definitions                                                             
 ******************************************************************************/ 
-#define    MTR_MOTOR_PARAMETER     (0)
+#define    MTR_MOTOR_PARAMETER     (1)
 
 /* Target motor definitions */                                                  
 #define    MP_POLE_PAIRS           (4)                     /* Number of pole pairs */
-#define    MP_RESISTANCE           (1.3f)                  /* Resistance [ohm] */
-#define    MP_D_INDUCTANCE         (0.0013f)               /* D-axis inductance [H] */
-#define    MP_Q_INDUCTANCE         (0.0013f)               /* Q-axis inductance [H] */
-#define    MP_MAGNETIC_FLUX        (0.01119f)              /* Permanent magnetic flux [Wb] */
-#define    MP_ROTOR_INERTIA        (0.000003666f)          /* Rotor inertia [kgm^2] */
-#define    MP_NOMINAL_CURRENT_RMS  (1.67f)                 /* Nominal current [Arms] */
+#define    MP_RESISTANCE           (0.6343f)                  /* Resistance [ohm] */
+#define    MP_D_INDUCTANCE         (0.00068338)               /* D-axis inductance [H] */
+#define    MP_Q_INDUCTANCE         (0.0006833849f)               /* Q-axis inductance [H] */
+#define    MP_MAGNETIC_FLUX        (0.01420f)              /* Permanent magnetic flux [Wb] */
+#define    MP_ROTOR_INERTIA        (2.11822007E-05f)          /* Rotor inertia [kgm^2] */
+#define    MP_NOMINAL_CURRENT_RMS  (4.0f)                 /* Nominal current [Arms] */
 
 #endif /* R_MTR_MOTOR_PARAMETER_H */                                            

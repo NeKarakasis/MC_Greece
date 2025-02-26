@@ -1,33 +1,33 @@
 /***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
-* applicable laws, including copyright laws.
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the
-* following link:
-* http://www.renesas.com/disclaimer
-*
-* Copyright (C) 2023 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+ * DISCLAIMER
+ * This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No
+ * other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
+ * applicable laws, including copyright laws.
+ * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+ * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM
+ * EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES
+ * SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS
+ * SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+ * Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of
+ * this software. By using this software, you agree to the additional terms and conditions found by accessing the
+ * following link:
+ * http://www.renesas.com/disclaimer
+ *
+ * Copyright (C) 2023 Renesas Electronics Corporation. All rights reserved.
+ ***********************************************************************************************************************/
 /***********************************************************************************************************************
-* File Name   : r_mtr_ics.c
-* Description : Processes of a user interface (tool)
-***********************************************************************************************************************/
+ * File Name   : r_mtr_ics.c
+ * Description : Processes of a user interface (tool)
+ ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 23.05.2023 1.00
-***********************************************************************************************************************/
+ * History : DD.MM.YYYY Version
+ *         : 23.05.2023 1.00
+ ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* Includes <System Includes> , "Project Includes"
-***********************************************************************************************************************/
+ * Includes <System Includes> , "Project Includes"
+ ***********************************************************************************************************************/
 #include <stdint.h>
 #include "mtr_main.h"
 #include "r_mtr_ics.h"
@@ -35,6 +35,8 @@
 #include "hal_data.h"
 #include "r_mtr_motor_parameter.h"
 #include "r_mtr_control_parameter.h"
+
+
 static uint8_t u1_cnt_ics;                     /* Counter for period of calling "scope_watchpoint" */
 
 float    g_f4_id_ref_monitor;                  /* The reference d-axis current value [A] */
@@ -114,12 +116,28 @@ extern   motor_driver_cfg_t g_user_motor_driver_cfg;
 extern   motor_driver_extended_cfg_t g_user_motor_driver_extended_cfg;
 extern   uint16_t g_u2_max_speed_rpm;
 
+
+
+
+
+/* Apostolis extra on-the-fly changing of speed, current gains*/
+extern float    com_f4_on_the_fly_speed_omega;
+extern float    com_f4_on_the_fly_speed_zeta;
+extern float   com_f4_on_the_fly_current_omega;
+extern float    com_f4_on_the_fly_current_zeta;
+extern float    com_f4_on_the_fly_obs_omega;
+extern float    com_f4_on_the_fly_obs_zeta;
+extern float    com_f4_on_the_fly_pll_omega;
+extern float    com_f4_on_the_fly_pll_zeta;
+extern uint8_t   g_u1_on_the_fly_activate;
+/* Apostolis extra on-the-fly changing of speed, current gains*/
+
 /***********************************************************************************************************************
-* Function Name : mtr_set_com_variables
-* Description   : Set com variables
-* Arguments     : None
-* Return Value  : None
-***********************************************************************************************************************/
+ * Function Name : mtr_set_com_variables
+ * Description   : Set com variables
+ * Arguments     : None
+ * Return Value  : None
+ ***********************************************************************************************************************/
 void mtr_set_com_variables(void)
 {
     if (com_u1_enable_write == g_u1_enable_write)
@@ -178,17 +196,23 @@ void mtr_set_com_variables(void)
         g_motor_angle0_ctrl.st_bemf_obs.st_motor_params.f4_mtr_lq    = com_f4_mtr_lq;
         g_motor_angle0_ctrl.st_bemf_obs.st_motor_params.f4_mtr_m     = com_f4_mtr_m;
         g_motor_angle0_ctrl.st_bemf_obs.st_motor_params.f4_mtr_j     = com_f4_mtr_j;
+
+
+
+
+
+
         g_u1_trig_enable_write = MTR_FLG_SET;
         g_u1_enable_write ^= 1;                         /* Change every time 0 and 1 */
     }
 }
 
 /***********************************************************************************************************************
-* Function Name : mtr_ics_variables_init
-* Description   : Initialize valiables for Analyzer interface
-* Arguments     : None
-* Return Value  : None
-***********************************************************************************************************************/
+ * Function Name : mtr_ics_variables_init
+ * Description   : Initialize valiables for Analyzer interface
+ * Arguments     : None
+ * Return Value  : None
+ ***********************************************************************************************************************/
 void mtr_ics_variables_init(void)
 {
     g_u1_enable_write = 0;
@@ -201,8 +225,9 @@ void mtr_ics_variables_init(void)
     com_f4_mtr_lq            = MP_Q_INDUCTANCE;
     com_f4_mtr_m             = MP_MAGNETIC_FLUX;
     com_f4_mtr_j             = MP_ROTOR_INERTIA;
-    com_f4_overcurrent_limit = MP_NOMINAL_CURRENT_RMS;
-    com_f4_iq_limit          = MP_NOMINAL_CURRENT_RMS;
+    com_f4_overcurrent_limit = MP_NOMINAL_CURRENT_RMS*2;
+    //com_f4_iq_limit          = MP_NOMINAL_CURRENT_RMS;
+    com_f4_iq_limit          = (float)(MP_MAGNETIC_FLUX/MP_D_INDUCTANCE);
 #else
     com_u2_mtr_pp            = g_user_motor_speed_extended_cfg.mtr_param.u2_mtr_pp;
     com_f4_mtr_r             = g_user_motor_speed_extended_cfg.mtr_param.f4_mtr_r;
@@ -249,16 +274,52 @@ void mtr_ics_variables_init(void)
 }
 
 /***********************************************************************************************************************
-* Function Name : mtr_ics_interrupt_process
-* Description   : Process for ICS(Analyzer)
-* Arguments     : None
-* Return Value  : None
-***********************************************************************************************************************/
+ * Function Name : mtr_ics_interrupt_process
+ * Description   : Process for ICS(Analyzer)
+ * Arguments     : None
+ * Return Value  : None
+ ***********************************************************************************************************************/
 void mtr_ics_interrupt_process(void)
 {
     u1_cnt_ics++;
     if (MTR_ICS_DECIMATION <= u1_cnt_ics)                      /* Decimation of ICS call */
     {
+
+        /* Apostolis extra on-the-fly changing of speed, current gains*/
+        if(g_u1_on_the_fly_activate==1){
+
+            g_user_motor_speed_extended_cfg.d_param.f_speed_omega = com_f4_on_the_fly_speed_omega;
+            g_user_motor_speed_extended_cfg.d_param.f_speed_zeta  = com_f4_on_the_fly_speed_zeta;
+            g_user_motor_current_extended_cfg.p_design_parameter->f_current_omega = com_f4_on_the_fly_current_omega;
+            g_user_motor_current_extended_cfg.p_design_parameter-> f_current_zeta = com_f4_on_the_fly_current_zeta;
+            g_user_motor_estimate_extended_cfg.f_e_obs_omega =   com_f4_on_the_fly_obs_omega;
+            g_user_motor_estimate_extended_cfg.f_e_obs_zeta =    com_f4_on_the_fly_obs_zeta;
+            g_user_motor_estimate_extended_cfg.f_pll_est_omega = com_f4_on_the_fly_pll_omega;
+            g_user_motor_estimate_extended_cfg.f_pll_est_zeta=   1.0;
+
+
+                    g_motor_speed0.p_api->parameterUpdate(g_motor_speed0.p_ctrl, &g_user_motor_speed_cfg);
+            g_motor_current0.p_api->parameterUpdate(g_motor_current0.p_ctrl, &g_user_motor_current_cfg);
+            g_motor_angle0.p_api->parameterUpdate(g_motor_angle0.p_ctrl, &g_user_motor_angle_cfg);
+        }
+
+        else {
+            g_user_motor_speed_extended_cfg.d_param.f_speed_omega = CP_SPEED_OMEGA;
+            g_user_motor_speed_extended_cfg.d_param.f_speed_zeta  = CP_SPEED_ZETA;
+            g_user_motor_current_extended_cfg.p_design_parameter->f_current_omega = CP_CURRENT_OMEGA;
+            g_user_motor_current_extended_cfg.p_design_parameter-> f_current_zeta = CP_CURRENT_ZETA;
+            g_user_motor_estimate_extended_cfg.f_e_obs_omega =   CP_E_OBS_OMEGA;
+            g_user_motor_estimate_extended_cfg.f_e_obs_zeta =    CP_E_OBS_ZETA;
+            g_user_motor_estimate_extended_cfg.f_pll_est_omega = CP_PLL_EST_OMEGA;
+            g_user_motor_estimate_extended_cfg.f_pll_est_zeta=  CP_PLL_EST_ZETA;
+
+            g_motor_speed0.p_api->parameterUpdate(g_motor_speed0.p_ctrl, &g_user_motor_speed_cfg);
+            g_motor_current0.p_api->parameterUpdate(g_motor_current0.p_ctrl, &g_user_motor_current_cfg);
+            g_motor_angle0.p_api->parameterUpdate(g_motor_angle0.p_ctrl, &g_user_motor_angle_cfg);
+        }
+        /* Apostolis extra on-the-fly changing of speed, current gains*/
+
+
         g_f4_id_ref_monitor           = g_motor_current0_ctrl.f_id_ref;
         g_f4_id_ad_monitor            = g_motor_current0_ctrl.f_id_ad;
         g_f4_iq_ref_monitor           = g_motor_current0_ctrl.f_iq_ref;
