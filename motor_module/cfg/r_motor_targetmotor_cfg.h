@@ -60,7 +60,7 @@
 #define     MOTOR_CFG_D_INDUCTANCE          (0.0353f)       /* D-axis inductance [H] */
 #define     MOTOR_CFG_Q_INDUCTANCE          (0.0899f)       /* Q-axis inductance [H] */
 #define     MOTOR_CFG_ROTOR_INERTIA         (0.00003666f)    /* Rotor inertia [kgm^2] */
-#define     MOTOR_CFG_NOMINAL_CURRENT_RMS   (3.0f)         /* Nominal current [Arms] */
+#define     MOTOR_CFG_NOMINAL_CURRENT_RMS   (2.0f)         /* Nominal current [Arms] */
 #define     MOTOR_CFG_MAX_SPEED_RPM         (5000.0f)       /* maximum speed [rpm] (mechanical angle) */
 
 #endif /* MOTOR_COMMON_CFG_MTR_TG55L */

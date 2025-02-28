@@ -190,3 +190,57 @@ void motor_speed_flux_weakening(st_speed_control_t * p_st_sc)
     p_st_sc->f4_id_ref_output = f4_idq_ref[0];
     p_st_sc->f4_iq_ref_output = f4_idq_ref[1];
 } /* End of function motor_flux_speed_weakening */
+
+/***********************************************************************************************************************
+* Function Name : motor_speed_mtpa
+* Description   : Executes the MTPA
+* Arguments     : p_st_sc - The pointer to speed control structure
+* Return Value  : None
+***********************************************************************************************************************/
+void motor_speed_mtpa(st_speed_control_t * p_st_sc)
+{
+    uint16_t u2_fw_status;
+    float f4_idq_ref[2];
+    float f4_idq_ref_temp[2];
+
+    f4_idq_ref[0] = p_st_sc->f4_id_ref_output;
+    f4_idq_ref[1] = p_st_sc->f4_iq_ref_output;
+
+    f4_idq_ref_temp[0] = f4_idq_ref[0];
+    f4_idq_ref_temp[1] = f4_idq_ref[1];
+
+    /* MTPA */
+    motor_speed_mtpa_run(&(p_st_sc->st_mtpa), &(f4_idq_ref_temp[0]));
+
+    /* Get the status of flux-weakening module */
+    u2_fw_status = motor_speed_flux_weakn_status_get(&(p_st_sc->st_fluxwkn));
+
+    if ((FLUXWKN_STATE_FLUXWKN == u2_fw_status) && (MTR_FLG_SET == p_st_sc->u1_flag_fluxwkn_use))
+    {
+        /* Select MTPA or flux-weakening control */
+        motor_speed_mtpa_wekn_judge(&(p_st_sc->st_mtpa),
+                                    p_st_sc->f4_speed_rad_ctrl,
+                                    p_st_sc->st_fluxwkn.f4_va_max,
+                                    f4_idq_ref_temp[0],
+                                    f4_idq_ref[0],
+                                    &(f4_idq_ref[0]));
+    }
+    else
+    {
+        /* In case of Disabled Weak Control and Enabled MTPA */
+        f4_idq_ref[0] = f4_idq_ref_temp[0];
+        f4_idq_ref[1] = f4_idq_ref_temp[1];
+    }
+
+    if (f4_idq_ref[0] > 0.0f)
+    {
+        f4_idq_ref[0] = 0.0f;
+    }
+    else
+    {
+        /* Do Nothing */
+    }
+
+    p_st_sc->f4_id_ref_output = f4_idq_ref[0];
+    p_st_sc->f4_iq_ref_output = f4_idq_ref[1];
+} /* End of function motor_speed_mtpa */

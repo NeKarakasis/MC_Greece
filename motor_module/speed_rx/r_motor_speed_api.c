@@ -57,6 +57,7 @@ void R_MOTOR_SPEED_Open(void)
     p_st_sc = &g_st_sc;
 
     p_st_sc->u1_flag_fluxwkn_use             = SPEED_CFG_FLUX_WEAKENING;
+    p_st_sc->u1_flag_mtpa_use                = SPEED_CFG_MTPA;
     p_st_sc->f4_speed_ctrl_period            = SPEED_CFG_CTRL_PERIOD;
     p_st_sc->f4_ref_speed_rad                = 0.0f;
     p_st_sc->f4_ref_speed_rad_manual         = 0.0f;
@@ -96,6 +97,9 @@ void R_MOTOR_SPEED_Open(void)
     motor_filter_first_order_lpff_init(&p_st_sc->st_slpf);
     motor_filter_first_order_lpff_gain_calc(&p_st_sc->st_slpf,
             SPEED_CFG_LPF_OMEGA, SPEED_CFG_CTRL_PERIOD);
+
+    /* Initialize MTPA */
+    motor_speed_mtpa_init(&p_st_sc->st_mtpa, &p_st_sc->st_motor);
 
     R_MOTOR_SPEED_Reset(p_st_sc);
 } /* End of function R_MOTOR_SPEED_Open */
@@ -240,6 +244,10 @@ void R_MOTOR_SPEED_ParameterUpdate(st_speed_control_t * p_st_sc, const st_speed_
 
     /* Rate[krpm/s] of reference speed for open-loop damping control feedback speed limiter */
     motor_speed_opl_damp_limit_set(&p_st_sc->st_opl_damp, p_st_speed_cfg->f4_ol_damping_fb_limit_rate);
+
+    /* Setup the motor parameter to MTPA structure */
+    motor_speed_mtpa_motor_param_set(&p_st_sc->st_mtpa, &p_st_sc->st_motor);
+
 } /* End of function R_MOTOR_SPEED_ParameterUpdate */
 
 /***********************************************************************************************************************
@@ -287,6 +295,16 @@ void R_MOTOR_SPEED_SpeedCyclic(st_speed_control_t * p_st_sc)
         else
         {
             /* Do Nothing */
+        }
+
+        if (MTR_FLG_SET == p_st_sc->u1_flag_mtpa_use)
+        {
+            /* This function will over-write the dq-axis current command */
+            motor_speed_mtpa(p_st_sc);
+        }
+        else
+        {
+            /* Do nothing */
         }
     }
     else

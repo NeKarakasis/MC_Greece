@@ -1,2 +1,6 @@
+-----28/2/25-----
+- Nektarios: Import the MTPA tested and working up to 4500rpm.
+- Nektarios: Tested and working with high voltage power supply.
+
 -----24/2/25-----
 -Nektarios: Initial commit of BEKO project by using RX13T. The motor is running and tested with 30V on the DC

@@ -147,8 +147,6 @@
 									<listOptionValue builtIn="false" value="&quot;.\src/smc_gen/Config_CMT0\Config_CMT0_user.obj&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;.\src/smc_gen/Config_IWDT\Config_IWDT.obj&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;.\src/smc_gen/Config_IWDT\Config_IWDT_user.obj&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;.\src/smc_gen/Config_POE\Config_POE.obj&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;.\src/smc_gen/Config_POE\Config_POE_user.obj&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;.\src/smc_gen/Config_PORT\Config_PORT.obj&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;.\src/smc_gen/Config_PORT\Config_PORT_user.obj&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;.\src/smc_gen/Config_S12AD0\Config_S12AD0.obj&quot;"/>
@@ -185,6 +183,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/motor_module/speed_rx/r_motor_speed_fluxwkn.lib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/motor_module/speed_rx/r_motor_speed_opl_damp_ctrl.lib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/motor_module/speed_rx/r_motor_speed_opl2less.lib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/motor_module/speed_rx/r_motor_speed_mtpa.lib}&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.inputFile.257138420" name="Relocatable files, object files and library files (-input/-library/-binary)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.inputFile" useByScannerDiscovery="false" valueType="stringList">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/app/rmw/ICS2_RX13T.lib}&quot;"/>
@@ -193,6 +192,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/motor_module/speed_rx/r_motor_speed_fluxwkn.lib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/motor_module/speed_rx/r_motor_speed_opl_damp_ctrl.lib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/motor_module/speed_rx/r_motor_speed_opl2less.lib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/motor_module/speed_rx/r_motor_speed_mtpa.lib}&quot;"/>
 								</option>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.useCustomLinkageOrder.858974016" name="Use custom linkage order" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.useCustomLinkageOrder" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 							</tool>

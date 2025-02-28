@@ -39,6 +39,7 @@
 #include "r_motor_speed_fluxwkn.h"
 #include "r_motor_speed_opl_damp_ctrl.h"
 #include "r_motor_speed_opl2less.h"
+#include "r_motor_speed_mtpa.h"
 
 /***********************************************************************************************************************
 * Macro definitions
@@ -90,6 +91,7 @@ typedef struct
     uint8_t       u1_state_speed_ref;                /* The speed command status */
     uint8_t       u1_flag_fluxwkn_use;               /* whether use the output from flux-weakening */
     uint8_t       u1_flag_switching;                 /* whether set estimated speed flag */
+    uint8_t       u1_flag_mtpa_use;                  /* whether use the output from MTPA */
     float         f4_speed_ctrl_period;              /* speed control period */
     float         f4_ref_speed_rad_ctrl;             /* command speed value for speed PI control[rad/s] */
     float         f4_ref_speed_rad;                  /* reference speed value [rad/s] */
@@ -110,6 +112,7 @@ typedef struct
     st_fluxwkn_t          st_fluxwkn;                /* Flux-weakening structure */
     st_opl_damp_t         st_opl_damp;               /* Open loop damping control structure */
     st_1st_order_lpf_t    st_slpf;                   /* LPF for speed */
+    st_mtpa_t             st_mtpa;                   /* MTPA structure */
 } st_speed_control_t;
 
 /***********************************************************************************************************************

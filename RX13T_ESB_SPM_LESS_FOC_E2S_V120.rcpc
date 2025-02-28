@@ -73,6 +73,7 @@
           <Path>motor_module\speed_rx\r_motor_speed_api.c</Path>
           <Path>motor_module\speed_rx\r_motor_speed_api.h</Path>
           <Path>motor_module\speed_rx\r_motor_speed_fluxwkn.h</Path>
+          <Path>motor_module\speed_rx\r_motor_speed_mtpa.h</Path>
           <Path>motor_module\speed_rx\r_motor_speed_opl2less.h</Path>
           <Path>motor_module\speed_rx\r_motor_speed_opl_damp_ctrl.h</Path>
           <Path>motor_module\speed_rx\r_motor_speed_pi_gain_calc.c</Path>
@@ -872,6 +873,7 @@
           <Option>-library="${ProjDirPath}\motor_module\speed_rx\r_motor_speed_fluxwkn.lib"</Option>
           <Option>-library="${ProjDirPath}\motor_module\speed_rx\r_motor_speed_opl_damp_ctrl.lib"</Option>
           <Option>-library="${ProjDirPath}\motor_module\speed_rx\r_motor_speed_opl2less.lib"</Option>
+          <Option>-library="${ProjDirPath}\motor_module\speed_rx\r_motor_speed_mtpa.lib"</Option>
           <Option>-start=BDTCTBL/0,B_1,R_1,B_2,R_2,B,R,SU,SI/0400,PResetPRG,C_1,C_2,C,C$*,D*,W*,L,P/0FFFF0100,FIXEDVECT/0FFFFFF80</Option>
           <Option>-end</Option>
           <Option>-output="${ProjName}.mot"</Option>
@@ -952,6 +954,7 @@
           <Path>${ProjDirPath}\motor_module\speed_rx\r_motor_speed_fluxwkn.lib</Path>
           <Path>${ProjDirPath}\motor_module\speed_rx\r_motor_speed_opl_damp_ctrl.lib</Path>
           <Path>${ProjDirPath}\motor_module\speed_rx\r_motor_speed_opl2less.lib</Path>
+          <Path>${ProjDirPath}\motor_module\speed_rx\r_motor_speed_mtpa.lib</Path>
         </LinkOrder>
         <NoTargetFile Target="trash\2025-02-17-17-53-49\src\smc_gen\Config_CMT0\Config_CMT0.c"/>
         <NoTargetFile Target="trash\2025-02-17-17-53-49\src\smc_gen\Config_CMT0\Config_CMT0_user.c"/>

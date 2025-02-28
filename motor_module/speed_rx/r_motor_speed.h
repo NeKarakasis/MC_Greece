@@ -104,4 +104,7 @@ void motor_speed_flux_weakening(st_speed_control_t * p_st_sc);
 ***********************************************************************************************************************/
 void motor_speed_pi_gain_calc(st_speed_control_t * p_st_sc, float f4_omega_hz, float f4_zeta);
 
+void motor_speed_mtpa(st_speed_control_t * p_st_sc);
+
+
 #endif /* R_MOTOR_SPEED_H */

@@ -151,7 +151,10 @@
  * for Speed Module(speed_rx)
  */
 /* Defines whether use flux-weakening in FOC */
-#define     SPEED_CFG_FLUX_WEAKENING            (MTR_DISABLE)
+#define     SPEED_CFG_FLUX_WEAKENING            (MTR_ENABLE)
+
+/* Defines whether use MTPA in FOC */
+#define     SPEED_CFG_MTPA                      (MTR_ENABLE)
 
 /* Defines whether perform soft switching between open-loop and vector control */
 #define     SPEED_CFG_LESS_SWITCH               (MTR_ENABLE)
@@ -160,10 +163,10 @@
 #define     SPEED_CFG_OPENLOOP_DAMPING          (MTR_ENABLE)
 
 #define     SPEED_CFG_CTRL_PERIOD               (0.001f)        /* control period for speed loop */
-#define     SPEED_CFG_OMEGA                     (1.0f)          /* natural frequency for speed loop */
+#define     SPEED_CFG_OMEGA                     (0.5f)          /* natural frequency for speed loop */
 #define     SPEED_CFG_ZETA                      (1.0f)          /* damping ratio for speed loop */
 #define     SPEED_CFG_LPF_OMEGA                 (10.0f)         /* natural frequency for speed LPF */
-#define     SPEED_CFG_SPEED_LIMIT_RPM           (4000.0f)       /* over speed limit [rpm] (mechanical angle) */
+#define     SPEED_CFG_SPEED_LIMIT_RPM           (6000.0f)       /* over speed limit [rpm] (mechanical angle) */
 #define     SPEED_CFG_RATE_LIMIT_RPM            (500.0f)       /* Rate limit of speed change [rpm/s] */
 #define     SPEED_OPL2LESS_SWITCH_TIME          (0.3f)        /* Time[s] to switch open-loop to sensor-less */
 #define     SPEED_OPL_DAMP_ED_HPF_OMEGA         (2.5f)          /* HPF cutoff frequency for ed [Hz] */
