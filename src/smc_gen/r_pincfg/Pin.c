@@ -95,6 +95,10 @@ void R_Pins_Create(void)
     MPC.P76PFS.BYTE = 0x01U;
     PORT7.PMR.BYTE |= 0x40U;
 
+    /* Set POE8# pin */
+    MPC.P11PFS.BYTE = 0x07U;
+    PORT1.PMR.BYTE |= 0x02U;
+
     R_BSP_RegisterProtectEnable(BSP_REG_PROTECT_MPC);
 }
 

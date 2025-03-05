@@ -37,6 +37,7 @@ Includes
 #include "Config_CMT0.h"
 #include "Config_S12AD0.h"
 #include "Config_MOTOR.h"
+#include "Config_POE.h"
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)

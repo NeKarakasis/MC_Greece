@@ -1,3 +1,6 @@
+-----5/3/25-----
+- Nektarios: Add the POE functionality, used the POE#8
+
 -----28/2/25-----
 - Nektarios: Import the MTPA tested and working up to 4500rpm.
 - Nektarios: Tested and working with high voltage power supply.

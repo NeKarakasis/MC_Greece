@@ -18,6 +18,7 @@
         <Setting id="P76" value="MTIOC4D"/>
         <Setting id="P42" value="AN002"/>
         <Setting id="P75" value="MTIOC4C"/>
+        <Setting id="P11" value="POE8#"/>
         <Setting id="MD" value="FINED"/>
     </Segment>
     <Segment id="Device">
@@ -45,6 +46,7 @@
         <Setting id="Config_IWDT" value="CG"/>
         <Setting id="Config_CMT0" value="CG"/>
         <Setting id="Config_MOTOR" value="CG"/>
+        <Setting id="Config_POE" value="CG"/>
         <Segment component="r_bsp7.42" id="r_bsp" source="com.renesas.smc.tools.swcomponent.fit.source">
             <Setting id="BSP_CFG_ID_CODE_LONG_4" value="0xFFFFFFFF"/>
             <Setting id="BSP_CFG_SWINT_UNIT1_ENABLE" value="1"/>
@@ -434,6 +436,43 @@
                     <Setting id="PhaseCounterPin" value="ExtAB"/>
                 </Segment>
             </Segment>
+        </Segment>
+        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.poe" id="Config_POE" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
+            <Setting id="cb1poe10" value="uncheck"/>
+            <Setting id="cbEnableMTIOC4BD" value="check"/>
+            <Setting id="cbEnableMTIOC3BD" value="check"/>
+            <Setting id="mTIOC4AActiveLevel" value="low"/>
+            <Setting id="cbEnableMTIOC0B" value="uncheck"/>
+            <Setting id="cbpoe10" value="uncheck"/>
+            <Setting id="cbOEI1" value="check"/>
+            <Setting id="cbstopdect" value="uncheck"/>
+            <Setting id="cbEnableMTIOC0C" value="uncheck"/>
+            <Setting id="cbOEI3" value="check"/>
+            <Setting id="cbEnableMTIOC0A" value="uncheck"/>
+            <Setting id="cbInterruptMtu34" value="check"/>
+            <Setting id="cbEnableMTIOC0D" value="uncheck"/>
+            <Setting id="cb1poe8" value="check"/>
+            <Setting id="cbmtu34cmpc0" value="uncheck"/>
+            <Setting id="cbmtu34cmpc1" value="uncheck"/>
+            <Setting id="cbmtu34cmpc2" value="uncheck"/>
+            <Setting id="poe10mode" value="falledge"/>
+            <Setting id="mTIOC4DActiveLevel" value="low"/>
+            <Setting id="cbpoe8" value="check"/>
+            <Setting id="mTIOC3DActiveLevel" value="low"/>
+            <Setting id="oei1Priority" value="Level15"/>
+            <Setting id="cbEnableMTIOC4AC" value="check"/>
+            <Setting id="mTIOC4CActiveLevel" value="low"/>
+            <Setting id="cb0poe10" value="uncheck"/>
+            <Setting id="poe8mode" value="falledge"/>
+            <Setting id="cbmtu0cmpc0" value="uncheck"/>
+            <Setting id="cbmtu0cmpc1" value="uncheck"/>
+            <Setting id="mTIOC3BActiveLevel" value="low"/>
+            <Setting id="mTIOC4BActiveLevel" value="low"/>
+            <Setting id="cbsoftmtu0" value="uncheck"/>
+            <Setting id="cbsoftmtu34" value="uncheck"/>
+            <Setting id="activelevelMTU34" value="check"/>
+            <Setting id="cbmtu0cmpc2" value="uncheck"/>
+            <Setting id="cbOEI4" value="uncheck"/>
         </Segment>
     </Segment>
 </QE>

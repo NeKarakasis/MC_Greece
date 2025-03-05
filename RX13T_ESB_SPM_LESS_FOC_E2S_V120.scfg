@@ -201,8 +201,8 @@
         <Item currentVect="139" id="MTU5_TGIU5" priority="15" usedState="Not Use"/>
         <Item currentVect="140" id="MTU5_TGIV5" priority="15" usedState="Not Use"/>
         <Item currentVect="141" id="MTU5_TGIW5" priority="15" usedState="Not Use"/>
-        <Item currentVect="168" id="POE_OEI1" priority="15" usedState="Not Use"/>
-        <Item currentVect="170" id="POE_OEI3" priority="15" usedState="Not Use"/>
+        <Item currentVect="168" id="POE_OEI1" priority="15" usedState="Used"/>
+        <Item currentVect="170" id="POE_OEI3" priority="15" usedState="Used"/>
         <Item currentVect="171" id="POE_OEI4" priority="15" usedState="Not Use"/>
         <Item currentVect="218" id="SCI1_ERI1" priority="15" usedState="Not Use"/>
         <Item currentVect="219" id="SCI1_RXI1" priority="15" usedState="Not Use"/>
@@ -228,6 +228,7 @@
     <tool id="Pins" version="1.0.1.0">
         <pinItem allocation="22" comments="" direction="None" id="MTIOC3B" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="19" comments="" direction="None" id="MTIOC3D" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="32" comments="" direction="None" id="POE8#" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="21" comments="" direction="None" id="MTIOC4A" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="20" comments="" direction="None" id="MTIOC4B" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="18" comments="" direction="None" id="MTIOC4C" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -1392,6 +1393,173 @@
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration apiMode="FULL_API" id="04314f02-eaa4-4e7e-b0b4-e8031fc35cdb" inuse="true" name="Config_POE">
+            <allocatable id="POE">
+                <option enabled="true" id="cbstopdect" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbpoe8" selection="check">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="poe8mode" selection="falledge">
+                    <item id="falledge" input="" vlaue="0"/>
+                    <item id="16pclk8" input="" vlaue="0"/>
+                    <item id="16pclk16" input="" vlaue="0"/>
+                    <item id="16pclk128" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbsoftmtu0" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="cb0poe10" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbmtu0cmpc0" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbmtu0cmpc1" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbmtu0cmpc2" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbEnableMTIOC0A" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbEnableMTIOC0B" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbEnableMTIOC0C" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbEnableMTIOC0D" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbInterruptMtu34" selection="check">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="activelevelMTU34" selection="check">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbsoftmtu34" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cb1poe8" selection="check">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="cb1poe10" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbmtu34cmpc0" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbmtu34cmpc1" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbmtu34cmpc2" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbEnableMTIOC3BD" selection="check">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="mTIOC3BActiveLevel" selection="low">
+                    <item id="low" input="" vlaue="0"/>
+                    <item id="high" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="mTIOC3DActiveLevel" selection="low">
+                    <item id="low" input="" vlaue="0"/>
+                    <item id="high" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbEnableMTIOC4AC" selection="check">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="mTIOC4AActiveLevel" selection="low">
+                    <item id="low" input="" vlaue="0"/>
+                    <item id="high" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="mTIOC4CActiveLevel" selection="low">
+                    <item id="low" input="" vlaue="0"/>
+                    <item id="high" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbEnableMTIOC4BD" selection="check">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="mTIOC4BActiveLevel" selection="low">
+                    <item id="low" input="" vlaue="0"/>
+                    <item id="high" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="mTIOC4DActiveLevel" selection="low">
+                    <item id="low" input="" vlaue="0"/>
+                    <item id="high" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbpoe10" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="poe10mode" selection="falledge">
+                    <item id="falledge" input="" vlaue="0"/>
+                    <item id="16pclk8" input="" vlaue="0"/>
+                    <item id="16pclk16" input="" vlaue="0"/>
+                    <item id="16pclk128" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbOEI3" selection="check">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="cbOEI1" selection="check">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="cbOEI4" selection="uncheck">
+                    <item id="check" input="" vlaue="0"/>
+                    <item id="uncheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="oei1Priority" selection="Level15">
+                    <item id="Level0" input="" vlaue="0"/>
+                    <item id="Level1" input="" vlaue="0"/>
+                    <item id="Level2" input="" vlaue="0"/>
+                    <item id="Level3" input="" vlaue="0"/>
+                    <item id="Level4" input="" vlaue="0"/>
+                    <item id="Level5" input="" vlaue="0"/>
+                    <item id="Level6" input="" vlaue="0"/>
+                    <item id="Level7" input="" vlaue="0"/>
+                    <item id="Level8" input="" vlaue="0"/>
+                    <item id="Level9" input="" vlaue="0"/>
+                    <item id="Level10" input="" vlaue="0"/>
+                    <item id="Level11" input="" vlaue="0"/>
+                    <item id="Level12" input="" vlaue="0"/>
+                    <item id="Level13" input="" vlaue="0"/>
+                    <item id="Level14" input="" vlaue="0"/>
+                    <item id="Level15" input="" vlaue="0"/>
+                </option>
+            </allocatable>
+            <component description="This software component provides configurations for Port Output Enable (POE) to place output pins for the MTU or output pins for the GPT in high-impedance state under various condition." detailDescription="" display="Port Output Enable" id="com.renesas.smc.tools.swcomponent.codegenerator.poe" version="1.11.0"/>
+            <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Port Output Enable" display="POE" id="com.renesas.smc.swc.cg.rx.poe.rx13t.poe" type="POE">
+                <context/>
+            </allocator>
+            <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
         </configuration>
     </tool>
     <tool id="System">

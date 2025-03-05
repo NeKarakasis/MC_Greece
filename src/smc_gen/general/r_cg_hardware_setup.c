@@ -39,6 +39,7 @@ Includes
 #include "Config_CMT0.h"
 #include "Config_S12AD0.h"
 #include "Config_MOTOR.h"
+#include "Config_POE.h"
 #include "r_smc_cgc.h"
 #include "r_smc_interrupt.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -83,12 +84,6 @@ void R_Systeminit(void)
     MPC.PWPR.BIT.B0WI = 0U;
     MPC.PWPR.BIT.PFSWE = 1U;
 
-#if BSP_CFG_BOOTLOADER_PROJECT == 0
-    /* Disable the following codes in the bootloader project. */
-    /* Write 0 to the target bits in the POECR2 registers */
-    POE.POECR2.WORD = 0x0007U;
-#endif /* BSP_CFG_BOOTLOADER_PROJECT == 0 */
-
     /* Initialize clocks settings */
     R_CGC_Create();
 
@@ -98,6 +93,7 @@ void R_Systeminit(void)
     R_Config_CMT0_Create();
     R_Config_S12AD0_Create();
     R_Config_MOTOR_Create();
+    R_Config_POE_Create();
 
 #if BSP_CFG_BOOTLOADER_PROJECT == 0
     /* Disable the following codes in the bootloader project. */
