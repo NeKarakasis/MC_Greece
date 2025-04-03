@@ -35,6 +35,7 @@
 #include "r_app_rmw.h"
 #include "r_app_board_ui.h"
 #include "r_motor_sensorless_vector_api.h"
+#include "r_cpu_diag.h"
 
 /***********************************************************************************************************************
 * Global variables
@@ -51,6 +52,7 @@ uint32_t g_dtc_table[256];
 static void     r_app_main_ui_mainloop(void);           /* User interface control routine */
 static void     r_app_main_init_motor_ctrl(void);       /* Initialize motor control instance */
 static void     r_app_main_start_motor_ctrl(void);      /* Start motor control */
+static void		safety_CPU_test(void);					/* Test CPU for safety
 
 /***********************************************************************************************************************
 * Function Name : main
@@ -79,6 +81,14 @@ setpsw_i();                                       /* Enable interrupt */
 
     /* Start peripheral functions */
     r_app_main_start_motor_ctrl();
+
+clrpsw_i();
+MTU.TRWERA.BIT.RWE = 1U;
+int32_t mtu_counter = MTU4.TCNT;
+/* Disable interrupt */
+safety_CPU_test();
+setpsw_i();                                       /* Enable interrupt */
+
 
     /*** Main routine ***/
     while (1)
@@ -204,3 +214,33 @@ static void r_app_main_start_motor_ctrl(void)
     //R_Config_POE_Create();
     //R_Config_POE_Start();
 } /* End of function r_app_main_start_motor_ctrl */
+
+static void SafetyErrorHandler(void)
+{
+	while(1);
+}
+int32_t duration_cpu_sf_test[CPU_DIAG_SIZE] = {0,0,0,0,0,0,0,0,0,0,0,0};
+
+static void safety_CPU_test(void)
+{
+	const uint32_t forceFail = 1; /* Force fail: Disable */
+	uint32_t index;
+	int32_t result;
+	uint32_t CPU_index_Table[CPU_DIAG_SIZE] = {0,1,2,3,4,5,6,7,8,9,11,12};
+	/* Switch processor mode to supervisor mode. */
+	/* Disabling interrupts */
+	for (index = 0; index < CPU_DIAG_SIZE; index++)
+	{
+		result = 0;
+		MTU.TRWERA.BIT.RWE = 1U;
+		int32_t mtu_counter = MTU4.TCNT;
+			R_CPU_Diag(CPU_index_Table[index], forceFail, &result);
+			if (result != 1)
+			{
+				SafetyErrorHandler(); /* Failure detection */
+			}
+			duration_cpu_sf_test[index] = MTU4.TCNT - mtu_counter;
+			MTU.TRWERA.BIT.RWE = 0U;
+	}
+/* Enabling interrupts */
+}

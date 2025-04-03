@@ -418,6 +418,15 @@
                 <Setting id="TGRBValue" value="1364"/>
             </Segment>
             <Segment id="Sensor Settings">
+                <Segment id="MotorMagnet">
+                    <Setting id="CntClk" value="Div1"/>
+                    <Setting id="EdgeSelection" value="Rising"/>
+                    <Setting id="NMTint" value="NotUsed"/>
+                    <Setting id="PhaseCounter" value="MTU0-MTU1"/>
+                    <Setting id="PhaseCountingMode" value="Mode1"/>
+                    <Setting id="NMTintPri" value="Level15"/>
+                    <Setting id="PhaseCounterPin" value="ExtAB"/>
+                </Segment>
                 <Segment id="IRQ">
                     <Setting id="IrqSelect2" value="IRQ2"/>
                     <Setting id="IrqSelect1" value="IRQ1"/>
