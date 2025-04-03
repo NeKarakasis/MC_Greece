@@ -1,0 +1,184 @@
+;/*******************************************************************************
+;* DISCLAIMER
+;* This software is supplied by Renesas Electronics Corporation and is only
+;* intended for use with Renesas products. No other uses are authorized. This
+;* software is owned by Renesas Electronics Corporation and is protected under
+;* all applicable laws, including copyright laws.
+;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+;* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+;* Renesas reserves the right, without notice, to make changes to this software
+;* and to discontinue the availability of this software. By using this software,
+;* you agree to the additional terms and conditions found by accessing the
+;* following link:
+;* http://www.renesas.com/disclaimer
+;*******************************************************************************/
+;/* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.   */
+;/*******************************************************************************
+;* File Name     : r_cpu_diag_7_3.src
+;* Version       : 1.00a
+;* Device        : RX Family
+;* Tool-Chain    : C/C++ Compiler Package for RX Family V3.05.00
+;* Description   : Registers R1 - R15 diagnostic operations
+;*******************************************************************************/
+;/*******************************************************************************
+;* History : DD.MM.YYYY Version Description
+;*         : 09.06.2023 1.00    First Release
+;*         : 03.04.2024 1.00a   Added target device.
+;*******************************************************************************/
+
+.INCLUDE r_cpu_diag_config.inc
+.INCLUDE r_cpu_diag.inc
+
+.GLB    _R_CPU_Diag7_3
+.SECTION RX_DSW_P, CODE
+
+;; General purpose registers diagnostic macro ;;
+;; Diagnostic R1 to R14
+_DiagGPs .MACRO
+    ;; R1 test
+    MOV.L R15, R1     ; Copy R15 to R1
+    CMP R15, R1       ; Compare R1 with written data
+    BNE.W ErrEnd
+
+    ;; R2 test
+    MOV.L R15, R2     ; Copy R15 to R2
+    CMP R15, R2       ; Compare R2 with written data
+    BNE.W ErrEnd
+
+    ;; R3 test
+    MOV.L R15, R3     ; Copy R15 to R3
+    CMP R15, R3       ; Compare R3 with written data
+    BNE.W ErrEnd
+
+    ;; R4 test
+    MOV.L R15, R4     ; Copy R15 to R4
+    CMP R15, R4       ; Compare R4 with written data
+    BNE.W ErrEnd
+
+    ;; R5 test
+    MOV.L R15, R5     ; Copy R15 to R5
+    CMP R15, R5       ; Compare R5 with written data
+    BNE.W ErrEnd
+
+    ;; R6 test
+    MOV.L R15, R6     ; Copy R15 to R6
+    CMP R15, R6       ; Compare R6 with written data
+    BNE.W ErrEnd
+
+    ;; R7 test
+    MOV.L R15, R7     ; Copy R15 to R7
+    CMP R15, R7       ; Compare R7 with written data
+    BNE.W ErrEnd
+
+    ;; R8 test
+    MOV.L R15, R8     ; Copy R15 to R8
+    CMP R15, R8       ; Compare R8 with written data
+    BNE.W ErrEnd
+
+    ;; R9 test
+    MOV.L R15, R9     ; Copy R15 to R9
+    CMP R15, R9       ; Compare R9 with written data
+    BNE.W ErrEnd
+
+    ;; R10 test
+    MOV.L R15, R10    ; Copy R15 to R10
+    CMP R15, R10      ; Compare R10 with written data
+    BNE.W ErrEnd
+
+    ;; R11 test
+    MOV.L R15, R11    ; Copy R15 to R11
+    CMP R15, R11      ; Compare R11 with written data
+    BNE.W ErrEnd
+
+    ;; R12 test
+    MOV.L R15, R12    ; Copy R15 to R12
+    CMP R15, R12      ; Compare R12 with written data
+    BNE.W ErrEnd
+
+    ;; R13 test
+    MOV.L R15, R13    ; Copy R15 to R13
+    CMP R15, R13      ; Compare R13 with written data
+    BNE.W ErrEnd
+
+    ;; R14 test
+    MOV.L R15, R14    ; Copy R15 to R14
+    CMP R15, R14      ; Compare R14 with written data
+    BNE.W ErrEnd
+
+.ENDM
+
+;; Diagnostic R15
+_DiagR15 .MACRO
+    ;; R1 test
+    MOV.L R6, R15     ; Copy R6 to R15
+    CMP R6, R15       ; Compare R15 with written data
+    BNE.W ErrEnd
+
+.ENDM
+
+;; End of macros definition ;;
+
+_R_CPU_Diag7_3:
+
+    ;; ==== Save R6-R13, PSW. _SaveReg Rns, PSW, FPSW ==== ;;
+    _SaveRegs 1, 1, 0
+
+    ;; Save R1-R2
+    PUSHM R1-R2
+
+    ;; ======== 9 Detecting coupling fault for general purpose registers between any two bits ======== ;;
+    ;; ==== Nearest neighbor coupling ==== ;;
+    ; Set H'55555555 pattern to R15
+    MOV.L #55555555H, R15
+
+    ;; Diagnostic R1 to R14 applying H'55555555 pattern
+    _DiagGPs
+
+    ; Set H'55555555 pattern pattern to R6
+    MOV.L #55555555H, R6
+
+    ;; Diagnostic R15 applying H'55555555 pattern
+    _DiagR15
+
+    ;; ==== Next nearest neighbor coupling ==== ;;
+    ; Set H'33333333 pattern to R15
+    MOV.L #33333333H, R15
+
+    ;; Diagnostic R1 to R14 applying H'33333333 pattern
+    _DiagGPs
+
+    ; Set H'33333333 pattern pattern to R6
+    MOV.L #33333333H, R6
+
+    ;; Diagnostic R15 applying H'33333333 pattern
+    _DiagR15
+
+    ;; ==== Finalizing operation ==== ;;
+NoErrEnd:
+    MOV.L #00000000H, R15  ; No error detection flag is 0x00000000
+    BRA.S DiagEnd
+
+ErrEnd:
+    MOV.L #00000001H, R15  ; Error detection flag is 0x00000001
+
+DiagEnd:
+    ;; Pseudo expectation value
+    MOV.L #00000000H, R14
+
+    ;; Restore R1-R2
+    POPM R1-R2;
+    _FinOpe
+
+    ;; ==== Restore R6-R13, PSW. _RestReg Rns, PSW, FPSW ==== ;;
+    _RestRegs 1, 1, 0
+
+    RTS
+
+.END

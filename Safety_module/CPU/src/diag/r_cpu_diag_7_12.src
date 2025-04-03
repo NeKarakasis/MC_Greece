@@ -1,0 +1,198 @@
+;/*******************************************************************************
+;* DISCLAIMER
+;* This software is supplied by Renesas Electronics Corporation and is only
+;* intended for use with Renesas products. No other uses are authorized. This
+;* software is owned by Renesas Electronics Corporation and is protected under
+;* all applicable laws, including copyright laws.
+;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+;* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+;* Renesas reserves the right, without notice, to make changes to this software
+;* and to discontinue the availability of this software. By using this software,
+;* you agree to the additional terms and conditions found by accessing the
+;* following link:
+;* http://www.renesas.com/disclaimer
+;*******************************************************************************/
+;/* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.   */
+;/*******************************************************************************
+;* File Name     : r_cpu_diag_7_12.src
+;* Version       : 1.00a
+;* Device        : RX Family
+;* Tool-Chain    : C/C++ Compiler Package for RX Family V3.05.00
+;* Description   : Register(s) ACC0 and ACC1 (or ACC) diagnostic operations
+;*******************************************************************************/
+;/*******************************************************************************
+;* History : DD.MM.YYYY Version Description
+;*         : 09.06.2023 1.00    First Release
+;*         : 03.04.2024 1.00a   Added target device.
+;*******************************************************************************/
+
+.INCLUDE r_cpu_diag_config.inc
+.INCLUDE r_cpu_diag.inc
+
+.GLB    _R_CPU_Diag7_12
+.SECTION RX_DSW_P, CODE
+
+;; Accumulator(s) diagnostic macro ;;
+;; Diagnostic ACC
+_DiagACC .MACRO
+.IF RX_CPU_TYPE >= CPU_RXv2
+    ;; ACC0 test
+    MVTACLO R9, A0      ; Copy R9 to ACC0[31:0]
+    MVTACHI R7, A0      ; Copy R7 to ACC0[63:32]
+    MVTACGU R5, A0      ; Copy R5 to ACC0[96:64] (ACC0[95:72] is guard bits)
+
+    MVFACLO #0, A0, R10 ; Copy ACC0[31:0] to R10
+    MVFACHI #0, A0, R8  ; Copy ACC0[63:32] to R8
+    MVFACGU #0, A0, R6  ; Copy ACC0[95:64] to R6
+
+    CMP R9, R10         ; Verify ACC0[31:0] written data
+    BNE.W ErrEnd
+    CMP R7, R8          ; Verify ACC0[63:32] written data
+    BNE.W ErrEnd
+    CMP R5, R6          ; Verify ACC0[95:64] written data
+    BNE.W ErrEnd
+
+    ;; ACC1 test
+    MVTACLO R9, A1      ; Copy R9 to ACC1[31:0]
+    MVTACHI R7, A1      ; Copy R7 to ACC1[63:32]
+    MVTACGU R5, A1      ; Copy R5 to ACC1[96:64] (ACC1[95:72] is guard bits)
+
+    MVFACLO #0, A1, R10 ; Copy ACC1[31:0] to R10
+    MVFACHI #0, A1, R8  ; Copy ACC1[63:32] to R8
+    MVFACGU #0, A1, R6  ; Copy ACC1[95:64] to R6
+
+    CMP R9, R10         ; Verify ACC1[31:0] written data
+    BNE.W ErrEnd
+    CMP R7, R8          ; Verify ACC1[63:32] written data
+    BNE.W ErrEnd
+    CMP R5, R6          ; Verify ACC1[95:64] written data
+    BNE.W ErrEnd
+
+.ELSE   ; .IF RX_CPU_TYPE >= CPU_RXv2
+    ;; ACC test
+    MVTACLO R9          ; Copy R9 to ACC[31:0]
+    MVTACHI R7          ; Copy R7 to ACC[63:32]
+
+    MVFACMI R10         ; Copy ACC[47:16] to R10
+    MVFACHI R8          ; Copy ACC[63:32] to R8
+    SHLR #16, R9        ; Extract ACC[31:16] from written data
+    AND #0FFFFH, R10    ; Extract ACC[31:16] from read data
+
+    CMP R9, R10         ; Verify ACC[31:16] written data
+    BNE.W ErrEnd
+    CMP R7, R8          ; Verify ACC[63:32] written data
+    BNE.W ErrEnd
+
+.ENDIF  ; .IF RX_CPU_TYPE >= CPU_RXv2
+
+.ENDM
+
+_R_CPU_Diag7_12:
+
+    ;; ==== Save R6-R13, PSW. _SaveReg Rns, PSW, FPSW ==== ;;
+    _SaveRegs 1, 1, 0
+
+    ;; ======== 31 Detecting "0" fixed fault for Accumulator(s) ======== ;;
+    ; Set H'FFFFFFFF (all "1"s) pattern to R9, R7 and R5
+    MOV.L #0FFFFFFFFH, R9
+    MOV.L #0FFFFFFFFH, R7
+.IF RX_CPU_TYPE >= CPU_RXv2
+    MOV.L #0FFFFFFFFH, R5
+.ENDIF  ; .IF RX_CPU_TYPE >= CPU_RXv2
+
+    ;; Diagnostic ACC applying H'FFFFFFFF_FFFFFFFF(_FFFFFFFF) (all "1"s) pattern
+    _DiagACC
+
+    ;; ======== 32 Detecting "1" fixed fault for Accumulator(s) ======== ;;
+    ; Set H'00000000 (all "0"s) pattern to R9, R7 and R5
+    MOV.L #00000000H, R9
+    MOV.L #00000000H, R7
+.IF RX_CPU_TYPE >= CPU_RXv2
+    MOV.L #00000000H, R5
+.ENDIF
+
+    ;; Diagnostic ACC applying H'00000000_00000000(_00000000) (all "0"s) pattern
+    _DiagACC
+
+    ;; ======== 33 Detecting coupling fault for Accumulator(s) between any two bits ======== ;;
+    ;; ==== Nearest neighbor coupling ==== ;;
+    ; Set H'55555555 pattern to R9, R7 and R5
+    MOV.L #55555555H, R9
+    MOV.L #55555555H, R7
+.IF RX_CPU_TYPE >= CPU_RXv2
+    MOV.L #00000055H, R5
+.ENDIF  ; .IF RX_CPU_TYPE >= CPU_RXv2
+
+    ;; Diagnostic ACC applying H'55555555_55555555(_00000055) pattern. ACC0/1[95:72] is guard bits.
+    _DiagACC
+
+    ;; ==== Next nearest neighbor coupling ==== ;;
+    ; Set H'33333333 pattern to R9, R7 and R5
+    MOV.L #33333333H, R9
+    MOV.L #33333333H, R7
+.IF RX_CPU_TYPE >= CPU_RXv2
+    MOV.L #00000033H, R5
+.ENDIF  ; .IF RX_CPU_TYPE >= CPU_RXv2
+
+    ;; Diagnostic ACC applying H'33333333_33333333(_00000033) pattern. ACC0/1[95:72] is guard bits.
+    _DiagACC
+
+    ;; ==== 4-fold neighbor coupling ==== ;;
+    ; Set H'0F0F0F0F pattern to R9, R7 and R5
+    MOV.L #0F0F0F0FH, R9
+    MOV.L #0F0F0F0FH, R7
+.IF RX_CPU_TYPE >= CPU_RXv2
+    MOV.L #0000000FH, R5
+.ENDIF  ; .IF RX_CPU_TYPE >= CPU_RXv2
+
+    ;; Diagnostic ACC applying H'0F0F0F0F_0F0F0F0F(_0000000F) pattern. ACC0/1[95:72] is guard bits.
+    _DiagACC
+
+    ;; ==== 8-fold neighbor coupling ==== ;;
+    ; Set H'00FF00FF pattern to R9, R7 and R5
+    MOV.L #00FF00FFH, R9
+    MOV.L #00FF00FFH, R7
+.IF RX_CPU_TYPE >= CPU_RXv2
+    MOV.L #0FFFFFFFFH, R5
+.ENDIF  ; .IF RX_CPU_TYPE >= CPU_RXv2
+
+    ;; Diagnostic ACC applying H'00FF00FF_00FF00FF(_FFFFFFFF) pattern. ACC0/1[95:72] is guard bits.
+    _DiagACC
+
+    ;; ==== 16-fold neighbor coupling ==== ;;
+    ; Set H'0000FFFF pattern to R9, R7 and R5
+    MOV.L #0000FFFFH, R9
+    MOV.L #0000FFFFH, R7
+.IF RX_CPU_TYPE >= CPU_RXv2
+    MOV.L #0FFFFFFFFH, R5
+.ENDIF  ; .IF RX_CPU_TYPE >= CPU_RXv2
+
+    ;; Diagnostic ACC applying H'0000FFFF_0000FFFF(_FFFFFFFF) pattern. ACC0/1[95:72] is guard bits.
+    _DiagACC
+
+    ;; ==== Finalizing operation ==== ;;
+NoErrEnd:
+    MOV.L #00000000H, R15  ; No error detection flag is 0x00000000
+    BRA.S DiagEnd
+
+ErrEnd:
+    MOV.L #00000001H, R15  ; Error detection flag is 0x00000001
+
+DiagEnd:
+    ;; Pseudo expectation value
+    MOV.L #00000000H, R14
+    _FinOpe
+
+    ;; ==== Restore R6-R13, PSW. _RestReg Rns, PSW, FPSW ==== ;;
+    _RestRegs 1, 1, 0
+
+    RTS
+
+.END

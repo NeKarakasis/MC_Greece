@@ -1,0 +1,132 @@
+;/*******************************************************************************
+;* DISCLAIMER
+;* This software is supplied by Renesas Electronics Corporation and is only
+;* intended for use with Renesas products. No other uses are authorized. This
+;* software is owned by Renesas Electronics Corporation and is protected under
+;* all applicable laws, including copyright laws.
+;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+;* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+;* Renesas reserves the right, without notice, to make changes to this software
+;* and to discontinue the availability of this software. By using this software,
+;* you agree to the additional terms and conditions found by accessing the
+;* following link:
+;* http://www.renesas.com/disclaimer
+;*******************************************************************************/
+;/* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.   */
+;/*******************************************************************************
+;* File Name     : r_cpu_diag_7_9.src
+;* Version       : 1.00a
+;* Device        : RX Family
+;* Tool-Chain    : C/C++ Compiler Package for RX Family V3.05.00
+;* Description   : Register INTB diagnostic operations
+;*******************************************************************************/
+;/*******************************************************************************
+;* History : DD.MM.YYYY Version Description
+;*         : 09.06.2023 1.00    First Release
+;*         : 03.04.2024 1.00a   Added target device.
+;*******************************************************************************/
+
+.INCLUDE r_cpu_diag_config.inc
+.INCLUDE r_cpu_diag.inc
+
+.GLB    _R_CPU_Diag7_9
+.SECTION RX_DSW_P, CODE
+
+;; INTB diagnostic macro ;;
+;; Diagnostic INTB
+_DiagINTB .MACRO
+    ;; Write to INTB
+    MVTC R7, INTB
+
+    ;; Read from INTB
+    MVFC INTB, R8
+
+    ;; Compare read INTB with written data
+    CMP R7, R8
+    BNE.W ErrEnd
+
+.ENDM
+
+_R_CPU_Diag7_9:
+
+    ;; ==== Save INTB, R6-R13, PSW. _SaveReg Rns, PSW, FPSW ==== ;;
+    _SaveRegs 1, 1, 0
+    MVFC INTB, R9
+
+    ;; ======== 19 Detecting "0" fixed fault for INTB ======== ;;
+    ; Set INTB write data to R7
+    MOV.L #0FFFFFFFFH, R7
+
+    ;; Diagnostic INTB
+    _DiagINTB
+
+    ;; ======== 20 Detecting "1" fixed fault for INTB ======== ;;
+    ; Set INTB write data to R7
+    MOV.L #00000000H, R7
+
+    ;; Diagnostic INTB
+    _DiagINTB
+
+    ;; ======== 21 Detecting coupling fault for INTB between any two bits ======== ;;
+    ;; ==== Nearest neighbor coupling ==== ;;
+    ; Set H'55555555 pattern to R7
+    MOV.L #55555555H, R7
+
+    ;; Diagnostic INTB applying H'55555555 pattern
+    _DiagINTB
+
+    ;; ==== Next nearest neighbor coupling ==== ;;
+    ; Set H'33333333 pattern to R7
+    MOV.L #33333333H, R7
+
+    ;; Diagnostic INTB applying H'33333333 pattern
+    _DiagINTB
+
+    ;; ==== 4-fold neighbor coupling ==== ;;
+    ; Set H'0F0F0F0F pattern to R7
+    MOV.L #0F0F0F0FH, R7
+
+    ;; Diagnostic INTB applying H'0F0F0F0F pattern
+    _DiagINTB
+
+    ;; ==== 8-fold neighbor coupling ==== ;;
+    ; Set H'00FF00FF pattern to R7
+    MOV.L #00FF00FFH, R7
+
+    ;; Diagnostic INTB applying H'00FF00FF pattern
+    _DiagINTB
+
+    ;; ==== 16-fold neighbor coupling ==== ;;
+    ; Set H'0000FFFF pattern to R7
+    MOV.L #0000FFFFH, R7
+
+    ;; Diagnostic INTB applying H'0000FFFF pattern
+    _DiagINTB
+
+    ;; ==== Finalizing operation ==== ;;
+NoErrEnd:
+    MOV.L #00000000H, R15  ; No error detection flag is 0x00000000
+    BRA.S DiagEnd
+
+ErrEnd:
+    MOV.L #00000001H, R15  ; Error detection flag is 0x00000001
+
+DiagEnd:
+    ;; Pseudo expectation value
+    MOV.L #00000000H, R14
+    _FinOpe
+
+    ;; ==== Restore INTB, R6-R13, PSW. _RestReg Rns, PSW, FPSW ==== ;;
+    MVTC R9, INTB
+    _RestRegs 1, 1, 0
+
+    RTS
+
+.END

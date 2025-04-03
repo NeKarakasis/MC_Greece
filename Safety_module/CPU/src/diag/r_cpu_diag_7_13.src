@@ -1,0 +1,136 @@
+;/*******************************************************************************
+;* DISCLAIMER
+;* This software is supplied by Renesas Electronics Corporation and is only
+;* intended for use with Renesas products. No other uses are authorized. This
+;* software is owned by Renesas Electronics Corporation and is protected under
+;* all applicable laws, including copyright laws.
+;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+;* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+;* Renesas reserves the right, without notice, to make changes to this software
+;* and to discontinue the availability of this software. By using this software,
+;* you agree to the additional terms and conditions found by accessing the
+;* following link:
+;* http://www.renesas.com/disclaimer
+;*******************************************************************************/
+;/* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.   */
+;/*******************************************************************************
+;* File Name     : r_cpu_diag_7_13.src
+;* Version       : 1.00a
+;* Device        : RX Family
+;* Tool-Chain    : C/C++ Compiler Package for RX Family V3.05.00
+;* Description   : Register(s) ACC0 and ACC1 (or ACC) diagnostic operations
+;*******************************************************************************/
+;/*******************************************************************************
+;* History : DD.MM.YYYY Version Description
+;*         : 09.06.2023 1.00    First Release
+;*         : 03.04.2024 1.00a   Added target device.
+;*******************************************************************************/
+
+.INCLUDE r_cpu_diag_config.inc
+.INCLUDE r_cpu_diag.inc
+
+.GLB    _R_CPU_Diag7_13
+.SECTION RX_DSW_P, CODE
+
+_R_CPU_Diag7_13:
+
+    ;; ==== Save R6-R13, PSW. _SaveReg Rns, PSW, FPSW ==== ;;
+    _SaveRegs 1, 1, 0
+
+.IF RX_CPU_TYPE >= CPU_RXv2
+    ;; ======== 34 Detecting coupling fault between ACC0 and ACC1 ======== ;;
+    ; Set DH1(H'6FB1A6BD), DH2(H'1B790D63) and DH3(H'0000004C) to ACC0[31:0], ACC0[63:32] and ACC0[96:64] respectively.
+    MOV.L #6FB1A6BDH, R9
+    MOV.L #1B790D63H, R7
+    MOV.L #0000004CH, R5
+    MVTACLO R9, A0      ; Copy R9 to ACC0[31:0]
+    MVTACHI R7, A0      ; Copy R7 to ACC0[63:32]
+    MVTACGU R5, A0      ; Copy R5 to ACC0[96:64] (ACC0[95:72] is guard bits)
+
+    ; Set DH4(H'51B8D1DF), DH5(H'09B8C5A7) and DH6(H'FFFFFFF5) to ACC1[31:0], ACC1[63:32] and ACC1[96:64] respectively.
+    MOV.L #51B8D1DFH, R10
+    MOV.L #09B8C5A7H, R8
+    MOV.L #0FFFFFFF5H, R6
+    MVTACLO R10, A1     ; Copy R10 to ACC1[31:0]
+    MVTACHI R8, A1      ; Copy R8 to ACC1[63:32]
+    MVTACGU R6, A1      ; Copy R6 to ACC1[96:64] (ACC1[95:72] is guard bits)
+
+    ;; ACC0 test
+    MVFACLO #0, A0, R11 ; Copy ACC0[31:0] to R11
+    MVFACHI #0, A0, R12 ; Copy ACC0[63:32] to R12
+    MVFACGU #0, A0, R13 ; Copy ACC0[95:64] to R13
+    CMP R9, R11         ; Verify ACC0[31:0] with DH1
+    BNE.W ErrEnd
+    CMP R7, R12         ; Verify ACC0[63:32] with DH2
+    BNE.W ErrEnd
+    CMP R5, R13         ; Verify ACC0[96:64] with DH3
+    BNE.W ErrEnd
+
+    ;; ACC1 test
+    MVFACLO #0, A1, R11 ; Copy ACC1[31:0] to R11
+    MVFACHI #0, A1, R12 ; Copy ACC1[63:32] to R12
+    MVFACGU #0, A1, R13 ; Copy ACC1[95:64] to R13
+    CMP R10, R11        ; Verify ACC1[31:0] with DH4
+    BNE.W ErrEnd
+    CMP R8, R12         ; Verify ACC1[63:32] with DH5
+    BNE.W ErrEnd
+    CMP R6, R13         ; Verify ACC1[96:64] with DH6
+    BNE.W ErrEnd
+
+.ELSE   ; .IF RX_CPU_TYPE >= CPU_RXv2
+    ;; ======== 35 Detecting coupling fault between ACC to a general purpose register ======== ;;
+    ; Set DI1(H'05A92125) and DI2(H'D376130E) to ACC[31:0] and ACC[63:32] respectively.
+    MOV.L #05A92125H, R9
+    MOV.L #0D376130EH, R7
+    MVTACLO R9          ; Copy R9 to ACC[31:0]
+    MVTACHI R7          ; Copy R7 to ACC[63:32]
+
+    ; Set DI3(H'514D1E91) and DI4(H'280D71E8) to R5 and R6 respectively.
+    MOV.L #05A92125H, R10
+    MOV.L #0D376130EH, R8
+    MOV.L R10, R5       ; Copy R10 to R5
+    MOV.L R8, R6        ; Copy R8 to R6
+
+    ;; ACC test
+    MVFACMI R11         ; Copy ACC[47:16] to R11
+    MVFACHI R12         ; Copy ACC[63:32] to R12
+    SHLR #16, R9        ; Extract ACC[31:16] from written data
+    AND #0FFFFH, R11    ; Extract ACC[31:16] from read data
+
+    CMP R9, R11         ; Verify ACC[31:0] with DI1
+    BNE.W ErrEnd
+    CMP R7, R12         ; Verify ACC[63:32] with DI2
+    BNE.W ErrEnd
+    CMP R10, R5         ; Verify R5 with DI3
+    BNE.W ErrEnd
+    CMP R8, R6          ; Verify R6 with DI4
+    BNE.W ErrEnd
+
+.ENDIF  ; .IF RX_CPU_TYPE >= CPU_RXv2
+
+    ;; ==== Finalizing operation ==== ;;
+NoErrEnd:
+    MOV.L #00000000H, R15  ; No error detection flag is 0x00000000
+    BRA.S DiagEnd
+
+ErrEnd:
+    MOV.L #00000001H, R15  ; Error detection flag is 0x00000001
+
+DiagEnd:
+    ;; Pseudo expectation value
+    MOV.L #00000000H, R14
+    _FinOpe
+
+    ;; ==== Restore R6-R13, PSW. _RestReg Rns, PSW, FPSW ==== ;;
+    _RestRegs 1, 1, 0
+
+    RTS
+
+.END

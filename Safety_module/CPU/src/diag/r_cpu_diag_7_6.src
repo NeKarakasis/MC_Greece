@@ -1,0 +1,225 @@
+;/*******************************************************************************
+;* DISCLAIMER
+;* This software is supplied by Renesas Electronics Corporation and is only
+;* intended for use with Renesas products. No other uses are authorized. This
+;* software is owned by Renesas Electronics Corporation and is protected under
+;* all applicable laws, including copyright laws.
+;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+;* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+;* Renesas reserves the right, without notice, to make changes to this software
+;* and to discontinue the availability of this software. By using this software,
+;* you agree to the additional terms and conditions found by accessing the
+;* following link:
+;* http://www.renesas.com/disclaimer
+;*******************************************************************************/
+;/* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.   */
+;/*******************************************************************************
+;* File Name     : r_cpu_diag_7_6.src
+;* Version       : 1.00a
+;* Device        : RX Family
+;* Tool-Chain    : C/C++ Compiler Package for RX Family V3.05.00
+;* Description   : Registers R1 - R15 diagnostic operations
+;*******************************************************************************/
+;/*******************************************************************************
+;* History : DD.MM.YYYY Version Description
+;*         : 09.06.2023 1.00    First Release
+;*         : 03.04.2024 1.00a   Added target device.
+;*******************************************************************************/
+
+.INCLUDE r_cpu_diag_config.inc
+.INCLUDE r_cpu_diag.inc
+
+.GLB    _R_CPU_Diag7_6
+.SECTION RX_DSW_P, CODE
+
+_R_CPU_Diag7_6:
+
+    ;; ==== Save R6-R13, PSW. _SaveReg Rns, PSW, FPSW ==== ;;
+    _SaveRegs 1, 1, 0
+
+    ;; Save R1-R2
+    PUSHM R1-R2
+
+    ;; ======== 10 Detecting coupling fault for general purpose registers between any two registers ======== ;;
+    ;; ==== Detecting R11, R12, R13, R14 and R15 coupling fault (Using A's pattern) ==== ;;
+    ; Set DA1(H'383C9308) to R2
+    MOV.L #383C9308H, R2
+
+    ; Set DA2(H'B6ABD632) to R3
+    MOV.L #0B6ABD632H, R3
+
+    ; Set DA3(H'3183882C) to R4
+    MOV.L #3183882CH, R4
+
+    ; Set DA4(H'0F07700C) to R5
+    MOV.L #0F07700CH, R5
+
+    ; Set DA5(H'E4B22961) to R6
+    MOV.L #0E4B22961H, R6
+
+    ; Copy R2 to R11
+    MOV.L R2, R11
+
+    ; Copy R3 to R12
+    MOV.L R3, R12
+
+    ; Copy R4 to R13
+    MOV.L R4, R13
+
+    ; Copy R5 to R14
+    MOV.L R5, R14
+
+    ; Copy R6 to R15
+    MOV.L R6, R15
+
+    ; Compare R11 with R2(DA1)
+    CMP R2, R11
+    BNE.W ErrEnd
+
+    ; Compare R12 with R3(DA2)
+    CMP R3, R12
+    BNE.W ErrEnd
+
+    ; Compare R13 with R4(DA3)
+    CMP R4, R13
+    BNE.W ErrEnd
+
+    ; Compare R14 with R5(DA4)
+    CMP R5, R14
+    BNE.W ErrEnd
+
+    ; Compare R15 with R6(DA5)
+    CMP R6, R15
+    BNE.W ErrEnd
+
+    ;; ==== Detecting R6, R7, R8, R9 and R10 coupling fault (Using B's pattern) ==== ;;
+    ; Set DB1(H'9D4310FD) to R12
+    MOV.L #9D4310FDH, R12
+
+    ; Set DB2(H'9DEE5B9D) to R13
+    MOV.L #9DEE5B9DH, R13
+
+    ; Set DB3(H'2D206F6C) to R14
+    MOV.L #2D206F6CH, R14
+
+    ; Set DB4(H'A85098B2) to R15
+    MOV.L #0A85098B2H, R15
+
+    ; Set DB5(H'D6319FCB) to R1
+    MOV.L #0D6319FCBH, R1
+
+    ; Copy R12 to R6
+    MOV.L R12, R6
+
+    ; Copy R13 to R7
+    MOV.L R13, R7
+
+    ; Copy R14 to R8
+    MOV.L R14, R8
+
+    ; Copy R15 to R9
+    MOV.L R15, R9
+
+    ; Copy R1 to R10
+    MOV.L R1, R10
+
+    ; Compare R6 with R12(DB1)
+    CMP R12, R6
+    BNE.W ErrEnd
+
+    ; Compare R7 with R13(DB2)
+    CMP R13, R7
+    BNE.W ErrEnd
+
+    ; Compare R8 with R14(DB3)
+    CMP R14, R8
+    BNE.W ErrEnd
+
+    ; Compare R9 with R15(DB4)
+    CMP R15, R9
+    BNE.W ErrEnd
+
+    ; Compare R10 with R1(DB5)
+    CMP R1, R10
+    BNE.W ErrEnd
+
+    ;; ==== Detecting R1, R2, R3, R4 and R5 coupling fault (Using J's pattern) ==== ;;
+    ; Set DJ1(H'256AE9A9) to R7
+    MOV.L #256AE9A9H, R7
+
+    ; Set DJ2(H'F9622DFE) to R8
+    MOV.L #0F9622DFEH, R8
+
+    ; Set DJ3(H'112C0FFD) to R9
+    MOV.L #112C0FFDH, R9
+
+    ; Set DJ4(H'D67E2E79) to R10
+    MOV.L #0D67E2E79H, R10
+
+    ; Set DJ5(H'A216A894) to R11
+    MOV.L #0A216A894H, R11
+
+    ; Copy R7 to R1
+    MOV.L R7, R1
+
+    ; Copy R8 to R2
+    MOV.L R8, R2
+
+    ; Copy R9 to R3
+    MOV.L R9, R3
+
+    ; Copy R10 to R4
+    MOV.L R10, R4
+
+    ; Copy R11 to R5
+    MOV.L R11, R5
+
+    ; Compare R1 with R7(DJ1)
+    CMP R7, R1
+    BNE.W ErrEnd
+
+    ; Compare R2 with R8(DJ2)
+    CMP R8, R2
+    BNE.W ErrEnd
+
+    ; Compare R3 with R9(DJ3)
+    CMP R9, R3
+    BNE.W ErrEnd
+
+    ; Compare R4 with R10(DJ4)
+    CMP R10, R4
+    BNE.W ErrEnd
+
+    ; Compare R5 with R11(DJ5)
+    CMP R11, R5
+    BNE.W ErrEnd
+
+    ;; ==== Finalizing operation ==== ;;
+NoErrEnd:
+    MOV.L #00000000H, R15  ; No error detection flag is 0x00000000
+    BRA.S DiagEnd
+
+ErrEnd:
+    MOV.L #00000001H, R15  ; Error detection flag is 0x00000001
+
+DiagEnd:
+    ;; Pseudo expectation value
+    MOV.L #00000000H, R14
+
+    ;; Restore R1-R2
+    POPM R1-R2;
+    _FinOpe
+
+    ;; ==== Restore R6-R13, PSW. _RestReg Rns, PSW, FPSW ==== ;;
+    _RestRegs 1, 1, 0
+
+    RTS
+
+.END

@@ -1,5 +1,6 @@
 -----3/4/25-----
 - Nektarios: Porting CPU FuSa testing.
+- Nektarios: Add missing safety CPU, mptpa, POEG files.
 
 -----5/3/25-----
 - Nektarios: Add the POE functionality, used the POE#8

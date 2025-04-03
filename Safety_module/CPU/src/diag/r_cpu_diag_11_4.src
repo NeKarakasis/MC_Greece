@@ -1,0 +1,247 @@
+;/*******************************************************************************
+;* DISCLAIMER
+;* This software is supplied by Renesas Electronics Corporation and is only
+;* intended for use with Renesas products. No other uses are authorized. This
+;* software is owned by Renesas Electronics Corporation and is protected under
+;* all applicable laws, including copyright laws.
+;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+;* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+;* Renesas reserves the right, without notice, to make changes to this software
+;* and to discontinue the availability of this software. By using this software,
+;* you agree to the additional terms and conditions found by accessing the
+;* following link:
+;* http://www.renesas.com/disclaimer
+;*******************************************************************************/
+;/* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.   */
+;/*******************************************************************************
+;* File Name     : r_cpu_diag_11_4.src
+;* Version       : 1.00a
+;* Device        : RX Family
+;* Tool-Chain    : C/C++ Compiler Package for RX Family V3.05.00
+;* Description   : Registers DR0 - DR15 diagnostic operations (double precision)
+;*******************************************************************************/
+;/*******************************************************************************
+;* History : DD.MM.YYYY Version Description
+;*         : 09.06.2023 1.00    First Release
+;*         : 03.04.2024 1.00a   Added target device.
+;*******************************************************************************/
+
+.INCLUDE r_cpu_diag_config.inc
+.INCLUDE r_cpu_diag.inc
+
+.IF RX_CPU_TYPE == CPU_RXv3_DFPU
+
+.GLB    _R_CPU_Diag11_4
+.SECTION RX_DSW_P, CODE
+
+;; Double precision data registers diagnostic macro ;;
+;; Diagnostic DR0 to DR15
+_DiagDRs .MACRO
+    ;; DR0 test
+    DMOV.L R7, DRL0  ; Copy R7 to DR0[31:0]
+    DMOV.L R5, DRH0  ; Copy R5 to DR0[63:32]
+    DMOV.L DRL0, R8
+    DMOV.L DRH0, R6
+    CMP R7, R8       ; Verify DR0[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR0[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR1 test
+    DMOV.L R7, DRL1  ; Copy R7 to DR1[31:0]
+    DMOV.L R5, DRH1  ; Copy R5 to DR1[63:32]
+    DMOV.L DRL1, R8
+    DMOV.L DRH1, R6
+    CMP R7, R8       ; Verify DR1[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR1[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR2 test
+    DMOV.L R7, DRL2  ; Copy R7 to DR2[31:0]
+    DMOV.L R5, DRH2  ; Copy R5 to DR2[63:32]
+    DMOV.L DRL2, R8
+    DMOV.L DRH2, R6
+    CMP R7, R8       ; Verify DR2[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR2[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR3 test
+    DMOV.L R7, DRL3  ; Copy R7 to DR3[31:0]
+    DMOV.L R5, DRH3  ; Copy R5 to DR3[63:32]
+    DMOV.L DRL3, R8
+    DMOV.L DRH3, R6
+    CMP R7, R8       ; Verify DR3[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR3[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR4 test
+    DMOV.L R7, DRL4  ; Copy R7 to DR4[31:0]
+    DMOV.L R5, DRH4  ; Copy R5 to DR4[63:32]
+    DMOV.L DRL4, R8
+    DMOV.L DRH4, R6
+    CMP R7, R8       ; Verify DR4[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR4[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR5 test
+    DMOV.L R7, DRL5  ; Copy R7 to DR5[31:0]
+    DMOV.L R5, DRH5  ; Copy R5 to DR5[63:32]
+    DMOV.L DRL5, R8
+    DMOV.L DRH5, R6
+    CMP R7, R8       ; Verify DR5[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR5[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR6 test
+    DMOV.L R7, DRL6  ; Copy R7 to DR6[31:0]
+    DMOV.L R5, DRH6  ; Copy R5 to DR6[63:32]
+    DMOV.L DRL6, R8
+    DMOV.L DRH6, R6
+    CMP R7, R8       ; Verify DR6[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR6[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR7 test
+    DMOV.L R7, DRL7  ; Copy R7 to DR7[31:0]
+    DMOV.L R5, DRH7  ; Copy R5 to DR7[63:32]
+    DMOV.L DRL7, R8
+    DMOV.L DRH7, R6
+    CMP R7, R8       ; Verify DR7[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR7[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR8 test
+    DMOV.L R7, DRL8  ; Copy R7 to DR8[31:0]
+    DMOV.L R5, DRH8  ; Copy R5 to DR8[63:32]
+    DMOV.L DRL8, R8
+    DMOV.L DRH8, R6
+    CMP R7, R8       ; Verify DR8[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR8[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR9 test
+    DMOV.L R7, DRL9  ; Copy R7 to DR9[31:0]
+    DMOV.L R5, DRH9  ; Copy R5 to DR9[63:32]
+    DMOV.L DRL9, R8
+    DMOV.L DRH9, R6
+    CMP R7, R8       ; Verify DR9[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR9[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR10 test
+    DMOV.L R7, DRL10 ; Copy R7 to DR10[31:0]
+    DMOV.L R5, DRH10 ; Copy R5 to DR10[63:32]
+    DMOV.L DRL10, R8
+    DMOV.L DRH10, R6
+    CMP R7, R8       ; Verify DR10[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR10[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR11 test
+    DMOV.L R7, DRL11 ; Copy R7 to DR11[31:0]
+    DMOV.L R5, DRH11 ; Copy R5 to DR11[63:32]
+    DMOV.L DRL11, R8
+    DMOV.L DRH11, R6
+    CMP R7, R8       ; Verify DR11[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR11[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR12 test
+    DMOV.L R7, DRL12 ; Copy R7 to DR12[31:0]
+    DMOV.L R5, DRH12 ; Copy R5 to DR12[63:32]
+    DMOV.L DRL12, R8
+    DMOV.L DRH12, R6
+    CMP R7, R8       ; Verify DR12[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR12[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR13 test
+    DMOV.L R7, DRL13 ; Copy R7 to DR13[31:0]
+    DMOV.L R5, DRH13 ; Copy R5 to DR13[63:32]
+    DMOV.L DRL13, R8
+    DMOV.L DRH13, R6
+    CMP R7, R8       ; Verify DR13[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR13[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR14 test
+    DMOV.L R7, DRL14 ; Copy R7 to DR14[31:0]
+    DMOV.L R5, DRH14 ; Copy R5 to DR14[63:32]
+    DMOV.L DRL14, R8
+    DMOV.L DRH14, R6
+    CMP R7, R8       ; Verify DR14[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR14[63:32] written data
+    BNE.W ErrEnd
+
+    ;; DR15 test
+    DMOV.L R7, DRL15 ; Copy R7 to DR15[31:0]
+    DMOV.L R5, DRH15 ; Copy R5 to DR15[63:32]
+    DMOV.L DRL15, R8
+    DMOV.L DRH15, R6
+    CMP R7, R8       ; Verify DR15[31:0] written data
+    BNE.W ErrEnd
+    CMP R5, R6       ; Verify DR15[63:32] written data
+    BNE.W ErrEnd
+
+.ENDM
+
+_R_CPU_Diag11_4:
+
+    ;; ==== Save R6-R13, PSW, DR0-DR15, DPSW, DCMR. _SaveReg Rns, PSW, FPSW ==== ;;
+    _SaveRegs 1, 1, 0
+    DPUSHM.D DR0-DR15
+    DPUSHM.L DPSW-DCMR
+
+    ;; ======== Detecting coupling fault for double-precision data registers (DR0 - DR15) between any two bits ======== ;;
+    ;; ==== 7 16-fold neighbor coupling ==== ;;
+    ; Set H'0000FFFF pattern to R7 and R5
+    MOV.L #0000FFFFH, R7
+    MOV.L #0000FFFFH, R5
+
+    ;; Diagnostic DR0 to DR15 applying H'0000FFFF_0000FFFF pattern
+    _DiagDRs
+
+    ;; ==== Finalizing operation ==== ;;
+NoErrEnd:
+    MOV.L #00000000H, R15  ; No error detection flag is 0x00000000
+    BRA.S DiagEnd
+
+ErrEnd:
+    MOV.L #00000001H, R15  ; Error detection flag is 0x00000001
+
+DiagEnd:
+    ;; Pseudo expectation value
+    MOV.L #00000000H, R14
+    _FinOpe
+
+    ;; ==== Restore R6-R13, PSW, DR0-DR15, DPSW, DCMR. _RestReg Rns, PSW, FPSW ==== ;;
+    DPOPM.L DPSW-DCMR
+    DPOPM.D DR0-DR15
+    _RestRegs 1, 1, 0
+
+    RTS
+
+.ENDIF  ; .IF RX_CPU_TYPE == CPU_RXv3_DFPU
+
+.END

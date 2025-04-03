@@ -1,0 +1,177 @@
+;/*******************************************************************************
+;* DISCLAIMER
+;* This software is supplied by Renesas Electronics Corporation and is only
+;* intended for use with Renesas products. No other uses are authorized. This
+;* software is owned by Renesas Electronics Corporation and is protected under
+;* all applicable laws, including copyright laws.
+;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+;* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+;* Renesas reserves the right, without notice, to make changes to this software
+;* and to discontinue the availability of this software. By using this software,
+;* you agree to the additional terms and conditions found by accessing the
+;* following link:
+;* http://www.renesas.com/disclaimer
+;*******************************************************************************/
+;/* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.   */
+;/*******************************************************************************
+;* File Name     : r_cpu_diag_11_7.src
+;* Version       : 1.00a
+;* Device        : RX Family
+;* Tool-Chain    : C/C++ Compiler Package for RX Family V3.05.00
+;* Description   : Registers DPSW, DCMR and DECNT diagnostic operations
+;*               : (double precision)
+;*******************************************************************************/
+;/*******************************************************************************
+;* History : DD.MM.YYYY Version Description
+;*         : 09.06.2023 1.00    First Release
+;*         : 03.04.2024 1.00a   Added target device.
+;*******************************************************************************/
+
+.INCLUDE r_cpu_diag_config.inc
+.INCLUDE r_cpu_diag.inc
+
+.IF RX_CPU_TYPE == CPU_RXv3_DFPU
+
+.GLB    _R_CPU_Diag11_7
+.SECTION RX_DSW_P, CODE
+
+;; Double precision control registers diagnostic macro ;;
+;; Diagnostic DCMR
+_DiagDCMR .MACRO
+    ; Save current DCMR
+    MVFDC DCMR, R9
+
+    ;; Write to DCMR
+    MVTDC R7, DCMR
+
+    ;; Read from DCMR
+    MVFDC DCMR, R8
+
+    ; Restore saved DCMR
+    MVTDC R9, DCMR
+
+    ;; Compare read DCMR with written data
+    CMP R7, R8
+    BNE.W ErrEnd
+
+.ENDM
+
+;; Diagnostic DECNT
+_DiagDECNT .MACRO
+    ; Save current DECNT
+    MVFDC DECNT, R9
+
+    ;; Write to DECNT
+    MVTDC R7, DECNT
+
+    ;; Read from DECNT
+    MVFDC DECNT, R8
+
+    ; Restore saved DECNT
+    MVTDC R9, DECNT
+
+    ;; Compare read DECNT with written data
+    CMP R7, R8
+    BNE.W ErrEnd
+
+.ENDM
+
+_R_CPU_Diag11_7:
+
+    ;; ==== Save R6-R13, PSW, DPSW, DCMR. _SaveReg Rns, PSW, FPSW ==== ;;
+    _SaveRegs 1, 1, 0
+    DPUSHM.L DPSW-DCMR
+
+    ;; ======== 12 Detecting "0" fixed fault for double-precision status word (DPSW) ======== ;;
+    ; Save current DPSW
+    MVFDC DPSW, R9
+
+    ;; Write H'7C007D03 to DPSW
+    MOV.L #7C007D03H, R7
+    MVTDC R7, DPSW
+
+    ;; Read from DPSW (DPSW.DFS = 1)
+    MVFDC DPSW, R8
+
+    ; Restore saved DPSW
+    MVTDC R9, DPSW
+
+    ;; Compare R8 to H'FC007D03
+    CMP #0FC007D03H, R8
+    BNE.W ErrEnd
+
+    ;; ======== 13 Detecting "1" fixed fault for double-precision status word (DPSW) ======== ;;
+    ; Save current DPSW
+    MVFDC DPSW, R9
+
+    ;; Write H'00000000 to DPSW
+    MOV.L #00000000H, R7
+    MVTDC R7, DPSW
+
+    ;; Read from DPSW
+    MVFDC DPSW, R8
+
+    ; Restore saved DPSW
+    MVTDC R9, DPSW
+
+    ;; Compare R8 to H'00000000
+    CMP #00000000H, R8
+    BNE.W ErrEnd
+
+    ;; ======== 14 Detecting "0" fixed fault for comparison result regisetr (DCMR) ======== ;;
+    ; Set DCMR write data to R7
+    MOV.L #00000001H, R7
+
+    ;; Diagnostic DCMR
+    _DiagDCMR
+
+    ;; ======== 15 Detecting "1" fixed fault for comparison result regisetr (DCMR) ======== ;;
+    ; Set DCMR write data to R7
+    MOV.L #00000000H, R7
+
+    ;; Diagnostic DCMR
+    _DiagDCMR
+
+    ;; ======== 16 Detecting "0" fixed fault for comparison result regisetr (DECNT) ======== ;;
+    ; Set DECNT write data to R7
+    MOV.L #00010001H, R7
+
+    ;; Diagnostic DECNT
+    _DiagDECNT
+
+    ;; ======== 17 Detecting "1" fixed fault for comparison result regisetr (DECNT) ======== ;;
+    ; Set DECNT write data to R7
+    MOV.L #00000000H, R7
+
+    ;; Diagnostic DECNT
+    _DiagDECNT
+
+    ;; ==== Finalizing operation ==== ;;
+NoErrEnd:
+    MOV.L #00000000H, R15  ; No error detection flag is 0x00000000
+    BRA.S DiagEnd
+
+ErrEnd:
+    MOV.L #00000001H, R15  ; Error detection flag is 0x00000001
+
+DiagEnd:
+    ;; Pseudo expectation value
+    MOV.L #00000000H, R14
+    _FinOpe
+
+    ;; ==== Restore R6-R13, PSW, DPSW, DCMR. _RestReg Rns, PSW, FPSW ==== ;;
+    DPOPM.L DPSW-DCMR
+    _RestRegs 1, 1, 0
+
+    RTS
+
+.ENDIF  ; .IF RX_CPU_TYPE == CPU_RXv3_DFPU
+
+.END

@@ -1,0 +1,132 @@
+;/*******************************************************************************
+;* DISCLAIMER
+;* This software is supplied by Renesas Electronics Corporation and is only
+;* intended for use with Renesas products. No other uses are authorized. This
+;* software is owned by Renesas Electronics Corporation and is protected under
+;* all applicable laws, including copyright laws.
+;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+;* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+;* Renesas reserves the right, without notice, to make changes to this software
+;* and to discontinue the availability of this software. By using this software,
+;* you agree to the additional terms and conditions found by accessing the
+;* following link:
+;* http://www.renesas.com/disclaimer
+;*******************************************************************************/
+;/* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.   */
+;/*******************************************************************************
+;* File Name     : r_cpu_diag_7_8.src
+;* Version       : 1.00a
+;* Device        : RX Family
+;* Tool-Chain    : C/C++ Compiler Package for RX Family V3.05.00
+;* Description   : Register FINTV diagnostic operations
+;*******************************************************************************/
+;/*******************************************************************************
+;* History : DD.MM.YYYY Version Description
+;*         : 09.06.2023 1.00    First Release
+;*         : 03.04.2024 1.00a   Added target device.
+;*******************************************************************************/
+
+.INCLUDE r_cpu_diag_config.inc
+.INCLUDE r_cpu_diag.inc
+
+.GLB    _R_CPU_Diag7_8
+.SECTION RX_DSW_P, CODE
+
+;; FINTV diagnostic macro ;;
+;; Diagnostic FINTV
+_DiagFINTV .MACRO
+    ;; Write to FINTV
+    MVTC R7, FINTV
+
+    ;; Read from FINTV
+    MVFC FINTV, R8
+
+    ;; Compare read FINTV with written data
+    CMP R7, R8
+    BNE.W ErrEnd
+
+.ENDM
+
+_R_CPU_Diag7_8:
+
+    ;; ==== Save FINTV, R6-R13, PSW. _SaveReg Rns, PSW, FPSW ==== ;;
+    _SaveRegs 1, 1, 0
+    MVFC FINTV, R9
+
+    ;; ======== 15 Detecting "0" fixed fault for FINTV ======== ;;
+    ; Set FINTV write data to R7
+    MOV.L #0FFFFFFFFH, R7
+
+    ;; Diagnostic FINTV
+    _DiagFINTV
+
+    ;; ======== 16 Detecting "1" fixed fault for FINTV ======== ;;
+    ; Set FINTV write data to R7
+    MOV.L #00000000H, R7
+
+    ;; Diagnostic FINTV
+    _DiagFINTV
+
+    ;; ======== 17 Detecting coupling fault for FINTV between any two bits ======== ;;
+    ;; ==== Nearest neighbor coupling ==== ;;
+    ; Set H'55555555 pattern to R7
+    MOV.L #55555555H, R7
+
+    ;; Diagnostic FINTV applying H'55555555 pattern
+    _DiagFINTV
+
+    ;; ==== Next nearest neighbor coupling ==== ;;
+    ; Set H'33333333 pattern to R7
+    MOV.L #33333333H, R7
+
+    ;; Diagnostic FINTV applying H'33333333 pattern
+    _DiagFINTV
+
+    ;; ==== 4-fold neighbor coupling ==== ;;
+    ; Set H'0F0F0F0F pattern to R7
+    MOV.L #0F0F0F0FH, R7
+
+    ;; Diagnostic FINTV applying H'0F0F0F0F pattern
+    _DiagFINTV
+
+    ;; ==== 8-fold neighbor coupling ==== ;;
+    ; Set H'00FF00FF pattern to R7
+    MOV.L #00FF00FFH, R7
+
+    ;; Diagnostic FINTV applying H'00FF00FF pattern
+    _DiagFINTV
+
+    ;; ==== 16-fold neighbor coupling ==== ;;
+    ; Set H'0000FFFF pattern to R7
+    MOV.L #0000FFFFH, R7
+
+    ;; Diagnostic FINTV applying H'0000FFFF pattern
+    _DiagFINTV
+
+    ;; ==== Finalizing operation ==== ;;
+NoErrEnd:
+    MOV.L #00000000H, R15  ; No error detection flag is 0x00000000
+    BRA.S DiagEnd
+
+ErrEnd:
+    MOV.L #00000001H, R15  ; Error detection flag is 0x00000001
+
+DiagEnd:
+    ;; Pseudo expectation value
+    MOV.L #00000000H, R14
+    _FinOpe
+
+    ;; ==== Restore FINTV, R6-R13, PSW. _RestReg Rns, PSW, FPSW ==== ;;
+    MVTC R9, FINTV
+    _RestRegs 1, 1, 0
+
+    RTS
+
+.END

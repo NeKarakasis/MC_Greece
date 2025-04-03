@@ -1,0 +1,186 @@
+;/*******************************************************************************
+;* DISCLAIMER
+;* This software is supplied by Renesas Electronics Corporation and is only
+;* intended for use with Renesas products. No other uses are authorized. This
+;* software is owned by Renesas Electronics Corporation and is protected under
+;* all applicable laws, including copyright laws.
+;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+;* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+;* Renesas reserves the right, without notice, to make changes to this software
+;* and to discontinue the availability of this software. By using this software,
+;* you agree to the additional terms and conditions found by accessing the
+;* following link:
+;* http://www.renesas.com/disclaimer
+;*******************************************************************************/
+;/* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.   */
+;/*******************************************************************************
+;* File Name     : r_cpu_diag_7_1.src
+;* Version       : 1.00a
+;* Device        : RX Family
+;* Tool-Chain    : C/C++ Compiler Package for RX Family V3.05.00
+;* Description   : Registers PSW, BPSW and FPSW diagnostic operations
+;*******************************************************************************/
+;/*******************************************************************************
+;* History : DD.MM.YYYY Version Description
+;*         : 09.06.2023 1.00    First Release
+;*         : 03.04.2024 1.00a   Added target device.
+;*******************************************************************************/
+
+.INCLUDE r_cpu_diag_config.inc
+.INCLUDE r_cpu_diag.inc
+
+.GLB    _R_CPU_Diag7_1
+.SECTION RX_DSW_P, CODE
+
+;; Processor status word (PSW) diagnostic macro ;;
+;; Diagnostic PSW
+_DiagPSW .MACRO
+    ; Save current PSW
+    MVFC PSW, R9
+
+    ;; Write to PSW
+    MVTC R7, PSW
+
+    ;; Read from PSW
+    MVFC PSW, R8
+
+    ; Restore saved PSW
+    MVTC R9, PSW
+
+    ;; Compare read PSW with written data
+    CMP R7, R8
+    BNE.W ErrEnd
+
+.ENDM
+
+;; Backup PSW (BPSW) diagnostic macro ;;
+;; Diagnostic BPSW
+_DiagBPSW .MACRO
+    ; Save current BPSW
+    MVFC BPSW, R9
+
+    ;; Write to BPSW
+    MVTC R7, BPSW
+
+    ;; Read from BPSW
+    MVFC BPSW, R8
+
+    ; Restore saved BPSW
+    MVTC R9, BPSW
+
+    ;; Compare read BPSW with written data
+    CMP R7, R8
+    BNE.W ErrEnd
+
+.ENDM
+
+;; End of macros definition ;;
+
+_R_CPU_Diag7_1:
+
+.IF RX_CPU_TYPE >= CPU_RXv1_FPU
+    ;; ==== Save R6-R13, PSW, FPSW. _SaveReg Rns, PSW, FPSW ==== ;;
+    _SaveRegs 1, 1, 1
+.ELSE   ; .IF RX_CPU_TYPE >= CPU_RXv1_FPU
+    ;; ==== Save R6-R13, PSW. _SaveReg Rns, PSW, FPSW ==== ;;
+    _SaveRegs 1, 1, 0
+.ENDIF  ; .IF RX_CPU_TYPE >= CPU_RXv1_FPU
+
+    ;; ======== 1 Detecting "0" fixed fault for Processor status word (PSW) ======== ;;
+    ; Set PSW write data to R7
+    MOV.L #0F00000FH, R7
+
+    ;; Diagnostic PSW
+    _DiagPSW
+
+    ;; ======== 2 Detecting "1" fixed fault for Processor status word (PSW) ======== ;;
+    ; Set PSW write data to R7
+    MOV.L #00000000H, R7
+
+    ;; Diagnostic PSW
+    _DiagPSW
+
+    ;; ======== 3 Detecting "0" fixed fault for Backup PSW (BPSW) ======== ;;
+    ; Set BPSW write data to R7
+    MOV.L #0F00000FH, R7
+
+    ;; Diagnostic BPSW
+    _DiagBPSW
+
+    ;; ======== 4 Detecting "1" fixed fault for Backup PSW (BPSW) ======== ;;
+    ; Set BPSW write data to R7
+    MOV.L #00000000H, R7
+
+    ;; Diagnostic BPSW
+    _DiagBPSW
+
+.IF RX_CPU_TYPE >= CPU_RXv1_FPU
+    ;; ======== 5 Detecting "0" fixed fault for Single-precision floating-point status word (FPSW) ======== ;;
+    ; Save current FPSW
+    MVFC FPSW, R9
+
+    ;; Write H'7C007D03 to FPSW
+    MOV.L #7C007D03H, R7
+    MVTC R7, FPSW
+
+    ;; Read from FPSW (FPSW.DFS = 1)
+    MVFC FPSW, R8
+
+    ; Restore saved FPSW
+    MVTC R9, FPSW
+
+    ;; Compare R8 to H'FC007D03
+    CMP #0FC007D03H, R8
+    BNE.W ErrEnd
+
+    ;; ======== 6 Detecting "1" fixed fault for Single-precision floating-point status word (FPSW) ======== ;;
+    ; Save current FPSW
+    MVFC FPSW, R9
+
+    ;; Write H'00000000 to FPSW
+    MOV.L #00000000H, R7
+    MVTC R7, FPSW
+
+    ;; Read from FPSW
+    MVFC FPSW, R8
+
+    ; Restore saved FPSW
+    MVTC R9, FPSW
+
+    ;; Compare R8 to H'00000000
+    CMP #00000000H, R8
+    BNE.W ErrEnd
+.ENDIF  ; .IF RX_CPU_TYPE >= CPU_RXv1_FPU
+
+    ;; ==== Finalizing operation ==== ;;
+NoErrEnd:
+    MOV.L #00000000H, R15  ; No error detection flag is 0x00000000
+    BRA.S DiagEnd
+
+ErrEnd:
+    MOV.L #00000001H, R15  ; Error detection flag is 0x00000001
+
+DiagEnd:
+    ;; Pseudo expectation value
+    MOV.L #00000000H, R14
+    _FinOpe
+
+.IF RX_CPU_TYPE >= CPU_RXv1_FPU
+    ;; ==== Restore R6-R13, PSW, FPSW. _RestReg Rns, PSW, FPSW ==== ;;
+    _RestRegs 1, 1, 1
+.ELSE   ; .IF RX_CPU_TYPE >= CPU_RXv1_FPU
+    ;; ==== Restore R6-R13, PSW. _RestReg Rns, PSW, FPSW ==== ;;
+    _RestRegs 1, 1, 0
+.ENDIF  ; .IF RX_CPU_TYPE >= CPU_RXv1_FPU
+
+    RTS
+
+
+.END

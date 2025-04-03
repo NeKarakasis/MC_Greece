@@ -1,0 +1,151 @@
+;/*******************************************************************************
+;* DISCLAIMER
+;* This software is supplied by Renesas Electronics Corporation and is only
+;* intended for use with Renesas products. No other uses are authorized. This
+;* software is owned by Renesas Electronics Corporation and is protected under
+;* all applicable laws, including copyright laws.
+;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+;* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+;* Renesas reserves the right, without notice, to make changes to this software
+;* and to discontinue the availability of this software. By using this software,
+;* you agree to the additional terms and conditions found by accessing the
+;* following link:
+;* http://www.renesas.com/disclaimer
+;*******************************************************************************/
+;/* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.   */
+;/*******************************************************************************
+;* File Name     : r_cpu_diag_7_7.src
+;* Version       : 1.00a
+;* Device        : RX Family
+;* Tool-Chain    : C/C++ Compiler Package for RX Family V3.05.00
+;* Description   : Register R0(SP) diagnostic operations
+;*******************************************************************************/
+;/*******************************************************************************
+;* History : DD.MM.YYYY Version Description
+;*         : 09.06.2023 1.00    First Release
+;*         : 03.04.2024 1.00a   Added target device.
+;*******************************************************************************/
+
+.INCLUDE r_cpu_diag_config.inc
+.INCLUDE r_cpu_diag.inc
+
+.GLB    _R_CPU_Diag7_7
+.SECTION RX_DSW_P, CODE
+
+;; R0(SP) diagnostic macro ;;
+;; Diagnostic R0(SP)
+_DiagR0 .MACRO
+    ;; Write to R0
+    MOV.L R7, R0
+
+    ;; Read from R0
+    MOV.L R0, R8
+
+    ;; Compare read R0(SP) with written data
+    CMP R7, R8
+    BNE.W ErrEnd
+
+.ENDM
+
+_R_CPU_Diag7_7:
+
+    ;; ==== Save R0(SP), R6-R13, PSW. _SaveReg Rns, PSW, FPSW ==== ;;
+    _SaveRegs 1, 1, 0
+    MOV.L R0, R9
+
+    ;; ======== 11 Detecting "0" fixed fault for R0(SP) ======== ;;
+    ; Set R0(SP) write data to R7
+    MOV.L #0FFFFFFFFH, R7
+
+    ;; Diagnostic R0(SP)
+    _DiagR0
+
+    ;; ======== 12 Detecting "1" fixed fault for R0(SP) ======== ;;
+    ; Set R0(SP) write data to R7
+    MOV.L #00000000H, R7
+
+    ;; Diagnostic R0(SP)
+    _DiagR0
+
+    ;; ======== 13 Detecting coupling fault for R0(SP) between any two bits ======== ;;
+    ;; ==== Nearest neighbor coupling ==== ;;
+    ; Set H'55555555 pattern to R7
+    MOV.L #55555555H, R7
+
+    ;; Diagnostic R0(SP) applying H'55555555 pattern
+    _DiagR0
+
+    ;; ==== Next nearest neighbor coupling ==== ;;
+    ; Set H'33333333 pattern to R7
+    MOV.L #33333333H, R7
+
+    ;; Diagnostic R0(SP) applying H'33333333 pattern
+    _DiagR0
+
+    ;; ==== 4-fold neighbor coupling ==== ;;
+    ; Set H'0F0F0F0F pattern to R7
+    MOV.L #0F0F0F0FH, R7
+
+    ;; Diagnostic R0(SP) applying H'0F0F0F0F pattern
+    _DiagR0
+
+    ;; ==== 8-fold neighbor coupling ==== ;;
+    ; Set H'00FF00FF pattern to R7
+    MOV.L #00FF00FFH, R7
+
+    ;; Diagnostic R0(SP) applying H'00FF00FF pattern
+    _DiagR0
+
+    ;; ==== 16-fold neighbor coupling ==== ;;
+    ; Set H'0000FFFF pattern to R7
+    MOV.L #0000FFFFH, R7
+
+    ;; Diagnostic R0(SP) applying H'0000FFFF pattern
+    _DiagR0
+
+    ;; ======== 14 Detecting coupling fault between R0(SP) to a general purpose register ======== ;;
+    ;; ==== Coupling between R0(SP) and R3 ==== ;;
+    ; Set DC1(H'27EFBE28) and DC2(H'4346C87C) to R0(SP) and R3 respectively.
+    MOV.L #27EFBE28H, R6
+    MOV.L #4346C87CH, R7
+    MOV.L R6, R0
+    MOV.L R7, R3
+
+    ;; Read from R0
+    MOV.L R0, R8
+
+    ;; Compare read R0(SP) with written data
+    CMP R6, R8
+    BNE.W ErrEnd
+
+    ;; Compare R3 with written data
+    CMP R7, R3
+    BNE.W ErrEnd
+
+    ;; ==== Finalizing operation ==== ;;
+NoErrEnd:
+    MOV.L #00000000H, R15  ; No error detection flag is 0x00000000
+    BRA.S DiagEnd
+
+ErrEnd:
+    MOV.L #00000001H, R15  ; Error detection flag is 0x00000001
+
+DiagEnd:
+    ;; Pseudo expectation value
+    MOV.L #00000000H, R14
+    _FinOpe
+
+    ;; ==== Restore R0(SP), R6-R13, PSW. _RestReg Rns, PSW, FPSW ==== ;;
+    MOV.L R9, R0
+    _RestRegs 1, 1, 0
+
+    RTS
+
+.END

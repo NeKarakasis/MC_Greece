@@ -1,0 +1,188 @@
+;/*******************************************************************************
+;* DISCLAIMER
+;* This software is supplied by Renesas Electronics Corporation and is only
+;* intended for use with Renesas products. No other uses are authorized. This
+;* software is owned by Renesas Electronics Corporation and is protected under
+;* all applicable laws, including copyright laws.
+;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+;* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+;* Renesas reserves the right, without notice, to make changes to this software
+;* and to discontinue the availability of this software. By using this software,
+;* you agree to the additional terms and conditions found by accessing the
+;* following link:
+;* http://www.renesas.com/disclaimer
+;*******************************************************************************/
+;/* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.   */
+;/*******************************************************************************
+;* File Name     : r_cpu_diag_11_6.src
+;* Version       : 1.00a
+;* Device        : RX Family
+;* Tool-Chain    : C/C++ Compiler Package for RX Family V3.05.00
+;* Description   : Registers DR0 - DR15 diagnostic operations (double precision)
+;*******************************************************************************/
+;/*******************************************************************************
+;* History : DD.MM.YYYY Version Description
+;*         : 09.06.2023 1.00    First Release
+;*         : 03.04.2024 1.00a   Added target device.
+;*******************************************************************************/
+
+.INCLUDE r_cpu_diag_config.inc
+.INCLUDE r_cpu_diag.inc
+
+.IF RX_CPU_TYPE == CPU_RXv3_DFPU
+
+.GLB    _R_CPU_Diag11_6
+.SECTION RX_DSW_P, CODE
+
+_R_CPU_Diag11_6:
+
+    ;; ==== Save R6-R13, PSW, DR0-DR7, DPSW, DCMR. _SaveReg Rns, PSW, FPSW ==== ;;
+    _SaveRegs 1, 1, 0
+    DPUSHM.D DR0-DR7
+    DPUSHM.L DPSW-DCMR
+
+    ;; ======== Detecting coupling fault for double-precision data registers (DR0 - DR7) between any two registers ======== ;;
+    ;; ==== 10 Detecting DR0, DR1, DR2 and DR3 coupling fault (Using C's pattern) ==== ;;
+    ; Set DC1(H'44444444) and DC2(H'99999999) to DR0[31:0] and DR0[63:32] respectively.
+    MOV.L #44444444H, R4
+    MOV.L #99999999H, R5
+    DMOV.L R4, DRL0
+    DMOV.L R5, DRH0
+
+    ; Set DC3(H'00000000) and DC4(H'FFFFFFFF) to DR1[31:0] and DR1[63:32] respectively.
+    MOV.L #00000000H, R6
+    MOV.L #0FFFFFFFFH, R7
+    DMOV.L R6, DRL1
+    DMOV.L R7, DRH1
+
+    ; Set DC5(H'22222222) and DC6(H'BBBBBBBB) to DR2[31:0] and DR2[63:32] respectively.
+    MOV.L #22222222H, R8
+    MOV.L #0BBBBBBBBH, R9
+    DMOV.L R8, DRL2
+    DMOV.L R9, DRH2
+
+    ; Set DC7(H'4444BBBB) and DC8(H'BBBB4444) to DR3[31:0] and DR3[63:32] respectively.
+    MOV.L #4444BBBBH, R10
+    MOV.L #0BBBB4444H, R11
+    DMOV.L R10, DRL3
+    DMOV.L R11, DRH3
+
+    ;; DR0 test
+    DMOV.L DRL0, R12
+    DMOV.L DRH0, R3
+    CMP R4, R12      ; Verify DR0[31:0] with DC1
+    BNE.W ErrEnd
+    CMP R5, R3       ; Verify DR0[63:32] with DC2
+    BNE.W ErrEnd
+
+    ;; DR1 test
+    DMOV.L DRL1, R12
+    DMOV.L DRH1, R3
+    CMP R6, R12      ; Verify DR1[31:0] with DC3
+    BNE.W ErrEnd
+    CMP R7, R3       ; Verify DR1[63:32] with DC4
+    BNE.W ErrEnd
+
+    ;; DR2 test
+    DMOV.L DRL2, R12
+    DMOV.L DRH2, R3
+    CMP R8, R12      ; Verify DR2[31:0] with DC5
+    BNE.W ErrEnd
+    CMP R9, R3       ; Verify DR2[63:32] with DC6
+    BNE.W ErrEnd
+
+    ;; DR3 test
+    DMOV.L DRL3, R12
+    DMOV.L DRH3, R3
+    CMP R10, R12      ; Verify DR3[31:0] with DC7
+    BNE.W ErrEnd
+    CMP R11, R3       ; Verify DR3[63:32] with DC8
+    BNE.W ErrEnd
+
+    ;; ==== 11 Detecting DR4, DR5, DR6 and DR7 coupling fault (Using D's pattern) ==== ;;
+    ; Set DD1(H'EEEE1111) and DD2(H'1111EEEE) to DR4[31:0] and DR4[63:32] respectively.
+    MOV.L #0EEEE1111H, R4
+    MOV.L #1111EEEEH, R5
+    DMOV.L R4, DRL4
+    DMOV.L R5, DRH4
+
+    ; Set DD3(H'2222DDDD) and DD4(H'DDDD2222) to DR5[31:0] and DR5[63:32] respectively.
+    MOV.L #2222DDDDH, R6
+    MOV.L #0DDDD2222H, R7
+    DMOV.L R6, DRL5
+    DMOV.L R7, DRH5
+
+    ; Set DD5(H'EEBB6622) and DD6(H'2266BBEE) to DR6[31:0] and DR6[63:32] respectively.
+    MOV.L #0EEBB6622H, R8
+    MOV.L #2266BBEEH, R9
+    DMOV.L R8, DRL6
+    DMOV.L R9, DRH6
+
+    ; Set DD7(H'BA98FEDC) and DD8(H'32107654) to DR7[31:0] and DR7[63:32] respectively.
+    MOV.L #0BA98FEDCH, R10
+    MOV.L #32107654H, R11
+    DMOV.L R10, DRL7
+    DMOV.L R11, DRH7
+
+    ;; DR4 test
+    DMOV.L DRL4, R12
+    DMOV.L DRH4, R3
+    CMP R4, R12      ; Verify DR4[31:0] with DD1
+    BNE.W ErrEnd
+    CMP R5, R3       ; Verify DR4[63:32] with DD2
+    BNE.W ErrEnd
+
+    ;; DR5 test
+    DMOV.L DRL5, R12
+    DMOV.L DRH5, R3
+    CMP R6, R12      ; Verify DR5[31:0] with DD3
+    BNE.W ErrEnd
+    CMP R7, R3       ; Verify DR5[63:32] with DD4
+    BNE.W ErrEnd
+
+    ;; DR6 test
+    DMOV.L DRL6, R12
+    DMOV.L DRH6, R3
+    CMP R8, R12      ; Verify DR6[31:0] with DD5
+    BNE.W ErrEnd
+    CMP R9, R3       ; Verify DR6[63:32] with DD6
+    BNE.W ErrEnd
+
+    ;; DR7 test
+    DMOV.L DRL7, R12
+    DMOV.L DRH7, R3
+    CMP R10, R12      ; Verify DR7[31:0] with DD7
+    BNE.W ErrEnd
+    CMP R11, R3       ; Verify DR7[63:32] with DD8
+    BNE.W ErrEnd
+
+    ;; ==== Finalizing operation ==== ;;
+NoErrEnd:
+    MOV.L #00000000H, R15  ; No error detection flag is 0x00000000
+    BRA.S DiagEnd
+
+ErrEnd:
+    MOV.L #00000001H, R15  ; Error detection flag is 0x00000001
+
+DiagEnd:
+    ;; Pseudo expectation value
+    MOV.L #00000000H, R14
+    _FinOpe
+
+    ;; ==== Restore R6-R13, PSW, DR0-DR7, DPSW, DCMR. _RestReg Rns, PSW, FPSW ==== ;;
+    DPOPM.L DPSW-DCMR
+    DPOPM.D DR0-DR7
+    _RestRegs 1, 1, 0
+
+    RTS
+
+.ENDIF  ; .IF RX_CPU_TYPE == CPU_RXv3_DFPU
+
+.END
