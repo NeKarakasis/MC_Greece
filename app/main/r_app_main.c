@@ -36,6 +36,7 @@
 #include "r_app_board_ui.h"
 #include "r_motor_sensorless_vector_api.h"
 #include "r_cpu_diag.h"
+#include "r_ram_diag.h"
 
 /***********************************************************************************************************************
 * Global variables
@@ -52,7 +53,8 @@ uint32_t g_dtc_table[256];
 static void     r_app_main_ui_mainloop(void);           /* User interface control routine */
 static void     r_app_main_init_motor_ctrl(void);       /* Initialize motor control instance */
 static void     r_app_main_start_motor_ctrl(void);      /* Start motor control */
-static void		safety_CPU_test(void);					/* Test CPU for safety
+static void		safety_CPU_test(void);					/* Test CPU for safety */
+static void 	ram_test_sample(void);					/* Test RAM for safety */
 
 /***********************************************************************************************************************
 * Function Name : main
@@ -83,10 +85,12 @@ setpsw_i();                                       /* Enable interrupt */
     r_app_main_start_motor_ctrl();
 
 clrpsw_i();
-MTU.TRWERA.BIT.RWE = 1U;
+/*MTU.TRWERA.BIT.RWE = 1U;
 int32_t mtu_counter = MTU4.TCNT;
-/* Disable interrupt */
+ Disable interrupt
+*/
 safety_CPU_test();
+ram_test_sample();
 setpsw_i();                                       /* Enable interrupt */
 
 
@@ -244,3 +248,43 @@ static void safety_CPU_test(void)
 	}
 /* Enabling interrupts */
 }
+
+int32_t duration_ram_sf_test[10] = {0,0,0,0,0,0,0,0};
+
+void ram_test_sample(void)
+{
+uint32_t area = 0;
+uint32_t index;
+uint32_t destructive;
+/* Disabling ECC */
+/* Disabling interrupts */
+	for (index = 0; index < numberOfBUT0; index++)
+	{
+		MTU.TRWERA.BIT.RWE = 1U;
+		//int32_t mtu_counter = CMT0.CMCNT;
+		int32_t mtu_counter = MTU4.TCNT;
+		if (index == 0)
+		{ /* Buffer block */
+			destructive = RAM_MEM_DT;
+		}
+		else
+		{
+			destructive = RAM_MEM_NDT;
+		}
+	/* Call API */
+		R_RAM_Diag(area, index, destructive);
+		/* Check API result */
+		if ( (RramResult1 != RAM_PASS) || (RramResult2 != RAM_PASS) )
+		{
+			SafetyErrorHandler(); /* Failure detection */
+		}
+		if (index < 10)
+		{
+			duration_ram_sf_test[index] = MTU4.TCNT - mtu_counter;
+		}
+		MTU.TRWERA.BIT.RWE = 0U;
+	}
+/* Enabling interrupts */
+/* Enabling ECC */
+}
+

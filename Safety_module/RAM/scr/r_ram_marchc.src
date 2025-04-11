@@ -1,0 +1,243 @@
+;/*******************************************************************************
+;* DISCLAIMER
+;* This software is supplied by Renesas Electronics Corporation and is only
+;* intended for use with Renesas products. No other uses are authorized. This
+;* software is owned by Renesas Electronics Corporation and is protected under
+;* all applicable laws, including copyright laws.
+;* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+;* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+;* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+;* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+;* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+;* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+;* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+;* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+;* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+;* Renesas reserves the right, without notice, to make changes to this software
+;* and to discontinue the availability of this software. By using this software,
+;* you agree to the additional terms and conditions found by accessing the
+;* following link:
+;* http://www.renesas.com/disclaimer
+;*******************************************************************************/
+;/* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.   */
+;/*******************************************************************************
+;* File Name     : r_ram_marchc.src
+;* Version       : 1.00a
+;* Device        : RX Family
+;* Tool-Chain    : C/C++ Compiler Package for RX Family V3.05.00
+;* Description   : Extended March C- Algorithm
+;*******************************************************************************/
+;/*******************************************************************************
+;* History : DD.MM.YYYY Version Description
+;*         : 09.06.2023 1.00    First Release
+;*         : 03.04.2024 1.00a   Added target device.
+;*******************************************************************************/
+
+    .INCLUDE r_ram_diag.inc
+
+    .GLB    _R_RAM_Diag_MarchC
+    .SECTION RX_DSW_P, CODE
+
+;/*******************************************************************************
+;* Function Name: R_RAM_Diag_MarchC
+;* Description  : Extended March C- Test
+;* Arguments    : sAdr(R1)        :RAM test start address
+;*              : eAdr(R2)        :RAM test end address
+;*              : estructive(R3) :Specify the kind of test
+;*              : (1:destructive test, !0:non-destructive test)
+;* Return Value : None
+;* Note         : None
+;*******************************************************************************/
+_R_RAM_Diag_MarchC:
+
+    ;save inside the stack
+    PUSHM       R5-R15
+    PUSHC       PSW
+
+    MOV.L       #_RramBuffer, R7                ;save first address of the buffer
+    MOV.L       R1, R13                         ;start address of the block under test
+
+    ;copy content of the memory under test
+storeInit:
+    CMP         #1, R3                          ;is destructive or not
+    BEQ         assignPattern0                  ;destructive then jump
+
+storeContent:
+    MOV.L       [R13], R5
+    MOV.L       R5, [R7]                        ;store in the buffer
+    ADD         #4, R7                          ;increase of 4 pointer in order to point to the following double words of the buffer
+    ADD         #4, R13                         ;increase of 4 pointer in order to point to the following double words of the BUT
+    CMP         R2, R13                         ;compare current address with end address
+    BLE         storeContent
+
+    ;select patterns
+assignPattern0:
+    MOV.L       #0, R6
+    MOV.L       #pattern0, R10
+    MOV.L       #pattern0n, R11
+    BRA         startTest
+
+assignPattern1:
+    CMP         #1, R6
+    BNE         assignPattern2
+    MOV.L       #pattern1, R10
+    MOV.L       #pattern1n, R11
+    BRA         startTest
+
+assignPattern2:
+    CMP         #2, R6
+    BNE         assignPattern3
+    MOV.L       #pattern2, R10
+    MOV.L       #pattern2n, R11
+    BRA         startTest
+
+assignPattern3:
+    CMP         #3, R6
+    BNE         assignPattern4
+    MOV.L       #pattern3, R10
+    MOV.L       #pattern3n, R11
+    BRA         startTest
+
+assignPattern4:
+    CMP         #4, R6
+    BNE         assignPattern5
+    MOV.L       #pattern4, R10
+    MOV.L       #pattern4n, R11
+    BRA         startTest
+
+assignPattern5:
+    CMP         #5, R6
+    BNE         testFailed
+    MOV.L       #pattern5, R10
+    MOV.L       #pattern5n, R11
+
+startTest:
+    MOV.L       R1, R13                         ;start address of the block under test
+
+    ;write pattern0 in whatever addresses order
+M1:
+    MOV.L       R10, [R13]
+    ADD         #steps, R13                     ;increase R13 pointing to the next location
+    CMP         R13, R2                         ;compare current address with the end one
+    BGE         M1                              ;jump until all the cells of the selected block are written with pattern0
+    MOV.L       R1, R13                         ;start address of the block under test
+
+    ;read pattern0, write pattern0n and read pattern0n with an increasing address order
+M2:
+    MOV.L       [R13], R14                      ;read pattern0
+    CMP         R10, R14
+    BNE         testFailed
+    MOV.L       R11, [R13]                      ;write pattern0n
+    CMP         R13, R2                         ;Write update address and end address compare
+    BNE         M2_1
+    MOV.L       R11, [R1]                       ;Write pattern0n to the start address (measures against RAM buffer)
+    BRA         M2_2
+
+M2_1:
+    MOV.L       R10, [R2]                       ;Write pattern0 to the end address (measures against RAM buffer)
+
+M2_2:
+    MOV.L       [R13], R5                       ;read pattern0n
+    CMP         R11, R5
+    BNE         testFailed
+    ADD         #steps, R13
+    CMP         R13, R2
+    BGE         M2
+
+eMcM_FI:
+    MOV.L       R1, R13                         ;start address of the block under test
+
+    ;read pattern0n and write pattern0 with an increasing address order
+M3:
+    MOV.L       [R13], R14                      ;read pattern0n
+    CMP         R11, R14
+    BNE         testFailed
+    MOV.L       R10, [R13]                      ;write pattern0
+    ADD         #steps, R13
+    CMP         R13, R2
+    BGE         M3
+    MOV.L       R10, [R1]                       ;Write pattern0 in the start address (measures against RAM buffer)
+    MOV.L       R2, R12                         ;end address of the block under test
+
+    ;read pattern0 and write pattern0n with a decreasing address order
+M4:
+    MOV.L       [R12], R14                      ;read pattern0
+    CMP         R10, R14
+    BNE         testFailed
+    MOV.L       R11, [R12]                      ;write pattern0n
+    SUB         #steps, R12
+    CMP         R12, R1
+    BLE         M4
+    MOV.L       R2, R12                         ;end address of the block under test
+
+    ;read pattern0n and write pattern0 with a decreasing address order
+M5:
+    MOV.L       [R12], R14                      ;read pattern0n
+    CMP         R11, R14
+    BNE         testFailed
+    MOV.L       R10, [R12]                      ;write pattern0
+    SUB         #steps, R12
+    CMP         R12, R1
+    BLE         M5
+    MOV.L       R10, [R2]                       ;Write pattern0 to the end address (measures against RAM buffer)
+    MOV.L       R1, R13                         ;start address of the block under test
+    MOV.L       R1, R7
+    ADD         #4, R7                          ;Address setting exceeding 4 byte alignment (countermeasure against RAM buffer)
+
+M6:
+    MOV.L       [R13], R14                      ;read pattern0
+    CMP         R10, R14
+    BNE         testFailed
+    ADD         #steps, R13
+    CMP         R13, R7                         ;Determine whether the start address exceeds 4 byte alignment and is equal to address
+    BNE         M6_1
+    MOV.L       R10, [R1]                       ;Write pattern0 in the start address (measures against RAM buffer)
+
+M6_1:
+    CMP         R13, R2
+    BGE         M6
+    ADD         #1, R6                          ;increment the counter
+    CMP         #numberOfPatterns, R6
+    BNE         assignPattern1                  ;repeat test with another pattern
+    ;testPassed
+    MOV.L       #000000001H, R14
+    BRA         restoreInit
+
+testFailed:
+    MOV.L       #000000000H, R14                ;testFailed  , change set a register available with zero
+
+    ;restore content of the memory under test
+restoreInit:
+    MOV.L       #_RramBuffer, R7
+    MOV.L       R1, R13                         ;start address of the block under test
+    CMP         #1, R3                          ;is destructive or not
+    BEQ         clearMem                        ;destructive then jump
+
+restoreContent:
+    MOV.L       [R7], R5
+    MOV.L       R5, [R13]                       ;restore
+    ADD         #4, R7
+    ADD         #4, R13
+    CMP         R2, R13
+    BLE         restoreContent
+    BRA         testEnd
+
+clearMem:
+    MOV.L       #0, [R13]                       ;write 0 in each location
+    ADD         #4, R13
+    CMP         R2, R13
+    BLE         clearMem
+
+testEnd:
+    MOV.L       #_RramResult1, R9               ;address of the variable RramResult1 in R9
+    MOV.L       R14, [R9]
+    MOV.L       #_RramResult2, R9               ;address of the variable RramResult2 in R9
+    MOV.L       R14, [R9]
+    ; restore registers
+    POPC        PSW                             ;restore original interrupt setting
+    POPM        R5-R15
+
+D4_eMcM_I:
+    RTS
+
+.END
