@@ -1,4 +1,7 @@
 
+-----14/4/25-----
+- Nektarios: Porting ROM FuSa testing. Does not be tested yet.
+
 -----11/4/25-----
 - Nektarios: Porting RAM FuSa testing.
 
