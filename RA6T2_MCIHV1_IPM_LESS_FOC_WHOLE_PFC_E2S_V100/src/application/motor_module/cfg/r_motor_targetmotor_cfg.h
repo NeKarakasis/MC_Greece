@@ -43,14 +43,14 @@
 /* Target motor parameter definitions */
 #if defined (MOTOR_COMMON_CFG_MTR_EM_AMF1K5)
 
-#define     MOTOR_CFG_POLE_PAIRS            (3)             /* Number of pole pairs */
-#define     MOTOR_CFG_MAGNETIC_FLUX         (0.18f)         /* Permanent magnetic flux [Wb] */
-#define     MOTOR_CFG_RESISTANCE            (0.976375f)     /* Resistance [ohm] */
-#define     MOTOR_CFG_D_INDUCTANCE          (0.004715f)     /* D-axis inductance [H] */
-#define     MOTOR_CFG_Q_INDUCTANCE          (0.006245f)     /* Q-axis inductance [H] */
-#define     MOTOR_CFG_ROTOR_INERTIA         (0.00114f + 0.00149f)    /* Rotor(0.00137) + TN(0.00149) inertia [kgm^2],  */
-#define     MOTOR_CFG_NOMINAL_CURRENT_RMS   (6.1f)          /* Nominal current [Arms] */
-#define     MOTOR_CFG_MAX_SPEED_RPM         (3000.0f)       /* maximum speed [rpm] (mechanical angle) */
+#define     MOTOR_CFG_POLE_PAIRS            (5)             /* Number of pole pairs */
+#define     MOTOR_CFG_MAGNETIC_FLUX         (0.134f)         /* Permanent magnetic flux [Wb] */
+#define     MOTOR_CFG_RESISTANCE            (8.22f)     /* Resistance [ohm] */
+#define     MOTOR_CFG_D_INDUCTANCE          (0.063f)     /* D-axis inductance [H] */
+#define     MOTOR_CFG_Q_INDUCTANCE          (0.063f)     /* Q-axis inductance [H] */
+#define     MOTOR_CFG_ROTOR_INERTIA         (0.000497f)    /* Rotor(0.00137) + TN(0.00149) inertia [kgm^2],  */
+#define     MOTOR_CFG_NOMINAL_CURRENT_RMS   (2.0f)          /* Nominal current [Arms] */
+#define     MOTOR_CFG_MAX_SPEED_RPM         (11000.0f)       /* maximum speed [rpm] (mechanical angle) */
 //#define     MOTOR_CFG_NOMINAL_CURRENT_PEAK  (MOTOR_CFG_NOMINAL_CURRENT_RMS * 1.414)         /* Nominal current [Apeak] */
 
 #endif /* Target motor parameter definitions */
