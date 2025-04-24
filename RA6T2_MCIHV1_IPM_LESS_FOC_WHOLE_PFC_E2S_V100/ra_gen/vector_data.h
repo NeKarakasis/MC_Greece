@@ -18,14 +18,14 @@ void agt_int_isr(void);
 void r_icu_isr(void);
 
 /* Vector table allocations */
-#define VECTOR_NUMBER_ADC12_CALEND0 ((IRQn_Type) 0) /* ADC CALEND0 (End of calibration of A/D converter unit 0) */
-#define ADC12_CALEND0_IRQn          ((IRQn_Type) 0) /* ADC CALEND0 (End of calibration of A/D converter unit 0) */
-#define VECTOR_NUMBER_ADC12_CALEND1 ((IRQn_Type) 1) /* ADC CALEND1 (End of calibration of A/D converter unit 1) */
-#define ADC12_CALEND1_IRQn          ((IRQn_Type) 1) /* ADC CALEND1 (End of calibration of A/D converter unit 1) */
-#define VECTOR_NUMBER_ADC12_ADI0 ((IRQn_Type) 2) /* ADC ADI0 (End of A/D scanning operation(Gr.0)) */
-#define ADC12_ADI0_IRQn          ((IRQn_Type) 2) /* ADC ADI0 (End of A/D scanning operation(Gr.0)) */
-#define VECTOR_NUMBER_ADC12_ADI1 ((IRQn_Type) 3) /* ADC ADI1 (End of A/D scanning operation(Gr.1)) */
-#define ADC12_ADI1_IRQn          ((IRQn_Type) 3) /* ADC ADI1 (End of A/D scanning operation(Gr.1)) */
+#define VECTOR_NUMBER_ADC_CALEND0 ((IRQn_Type) 0) /* ADC CALEND0 (End of calibration of A/D converter unit 0) */
+#define ADC_CALEND0_IRQn          ((IRQn_Type) 0) /* ADC CALEND0 (End of calibration of A/D converter unit 0) */
+#define VECTOR_NUMBER_ADC_CALEND1 ((IRQn_Type) 1) /* ADC CALEND1 (End of calibration of A/D converter unit 1) */
+#define ADC_CALEND1_IRQn          ((IRQn_Type) 1) /* ADC CALEND1 (End of calibration of A/D converter unit 1) */
+#define VECTOR_NUMBER_ADC_ADI0 ((IRQn_Type) 2) /* ADC ADI0 (End of A/D scanning operation(Gr.0)) */
+#define ADC_ADI0_IRQn          ((IRQn_Type) 2) /* ADC ADI0 (End of A/D scanning operation(Gr.0)) */
+#define VECTOR_NUMBER_ADC_ADI1 ((IRQn_Type) 3) /* ADC ADI1 (End of A/D scanning operation(Gr.1)) */
+#define ADC_ADI1_IRQn          ((IRQn_Type) 3) /* ADC ADI1 (End of A/D scanning operation(Gr.1)) */
 #define VECTOR_NUMBER_POEG3_EVENT ((IRQn_Type) 4) /* POEG3 EVENT (Port Output disable 3 interrupt) */
 #define POEG3_EVENT_IRQn          ((IRQn_Type) 4) /* POEG3 EVENT (Port Output disable 3 interrupt) */
 #define VECTOR_NUMBER_AGT0_INT ((IRQn_Type) 5) /* AGT0 INT (AGT interrupt) */

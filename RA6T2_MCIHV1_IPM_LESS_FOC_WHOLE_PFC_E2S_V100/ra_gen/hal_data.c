@@ -194,7 +194,7 @@ const gpt_extended_pwm_cfg_t g_timer_gpt6_pwm_extend = { .trough_ipl =
 #else
 		.trough_irq = FSP_INVALID_VECTOR,
 #endif
-		.poeg_link = GPT_POEG_LINK_POEG3, .output_disable =
+		.poeg_link = GPT_POEG_LINK_POEG0, .output_disable =
 				(gpt_output_disable_t)(GPT_OUTPUT_DISABLE_NONE), .adc_trigger =
 				(gpt_adc_trigger_t)(GPT_ADC_TRIGGER_NONE), .dead_time_count_up =
 				240, .dead_time_count_down = 240, .adc_a_compare_match = 0,
@@ -292,7 +292,7 @@ const gpt_extended_pwm_cfg_t g_timer_gpt5_pwm_extend = { .trough_ipl =
 #else
 		.trough_irq = FSP_INVALID_VECTOR,
 #endif
-		.poeg_link = GPT_POEG_LINK_POEG3, .output_disable =
+		.poeg_link = GPT_POEG_LINK_POEG0, .output_disable =
 				(gpt_output_disable_t)(GPT_OUTPUT_DISABLE_NONE), .adc_trigger =
 				(gpt_adc_trigger_t)(GPT_ADC_TRIGGER_NONE), .dead_time_count_up =
 				240, .dead_time_count_down = 240, .adc_a_compare_match = 0,
@@ -390,7 +390,7 @@ const gpt_extended_pwm_cfg_t g_timer_gpt4_pwm_extend = { .trough_ipl =
 #else
 		.trough_irq = FSP_INVALID_VECTOR,
 #endif
-		.poeg_link = GPT_POEG_LINK_POEG3, .output_disable =
+		.poeg_link = GPT_POEG_LINK_POEG0, .output_disable =
 				(gpt_output_disable_t)(GPT_OUTPUT_DISABLE_NONE), .adc_trigger =
 				(gpt_adc_trigger_t)(
 						GPT_ADC_TRIGGER_DOWN_COUNT_START_ADC_A
@@ -2772,10 +2772,10 @@ const adc_b_virtual_channel_cfg_t *const g_adc0_group_8_virtual_channels[] = {
 
 #if (1) // Define Scan Group 0 if it's enabled
 const adc_b_group_cfg_t g_adc0_group_0_cfg = { .scan_group_id = ADC_GROUP_ID_0,
-		.converter_selection = (0), .scan_group_enable = (1),
+		.converter_selection = (adc_b_unit_id_t)(0), .scan_group_enable = (1),
 		.scan_end_interrupt_enable = (1), .external_trigger_enable_mask =
-				(ADC_B_EXTERNAL_TRIGGER_NONE),
-		.elc_trigger_enable_mask = (0x00), .gpt_trigger_enable_mask = (0x10
+				(ADC_B_EXTERNAL_TRIGGER_NONE), .elc_trigger_enable_mask =
+				(elc_peripheral_t)(0x00), .gpt_trigger_enable_mask = (0x10
 				| ADC_B_GPT_TRIGGER_NONE),
 
 		.self_diagnosis_mask = (ADC_B_SELF_DIAGNOSIS_DISABLED
@@ -2804,10 +2804,10 @@ const adc_b_group_cfg_t g_adc0_group_0_cfg = { .scan_group_id = ADC_GROUP_ID_0,
 
 #if (1) // Define Scan Group 1 if it's enabled
 const adc_b_group_cfg_t g_adc0_group_1_cfg = { .scan_group_id = ADC_GROUP_ID_1,
-		.converter_selection = (1), .scan_group_enable = (1),
+		.converter_selection = (adc_b_unit_id_t)(1), .scan_group_enable = (1),
 		.scan_end_interrupt_enable = (1), .external_trigger_enable_mask =
-				(ADC_B_EXTERNAL_TRIGGER_NONE),
-		.elc_trigger_enable_mask = (0x00), .gpt_trigger_enable_mask = (0x2
+				(ADC_B_EXTERNAL_TRIGGER_NONE), .elc_trigger_enable_mask =
+				(elc_peripheral_t)(0x00), .gpt_trigger_enable_mask = (0x2
 				| ADC_B_GPT_TRIGGER_NONE),
 
 		.self_diagnosis_mask = (ADC_B_SELF_DIAGNOSIS_DISABLED
@@ -2838,11 +2838,11 @@ const adc_b_group_cfg_t g_adc0_group_1_cfg = { .scan_group_id = ADC_GROUP_ID_1,
                      const adc_b_group_cfg_t g_adc0_group_2_cfg =
                      {
                          .scan_group_id                   = ADC_GROUP_ID_2,
-                         .converter_selection             = (0),
+                         .converter_selection             = (adc_b_unit_id_t)(0),
                          .scan_group_enable               = (0),
                          .scan_end_interrupt_enable       = (1),
                          .external_trigger_enable_mask    = ( ADC_B_EXTERNAL_TRIGGER_NONE),
-                         .elc_trigger_enable_mask         = ( 0x00),
+                         .elc_trigger_enable_mask         = (elc_peripheral_t)( 0x00),
                          .gpt_trigger_enable_mask         = ( ADC_B_GPT_TRIGGER_NONE),
 
                          .self_diagnosis_mask             = (ADC_B_SELF_DIAGNOSIS_DISABLED << R_ADC_B0_ADSGDCR0_DIAGVAL_Pos),
@@ -2863,11 +2863,11 @@ const adc_b_group_cfg_t g_adc0_group_1_cfg = { .scan_group_id = ADC_GROUP_ID_1,
                      const adc_b_group_cfg_t g_adc0_group_3_cfg =
                      {
                          .scan_group_id                   = ADC_GROUP_ID_3,
-                         .converter_selection             = (0),
+                         .converter_selection             = (adc_b_unit_id_t)(0),
                          .scan_group_enable               = (0),
                          .scan_end_interrupt_enable       = (1),
                          .external_trigger_enable_mask    = ( ADC_B_EXTERNAL_TRIGGER_NONE),
-                         .elc_trigger_enable_mask         = ( 0x00),
+                         .elc_trigger_enable_mask         = (elc_peripheral_t)( 0x00),
                          .gpt_trigger_enable_mask         = ( ADC_B_GPT_TRIGGER_NONE),
 
                          .self_diagnosis_mask             = (ADC_B_SELF_DIAGNOSIS_DISABLED << R_ADC_B0_ADSGDCR0_DIAGVAL_Pos),
@@ -2888,11 +2888,11 @@ const adc_b_group_cfg_t g_adc0_group_1_cfg = { .scan_group_id = ADC_GROUP_ID_1,
                      const adc_b_group_cfg_t g_adc0_group_4_cfg =
                      {
                          .scan_group_id                   = ADC_GROUP_ID_4,
-                         .converter_selection             = (0),
+                         .converter_selection             = (adc_b_unit_id_t)(0),
                          .scan_group_enable               = (0),
                          .scan_end_interrupt_enable       = (1),
                          .external_trigger_enable_mask    = ( ADC_B_EXTERNAL_TRIGGER_NONE),
-                         .elc_trigger_enable_mask         = ( 0x00),
+                         .elc_trigger_enable_mask         = (elc_peripheral_t)( 0x00),
                          .gpt_trigger_enable_mask         = ( ADC_B_GPT_TRIGGER_NONE),
 
                          .self_diagnosis_mask             = (ADC_B_SELF_DIAGNOSIS_DISABLED << R_ADC_B0_ADSGDCR0_DIAGVAL_Pos),
@@ -2913,11 +2913,11 @@ const adc_b_group_cfg_t g_adc0_group_1_cfg = { .scan_group_id = ADC_GROUP_ID_1,
                      const adc_b_group_cfg_t g_adc0_group_5_cfg =
                      {
                          .scan_group_id                   = ADC_GROUP_ID_5,
-                         .converter_selection             = (0),
+                         .converter_selection             = (adc_b_unit_id_t)(0),
                          .scan_group_enable               = (0),
                          .scan_end_interrupt_enable       = (1),
                          .external_trigger_enable_mask    = ( ADC_B_EXTERNAL_TRIGGER_NONE),
-                         .elc_trigger_enable_mask         = ( 0x00),
+                         .elc_trigger_enable_mask         = (elc_peripheral_t)( 0x00),
                          .gpt_trigger_enable_mask         = ( ADC_B_GPT_TRIGGER_NONE),
 
                          .self_diagnosis_mask             = (ADC_B_SELF_DIAGNOSIS_DISABLED << R_ADC_B0_ADSGDCR0_DIAGVAL_Pos),
@@ -2938,11 +2938,11 @@ const adc_b_group_cfg_t g_adc0_group_1_cfg = { .scan_group_id = ADC_GROUP_ID_1,
                      const adc_b_group_cfg_t g_adc0_group_6_cfg =
                      {
                          .scan_group_id                   = ADC_GROUP_ID_6,
-                         .converter_selection             = (0),
+                         .converter_selection             = (adc_b_unit_id_t)(0),
                          .scan_group_enable               = (0),
                          .scan_end_interrupt_enable       = (1),
                          .external_trigger_enable_mask    = ( ADC_B_EXTERNAL_TRIGGER_NONE),
-                         .elc_trigger_enable_mask         = ( 0x00),
+                         .elc_trigger_enable_mask         = (elc_peripheral_t)( 0x00),
                          .gpt_trigger_enable_mask         = ( ADC_B_GPT_TRIGGER_NONE),
 
                          .self_diagnosis_mask             = (ADC_B_SELF_DIAGNOSIS_DISABLED << R_ADC_B0_ADSGDCR0_DIAGVAL_Pos),
@@ -2963,11 +2963,11 @@ const adc_b_group_cfg_t g_adc0_group_1_cfg = { .scan_group_id = ADC_GROUP_ID_1,
                      const adc_b_group_cfg_t g_adc0_group_7_cfg =
                      {
                          .scan_group_id                   = ADC_GROUP_ID_7,
-                         .converter_selection             = (0),
+                         .converter_selection             = (adc_b_unit_id_t)(0),
                          .scan_group_enable               = (0),
                          .scan_end_interrupt_enable       = (1),
                          .external_trigger_enable_mask    = ( ADC_B_EXTERNAL_TRIGGER_NONE),
-                         .elc_trigger_enable_mask         = ( 0x00),
+                         .elc_trigger_enable_mask         = (elc_peripheral_t)( 0x00),
                          .gpt_trigger_enable_mask         = ( ADC_B_GPT_TRIGGER_NONE),
 
                          .self_diagnosis_mask             = (ADC_B_SELF_DIAGNOSIS_DISABLED << R_ADC_B0_ADSGDCR0_DIAGVAL_Pos),
@@ -2988,11 +2988,11 @@ const adc_b_group_cfg_t g_adc0_group_1_cfg = { .scan_group_id = ADC_GROUP_ID_1,
                      const adc_b_group_cfg_t g_adc0_group_8_cfg =
                      {
                          .scan_group_id                   = ADC_GROUP_ID_8,
-                         .converter_selection             = (0),
+                         .converter_selection             = (adc_b_unit_id_t)(0),
                          .scan_group_enable               = (0),
                          .scan_end_interrupt_enable       = (1),
                          .external_trigger_enable_mask    = ( ADC_B_EXTERNAL_TRIGGER_NONE),
-                         .elc_trigger_enable_mask         = ( 0x00),
+                         .elc_trigger_enable_mask         = (elc_peripheral_t)( 0x00),
                          .gpt_trigger_enable_mask         = ( ADC_B_GPT_TRIGGER_NONE),
 
                          .self_diagnosis_mask             = (ADC_B_SELF_DIAGNOSIS_DISABLED << R_ADC_B0_ADSGDCR0_DIAGVAL_Pos),
@@ -3074,103 +3074,103 @@ const adc_b_isr_cfg_t g_adc0_isr_cfg = { .calibration_end_ipl_adc_0 = (12),
 				(BSP_IRQ_DISABLED), .fifo_read_ipl_group_3 = (BSP_IRQ_DISABLED),
 		.fifo_read_ipl_group_4 = (BSP_IRQ_DISABLED), .fifo_read_ipl_group_5678 =
 				(BSP_IRQ_DISABLED),
-#if defined(VECTOR_NUMBER_ADC12_CALEND0) && ( (12) != BSP_IRQ_DISABLED )
-    .calibration_end_irq_adc_0 = VECTOR_NUMBER_ADC12_CALEND0,
+#if defined(VECTOR_NUMBER_ADC_CALEND0) && ( (12) != BSP_IRQ_DISABLED )
+    .calibration_end_irq_adc_0 = VECTOR_NUMBER_ADC_CALEND0,
 #else
 		.calibration_end_irq_adc_0 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_CALEND1) && ( (12) != BSP_IRQ_DISABLED )
-    .calibration_end_irq_adc_1 = VECTOR_NUMBER_ADC12_CALEND1,
+#if defined(VECTOR_NUMBER_ADC_CALEND1) && ( (12) != BSP_IRQ_DISABLED )
+    .calibration_end_irq_adc_1 = VECTOR_NUMBER_ADC_CALEND1,
 #else
 		.calibration_end_irq_adc_1 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_LIMCLPI) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .limit_clip_irq = VECTOR_NUMBER_ADC12_LIMCLPI,
+#if defined(VECTOR_NUMBER_ADC_LIMCLPI) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .limit_clip_irq = VECTOR_NUMBER_ADC_LIMCLPI,
 #else
 		.limit_clip_irq = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_ERR0) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .conversion_error_irq_adc_0 = VECTOR_NUMBER_ADC12_ERR0,
+#if defined(VECTOR_NUMBER_ADC_ERR0) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .conversion_error_irq_adc_0 = VECTOR_NUMBER_ADC_ERR0,
 #else
 		.conversion_error_irq_adc_0 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_ERR1) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .conversion_error_irq_adc_1 = VECTOR_NUMBER_ADC12_ERR1,
+#if defined(VECTOR_NUMBER_ADC_ERR1) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .conversion_error_irq_adc_1 = VECTOR_NUMBER_ADC_ERR1,
 #else
 		.conversion_error_irq_adc_1 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_RESOVF0) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .overflow_error_irq_adc_0 = VECTOR_NUMBER_ADC12_RESOVF0,
+#if defined(VECTOR_NUMBER_ADC_RESOVF0) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .overflow_error_irq_adc_0 = VECTOR_NUMBER_ADC_RESOVF0,
 #else
 		.overflow_error_irq_adc_0 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_RESOVF1) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .overflow_error_irq_adc_1 = VECTOR_NUMBER_ADC12_RESOVF1,
+#if defined(VECTOR_NUMBER_ADC_RESOVF1) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .overflow_error_irq_adc_1 = VECTOR_NUMBER_ADC_RESOVF1,
 #else
 		.overflow_error_irq_adc_1 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_ADI0) && ( (5) != BSP_IRQ_DISABLED )
-    .scan_end_irq_group_0 = VECTOR_NUMBER_ADC12_ADI0,
+#if defined(VECTOR_NUMBER_ADC_ADI0) && ( (5) != BSP_IRQ_DISABLED )
+    .scan_end_irq_group_0 = VECTOR_NUMBER_ADC_ADI0,
 #else
 		.scan_end_irq_group_0 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_ADI1) && ( (3) != BSP_IRQ_DISABLED )
-    .scan_end_irq_group_1 = VECTOR_NUMBER_ADC12_ADI1,
+#if defined(VECTOR_NUMBER_ADC_ADI1) && ( (3) != BSP_IRQ_DISABLED )
+    .scan_end_irq_group_1 = VECTOR_NUMBER_ADC_ADI1,
 #else
 		.scan_end_irq_group_1 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_ADI2) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .scan_end_irq_group_2 = VECTOR_NUMBER_ADC12_ADI2,
+#if defined(VECTOR_NUMBER_ADC_ADI2) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .scan_end_irq_group_2 = VECTOR_NUMBER_ADC_ADI2,
 #else
 		.scan_end_irq_group_2 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_ADI3) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .scan_end_irq_group_3 = VECTOR_NUMBER_ADC12_ADI3,
+#if defined(VECTOR_NUMBER_ADC_ADI3) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .scan_end_irq_group_3 = VECTOR_NUMBER_ADC_ADI3,
 #else
 		.scan_end_irq_group_3 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_ADI4) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .scan_end_irq_group_4 = VECTOR_NUMBER_ADC12_ADI4,
+#if defined(VECTOR_NUMBER_ADC_ADI4) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .scan_end_irq_group_4 = VECTOR_NUMBER_ADC_ADI4,
 #else
 		.scan_end_irq_group_4 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_ADI5678) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .scan_end_irq_group_5678 = VECTOR_NUMBER_ADC12_ADI5678,
+#if defined(VECTOR_NUMBER_ADC_ADI5678) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .scan_end_irq_group_5678 = VECTOR_NUMBER_ADC_ADI5678,
 #else
 		.scan_end_irq_group_5678 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_FIFOOVF) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .fifo_overflow_irq = VECTOR_NUMBER_ADC12_FIFOOVF,
+#if defined(VECTOR_NUMBER_ADC_FIFOOVF) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .fifo_overflow_irq = VECTOR_NUMBER_ADC_FIFOOVF,
 #else
 		.fifo_overflow_irq = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_FIFOREQ0) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .fifo_read_irq_group_0 = VECTOR_NUMBER_ADC12_FIFOREQ0,
+#if defined(VECTOR_NUMBER_ADC_FIFOREQ0) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .fifo_read_irq_group_0 = VECTOR_NUMBER_ADC_FIFOREQ0,
 #else
 		.fifo_read_irq_group_0 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_FIFOREQ1) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .fifo_read_irq_group_1 = VECTOR_NUMBER_ADC12_FIFOREQ1,
+#if defined(VECTOR_NUMBER_ADC_FIFOREQ1) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .fifo_read_irq_group_1 = VECTOR_NUMBER_ADC_FIFOREQ1,
 #else
 		.fifo_read_irq_group_1 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_FIFOREQ2) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .fifo_read_irq_group_2 = VECTOR_NUMBER_ADC12_FIFOREQ2,
+#if defined(VECTOR_NUMBER_ADC_FIFOREQ2) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .fifo_read_irq_group_2 = VECTOR_NUMBER_ADC_FIFOREQ2,
 #else
 		.fifo_read_irq_group_2 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_FIFOREQ3) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .fifo_read_irq_group_3 = VECTOR_NUMBER_ADC12_FIFOREQ3,
+#if defined(VECTOR_NUMBER_ADC_FIFOREQ3) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .fifo_read_irq_group_3 = VECTOR_NUMBER_ADC_FIFOREQ3,
 #else
 		.fifo_read_irq_group_3 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_FIFOREQ4) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .fifo_read_irq_group_4 = VECTOR_NUMBER_ADC12_FIFOREQ4,
+#if defined(VECTOR_NUMBER_ADC_FIFOREQ4) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .fifo_read_irq_group_4 = VECTOR_NUMBER_ADC_FIFOREQ4,
 #else
 		.fifo_read_irq_group_4 = FSP_INVALID_VECTOR,
 #endif
-#if defined(VECTOR_NUMBER_ADC12_FIFOREQ5678) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
-    .fifo_read_irq_group_5678 = VECTOR_NUMBER_ADC12_FIFOREQ5678,
+#if defined(VECTOR_NUMBER_ADC_FIFOREQ5678) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .fifo_read_irq_group_5678 = VECTOR_NUMBER_ADC_FIFOREQ5678,
 #else
 		.fifo_read_irq_group_5678 = FSP_INVALID_VECTOR,
 #endif

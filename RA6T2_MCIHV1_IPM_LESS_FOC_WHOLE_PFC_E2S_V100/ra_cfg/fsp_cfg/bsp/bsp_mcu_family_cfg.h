@@ -108,10 +108,10 @@ extern "C" {
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 12) /* POEG2 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 13) /* POEG1 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 14) /* POEG0 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 16) /* ADC120 */ | \
+            (((1 > 0) ? 0U : 1U) << 16) /* ADC120 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 19) /* DAC121 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 20) /* DAC120 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 22) /* TSN */ | \
+            (((1 > 0) ? 0U : 1U) << 22) /* TSN */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 25) /* ACMPHS3 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 26) /* ACMPHS2 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 27) /* ACMPHS1 */ | \
@@ -170,11 +170,6 @@ extern "C" {
 /* Allow Secure and Non-secure write access. */
 #define BSP_TZ_CFG_CGFSAR (0xFFFFFFFFU)
 #endif
-#endif
-
-/* Security attribution for Battery Backup registers. */
-#ifndef BSP_TZ_CFG_BBFSAR
-#define BSP_TZ_CFG_BBFSAR (RA_NOT_DEFINED)
 #endif
 
 /* Security attribution for registers for IRQ channels. */
@@ -250,13 +245,10 @@ extern "C" {
 
 /* Security attribution for SRAM registers. */
 #ifndef BSP_TZ_CFG_SRAMSAR
-/* If the CGC registers are only accessible in Secure mode, than there is no reason for Non Secure applications to access
- * SRAM0WTEN and therefore there is no reason to access PRCR2. */
 #define BSP_TZ_CFG_SRAMSAR (\
         1 | \
-        ((BSP_CFG_CLOCKS_SECURE == 0) ? (1U << 1U) : 0U) | \
         4 | \
-        0xFFFFFFF8U)
+        0xFFFFFFFAU)
 #endif
 
 /* Security attribution for Standby RAM registers. */

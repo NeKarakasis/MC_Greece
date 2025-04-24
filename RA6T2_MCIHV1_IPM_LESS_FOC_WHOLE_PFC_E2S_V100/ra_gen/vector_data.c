@@ -16,10 +16,10 @@
         #if BSP_FEATURE_ICU_HAS_IELSR
         const bsp_interrupt_event_t g_interrupt_event_link_select[BSP_ICU_VECTOR_MAX_ENTRIES] =
         {
-            [0] = BSP_PRV_VECT_ENUM(EVENT_ADC12_CALEND0,GROUP0), /* ADC CALEND0 (End of calibration of A/D converter unit 0) */
-            [1] = BSP_PRV_VECT_ENUM(EVENT_ADC12_CALEND1,GROUP1), /* ADC CALEND1 (End of calibration of A/D converter unit 1) */
-            [2] = BSP_PRV_VECT_ENUM(EVENT_ADC12_ADI0,GROUP2), /* ADC ADI0 (End of A/D scanning operation(Gr.0)) */
-            [3] = BSP_PRV_VECT_ENUM(EVENT_ADC12_ADI1,GROUP3), /* ADC ADI1 (End of A/D scanning operation(Gr.1)) */
+            [0] = BSP_PRV_VECT_ENUM(EVENT_ADC_CALEND0,GROUP0), /* ADC CALEND0 (End of calibration of A/D converter unit 0) */
+            [1] = BSP_PRV_VECT_ENUM(EVENT_ADC_CALEND1,GROUP1), /* ADC CALEND1 (End of calibration of A/D converter unit 1) */
+            [2] = BSP_PRV_VECT_ENUM(EVENT_ADC_ADI0,GROUP2), /* ADC ADI0 (End of A/D scanning operation(Gr.0)) */
+            [3] = BSP_PRV_VECT_ENUM(EVENT_ADC_ADI1,GROUP3), /* ADC ADI1 (End of A/D scanning operation(Gr.1)) */
             [4] = BSP_PRV_VECT_ENUM(EVENT_POEG3_EVENT,GROUP4), /* POEG3 EVENT (Port Output disable 3 interrupt) */
             [5] = BSP_PRV_VECT_ENUM(EVENT_AGT0_INT,GROUP5), /* AGT0 INT (AGT interrupt) */
             [6] = BSP_PRV_VECT_ENUM(EVENT_ICU_IRQ2,GROUP6), /* ICU IRQ2 (External pin interrupt 2) */
