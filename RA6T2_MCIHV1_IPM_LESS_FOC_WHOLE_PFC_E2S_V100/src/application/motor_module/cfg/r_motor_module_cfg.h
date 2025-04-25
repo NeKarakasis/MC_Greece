@@ -160,6 +160,10 @@
                                                                   /* over speed limit [rad] (electrical angle) */
 #define     SPEED_CFG_RATE_LIMIT_RPM            (300.0f)        /* Rate limit of speed change [rpm/s] */
 
+#define     SPEED_CFG_RATE_LIMIT_RPM1           (20000.0f)        /* Rate limit of speed change [rpm/s], initial */
+#define     SPEED_CFG_RATE_LIMIT_RPM2           (5000.0f)
+#define     SPEED_CFG_RATE_LIMIT_RPM3           (3000.0f)
+
 #define     SPEED_CFG_SOB_OMEGA                 (7.5f)           /* natural frequency for speed observer */
 #define     SPEED_CFG_SOB_OUTLIM_START_RPM      (25.0f)           /* limit start speed for speed observer */
 #define     SPEED_CFG_SOB_OUTLIM_END_RPM        (30.0f)           /* limit end speed for speed observer */

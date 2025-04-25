@@ -9,9 +9,9 @@
     <option key="#DeviceCommand#" value="R7FA6T2BD"/>
     <option key="#RTOS#" value="_none"/>
     <option key="#pinconfiguration#" value="R7FA6T2BD3CFP.pincfg"/>
-    <option key="#FSPVersion#" value="5.4.0"/>
+    <option key="#FSPVersion#" value="5.6.0"/>
     <option key="#SELECTED_TOOLCHAIN#" value="gcc-arm-embedded"/>
-    <option key="#ToolchainVersion#" value="10.3.1.20210824"/>
+    <option key="#ToolchainVersion#" value=""/>
   </generalSettings>
   <raBspConfiguration/>
   <raClockConfiguration>
@@ -60,18 +60,18 @@
   </raClockConfiguration>
   <raPinConfiguration>
     <pincfg active="true" name="" symbol="">
-      <configSetting altId="gpt1.gtioc1a.pb14" configurationId="gpt1.gtioc1a" isUsedByDriver="true"/>
-      <configSetting altId="gpt4.gtioc4a.pb04" configurationId="gpt4.gtioc4a"/>
-      <configSetting altId="gpt4.gtioc4b.pb05" configurationId="gpt4.gtioc4b"/>
-      <configSetting altId="gpt5.gtioc5a.pb06" configurationId="gpt5.gtioc5a"/>
-      <configSetting altId="gpt5.gtioc5b.pb07" configurationId="gpt5.gtioc5b"/>
-      <configSetting altId="gpt6.gtioc6a.pb08" configurationId="gpt6.gtioc6a"/>
-      <configSetting altId="gpt6.gtioc6b.pb09" configurationId="gpt6.gtioc6b"/>
-      <configSetting altId="gpt_poegd.gtetrgd.pc13" configurationId="gpt_poegd.gtetrgd"/>
-      <configSetting altId="jtag_fslash_swd.tck.pa14" configurationId="jtag_fslash_swd.tck"/>
-      <configSetting altId="jtag_fslash_swd.tdi.pa15" configurationId="jtag_fslash_swd.tdi"/>
-      <configSetting altId="jtag_fslash_swd.tdo.pb03" configurationId="jtag_fslash_swd.tdo"/>
-      <configSetting altId="jtag_fslash_swd.tms.pa13" configurationId="jtag_fslash_swd.tms"/>
+      <configSetting altId="gpt1.gtioc1a.pb14" configurationId="gpt1.gtioc1a" isUsedByDriver="true" peripheral="GPT1"/>
+      <configSetting altId="gpt4.gtioc4a.pb04" configurationId="gpt4.gtioc4a" isUsedByDriver="true" peripheral="GPT4"/>
+      <configSetting altId="gpt4.gtioc4b.pb05" configurationId="gpt4.gtioc4b" isUsedByDriver="true" peripheral="GPT4"/>
+      <configSetting altId="gpt5.gtioc5a.pb06" configurationId="gpt5.gtioc5a" isUsedByDriver="true" peripheral="GPT5"/>
+      <configSetting altId="gpt5.gtioc5b.pb07" configurationId="gpt5.gtioc5b" isUsedByDriver="true" peripheral="GPT5"/>
+      <configSetting altId="gpt6.gtioc6a.pb08" configurationId="gpt6.gtioc6a" isUsedByDriver="true" peripheral="GPT6"/>
+      <configSetting altId="gpt6.gtioc6b.pb09" configurationId="gpt6.gtioc6b" isUsedByDriver="true" peripheral="GPT6"/>
+      <configSetting altId="gpt_poegd.gtetrgd.pc13" configurationId="gpt_poegd.gtetrgd" peripheral="GPT_POEGD"/>
+      <configSetting altId="jtag_fslash_swd.tck.pa14" configurationId="jtag_fslash_swd.tck" peripheral="JTAG/SWD"/>
+      <configSetting altId="jtag_fslash_swd.tdi.pa15" configurationId="jtag_fslash_swd.tdi" peripheral="JTAG/SWD"/>
+      <configSetting altId="jtag_fslash_swd.tdo.pb03" configurationId="jtag_fslash_swd.tdo" peripheral="JTAG/SWD"/>
+      <configSetting altId="jtag_fslash_swd.tms.pa13" configurationId="jtag_fslash_swd.tms" peripheral="JTAG/SWD"/>
       <configSetting altId="p001.input" configurationId="p001"/>
       <configSetting altId="pc06.output.low" configurationId="pc06"/>
       <configSetting altId="pd01.output.high" configurationId="pd01"/>
