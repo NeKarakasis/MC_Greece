@@ -35,18 +35,17 @@
         <peripheral name="PORTE" group="PORT">
             <slot name="PE01" secure="true"/>
         </peripheral>
-        <peripheral name="GPT4" group="GPT" security=""/>
-        <peripheral name="GPT5" group="GPT" security=""/>
-        <peripheral name="GPT6" group="GPT" security=""/>
-        <peripheral name="GPT_POEG3" group="GPT_POEG" security=""/>
-        <peripheral name="AGT0" group="AGT" security=""/>
-        <peripheral name="AGTW0" group="AGTW" security=""/>
-        <peripheral name="GPT1" group="GPT" security=""/>
+        <peripheral name="GPT4" group="GPT" security="s"/>
+        <peripheral name="GPT5" group="GPT" security="s"/>
+        <peripheral name="GPT6" group="GPT" security="s"/>
+        <peripheral name="GPT_POEG3" group="GPT_POEG" security="s"/>
+        <peripheral name="AGT0" group="AGT" security="s"/>
+        <peripheral name="GPT1" group="GPT" security="s"/>
         <peripheral name="ICU_EXT_IRQ">
             <slot name="ICU_EXT_IRQ2" secure="true"/>
         </peripheral>
-        <peripheral name="AGT1" group="AGT" security=""/>
-        <peripheral name="AGTW1" group="AGTW" security=""/>
+        <peripheral name="AGT1" group="AGT" security="s"/>
+        <peripheral name="GPT0" group="GPT" security="s"/>
         <peripheral name="ICU">
             <slot name="IRQ0" secure="true"/>
             <slot name="IRQ1" secure="true"/>

@@ -30,9 +30,13 @@
 ***********************************************************************************************************************/
 /* Standard library headers */
 #include <math.h>
-
+#include <stdbool.h>
 /* Main associated header file */
 #include "r_motor_speed.h"
+#include "r_mtr_ics.h"
+
+
+#define RPM_TO_RAD_PER_SEC(rpm) ((rpm) * (2.0f * 3.14159265f / 60.0f))
 
 /***********************************************************************************************************************
 * Function Name : motor_speed_max_speed_set
@@ -85,6 +89,31 @@ float motor_speed_rate_limit_apply(st_speed_control_t * p_st_sc)
     return (f4_speed_ref_calc_rad);
 } /* End of function motor_speed_rate_limit_apply */
 
+
+float dynamic_motor_speed_limit(st_speed_control_t * p_st_sc)
+{
+    float current_speed_rad = p_st_sc->f4_speed_rad;
+    float speed_rad_ctrl = p_st_sc->f4_ref_speed_rad_ctrl;
+
+    bool is_decelarating = speed_rad_ctrl < current_speed_rad;
+
+    if(is_decelarating){
+        p_st_sc->f4_speed_rate_limit_rad = RPM_TO_RAD_PER_SEC(SPEED_CFG_RATE_LIMIT_RPM3);
+    }
+    else{
+             if (current_speed_rad < RPM_TO_RAD_PER_SEC(5000.0f))
+           {
+              p_st_sc->f4_speed_rate_limit_rad = RPM_TO_RAD_PER_SEC(SPEED_CFG_RATE_LIMIT_RPM1); // High acceleration
+               }
+             else
+             {
+        p_st_sc->f4_speed_rate_limit_rad = RPM_TO_RAD_PER_SEC(SPEED_CFG_RATE_LIMIT_RPM2); // Low acceleration
+               }
+    }
+    return motor_speed_rate_limit_apply(p_st_sc);
+}
+
+
 /***********************************************************************************************************************
 * Function Name : motor_speed_pi_control
 * Description   : Speed PI control
@@ -125,7 +154,7 @@ float motor_speed_ref_speed_set(st_speed_control_t * p_st_sc)
 
         case SPEED_STATE_MANUAL:
             /* Limits the rate of change of speed reference */
-            f4_speed_ref_calc_rad = motor_speed_rate_limit_apply(p_st_sc);
+            f4_speed_ref_calc_rad = dynamic_motor_speed_limit(p_st_sc);
         break;
 
         default:

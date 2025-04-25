@@ -47,6 +47,7 @@ void motor_speed_max_speed_set(st_speed_control_t * p_st_sc, float f4_max_speed_
 void motor_speed_rate_limit_set(st_speed_control_t * p_st_sc, float f4_speed_rate_limit_rpm);
 float motor_speed_rate_limit_apply(st_speed_control_t * p_st_sc);
 float motor_speed_pi_control(st_speed_control_t * p_st_sc, float f4_speed_rad);
+float dynamic_motor_speed_limit(st_speed_control_t * p_st_sc);
 float motor_speed_ref_speed_set(st_speed_control_t * p_st_sc);
 void motor_speed_flux_weakening(st_speed_control_t * p_st_sc);
 void motor_speed_mtpa(st_speed_control_t * p_st_sc);

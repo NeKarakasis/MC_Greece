@@ -28,20 +28,21 @@
 /***********************************************************************************************************************
 * Includes <System Includes> , "Project Includes"
 ***********************************************************************************************************************/
+#include <LUT_inductances.h>
 #include "r_motor_current.h"
 #include "r_motor_current_api.h"
-#include "lut.h"
 
-/***********************************************************************************************************************
-* Exported global variables
-***********************************************************************************************************************/
-st_current_control_t      g_st_cc;           /* Current control structure */
+
+
 uint8_t g_u1_trq_vibration_comp_update_flag;
-
+st_current_control_t      g_st_cc;
 
 
 
 static float interpolate_ld(float id, float iq) {
+
+	if (fabsf(id) < 0.35f && iq < 0.3536f) return MOTOR_CFG_D_INDUCTANCE;
+
     int i, j;
 
     // Clamp Id and Iq within the bounds
@@ -85,6 +86,9 @@ static float interpolate_ld(float id, float iq) {
 }
 
 static float interpolate_lq(float id, float iq) {
+
+	if (fabsf(id) < 0.35f && iq < 0.3536f)return MOTOR_CFG_Q_INDUCTANCE;
+
     int i, j;
 
     // Clamp Id and Iq within the bounds
@@ -501,11 +505,17 @@ void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc)
             }
         }
 
+
+
         /*update PI gains based on new inductances*/
              p_st_cc->st_motor.f4_mtr_ld = interpolate_ld(p_st_cc->f4_id_ad,p_st_cc->f4_iq_ad);
              p_st_cc->st_motor.f4_mtr_lq = interpolate_lq(p_st_cc->f4_id_ad,p_st_cc->f4_iq_ad);
              motor_current_pi_gain_calc(p_st_cc, CURRENT_CFG_OMEGA, CURRENT_CFG_ZETA);
              R_MOTOR_CURRENT_BEMFObserverParameterUpdate(p_st_cc, &st_bemf_obs_cfg);
+
+
+
+
         /*====================================*/
         /*     Feedback control (Current)     */
         /*====================================*/
