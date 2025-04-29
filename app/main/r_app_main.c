@@ -37,7 +37,11 @@
 #include "r_motor_sensorless_vector_api.h"
 #include "r_cpu_diag.h"
 #include "r_ram_diag.h"
+#include "r_adc_diag.h"
+#include "r_rom_diag.h"
 
+
+#define CHECKSUM_START_ADDRESS (0xFFFFFF10)
 /***********************************************************************************************************************
 * Global variables
 ***********************************************************************************************************************/
@@ -55,6 +59,9 @@ static void     r_app_main_init_motor_ctrl(void);       /* Initialize motor cont
 static void     r_app_main_start_motor_ctrl(void);      /* Start motor control */
 static void		safety_CPU_test(void);					/* Test CPU for safety */
 static void 	ram_test_sample(void);					/* Test RAM for safety */
+static void		rom_test_sample(void);					/* Test RAM for safety */
+static void		adc_init_sample(void);					/* Initialaze for test the ADC for safety*/
+static void 	adc_test_sample(void);					/* The ADC for safety */
 
 /***********************************************************************************************************************
 * Function Name : main
@@ -62,6 +69,7 @@ static void 	ram_test_sample(void);					/* Test RAM for safety */
 * Arguments     : None
 * Return Value  : None
 ***********************************************************************************************************************/
+volatile static int32_t adc_cmt_counts[4] = {0,0,0,0};
 void main(void)
 {
 clrpsw_i();                                       /* Disable interrupt */
@@ -89,8 +97,29 @@ clrpsw_i();
 int32_t mtu_counter = MTU4.TCNT;
  Disable interrupt
 */
+int32_t tempcounter;
 safety_CPU_test();
 ram_test_sample();
+rom_test_sample();
+tempcounter = CMT1.CMCNT;
+R_Config_S12AD0_Stop();
+S12AD.ADCSR.BIT.ADST = 0;
+adc_cmt_counts[0] = CMT1.CMCNT - tempcounter;
+MTU.TRWERA.BIT.RWE = 1U;
+tempcounter =MTU4.TCNT;
+adc_init_sample();
+adc_cmt_counts[1] = MTU4.TCNT - tempcounter;
+MTU.TRWERA.BIT.RWE = 0U;
+tempcounter =CMT1.CMCNT;
+adc_test_sample();
+adc_cmt_counts[2] = CMT1.CMCNT - tempcounter;
+MTU.TRWERA.BIT.RWE = 1U;
+tempcounter =MTU4.TCNT;
+S12AD.ADCSR.BIT.ADST = 1;
+R_Config_S12AD0_Create();
+R_Config_S12AD0_Start();
+adc_cmt_counts[3] = MTU4.TCNT - tempcounter;
+MTU.TRWERA.BIT.RWE = 0U;
 setpsw_i();                                       /* Enable interrupt */
 
 
@@ -213,10 +242,11 @@ static void r_app_main_start_motor_ctrl(void)
 
     /* Start of CMT0 */
     R_Config_CMT0_Start();
+    R_Config_CMT1_Start();
 
     /* Clear POE with Create function before starting POE to avoid miss detection */
-    //R_Config_POE_Create();
-    //R_Config_POE_Start();
+    R_Config_POE_Create();
+    R_Config_POE_Start();
 } /* End of function r_app_main_start_motor_ctrl */
 
 static void SafetyErrorHandler(void)
@@ -288,3 +318,150 @@ uint32_t destructive;
 /* Enabling ECC */
 }
 
+#if 1
+int32_t duration_adc_sf_test[3] = {0,0,0};
+int32_t duration_adc_sf_test_cmt[3] = {0,0,0};
+
+void adc_init_sample(void)
+{
+	R_ADC_Diag_Init(); /* Call API */
+}
+
+void adc_test_sample(void)
+	{
+	uint8_t unit = 0;
+	uint8_t status = 0;
+	uint8_t voltage;
+	uint16_t value;
+		for ( voltage = 1; voltage <= 2; voltage++ )
+		{
+			MTU.TRWERA.BIT.RWE = 1U;
+			int32_t mtu_counter = MTU4.TCNT;
+			int32_t cmt_counter = CMT1.CMCNT;
+			value = R_ADC_Diag(unit, voltage); /* Call API */
+			status = (value & 0xC000) >> 14; /* Get self-diagnosis status */
+			value = value & 0x0FF0; /* Extract valid upper 8bit from A/D-converted value*/
+			/* Check API result */
+			switch ( status )
+			{
+				case 1U:
+					if ( 0x000 != value)
+						{
+							SafetyErrorHandler(); /* Failure detection */
+						}
+					break;
+				case 2U:
+					if (( 0x800 != value ) && ( 0x7F0 != value ))
+						{
+							SafetyErrorHandler(); /* Failure detection */
+						}
+					break;
+				case 3U:
+					if ( 0xFF0 != value )
+						{
+							SafetyErrorHandler(); /* Failure detection */
+						}
+					break;
+				default:
+						SafetyErrorHandler(); /* Failure detection */
+			}
+			duration_adc_sf_test[voltage - 1] = MTU4.TCNT - mtu_counter;
+			duration_adc_sf_test_cmt[voltage - 1] = CMT1.CMCNT - cmt_counter;
+
+			MTU.TRWERA.BIT.RWE = 0U;
+		}
+}
+#endif
+uint16_t calChecksum1 = 0;
+uint16_t calChecksum2 = 0;
+uint16_t calChecksum3 = 0;
+int16_t duration_rom_sf_test[6]={0,0,0,0,0,0};
+uint16_t *pExpChecksum = (uint16_t*)CHECKSUM_START_ADDRESS;
+uint32_t startAddress[4];
+uint32_t endAddress[4];
+
+void rom_test_sample(void)
+{
+	MTU.TRWERA.BIT.RWE = 1U;
+	uint32_t start;
+	uint32_t end;
+	uint32_t mode;
+	//uint16_t calChecksum;
+	/* Area where the expected CRC checksum values of each CODE block are aggregated. */
+	R_ROM_Diag_Init();
+	/* Disabling interrupts */
+	/* ROM Test: Block0 (4 KByte) */
+	start = 0xFFFF0100;
+	end = 0xFFFF10FF;
+	mode = 0;
+	int32_t mtu_counter = CMT1.CMCNT;
+	calChecksum1 = R_ROM_Diag(start, end, mode);
+	duration_rom_sf_test[0] = mtu_counter - CMT1.CMCNT;
+
+	start = 0xFFFF1100;
+	end = 0xFFFF20FF;
+	mtu_counter = CMT1.CMCNT;
+	calChecksum2 = R_ROM_Diag(start, end, mode);
+	duration_rom_sf_test[1] = mtu_counter - CMT1.CMCNT;
+
+	if (calChecksum1 != pExpChecksum [0])
+	{
+		SafetyErrorHandler(); /* Failure detection */
+	}
+/*	 ROM Test: Block1 (4 KByte, 4 time-wise split)
+	start = 0xFFFF1100;
+	end = 0xFFFF14FF;
+	mode = 0;
+
+	mtu_counter = CMT1.CMCNT;
+	calChecksum3 = R_ROM_Diag(start, end, mode);
+	duration_rom_sf_test[2] = mtu_counter - CMT1.CMCNT;
+
+	start = 0xFFFF1500;
+	end = 0xFFFF18FF;
+	mode = 1;
+	mtu_counter = CMT1.CMCNT;
+	calChecksum3 = R_ROM_Diag(start, end, mode);
+	duration_rom_sf_test[3] = mtu_counter - CMT1.CMCNT;
+
+	start = 0xFFFF1900;
+	end = 0xFFFF1CFF;
+	mtu_counter = CMT1.CMCNT;
+	calChecksum3 = R_ROM_Diag(start, end, mode);
+	duration_rom_sf_test[4] = mtu_counter - CMT1.CMCNT;
+
+	start = 0xFFFF1D00;
+	end = 0xFFFF20FF;
+	mtu_counter = CMT1.CMCNT;
+	calChecksum3 = R_ROM_Diag(start, end, mode);
+	duration_rom_sf_test[5] = mtu_counter - CMT1.CMCNT;*/
+	for(int i=  0; i < 64*2; i++)
+	{
+		start = 0xFFFF1100 + 0x20*i;
+		end = start-1 + 0x20;
+		if (i == 0)
+		{
+			mode = 0;
+		}
+		else
+		{
+			mode = 1;
+		}
+		mtu_counter = MTU4.TCNT;
+		calChecksum3 = R_ROM_Diag(start, end, mode);
+		if (i<4)
+		{
+			duration_rom_sf_test[i+2] = mtu_counter - MTU4.TCNT;
+			startAddress[i] = start;
+			endAddress[i] = end;
+		}
+
+
+	}
+	if (calChecksum3 != pExpChecksum [1])
+	{
+		SafetyErrorHandler(); /* Failure detection */
+	}
+/* Enabling interrupts */
+	MTU.TRWERA.BIT.RWE = 0U;
+}

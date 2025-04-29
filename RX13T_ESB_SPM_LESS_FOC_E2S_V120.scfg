@@ -154,7 +154,7 @@
         <Item currentVect="23" id="FCU_FRDYI" priority="15" usedState="Not Use"/>
         <Item currentVect="27" id="ICU_SWINT" priority="1" usedState="Used"/>
         <Item currentVect="28" id="CMT0_CMI0" priority="11" usedState="Used"/>
-        <Item currentVect="29" id="CMT1_CMI1" priority="15" usedState="Not Use"/>
+        <Item currentVect="29" id="CMT1_CMI1" priority="11" usedState="Not Use"/>
         <Item currentVect="32" id="CAC_FERRF" priority="15" usedState="Not Use"/>
         <Item currentVect="33" id="CAC_MENDF" priority="15" usedState="Not Use"/>
         <Item currentVect="34" id="CAC_OVFF" priority="15" usedState="Not Use"/>
@@ -1329,11 +1329,63 @@
                             <item id="Mode4" input="" vlaue="0"/>
                         </option>
                     </allocatable>
+                    <allocatable id="MotorMagnet">
+                        <isocket id="EncoderClk" selection="Clock.tool_clock_pclkb" value="3.2E7"/>
+                        <option enabled="true" id="PhaseCounter" selection="MTU0-MTU1">
+                            <item id="MTU0-MTU1" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="PhaseCounterPin" selection="ExtAB">
+                            <item id="ExtAB" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="CntClk" selection="Div1">
+                            <item id="Div1" input="" vlaue="0"/>
+                            <item id="Div2" input="" vlaue="0"/>
+                            <item id="Div4" input="" vlaue="0"/>
+                            <item id="Div8" input="" vlaue="0"/>
+                            <item id="Div16" input="" vlaue="0"/>
+                            <item id="Div32" input="" vlaue="0"/>
+                            <item id="Div64" input="" vlaue="0"/>
+                            <item id="Div256" input="" vlaue="0"/>
+                            <item id="Div1024" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="NMTint" selection="NotUsed">
+                            <item id="NotUsed" input="" vlaue="0"/>
+                            <item id="Use" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="false" id="NMTintPri" selection="Level15">
+                            <item id="Level0" input="" vlaue="0"/>
+                            <item id="Level1" input="" vlaue="0"/>
+                            <item id="Level2" input="" vlaue="0"/>
+                            <item id="Level3" input="" vlaue="0"/>
+                            <item id="Level4" input="" vlaue="0"/>
+                            <item id="Level5" input="" vlaue="0"/>
+                            <item id="Level6" input="" vlaue="0"/>
+                            <item id="Level7" input="" vlaue="0"/>
+                            <item id="Level8" input="" vlaue="0"/>
+                            <item id="Level9" input="" vlaue="0"/>
+                            <item id="Level10" input="" vlaue="0"/>
+                            <item id="Level11" input="" vlaue="0"/>
+                            <item id="Level12" input="" vlaue="0"/>
+                            <item id="Level13" input="" vlaue="0"/>
+                            <item id="Level14" input="" vlaue="0"/>
+                            <item id="Level15" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="EdgeSelection" selection="Rising">
+                            <item id="Rising" input="" vlaue="0"/>
+                            <item id="Falling" input="" vlaue="0"/>
+                            <item id="Both" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="PhaseCountingMode" selection="Mode1">
+                            <item id="Mode1" input="" vlaue="0"/>
+                            <item id="Mode4" input="" vlaue="0"/>
+                        </option>
+                    </allocatable>
                 </allocatable>
                 <option enabled="true" id="TabNum" selection="NoSensor">
                     <item id="NoSensor" input="" vlaue="0"/>
                     <item id="EncoderAndHall" input="" vlaue="0"/>
                     <item id="MagnetSensorDigiOut" input="" vlaue="0"/>
+                    <item id="MagnetSensorAnaOut" input="" vlaue="0"/>
                 </option>
             </allocatable>
             <component description="This software component provides driver configuration of PWM timer (Multi-function timer pulse unit (MTU) or general PWM timer (GPT)) and 12-bit A/D converter (S12AD) for basic motor control.&#10;&#10;The generated code is specific for the motor control and configures the timer event to trigger AD conversion." detailDescription="" display="Motor" id="com.renesas.smc.tools.swcomponent.codegenerator.motor" version="1.1.0"/>
@@ -1557,6 +1609,57 @@
             </allocatable>
             <component description="This software component provides configurations for Port Output Enable (POE) to place output pins for the MTU or output pins for the GPT in high-impedance state under various condition." detailDescription="" display="Port Output Enable" id="com.renesas.smc.tools.swcomponent.codegenerator.poe" version="1.11.0"/>
             <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Port Output Enable" display="POE" id="com.renesas.smc.swc.cg.rx.poe.rx13t.poe" type="POE">
+                <context/>
+            </allocator>
+            <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
+        </configuration>
+        <configuration apiMode="FULL_API" id="5930d15b-f78f-4df9-ad39-dfa8adf50273" inuse="true" name="Config_CMT1">
+            <allocatable id="CMT1">
+                <isocket id="CountingClock" selection="Clock.tool_clock_pclkb" value="3.2E7"/>
+                <option enabled="true" id="ClockDivision" selection="Devide32">
+                    <item id="Devide8" input="" vlaue="0"/>
+                    <item id="Devide32" input="" vlaue="0"/>
+                    <item id="Devide128" input="" vlaue="0"/>
+                    <item id="Devide512" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="IntervalValue" selection="IntervalValue">
+                    <item id="IntervalValue" input="65" vlaue="64999"/>
+                </option>
+                <option enabled="true" id="IntervalUnit" selection="ms">
+                    <item id="ms" input="" vlaue="0"/>
+                    <item id="us" input="" vlaue="0"/>
+                    <item id="ns" input="" vlaue="0"/>
+                    <item id="Count" input="" vlaue="0"/>
+                </option>
+                <option enabled="true" id="IntCMWIEnable" selection="Disable">
+                    <item id="Enable" input="" vlaue="0"/>
+                    <item id="Disable" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="MultiIntCMIEnable" selection="UnCheck">
+                    <item id="Check" input="" vlaue="0"/>
+                    <item id="UnCheck" input="" vlaue="0"/>
+                </option>
+                <option enabled="false" id="IntCMWIPriority" selection="Level11">
+                    <item id="Level0" input="" vlaue="0"/>
+                    <item id="Level1" input="" vlaue="0"/>
+                    <item id="Level2" input="" vlaue="0"/>
+                    <item id="Level3" input="" vlaue="0"/>
+                    <item id="Level4" input="" vlaue="0"/>
+                    <item id="Level5" input="" vlaue="0"/>
+                    <item id="Level6" input="" vlaue="0"/>
+                    <item id="Level7" input="" vlaue="0"/>
+                    <item id="Level8" input="" vlaue="0"/>
+                    <item id="Level9" input="" vlaue="0"/>
+                    <item id="Level10" input="" vlaue="0"/>
+                    <item id="Level11" input="" vlaue="0"/>
+                    <item id="Level12" input="" vlaue="0"/>
+                    <item id="Level13" input="" vlaue="0"/>
+                    <item id="Level14" input="" vlaue="0"/>
+                    <item id="Level15" input="" vlaue="0"/>
+                </option>
+            </allocatable>
+            <component description="This software component provides configurations for 16-bit/32-bit timer with Compare Match Timer (CMT) / Compare Match Timer W (CMTW) module and can generate interrupts at set intervals." detailDescription="" display="Compare Match Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.cmtw" version="2.3.0"/>
+            <allocator channelLevel0="1" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Compare Match Timer 1" display="CMT1" id="com.renesas.smc.tools.swcomponent.codegenerator.cmtw.rx13t.cmt1" type="CMT">
                 <context/>
             </allocator>
             <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>

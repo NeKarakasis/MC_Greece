@@ -18,10 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : r_cg_hardware_setup.c
-* Version          : 1.0.150
+* File Name        : Config_CMT1.c
+* Component Version: 2.3.0
 * Device(s)        : R5F513T3AxFJ
-* Description      : Initialization file for code generation configurations.
+* Description      : This file implements device driver for Config_CMT1.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -34,16 +34,7 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_PORT.h"
-#include "Config_IWDT.h"
-#include "Config_CMT0.h"
-#include "Config_S12AD0.h"
-#include "Config_MOTOR.h"
-#include "Config_POE.h"
 #include "Config_CMT1.h"
-#include "r_smc_cgc.h"
-#include "r_smc_interrupt.h"
-
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -55,60 +46,50 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: r_undefined_exception
-* Description  : This function is undefined interrupt service routine
+* Function Name: R_Config_CMT1_Create
+* Description  : This function initializes the CMT1 channel
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-#if BSP_CFG_BOOTLOADER_PROJECT == 0
-/* Disable the following function in the bootloader project. */
-void r_undefined_exception(void)
+void R_Config_CMT1_Create(void)
 {
-    /* Start user code for r_undefined_exception. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
+    /* Cancel CMT stop state in LPC */
+    MSTP(CMT1) = 0U;
+
+    /* Set control registers */
+    CMT1.CMCR.WORD = _0001_CMT_CMCR_CLOCK_PCLK32 | _0080_CMT_CMCR_DEFAULT;
+
+    /* Set compare match register */
+    CMT1.CMCOR = _FDE7_CMT1_CMCOR_VALUE;
+
+    R_Config_CMT1_Create_UserInit();
 }
-#endif /* BSP_CFG_BOOTLOADER_PROJECT == 0 */
 
 /***********************************************************************************************************************
-* Function Name: R_Systeminit
-* Description  : This function initializes every configuration
+* Function Name: R_Config_CMT1_Start
+* Description  : This function starts the CMT1 channel counter
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Systeminit(void)
+
+void R_Config_CMT1_Start(void)
 {
-    /* Enable writing to registers related to operating modes, LPC, CGC, software reset and LVD */
-    SYSTEM.PRCR.WORD = 0xA50BU;
+    /* Start CMT1 count */
+    CMT.CMSTR0.BIT.STR1 = 1U;
+}
 
-    /* Enable writing to MPC pin function control registers */
-    MPC.PWPR.BIT.B0WI = 0U;
-    MPC.PWPR.BIT.PFSWE = 1U;
+/***********************************************************************************************************************
+* Function Name: R_Config_CMT1_Stop
+* Description  : This function stop the CMT1 channel counter
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
 
-    /* Initialize clocks settings */
-    R_CGC_Create();
-
-    /* Set peripheral settings */
-    R_Config_PORT_Create();
-    R_Config_IWDT_Create();
-    R_Config_CMT0_Create();
-    R_Config_S12AD0_Create();
-    R_Config_MOTOR_Create();
-    R_Config_POE_Create();
-    R_Config_CMT1_Create();
-
-#if BSP_CFG_BOOTLOADER_PROJECT == 0
-    /* Disable the following codes in the bootloader project. */
-    /* Register undefined interrupt */
-    R_BSP_InterruptWrite(BSP_INT_SRC_UNDEFINED_INTERRUPT,(bsp_int_cb_t)r_undefined_exception);
-#endif /* BSP_CFG_BOOTLOADER_PROJECT == 0 */
-
-    /* Disable writing to MPC pin function control registers */
-    MPC.PWPR.BIT.PFSWE = 0U;
-    MPC.PWPR.BIT.B0WI = 1U;
-
-    /* Enable protection */
-    SYSTEM.PRCR.WORD = 0xA500U;
+void R_Config_CMT1_Stop(void)
+{
+    /* Stop CMT1 count */
+    CMT.CMSTR0.BIT.STR1 = 0U;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

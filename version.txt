@@ -1,3 +1,6 @@
+-----29/4/25-----
+- Nektarios: Commiting ROM and ADC, both measured and working fine. Add cmt1 for debugging proposes and timing measurements.
+
 
 -----14/4/25-----
 - Nektarios: Porting ROM FuSa testing. Does not be tested yet.
