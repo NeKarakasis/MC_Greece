@@ -45,9 +45,9 @@
 
 #define     MOTOR_CFG_POLE_PAIRS            (5)             /* Number of pole pairs */
 #define     MOTOR_CFG_MAGNETIC_FLUX         (0.134f)         /* Permanent magnetic flux [Wb] */
-#define     MOTOR_CFG_RESISTANCE            (8.22f)     /* Resistance [ohm] */
-#define     MOTOR_CFG_D_INDUCTANCE          (0.0702f)     /* D-axis inductance [H] */
-#define     MOTOR_CFG_Q_INDUCTANCE          (0.0884f)     /* Q-axis inductance [H] */
+#define     MOTOR_CFG_RESISTANCE            (9.00f)     /* Resistance [ohm] */
+#define     MOTOR_CFG_D_INDUCTANCE          (0.0565f)     /* D-axis inductance [H] */
+#define     MOTOR_CFG_Q_INDUCTANCE          (0.0702f)     /* Q-axis inductance [H] */
 #define     MOTOR_CFG_ROTOR_INERTIA         (0.000497f)    /* Rotor(0.00137) + TN(0.00149) inertia [kgm^2],  */
 #define     MOTOR_CFG_NOMINAL_CURRENT_RMS   (2.0f)          /* Nominal current [Arms] */
 #define     MOTOR_CFG_MAX_SPEED_RPM         (11000.0f)       /* maximum speed [rpm] (mechanical angle) */

@@ -364,8 +364,8 @@ const gpt_extended_cfg_t g_timer_gpt6_extend =
 
 const timer_cfg_t g_timer_gpt6_cfg = { .mode =
 		TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
-/* Actual period: 0.00025 seconds. Actual duty: 50%. */.period_counts =
-		(uint32_t) 0x3a98, .duty_cycle_counts = 0x1d4c, .source_div =
+/* Actual period: 0.00005 seconds. Actual duty: 50%. */.period_counts =
+		(uint32_t) 0xbb8, .duty_cycle_counts = 0x5dc, .source_div =
 		(timer_source_div_t) 0, .channel = 6, .p_callback = NULL,
 /** If NULL then do not add & */
 #if defined(NULL)
@@ -462,8 +462,8 @@ const gpt_extended_cfg_t g_timer_gpt5_extend =
 
 const timer_cfg_t g_timer_gpt5_cfg = { .mode =
 		TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
-/* Actual period: 0.00025 seconds. Actual duty: 50%. */.period_counts =
-		(uint32_t) 0x3a98, .duty_cycle_counts = 0x1d4c, .source_div =
+/* Actual period: 0.00005 seconds. Actual duty: 50%. */.period_counts =
+		(uint32_t) 0xbb8, .duty_cycle_counts = 0x5dc, .source_div =
 		(timer_source_div_t) 0, .channel = 5, .p_callback = NULL,
 /** If NULL then do not add & */
 #if defined(NULL)
@@ -562,8 +562,8 @@ const gpt_extended_cfg_t g_timer_gpt4_extend =
 
 const timer_cfg_t g_timer_gpt4_cfg = { .mode =
 		TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
-/* Actual period: 0.00025 seconds. Actual duty: 50%. */.period_counts =
-		(uint32_t) 0x3a98, .duty_cycle_counts = 0x1d4c, .source_div =
+/* Actual period: 0.00005 seconds. Actual duty: 50%. */.period_counts =
+		(uint32_t) 0xbb8, .duty_cycle_counts = 0x5dc, .source_div =
 		(timer_source_div_t) 0, .channel = 4, .p_callback = NULL,
 /** If NULL then do not add & */
 #if defined(NULL)
