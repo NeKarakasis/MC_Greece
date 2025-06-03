@@ -372,6 +372,9 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
 #if defined(MOTOR_SHUNT_TYPE_2_SHUNT)
     /* Current, Voltage detection */
     R_MOTOR_DRIVER_BldcAnalogGet(p_st_sensorless_vector->p_st_driver,
+    							 p_st_sensorless_vector->st_current_output.f4_modu,
+							     p_st_sensorless_vector->st_current_output.f4_modv,
+							     p_st_sensorless_vector->st_current_output.f4_modw,
                                  &p_st_sensorless_vector->f4_iu_ad,
 								 &p_st_sensorless_vector->f4_iv_ad,
                                  &p_st_sensorless_vector->f4_iw_ad,
@@ -457,7 +460,7 @@ setpsw_i();                                             /* Interrupt enable */
                                        p_st_sensorless_vector->st_current_output.f4_modu,
                                        p_st_sensorless_vector->st_current_output.f4_modv,
                                        p_st_sensorless_vector->st_current_output.f4_modw);
-            //R_MOTOR_DRIVER_BldcDutySet(p_st_sensorless_vector->p_st_driver, 0.15f, 0.0f, 0.0f);
+            //R_MOTOR_DRIVER_BldcDutySet(p_st_sensorless_vector->p_st_driver, 0.0f, 0.3f, 0.0f);
 
 #endif
         }

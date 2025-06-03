@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : r_cg_port.h
 * Version          : 1.0.150
-* Device(s)        : R5F513T3AxFJ
+* Device(s)        : R5F513T3AxFL
 * Description      : General header file for PORT peripheral.
 ***********************************************************************************************************************/
 
@@ -63,12 +63,6 @@ Macro definitions (Register bit)
 #define _40_Pm6_MODE_OUTPUT     (0x40U) /* Pm6 as output */
 #define _00_Pm7_MODE_INPUT      (0x00U) /* Pm7 as input */
 #define _80_Pm7_MODE_OUTPUT     (0x80U) /* Pm7 as output */
-#define _01_PDR1_DEFAULT        (0x01U) /* PDR1 default value */
-#define _1C_PDR2_DEFAULT        (0x1C)  /* PDR2 default value */
-#define _E0_PDR4_DEFAULT        (0xE0U) /* PDR4 default value */
-#define _01_PDR7_DEFAULT        (0x01U) /* PDR7 default value */
-#define _30_PDRB_DEFAULT        (0x30U) /* PDRB default value */
-#define _78_PDRD_DEFAULT        (0x78U) /* PDRD default value */
 
 /*
     Port Output Data Register (PODR)

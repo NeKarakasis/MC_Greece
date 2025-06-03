@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : Config_MOTOR.h
 * Component Version: 1.1.0
-* Device(s)        : R5F513T3AxFJ
+* Device(s)        : R5F513T3AxFL
 * Description      : This file implements device driver for Config_MOTOR.
 ***********************************************************************************************************************/
 
@@ -250,9 +250,6 @@ Macro definitions
 #define CG_MOTOR_CFG_MAX_AD_DATA                      (4095.0f)        /* Max A/D data */
 #define CG_MOTOR_MCU_CFG_AD_FREQ                      (32.0f)          /* A/D frequency [MHz] */
 
-#ifndef MTR_ADC_TB
-#define MTR_ADC_TB
-#endif
 
 #ifndef MTR_ADC_TS
 #define MTR_ADC_TS

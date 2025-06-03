@@ -106,7 +106,7 @@ Configuration Options
    NE           = 0x10            = QFN/48/0.50
    NH           = 0x11            = QFN/32/0.50
 */
-#define BSP_CFG_MCU_PART_PACKAGE        (0x0) /* Generated value. Do not edit this manually */
+#define BSP_CFG_MCU_PART_PACKAGE        (0x3) /* Generated value. Do not edit this manually */
 
 /* ROM, RAM, and Data Flash Capacity.
    Character(s) = Value for macro = ROM Size/Ram Size/Data Flash Size

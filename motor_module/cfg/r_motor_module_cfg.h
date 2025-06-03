@@ -85,7 +85,7 @@
 */
 #define     MOTOR_COMMON_CFG_LOOP_MODE                  (MOTOR_LOOP_SPEED)
 
-#define     MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT    (1.5f)
+#define     MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT    (5.0f)
 
 #if defined(MOTOR_TYPE_BLDC)
 #define     MOTOR_COMMON_CFG_IA_MAX_CALC_MULT           (MTR_SQRT_3)
@@ -131,10 +131,10 @@
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 #define     CURRENT_CFG_E_OBS_OMEGA             (550.0f)                            /* Natural frequency of BEMF observer */
 #elif defined(MOTOR_SHUNT_TYPE_2_SHUNT)
-#define     CURRENT_CFG_E_OBS_OMEGA             (500.0f)                            /* Natural frequency of BEMF observer */
+#define     CURRENT_CFG_E_OBS_OMEGA             (200.0f)                            /* Natural frequency of BEMF observer */
 #endif
 #define     CURRENT_CFG_E_OBS_ZETA              (1.0f)                              /* Damping ratio of BEMF observer */
-#define     CURRENT_CFG_PLL_EST_OMEGA           (8.0f)                             /* Natural frequency of PLL Speed estimate loop */
+#define     CURRENT_CFG_PLL_EST_OMEGA           (15.0f)                             /* Natural frequency of PLL Speed estimate loop */
 #define     CURRENT_CFG_PLL_EST_ZETA            (1.0f)                              /* Damping ratio of PLL Speed estimate loop */
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 #define     CURRENT_CFG_MIN_DIFFERENCE_DUTY     (192)                               /* Minimum difference of PWM duty */
@@ -151,10 +151,10 @@
  * for Speed Module(speed_rx)
  */
 /* Defines whether use flux-weakening in FOC */
-#define     SPEED_CFG_FLUX_WEAKENING            (MTR_ENABLE)
+#define     SPEED_CFG_FLUX_WEAKENING            (MTR_DISABLE)
 
 /* Defines whether use MTPA in FOC */
-#define     SPEED_CFG_MTPA                      (MTR_ENABLE)
+#define     SPEED_CFG_MTPA                      (MTR_DISABLE)
 
 /* Defines whether perform soft switching between open-loop and vector control */
 #define     SPEED_CFG_LESS_SWITCH               (MTR_ENABLE)
@@ -163,12 +163,12 @@
 #define     SPEED_CFG_OPENLOOP_DAMPING          (MTR_ENABLE)
 
 #define     SPEED_CFG_CTRL_PERIOD               (0.001f)        /* control period for speed loop */
-#define     SPEED_CFG_OMEGA                     (0.5f)          /* natural frequency for speed loop */
+#define     SPEED_CFG_OMEGA                     (0.1f)          /* natural frequency for speed loop */
 #define     SPEED_CFG_ZETA                      (1.0f)          /* damping ratio for speed loop */
 #define     SPEED_CFG_LPF_OMEGA                 (10.0f)         /* natural frequency for speed LPF */
 #define     SPEED_CFG_SPEED_LIMIT_RPM           (6000.0f)       /* over speed limit [rpm] (mechanical angle) */
 #define     SPEED_CFG_RATE_LIMIT_RPM            (500.0f)       /* Rate limit of speed change [rpm/s] */
-#define     SPEED_OPL2LESS_SWITCH_TIME          (0.3f)        /* Time[s] to switch open-loop to sensor-less */
+#define     SPEED_OPL2LESS_SWITCH_TIME          (0.8f)        /* Time[s] to switch open-loop to sensor-less */
 #define     SPEED_OPL_DAMP_ED_HPF_OMEGA         (2.5f)          /* HPF cutoff frequency for ed [Hz] */
 #define     SPEED_OPL_DAMP_ZETA                 (1.0f)          /* Damping ratio of open-loop damping control */
 #define     SPEED_OPL_DAMP_FB_SPEED_LIMIT_RATE  (0.2f)          /* Rate of reference speed for feedback speed limiter */

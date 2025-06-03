@@ -1,3 +1,6 @@
+-----3/6/25-----
+- Nektarios: Created the Portal3 branch and commit the porting and the FuSa of ADC,CPU,RAM,ROM.
+
 -----29/4/25-----
 - Nektarios: Commiting ROM and ADC, both measured and working fine. Add cmt1 for debugging proposes and timing measurements.
 

@@ -457,7 +457,7 @@ setpsw_i();                                             /* Interrupt enable */
                                        p_st_sensorless_vector->st_current_output.f4_modu,
                                        p_st_sensorless_vector->st_current_output.f4_modv,
                                        p_st_sensorless_vector->st_current_output.f4_modw);
-            R_MOTOR_DRIVER_BldcDutySet(p_st_sensorless_vector->p_st_driver, 0.15f, 0.0f, 0.0f);
+            //R_MOTOR_DRIVER_BldcDutySet(p_st_sensorless_vector->p_st_driver, 0.15f, 0.0f, 0.0f);
 
 #endif
         }

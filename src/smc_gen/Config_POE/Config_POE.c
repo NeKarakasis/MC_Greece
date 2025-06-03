@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : Config_POE.c
 * Component Version: 1.11.0
-* Device(s)        : R5F513T3AxFJ
+* Device(s)        : R5F513T3AxFL
 * Description      : This file implements device driver for Config_POE.
 ***********************************************************************************************************************/
 
@@ -55,8 +55,9 @@ Global variables and functions
 void R_Config_POE_Create(void)
 {
     /* Active levels setting of the MTU outputs */
-    POE.ALR1.WORD = _0000_POE_MTIOC3B_LOW | _0000_POE_MTIOC3D_LOW | _0000_POE_MTIOC4A_LOW | _0000_POE_MTIOC4C_LOW | 
-                    _0000_POE_MTIOC4B_LOW | _0000_POE_MTIOC4D_LOW | _0080_POE_ACTIVELEL_ENABLE;
+    POE.ALR1.WORD = _0001_POE_MTIOC3B_HIGH | _0002_POE_MTIOC3D_HIGH | _0004_POE_MTIOC4A_HIGH | 
+                    _0008_POE_MTIOC4C_HIGH | _0010_POE_MTIOC4B_HIGH | _0020_POE_MTIOC4D_HIGH | 
+                    _0080_POE_ACTIVELEL_ENABLE;
 
     /* Port output enable control setting */
     POE.POECR1.BYTE = _00_POE_MTU0APIN_DISABLE | _00_POE_MTU0BPIN_DISABLE | _00_POE_MTU0CPIN_DISABLE | 
@@ -109,6 +110,12 @@ void R_Config_POE_Stop(void)
     /* Disable POE3 interrupts in ICU */
     IEN(POE,OEI1) = 0U;
     IEN(POE,OEI3)= 0U;
+
+    /* Clear POE0F flag */
+    if (1U == POE.ICSR1.BIT.POE0F)
+    {
+        POE.ICSR1.BIT.POE0F = 0U;
+    }
 
     /* Clear POE8F flag */
     if (1U == POE.ICSR3.BIT.POE8F)

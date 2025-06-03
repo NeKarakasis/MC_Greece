@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : Config_MOTOR.c
 * Component Version: 1.1.0
-* Device(s)        : R5F513T3AxFJ
+* Device(s)        : R5F513T3AxFL
 * Description      : This file implements device driver for Config_MOTOR.
 ***********************************************************************************************************************/
 
@@ -87,8 +87,8 @@ void R_Config_MOTOR_Create(void)
     MTU3.TGRA = _0AA9_SUM_VALUE;
     MTU3.TGRC = _0AA9_SUM_VALUE;
     MTU.TOCR1A.BYTE = _00_MTR_MTU_PSYE_DISABLE | _08_MTR_MTU_TOCL_DISABLE | _04_MTR_MTU_TOCS_TOCR2;
-    MTU.TOCR2A.BYTE = _00_MTR_MTU_OLS3N_HL | _00_MTR_MTU_OLS3P_HL | _00_MTR_MTU_OLS2N_HL | _00_MTR_MTU_OLS2P_HL | 
-                      _00_MTR_MTU_OLS1N_HL | _00_MTR_MTU_OLS1P_HL;
+    MTU.TOCR2A.BYTE = _20_MTR_MTU_OLS3N_LH | _10_MTR_MTU_OLS3P_LH | _08_MTR_MTU_OLS2N_LH | _04_MTR_MTU_OLS2P_LH | 
+                      _02_MTR_MTU_OLS1N_LH | _01_MTR_MTU_OLS1P_LH;
     MTU.TOLBRA.BYTE = MTU.TOCR2A.BYTE & 0x3FU;
     MTU4.TADCORA = _0002_MTR_MTU_TADCORA_VALUE;
     MTU4.TADCOBRA = _0002_MTR_MTU_TADCORA_VALUE;
@@ -105,32 +105,32 @@ void R_Config_MOTOR_Create(void)
     MTU.TRWERA.BIT.RWE = 0U;
 
     //Init Up (MTIOC3B)
-    PORT7.PODR.BIT.B1 = 1U; //Active Low
+    PORT7.PODR.BIT.B1 = 0U; //Active High
     PORT7.PDR.BIT.B1 = 1U;
     PORT7.PMR.BIT.B1 = 0U;
     MPC.P71PFS.BIT.PSEL = 1U;
     //Init Un (MTIOC3D)
-    PORT7.PODR.BIT.B4 = 1U; //Active Low
+    PORT7.PODR.BIT.B4 = 0U; //Active High
     PORT7.PDR.BIT.B4 = 1U;
     PORT7.PMR.BIT.B4 = 0U;
     MPC.P74PFS.BIT.PSEL = 1U;
     //Init Vp (MTIOC4A)
-    PORT7.PODR.BIT.B2 = 1U; //Active Low
+    PORT7.PODR.BIT.B2 = 0U; //Active High
     PORT7.PDR.BIT.B2 = 1U;
     PORT7.PMR.BIT.B2 = 0U;
     MPC.P72PFS.BIT.PSEL = 1U;
     //Init Wp (MTIOC4B)
-    PORT7.PODR.BIT.B3 = 1U; //Active Low
+    PORT7.PODR.BIT.B3 = 0U; //Active High
     PORT7.PDR.BIT.B3 = 1U;
     PORT7.PMR.BIT.B3 = 0U;
     MPC.P73PFS.BIT.PSEL = 1U;
     //Init Vn (MTIOC4C)
-    PORT7.PODR.BIT.B5 = 1U; //Active Low
+    PORT7.PODR.BIT.B5 = 0U; //Active High
     PORT7.PDR.BIT.B5 = 1U;
     PORT7.PMR.BIT.B5 = 0U;
     MPC.P75PFS.BIT.PSEL = 1U;
     //Init Wn (MTIOC4D)
-    PORT7.PODR.BIT.B6 = 1U; //Active Low
+    PORT7.PODR.BIT.B6 = 0U; //Active High
     PORT7.PDR.BIT.B6 = 1U;
     PORT7.PMR.BIT.B6 = 0U;
     MPC.P76PFS.BIT.PSEL = 1U;
@@ -179,22 +179,22 @@ void R_Config_MOTOR_StartTimerCtrl(void)
     MTU.TRWERA.BIT.RWE = 1U;
 
     //Control Up (MTIOC3B)
-    PORT7.PODR.BIT.B1 = 1U; //Active Low
+    PORT7.PODR.BIT.B1 = 0U; //Active High
     PORT7.PMR.BIT.B1 = 1U;
     //Control Un (MTIOC3D)
-    PORT7.PODR.BIT.B4 = 1U; //Active Low
+    PORT7.PODR.BIT.B4 = 0U; //Active High
     PORT7.PMR.BIT.B4 = 1U;
     //Control Vp (MTIOC4A)
-    PORT7.PODR.BIT.B2 = 1U; //Active Low
+    PORT7.PODR.BIT.B2 = 0U; //Active High
     PORT7.PMR.BIT.B2 = 1U;
     //Control Wp (MTIOC4B)
-    PORT7.PODR.BIT.B3 = 1U; //Active Low
+    PORT7.PODR.BIT.B3 = 0U; //Active High
     PORT7.PMR.BIT.B3 = 1U;
     //Control Vn (MTIOC4C)
-    PORT7.PODR.BIT.B5 = 1U; //Active Low
+    PORT7.PODR.BIT.B5 = 0U; //Active High
     PORT7.PMR.BIT.B5 = 1U;
     //Control Wn (MTIOC4D)
-    PORT7.PODR.BIT.B6 = 1U; //Active Low
+    PORT7.PODR.BIT.B6 = 0U; //Active High
     PORT7.PMR.BIT.B6 = 1U;
     //Enable MTU3,MTU4 PWM output
     MTU.TOERA.BYTE = _C1_MTR_MTU_OE3B_ENABLE | _C8_MTR_MTU_OE3D_ENABLE | _C2_MTR_MTU_OE4A_ENABLE | 
@@ -219,22 +219,22 @@ void R_Config_MOTOR_StopTimerCtrl(void)
     //Disable MTU3,MTU4 PWM output
     MTU.TOERA.BYTE = 0xC0U;
     //Control Up (MTIOC3B)
-    PORT7.PODR.BIT.B1 = 1U; //Active Low
+    PORT7.PODR.BIT.B1 = 0U; //Active High
     PORT7.PMR.BIT.B1 = 0U;
     //Control Un (MTIOC3D)
-    PORT7.PODR.BIT.B4 = 1U; //Active Low
+    PORT7.PODR.BIT.B4 = 0U; //Active High
     PORT7.PMR.BIT.B4 = 0U;
     //Control Vp (MTIOC4A)
-    PORT7.PODR.BIT.B2 = 1U; //Active Low
+    PORT7.PODR.BIT.B2 = 0U; //Active High
     PORT7.PMR.BIT.B2 = 0U;
     //Control Wp (MTIOC4B)
-    PORT7.PODR.BIT.B3 = 1U; //Active Low
+    PORT7.PODR.BIT.B3 = 0U; //Active High
     PORT7.PMR.BIT.B3 = 0U;
     //Control Vn (MTIOC4C)
-    PORT7.PODR.BIT.B5 = 1U; //Active Low
+    PORT7.PODR.BIT.B5 = 0U; //Active High
     PORT7.PMR.BIT.B5 = 0U;
     //Control Wn (MTIOC4D)
-    PORT7.PODR.BIT.B6 = 1U; //Active Low
+    PORT7.PODR.BIT.B6 = 0U; //Active High
     PORT7.PMR.BIT.B6 = 0U;
 
     /* Disable read/write to MTU3, MTU4 registers */

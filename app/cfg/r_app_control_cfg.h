@@ -53,6 +53,7 @@
  * 0x52 - SCI5  P23/TXD5  P24/RXD5
  * 0xC0 - SCI12 PB0/TXD12 P94/RXD12
 */
-#define APP_CFG_SCI_CH_SELECT     (0x51)
+
+#define APP_CFG_SCI_CH_SELECT     (0x11) // Portal 3 usting PB7 and PB6,
 
 #endif /* R_APP_CONTROL_CFG_H */

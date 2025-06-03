@@ -20,7 +20,7 @@
 /***********************************************************************************************************************
 * File Name        : Config_PORT.c
 * Component Version: 2.4.1
-* Device(s)        : R5F513T3AxFJ
+* Device(s)        : R5F513T3AxFL
 * Description      : This file implements device driver for Config_PORT.
 ***********************************************************************************************************************/
 
@@ -55,18 +55,6 @@ Global variables and functions
 
 void R_Config_PORT_Create(void)
 {
-    /* Set PORT7 registers */
-    PORT7.ODR0.BYTE = _00_Pm1_CMOS_OUTPUT | _00_Pm2_CMOS_OUTPUT | _00_Pm3_CMOS_OUTPUT;
-    PORT7.ODR1.BYTE = _00_Pm4_CMOS_OUTPUT | _00_Pm5_CMOS_OUTPUT | _00_Pm6_CMOS_OUTPUT;
-
-    /* Set PORTB registers */
-    PORTB.PODR.BYTE = _08_Pm3_OUTPUT_1 | _00_Pm6_OUTPUT_0 | _00_Pm7_OUTPUT_0;
-    PORTB.ODR0.BYTE = _00_Pm0_CMOS_OUTPUT | _00_Pm1_CMOS_OUTPUT | _00_Pm2_CMOS_OUTPUT | _00_Pm3_CMOS_OUTPUT;
-    PORTB.ODR1.BYTE = _00_Pm6_CMOS_OUTPUT | _00_Pm7_CMOS_OUTPUT;
-    PORTB.DSCR.BYTE = _00_Pm0_HIDRV_OFF | _00_Pm3_HIDRV_OFF | _00_Pm7_HIDRV_OFF;
-    PORTB.PMR.BYTE = _00_Pm3_PIN_GPIO | _00_Pm6_PIN_GPIO | _00_Pm7_PIN_GPIO;
-    PORTB.PDR.BYTE = _08_Pm3_MODE_OUTPUT | _40_Pm6_MODE_OUTPUT | _80_Pm7_MODE_OUTPUT | _30_PDRB_DEFAULT;
-
     R_Config_PORT_Create_UserInit();
 }
 
