@@ -1,4 +1,7 @@
 -----3/6/25-----
+- Nektarios: Port Clock FuSa function, modify the checksum and build.bat file for the new project names and paths.
+
+-----3/6/25-----
 - Nektarios: Created the Portal3 branch and commit the porting and the FuSa of ADC,CPU,RAM,ROM.
 
 -----29/4/25-----

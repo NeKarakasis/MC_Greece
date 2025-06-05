@@ -8,7 +8,7 @@ REM Paths: Set these according to your system
 REM ------------------------------------------------------------
 echo Setting up paths...
 set RLINK="C:\Program Files (x86)\Renesas\RX\3_7_0\bin\rlink.exe"
-set ABS_BASE="C:\Git Hub\RX13T_ESB_SPM_LESS_FOC_E2S_V120\HardwareDebug\RX13T_ESB_SPM_LESS_FOC_E2S_V120"
+set ABS_BASE="C:\Git Hub\beko_dishwasher_v2\Portal3\HardwareDebug\Portal3"
 echo RLINK path: %RLINK%
 echo ABS path base: %ABS_BASE%
 pause
@@ -18,7 +18,7 @@ REM Call the checksum generation script
 REM ------------------------------------------------------------
 echo Calling checksum.cmd with provided paths...
 pause
-call "C:\Git Hub\RX13T_ESB_SPM_LESS_FOC_E2S_V120\checksum.cmd" %RLINK% %ABS_BASE%
+call "C:\Git Hub\beko_dishwasher_v2\Portal3\checksum.cmd" %RLINK% %ABS_BASE%
 echo Returned from checksum.cmd
 pause
 REM ------------------------------------------------------------
