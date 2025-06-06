@@ -40,6 +40,7 @@
 #include "r_adc_diag.h"
 #include "r_rom_diag.h"
 #include "r_clock_mon.h"
+#include "r_vol_mon.h"
 
 
 #define CHECKSUM_START_ADDRESS (0xFFFFFF10)
@@ -67,6 +68,7 @@ static void 	FuSa_clock_monitor(void);				/*Initiate and start the clock monitor
 
 #pragma interrupt r_Config_CAC_OSCILATION_interrupt(vect = VECT_CAC_FERRF)
 #pragma interrupt r_Config_CAC_OVERFLOW_interrupt(vect = VECT_CAC_OVFF)
+#pragma interrupt r_Config_LVD_LVD1_interrupt(vect = VECT_LVD_LVD1)
 
 
 /***********************************************************************************************************************
@@ -128,6 +130,11 @@ adc_cmt_counts[3] = MTU4.TCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 0U;
 
 FuSa_clock_monitor();
+
+/* 2.9V trigger voltage */
+uint8_t evoltage = 6;
+R_VOL_Mon_Init(evoltage);
+
 setpsw_i();                                       /* Enable interrupt */
 
 
@@ -490,3 +497,8 @@ static void r_Config_CAC_OVERFLOW_interrupt()
 	SafetyErrorHandler();
 }
 
+static void r_Config_LVD_LVD1_interrupt()
+{
+	SafetyErrorHandler();
+
+}
