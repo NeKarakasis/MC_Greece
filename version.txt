@@ -1,3 +1,6 @@
+-----12/6/25-----
+- Nektarios: Add PC FuSa function.
+
 -----6/6/25-----
 - Nektarios: Port voltage detection FuSa function.
 

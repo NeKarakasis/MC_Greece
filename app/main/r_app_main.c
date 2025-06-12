@@ -41,6 +41,7 @@
 #include "r_rom_diag.h"
 #include "r_clock_mon.h"
 #include "r_vol_mon.h"
+#include "r_pc_mon.h"
 
 
 #define CHECKSUM_START_ADDRESS (0xFFFFFF10)
@@ -65,6 +66,7 @@ static void		rom_test_sample(void);					/* Test RAM for safety */
 static void		adc_init_sample(void);					/* Initialaze for test the ADC for safety*/
 static void 	adc_test_sample(void);					/* The ADC for safety */
 static void 	FuSa_clock_monitor(void);				/*Initiate and start the clock monitor*/
+static void 	IWDT_Reset_out_chk(void);				/*Check after reset if it came from PC fault*/
 
 #pragma interrupt r_Config_CAC_OSCILATION_interrupt(vect = VECT_CAC_FERRF)
 #pragma interrupt r_Config_CAC_OVERFLOW_interrupt(vect = VECT_CAC_OVFF)
@@ -130,6 +132,8 @@ adc_cmt_counts[3] = MTU4.TCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 0U;
 
 FuSa_clock_monitor();
+IWDT_Reset_out_chk();
+R_PC_Mon_Init(IWDT_CKS_DIV_128, IWDT_WINDOW_START_75, IWDT_WINDOW_END_0, IWDT_ACTION_RST);
 
 /* 2.9V trigger voltage */
 uint8_t evoltage = 6;
@@ -143,9 +147,7 @@ setpsw_i();                                       /* Enable interrupt */
     {
         /* User interface */
         r_app_main_ui_mainloop();
-
         /* Clear watch dog timer */
-        R_Config_IWDT_Restart();
     }
 } /* End of function main */
 
@@ -501,4 +503,14 @@ static void r_Config_LVD_LVD1_interrupt()
 {
 	SafetyErrorHandler();
 
+}
+
+void IWDT_Reset_out_chk(void) /* The function to check if an error has been detected by this software */
+{
+	int32_t result = 0;
+	R_PC_Mon_Check(&result); /* Call API */
+	if (result != 1)
+	{
+		//SafetyErrorHandler(); /* Failure detection */
+	}
 }

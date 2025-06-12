@@ -40,7 +40,6 @@
         <Setting id="r_bsp" value="FIT"/>
         <Setting id="Config_S12AD0" value="CG"/>
         <Setting id="Config_PORT" value="CG"/>
-        <Setting id="Config_IWDT" value="CG"/>
         <Setting id="Config_CMT0" value="CG"/>
         <Setting id="Config_MOTOR" value="CG"/>
         <Setting id="Config_POE" value="CG"/>
@@ -487,15 +486,6 @@
             <Segment id="PORT2_Check">
                 <Setting id="PortnEnable" value="Disable"/>
             </Segment>
-        </Segment>
-        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.wdtiwdt" id="Config_IWDT" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
-            <Setting id="EndPos" value="0"/>
-            <Setting id="TmoutCycle" value="2048"/>
-            <Setting id="StartPos" value="100"/>
-            <Setting id="ResetInterruptRequest" value="Res"/>
-            <Setting id="ClkDiv" value="128"/>
-            <Setting id="StartMdSel" value="RegMd"/>
-            <Setting id="CountStopSel" value="CountStopEn"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.cmtw" id="Config_CMT0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="IntervalUnit" value="ms"/>

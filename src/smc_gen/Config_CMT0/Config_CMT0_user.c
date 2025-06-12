@@ -37,6 +37,7 @@ Includes
 #include "Config_CMT0.h"
 /* Start user code for include. Do not edit comment generated here */
 #include "r_motor_sensorless_vector_api.h"
+#include "r_pc_mon.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -44,6 +45,7 @@ Includes
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
+static uint16_t g_watchdog_refresh_counter = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -74,7 +76,13 @@ void R_Config_CMT0_Create_UserInit(void)
 static void r_Config_CMT0_cmi0_interrupt(void)
 {
     /* Start user code for r_Config_CMT0_cmi0_interrupt. Do not edit comment generated here */
-    R_MOTOR_SENSORLESS_VECTOR_SpeedInterrupt(&g_st_sensorless_vector);
+	g_watchdog_refresh_counter ++;
+	if (g_watchdog_refresh_counter > 500) // it is about 50% of watchdog timer
+	{
+		R_PC_Mon_Refresh();
+		g_watchdog_refresh_counter = 0;
+	}
+	R_MOTOR_SENSORLESS_VECTOR_SpeedInterrupt(&g_st_sensorless_vector);
     /* End user code. Do not edit comment generated here */
 }
 
