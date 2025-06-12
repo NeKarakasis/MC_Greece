@@ -70,7 +70,7 @@
 */
 #define     MOTOR_COMMON_CFG_LOOP_MODE                  (MOTOR_LOOP_SPEED)
 
-#define     MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT    (1.5f)
+#define     MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT    (1.7f)
 
 #define     MOTOR_COMMON_CFG_IA_MAX_CALC_MULT           (MTR_SQRT_3)
 
@@ -79,7 +79,7 @@
  * for Current Module(current_rx)
  */
 /* Defines whether use voltage error compensation in FOC */
-#define     CURRENT_CFG_VOLT_ERR_COMP           (MTR_ENABLE)
+#define     CURRENT_CFG_VOLT_ERR_COMP           (MTR_DISABLE)
 
 /* Defines whether use stall detection in FOC */
 #define     CURRENT_CFG_STALL_DETECTION         (MTR_DISABLE)
@@ -98,27 +98,27 @@
 #define     CURRENT_CFG_PI_INTEGRAL_LIMIT_VD    (INVERTER_CFG_INPUT_V * 0.5f)        /* Current PI integral term limit for vd */
 #define     CURRENT_CFG_PI_INTEGRAL_LIMIT_VQ    (INVERTER_CFG_INPUT_V * 0.5f)        /* Current PI integral term limit for vq */
 
-#define     CURRENT_CFG_OMEGA                   (400.0f)                             /* natural frequency for current loop */
+#define     CURRENT_CFG_OMEGA                   (150.0f)                             /* natural frequency for current loop */
 #define     CURRENT_CFG_ZETA                    (1.0f)                               /* damping ratio for current loop */
 
-#define     CURRENT_CFG_E_OBS_OMEGA             (1500.0f)                             /* Natural frequency of BEMF observer */
+#define     CURRENT_CFG_E_OBS_OMEGA             (900.0f)                             /* Natural frequency of BEMF observer */
 #define     CURRENT_CFG_E_OBS_ZETA              (1.0f)                               /* Damping ratio of BEMF observer */
 
-#define     CURRENT_CFG_ESTLOW_PULSEVOLT         (100.0f)                            /* Natural frequency of PLL Speed estimate loop */
-#define     CURRENT_CFG_ESTLOW_PULSEVOLT_RUNNING (50.0f)                            /* Natural frequency of PLL Speed estimate loop */
-#define     CURRENT_CFG_ESTLOW_ESTTIME           4000.0 //(0.2f/MOTOR_COMMON_CTRL_PERIOD)     /* Position convergence period time counter [200ms] */
-#define     CURRENT_CFG_ESTLOW_ESTTIME_OVER      6000.0//(0.3f/MOTOR_COMMON_CTRL_PERIOD)     /* Position convergence period+judgment period */
+#define     CURRENT_CFG_ESTLOW_PULSEVOLT         (200.0f)                            /* Natural frequency of PLL Speed estimate loop */
+#define     CURRENT_CFG_ESTLOW_PULSEVOLT_RUNNING (120.0f)                            /* Natural frequency of PLL Speed estimate loop */
+#define     CURRENT_CFG_ESTLOW_ESTTIME           (0.3f/MOTOR_COMMON_CTRL_PERIOD)     /* Position convergence period time counter [200ms] */
+#define     CURRENT_CFG_ESTLOW_ESTTIME_OVER      (0.4f/MOTOR_COMMON_CTRL_PERIOD)     /* Position convergence period+judgment period */
 
 /* judgment time counter [300ms] */
-#define     CURRENT_CFG_PLL_ESTLOW_OMEGA         (50.0f)                             /* Natural frequency of PLL Speed estimate loop */
+#define     CURRENT_CFG_PLL_ESTLOW_OMEGA         (20.0f)                             /* Natural frequency of PLL Speed estimate loop */
 #define     CURRENT_CFG_PLL_ESTLOW_ZETA          (1.0f)                              /* Damping ratio of PLL Speed estimate loop */
 
 /* Carrier frequency :8kHz,4kHz,2kHz <abzenc debug> */
-#define     CURRENT_CFG_PLL_EST_OMEGA            (70.0f)                             /* Natural frequency of PLL Speed estimate loop */
+#define     CURRENT_CFG_PLL_EST_OMEGA            (20.0f)                             /* Natural frequency of PLL Speed estimate loop */
 #define     CURRENT_CFG_PLL_EST_ZETA             (1.0f)                              /* Damping ratio of PLL Speed estimate loop */
 
-#define     CURRENT_CFG_ESTLOW_PULSEFREQ_BOOT    (5)                                 /* Pulse injection frequency 1/f at the boot mode */
-#define     CURRENT_CFG_ESTLOW_PULSEFREQ_DRIVE   (1)                                 /* Pulse injection frequency 1/f at the drive */
+#define     CURRENT_CFG_ESTLOW_PULSEFREQ_BOOT    (8)                                 /* Pulse injection frequency 1/f at the boot mode */
+#define     CURRENT_CFG_ESTLOW_PULSEFREQ_DRIVE   (6)                                 /* Pulse injection frequency 1/f at the drive */
 
 #define     CURRENT_CFG_ESTLOW_PF_THRESHOLD                  (2.5f)                  /* Threshold of polarity */
 #define     CURRENT_CFG_ESTLOW_CONVERGENCE_COUNT             (10)                    /* Magnetic pole position estimation convergence judgment counter*/
@@ -150,19 +150,15 @@
 #define     SPEED_CFG_MTPA                      (MTR_ENABLE)
 
 #define     SPEED_CFG_CTRL_PERIOD               (0.0005f)       /* control period for speed loop */
-#define     SPEED_CFG_OMEGA                     (3.0f)          /* natural frequency for speed loop */
+#define     SPEED_CFG_OMEGA                     (2.0f)          /* natural frequency for speed loop */
 #define     SPEED_CFG_ZETA                      (1.0f)          /* damping ratio for speed loop */
 #define     SPEED_CFG_LPF_OMEGA                 (25.0f)         /* natural frequency for speed LPF */
-#define     SPEED_CFG_SPEED_LIMIT_RPM           (11000.0f)       /* over speed limit [rpm] (mechanical angle) */
+#define     SPEED_CFG_SPEED_LIMIT_RPM           (13000.0f)       /* over speed limit [rpm] (mechanical angle) */
 
 #define     SPEED_CFG_SPEED_LIMIT_MARGIN        (1.1f)            /* over speed limit margin (+10%) */
 #define     SPEED_CFG_SPEED_LIMIT_RAD           (SPEED_CFG_SPEED_LIMIT_RPM * SPEED_CFG_SPEED_LIMIT_MARGIN * MOTOR_CFG_POLE_PAIRS * MTR_RPM2RAD)
                                                                   /* over speed limit [rad] (electrical angle) */
-#define     SPEED_CFG_RATE_LIMIT_RPM            (300.0f)        /* Rate limit of speed change [rpm/s] */
-
-#define     SPEED_CFG_RATE_LIMIT_RPM1           (20000.0f)        /* Rate limit of speed change [rpm/s], initial */
-#define     SPEED_CFG_RATE_LIMIT_RPM2           (5000.0f)
-#define     SPEED_CFG_RATE_LIMIT_RPM3           (3000.0f)
+#define     SPEED_CFG_RATE_LIMIT_RPM            (3000.0f)        /* Rate limit of speed change [rpm/s] */
 
 #define     SPEED_CFG_SOB_OMEGA                 (7.5f)           /* natural frequency for speed observer */
 #define     SPEED_CFG_SOB_OUTLIM_START_RPM      (25.0f)           /* limit start speed for speed observer */

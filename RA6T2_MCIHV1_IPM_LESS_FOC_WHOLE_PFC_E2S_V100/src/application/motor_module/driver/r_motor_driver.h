@@ -117,7 +117,7 @@ extern st_motor_driver_t g_st_driver;
 void R_MOTOR_DRIVER_Open(void);
 void R_MOTOR_DRIVER_Close(void);
 void R_MOTOR_DRIVER_ParameterUpdate(st_motor_driver_t * p_st_driver, const st_motor_driver_cfg_t * p_st_driver_cfg);
-void R_MOTOR_DRIVER_BldcAnalogGet(st_motor_driver_t * p_st_driver, float * p_f4_iu_ad, float * p_f4_iw_ad, float * p_f4_vdc_ad);
+void R_MOTOR_DRIVER_BldcAnalogGet(st_motor_driver_t * p_st_driver, float * p_f4_iu_ad,float * p_f4_iv_ad, float * p_f4_iw_ad, float * p_f4_vdc_ad);
 void R_MOTOR_DRIVER_BldcDutySet(st_motor_driver_t * p_st_driver, float f4_duty_u, float f4_duty_v, float f4_duty_w);
 void R_MOTOR_DRIVER_BldcZeroDutySet(st_motor_driver_t * p_st_driver);
 void R_MOTOR_DRIVER_BldcCompareDutySet(st_motor_driver_t * p_st_driver);

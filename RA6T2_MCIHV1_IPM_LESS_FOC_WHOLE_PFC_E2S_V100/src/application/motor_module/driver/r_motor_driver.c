@@ -114,6 +114,7 @@ void R_MOTOR_DRIVER_ParameterUpdate(st_motor_driver_t * p_st_driver, const st_mo
 ***********************************************************************************************************************/
 void R_MOTOR_DRIVER_BldcAnalogGet(st_motor_driver_t * p_st_driver,
                                   float * p_f4_iu_ad,
+								  float * p_f4_iv_ad,
                                   float * p_f4_iw_ad,
                                   float * p_f4_vdc_ad)
 {
@@ -121,6 +122,7 @@ void R_MOTOR_DRIVER_BldcAnalogGet(st_motor_driver_t * p_st_driver,
 
     p_st_driver->ADCDataGet(&st_ad_data);
     *p_f4_iu_ad  = -1.0f * (st_ad_data.u2_iu_ad - MOTOR_MCU_CFG_ADC_OFFSET) * p_st_driver->f4_ad_crnt_per_digit;
+    *p_f4_iv_ad  = -1.0f * (st_ad_data.u2_iv_ad - MOTOR_MCU_CFG_ADC_OFFSET) * p_st_driver->f4_ad_crnt_per_digit;
     *p_f4_iw_ad  = -1.0f * (st_ad_data.u2_iw_ad - MOTOR_MCU_CFG_ADC_OFFSET) * p_st_driver->f4_ad_crnt_per_digit;
     *p_f4_vdc_ad = st_ad_data.u2_vdc_ad * p_st_driver->f4_ad_vdc_per_digit;
 } /* End of function R_MOTOR_DRIVER_BldcAnalogGet */

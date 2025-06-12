@@ -41,7 +41,7 @@
 #define     ICS_DECIMATION               (3)                  /* ICS watch skipping number */
 
 /* For ICS */
-#define     ICS_BRR                      (19)                 /* Baudrate select */
+#define     ICS_BRR                      (1)                 /* Baudrate select */
 #define     ICS_INT_MODE                 (1)                  /* Mode select */
 #define     CONF_MOTOR_TYPE              ("Brushless DC Motor")
 #define     CONF_CONTROL                 ("Sensorless vector control (Speed control)")

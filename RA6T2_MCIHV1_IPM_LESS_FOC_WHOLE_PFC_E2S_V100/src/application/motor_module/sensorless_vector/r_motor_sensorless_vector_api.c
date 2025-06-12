@@ -359,6 +359,7 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
     /* Current, Voltage detection */
     R_MOTOR_DRIVER_BldcAnalogGet(p_st_sensorless_vector->p_st_driver,
                                  &p_st_sensorless_vector->f4_iu_ad,
+								 &p_st_sensorless_vector->f4_iv_ad,
                                  &p_st_sensorless_vector->f4_iw_ad,
                                  &p_st_sensorless_vector->f4_vdc_ad);
 
@@ -371,7 +372,7 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
                                         &p_st_sensorless_vector->f4_iw_ad);
 
     /* V-phase current calculation */
-    p_st_sensorless_vector->f4_iv_ad = -(p_st_sensorless_vector->f4_iu_ad + p_st_sensorless_vector->f4_iw_ad);
+   // p_st_sensorless_vector->f4_iv_ad = -(p_st_sensorless_vector->f4_iu_ad + p_st_sensorless_vector->f4_iw_ad);
 
     /* error check */
     if (MTR_FLG_SET == p_st_sensorless_vector->u1_relay_first_on)
