@@ -45,6 +45,9 @@ Includes
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
+uint16_t current_loop_ticks = 0;
+uint16_t current_loop_ticks_max = 0;
+uint16_t MTU_point1,MTU_point2 = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -78,8 +81,22 @@ void R_Config_S12AD0_Create_UserInit(void)
 static void r_Config_S12AD0_interrupt(void)
 {
     /* Start user code for r_Config_S12AD0_interrupt. Do not edit comment generated here */
+	MTU.TRWERA.BIT.RWE = 1U;
+	int32_t mtu_counter = MTU4.TCNT;
+	MTU_point1 = mtu_counter;
     R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(&g_st_sensorless_vector);
     r_app_rmw_interrupt_handler();
+    if (STATEMACHINE_STATE_RUN == motor_sensorless_vector_statemachine_status_get(&g_st_sensorless_vector.st_stm))
+    {
+    MTU_point2 = MTU4.TCNT;
+    current_loop_ticks  = 2*2927 - mtu_counter - MTU4.TCNT;
+
+    if ((current_loop_ticks_max < current_loop_ticks) && (current_loop_ticks < 4000))
+    {
+    	current_loop_ticks_max = current_loop_ticks;
+    }
+    MTU.TRWERA.BIT.RWE = 0U;
+    }
     /* End user code. Do not edit comment generated here */
 }
 

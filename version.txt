@@ -1,4 +1,5 @@
 -----12/6/25-----
+- Nektarios: Add execution time measurments for current and speed.
 - Nektarios: Add PC FuSa function.
 
 -----6/6/25-----
