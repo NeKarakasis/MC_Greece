@@ -92,11 +92,6 @@ float       com_f4_speed_lpf_hz;                /* Natural frequency for speed L
 float       com_f4_ref_speed_rpm;               /* motor speed reference [rpm] (mechanical) */
 float       com_f4_speed_rate_limit_rpm;        /* limit of speed change [rpm/s] */
 float       com_f4_overspeed_limit_rpm;         /* over speed limit [rpm] (mechanical) */
-float       com_f4_speed_rate_limit_rpm1;        /* limit of speed change [rpm/s] */
-float       com_f4_speed_rate_limit_rpm2;
-float       com_f4_speed_rate_limit_rpm3;         /* over speed limit [rpm] (mechanical) */
-
-
 
 /* Optional functions */
 /* Voltage error compensation */
@@ -229,9 +224,6 @@ void r_app_rmw_ui_init(void)
     com_f4_ref_speed_rpm        = 0.0f;
     com_f4_speed_rate_limit_rpm = SPEED_CFG_RATE_LIMIT_RPM;
     com_f4_overspeed_limit_rpm  = SPEED_CFG_SPEED_LIMIT_RPM;
-    com_f4_speed_rate_limit_rpm1 = SPEED_CFG_RATE_LIMIT_RPM1;
-    com_f4_speed_rate_limit_rpm2 = SPEED_CFG_RATE_LIMIT_RPM2;
-    com_f4_speed_rate_limit_rpm3  =  SPEED_CFG_RATE_LIMIT_RPM3;
 
     /* Optional functions */
     /* Voltage error compensation */

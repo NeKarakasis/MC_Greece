@@ -77,7 +77,6 @@ void mtr_init(void)
     /* Initialize private global variables */
     software_init();
 
-
     /* Initialize ICS(RMW) interface */
     ics2_init(ICS_SCI9_P605_P606, ICS_BRR, ICS_INT_MODE);
 } /* End of function mtr_init() */

@@ -50,22 +50,22 @@
 #define     INVERTER_CFG_CURRENT_LIMIT          (21.2f)               /* Current limit[A] for the inverter board */
 #define     INVERTER_CFG_OVERVOLTAGE_LIMIT      (450.0f)              /* Over voltage limit [V] */
 #define     INVERTER_CFG_UNDERVOLTAGE_LIMIT     (100.0f)              /* Under voltage limit [V] */
-#define     INVERTER_CFG_INPUT_V                (390.0f)              /* Nominal Vdc [V] */
+#define     INVERTER_CFG_INPUT_V                (380.0f)              /* Nominal Vdc [V] */
 #define     INVERTER_CFG_ADC_REF_VOLTAGE        (3.3f)                /* ADC reference voltage [V] */
 
 #endif /* MOTOR_COMMON_CFG_BOARD_HVI */
 
 /* Voltage error compensation User set value. */
-#define     INVERTER_CFG_COMP_V0                (3.12f)
-#define     INVERTER_CFG_COMP_V1                (6.24f)
-#define     INVERTER_CFG_COMP_V2                (9.36f)
-#define     INVERTER_CFG_COMP_V3                (12.48f)
-#define     INVERTER_CFG_COMP_V4                (15.6f)
+#define     INVERTER_CFG_COMP_V0                (0.624f)
+#define     INVERTER_CFG_COMP_V1                (1.248f)
+#define     INVERTER_CFG_COMP_V2                (1.872f)
+#define     INVERTER_CFG_COMP_V3                (2.496f)
+#define     INVERTER_CFG_COMP_V4                (3.120f)
 
-#define     INVERTER_CFG_COMP_I0                (0.07f)
-#define     INVERTER_CFG_COMP_I1                (0.14f)
-#define     INVERTER_CFG_COMP_I2                (0.22f)
-#define     INVERTER_CFG_COMP_I3                (0.3f)
-#define     INVERTER_CFG_COMP_I4                (0.5f)
+#define     INVERTER_CFG_COMP_I0                (0.084f)
+#define     INVERTER_CFG_COMP_I1                (0.168f)
+#define     INVERTER_CFG_COMP_I2                (0.264f)
+#define     INVERTER_CFG_COMP_I3                (0.360f)
+#define     INVERTER_CFG_COMP_I4                (0.600f)
 
 #endif /* R_MOTOR_INVERTER_CFG_H */

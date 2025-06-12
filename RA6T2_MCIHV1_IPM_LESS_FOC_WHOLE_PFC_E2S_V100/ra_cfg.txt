@@ -939,8 +939,8 @@ FSP Configuration
     Instance "Three-Phase PWM (r_gpt_three_phase)"
       General: Name: g_three_phase0
       General: Mode: Triangle-Wave Symmetric PWM
-      General: Period: 50
-      General: Period Unit: Microseconds
+      General: Period: 20
+      General: Period Unit: Kilohertz
       General: GPT U-Channel: 4
       General: GPT V-Channel: 5
       General: GPT W-Channel: 6
@@ -955,12 +955,12 @@ FSP Configuration
         General: Name: g_timer_gpt4
         General: Channel: 4
         General: Mode: Triangle-wave PWM (symmetric, Mode 1)
-        General: Period: 50
+        General: Period: 20
         General: Compare Match: Compare Match A: Status: Disabled
         General: Compare Match: Compare Match A: Compare match value: 0
         General: Compare Match: Compare Match B: Status: Disabled
         General: Compare Match: Compare Match B: Compare match value: 0
-        General: Period Unit: Microseconds
+        General: Period Unit: Kilohertz
         Output: Custom Waveform: GTIOA: Initial Output Level: Pin Level Low
         Output: Custom Waveform: GTIOA: Cycle End Output Level: Pin Level Retain
         Output: Custom Waveform: GTIOA: Compare Match Output Level: Pin Level Toggle
@@ -1007,12 +1007,12 @@ FSP Configuration
         General: Name: g_timer_gpt5
         General: Channel: 5
         General: Mode: Triangle-wave PWM (symmetric, Mode 1)
-        General: Period: 50
+        General: Period: 20
         General: Compare Match: Compare Match A: Status: Disabled
         General: Compare Match: Compare Match A: Compare match value: 0
         General: Compare Match: Compare Match B: Status: Disabled
         General: Compare Match: Compare Match B: Compare match value: 0
-        General: Period Unit: Microseconds
+        General: Period Unit: Kilohertz
         Output: Custom Waveform: GTIOA: Initial Output Level: Pin Level Low
         Output: Custom Waveform: GTIOA: Cycle End Output Level: Pin Level Retain
         Output: Custom Waveform: GTIOA: Compare Match Output Level: Pin Level Toggle
@@ -1059,12 +1059,12 @@ FSP Configuration
         General: Name: g_timer_gpt6
         General: Channel: 6
         General: Mode: Triangle-wave PWM (symmetric, Mode 1)
-        General: Period: 50
+        General: Period: 20
         General: Compare Match: Compare Match A: Status: Disabled
         General: Compare Match: Compare Match A: Compare match value: 0
         General: Compare Match: Compare Match B: Status: Disabled
         General: Compare Match: Compare Match B: Compare match value: 0
-        General: Period Unit: Microseconds
+        General: Period Unit: Kilohertz
         Output: Custom Waveform: GTIOA: Initial Output Level: Pin Level Low
         Output: Custom Waveform: GTIOA: Cycle End Output Level: Pin Level Retain
         Output: Custom Waveform: GTIOA: Compare Match Output Level: Pin Level Toggle
@@ -1214,56 +1214,4 @@ FSP Configuration
       Input: Trigger Edge: Trigger Edge Rising
       Interrupts: Callback: callback_agt_system_manager_cyclic
       Interrupts: Underflow Interrupt Priority: Priority 10
-      
-    Instance "g_timer0 Timer, General PWM (r_gpt)"
-      General: Name: g_timer0
-      General: Channel: 0
-      General: Mode: Periodic
-      General: Period: 0x10000
-      General: Compare Match: Compare Match A: Status: Disabled
-      General: Compare Match: Compare Match A: Compare match value: 0
-      General: Compare Match: Compare Match B: Status: Disabled
-      General: Compare Match: Compare Match B: Compare match value: 0
-      General: Period Unit: Raw Counts
-      Output: Custom Waveform: GTIOA: Initial Output Level: Pin Level Low
-      Output: Custom Waveform: GTIOA: Cycle End Output Level: Pin Level Retain
-      Output: Custom Waveform: GTIOA: Compare Match Output Level: Pin Level Retain
-      Output: Custom Waveform: GTIOA: Retain Output Level at Count Stop: Disabled
-      Output: Custom Waveform: GTIOB: Initial Output Level: Pin Level Low
-      Output: Custom Waveform: GTIOB: Cycle End Output Level: Pin Level Retain
-      Output: Custom Waveform: GTIOB: Compare Match Output Level: Pin Level Retain
-      Output: Custom Waveform: GTIOB: Retain Output Level at Count Stop: Disabled
-      Output: Custom Waveform: Custom Waveform Enable: Disabled
-      Output: Duty Cycle Percent (only applicable in PWM mode): 50
-      Output: GTIOCA Output Enabled: False
-      Output: GTIOCA Stop Level: Pin Level Low
-      Output: GTIOCB Output Enabled: False
-      Output: GTIOCB Stop Level: Pin Level Low
-      Input: Count Up Source: 
-      Input: Count Down Source: 
-      Input: Start Source: 
-      Input: Stop Source: 
-      Input: Clear Source: 
-      Input: Capture A Source: 
-      Input: Capture B Source: 
-      Input: Noise Filter A Sampling Clock Select: No Filter
-      Input: Noise Filter B Sampling Clock Select: No Filter
-      Interrupts: Callback: NULL
-      Interrupts: Overflow/Crest Interrupt Priority: Disabled
-      Interrupts: Capture/Compare match A Interrupt Priority: Disabled
-      Interrupts: Capture/Compare match B Interrupt Priority: Disabled
-      Interrupts: Underflow/Trough Interrupt Priority: Disabled
-      Extra Features: Extra Features: Disabled
-      Extra Features: Output Disable: POEG Link: POEG Channel 0
-      Extra Features: Output Disable: Output Disable POEG Trigger: 
-      Extra Features: ADC Trigger: Start Event Trigger (Channels with GTINTAD only): 
-      Extra Features: ADC Trigger: ADC A Compare Match (Raw Counts): 0
-      Extra Features: ADC Trigger: ADC B Compare Match (Raw Counts): 0
-      Extra Features: Dead Time (Value range varies with Channel): Dead Time Count Up (Raw Counts): 0
-      Extra Features: Dead Time (Value range varies with Channel): Dead Time Count Down (Raw Counts) (Channels with GTDVD only): 0
-      Extra Features: Interrupt Skipping (Channels with GTITC only): Interrupt to Count: None
-      Extra Features: Interrupt Skipping (Channels with GTITC only): Interrupt Skip Count: 0
-      Extra Features: Interrupt Skipping (Channels with GTITC only): Skip ADC Events: None
-      Extra Features: Output Disable: GTIOCA Disable Setting: Disable Prohibited
-      Extra Features: Output Disable: GTIOCB Disable Setting: Disable Prohibited
       

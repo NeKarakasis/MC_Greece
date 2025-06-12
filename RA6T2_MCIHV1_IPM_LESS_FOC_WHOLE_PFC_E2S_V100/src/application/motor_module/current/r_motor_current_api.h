@@ -146,6 +146,8 @@ typedef struct
     float                 f4_id_ad;                         /* The d-axis current value [A] */
     float                 f4_iq_ad;                         /* The q-axis current value [A] */
 
+    float                 f4_ia_max;
+
     float                 f4_id_ad2;                   /* The d-axis current value [A] */
     float                 f4_iq_ad2;                   /* The q-axis current value [A] */
 
