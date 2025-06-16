@@ -50,7 +50,7 @@ Macro definitions
  *   SVPWM :  Vdc * (MOD_VDC_TO_VAMAX_MULT) * (Max duty - Min duty) * (MOD_SVPWM_MULT)
  *   SPWM  :  Vdc * (MOD_VDC_TO_VAMAX_MULT) * (Max duty - Min duty)
  */
-#define MOD_VDC_TO_VAMAX_MULT       0.9//(0.6124f)       /* The basic coefficient used to convert Vdc to Vamax */
+#define MOD_VDC_TO_VAMAX_MULT       (0.6124f)       /* The basic coefficient used to convert Vdc to Vamax */
 #define MOD_SVPWM_MULT              (1.155f)        /* The usable voltage is multiplied by sqrt(4/3) when */
                                                     /* using SVPWM */
 #elif defined (MOTOR_TYPE_STM)

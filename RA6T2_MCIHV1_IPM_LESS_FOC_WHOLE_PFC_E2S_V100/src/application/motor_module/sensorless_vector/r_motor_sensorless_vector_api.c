@@ -358,11 +358,13 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
 
     /* Current, Voltage detection */
     R_MOTOR_DRIVER_BldcAnalogGet(p_st_sensorless_vector->p_st_driver,
-                                 &p_st_sensorless_vector->f4_iu_ad,
-								 &p_st_sensorless_vector->f4_iv_ad,
-                                 &p_st_sensorless_vector->f4_iw_ad,
-                                 &p_st_sensorless_vector->f4_vdc_ad);
-
+       							 p_st_sensorless_vector->st_current_output.f4_modu,
+   							     p_st_sensorless_vector->st_current_output.f4_modv,
+   							     p_st_sensorless_vector->st_current_output.f4_modw,
+                                    &p_st_sensorless_vector->f4_iu_ad,
+   								 &p_st_sensorless_vector->f4_iv_ad,
+                                    &p_st_sensorless_vector->f4_iw_ad,
+                                    &p_st_sensorless_vector->f4_vdc_ad);
     /* Set the VDC value obtained by PFC */
     p_st_sensorless_vector->f4_vdc_ad = p_st_sensorless_vector->f4_pfc_vdc_ad;
 

@@ -66,7 +66,7 @@
 #define DATA_ARR_SIZE           (320)              /* 50Hz:320, 60Hz:267 */
 
 /* Set Vdc reference */
-#define VDC_TARGET_VALUE        (380.0f)                             /* The target value of bus voltage [V] */
+#define VDC_TARGET_VALUE        (390.0f)                             /* The target value of bus voltage [V] */
 #define VDC_UP_STEP_RATE        (420.0f * PFC_MCU_CFG_SAMP_PERIOD)   /* Addition value of Vdc */
 
 /* Power limit */
