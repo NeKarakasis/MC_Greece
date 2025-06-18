@@ -50,7 +50,7 @@
 #define     INVERTER_CFG_CURRENT_LIMIT          (10.0f)                 /* Current limit[A] for the inverter board */
 #define     INVERTER_CFG_OVERVOLTAGE_LIMIT      (400.0f)                 /* Over voltage limit [V] */
 #define     INVERTER_CFG_UNDERVOLTAGE_LIMIT     (20.0f)                 /* Under voltage limit [V] */
-#define     INVERTER_CFG_INPUT_V                (80.0f)                 /* Nominal Vdc [V] */
+#define     INVERTER_CFG_INPUT_V                (320.0f)                 /* Nominal Vdc [V] */
 #define     INVERTER_CFG_ADC_REF_VOLTAGE        (5.0f)
 
 #endif /* MOTOR_COMMON_CFG_BOARD_ESB */
