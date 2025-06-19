@@ -35,6 +35,15 @@
             <Path>Safety_module\ADC\src\r_adc_diag.h</Path>
           </Category>
         </Category>
+        <Category Name="CLOCK">
+          <Category Name="cfg">
+            <Path>Safety_module\CLOCK\cfg\r_clock_mon_config.h</Path>
+          </Category>
+          <Category Name="src">
+            <Path>Safety_module\CLOCK\src\r_clock_mon.c</Path>
+            <Path>Safety_module\CLOCK\src\r_clock_mon.h</Path>
+          </Category>
+        </Category>
         <Category Name="CPU">
           <Category Name="cfg">
             <Path>Safety_module\CPU\cfg\r_cpu_diag_config.h</Path>
@@ -88,6 +97,15 @@
             <Path>Safety_module\ROM\scr\r_rom_crc.src</Path>
             <Path>Safety_module\ROM\scr\r_rom_diag.c</Path>
             <Path>Safety_module\ROM\scr\r_rom_diag.h</Path>
+          </Category>
+        </Category>
+        <Category Name="Voltage">
+          <Category Name="cfg">
+            <Path>Safety_module\Voltage\cfg\r_vol_mon_config.h</Path>
+          </Category>
+          <Category Name="src">
+            <Path>Safety_module\Voltage\src\r_vol_mon.c</Path>
+            <Path>Safety_module\Voltage\src\r_vol_mon.h</Path>
           </Category>
         </Category>
       </Category>
@@ -946,6 +964,9 @@
           <Option>-isa=rxv1</Option>
           <Option>-fpu</Option>
           <Option>-include="${ProjDirPath}\motor_module\current_rx"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\Voltage"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\Voltage\cfg"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\Voltage\src"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\ADC"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\ADC\cfg"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\ADC\src"</Option>
@@ -982,6 +1003,9 @@
           <Option>-include="${ProjDirPath}\src\smc_gen\r_config"</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen"</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\Config_POE"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\CLOCK"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\CLOCK\cfg"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\CLOCK\src"</Option>
           <Option>-define=RX_DEVICE_TYPE=0x11000021</Option>
           <Option>-utf8</Option>
           <Option>-nomessage</Option>
@@ -997,6 +1021,12 @@
           <Option>-isa=rxv1</Option>
           <Option>-fpu</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\Config_CMT0"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\Voltage"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\Voltage\cfg"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\Voltage\src"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\CLOCK"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\CLOCK\cfg"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\CLOCK\src"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\ADC"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\ADC\cfg"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\ADC\src"</Option>
@@ -1156,6 +1186,8 @@
           <Path>HardwareDebug\r_rom_crc.obj</Path>
           <Path>HardwareDebug\r_rom_diag.obj</Path>
           <Path>HardwareDebug\r_adc_diag.obj</Path>
+          <Path>HardwareDebug\r_clock_mon.obj</Path>
+          <Path>HardwareDebug\r_vol_mon.obj</Path>
         </LinkOrder>
         <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_CMT0\Config_CMT0.c"/>
         <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_CMT0\Config_CMT0_user.c"/>
@@ -1369,6 +1401,9 @@
         </IndividualOptions>
         <CommonOptions>
           <IncludePathForC>"${ProjDirPath}\motor_module\current_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\Safety_module\Voltage"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\Safety_module\Voltage\cfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\Safety_module\Voltage\src"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\Safety_module\ADC"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\Safety_module\ADC\cfg"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\Safety_module\ADC\src"</IncludePathForC>
@@ -1405,7 +1440,16 @@
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_config"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src\smc_gen"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\Config_POE"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\Safety_module\CLOCK"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\Safety_module\CLOCK\cfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\Safety_module\CLOCK\src"</IncludePathForC>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\Config_CMT0"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\Safety_module\Voltage"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\Safety_module\Voltage\cfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\Safety_module\Voltage\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\Safety_module\CLOCK"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\Safety_module\CLOCK\cfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\Safety_module\CLOCK\src"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\Safety_module\ADC"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\Safety_module\ADC\cfg"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\Safety_module\ADC\src"</IncludePathForAsm>
