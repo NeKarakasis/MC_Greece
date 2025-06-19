@@ -65,7 +65,7 @@ void R_Config_S12AD0_Create(void)
 
     /* Set Sample-and-Hold Circuit control registers */
     S12AD.ADSHCR.WORD = _0100_AD_DSH_ANx00_SELECT | _0200_AD_DSH_ANx01_SELECT | _0400_AD_DSH_ANx02_SELECT | 
-                        _0011_AD0_DSH_SAMPLING_STATE;
+                        _0012_AD0_DSH_SAMPLING_STATE;
 
     /* Set Programmable Gain Amplifier control registers */
     S12AD.ADPGAGS0.BIT.P000GAIN = _0009_AD_GAIN_5_000;
@@ -91,10 +91,10 @@ void R_Config_S12AD0_Create(void)
 
     /* Set channels and sampling time */
     S12AD.ADANSA0.WORD = _0001_AD_ANx00_USED | _0002_AD_ANx01_USED | _0004_AD_ANx02_USED | _0008_AD_ANx03_USED;
-    S12AD.ADSSTR0 = _11_AD0_SAMPLING_STATE_0;
-    S12AD.ADSSTR1 = _11_AD0_SAMPLING_STATE_1;
-    S12AD.ADSSTR2 = _11_AD0_SAMPLING_STATE_2;
-    S12AD.ADSSTR3 = _11_AD0_SAMPLING_STATE_3;
+    S12AD.ADSSTR0 = _06_AD0_SAMPLING_STATE_0;
+    S12AD.ADSSTR1 = _06_AD0_SAMPLING_STATE_1;
+    S12AD.ADSSTR2 = _06_AD0_SAMPLING_STATE_2;
+    S12AD.ADSSTR3 = _06_AD0_SAMPLING_STATE_3;
 
     /* Set AD conversion start trigger sources */
     S12AD.ADSTRGR.WORD = _0900_AD_TRSA_TRG4AN;

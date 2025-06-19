@@ -92,11 +92,11 @@ setpsw_i();                                       /* Enable interrupt */
     /* Start peripheral functions */
     r_app_main_start_motor_ctrl();
 
-clrpsw_i();
-/*MTU.TRWERA.BIT.RWE = 1U;
+/*clrpsw_i();
+MTU.TRWERA.BIT.RWE = 1U;
 int32_t mtu_counter = MTU4.TCNT;
  Disable interrupt
-*/
+
 int32_t tempcounter;
 safety_CPU_test();
 ram_test_sample();
@@ -120,7 +120,7 @@ R_Config_S12AD0_Create();
 R_Config_S12AD0_Start();
 adc_cmt_counts[3] = MTU4.TCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 0U;
-setpsw_i();                                       /* Enable interrupt */
+setpsw_i();*/                                       /* Enable interrupt */
 
 
     /*** Main routine ***/
@@ -242,7 +242,6 @@ static void r_app_main_start_motor_ctrl(void)
 
     /* Start of CMT0 */
     R_Config_CMT0_Start();
-    R_Config_CMT1_Start();
 
     /* Clear POE with Create function before starting POE to avoid miss detection */
     R_Config_POE_Create();

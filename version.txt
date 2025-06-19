@@ -1,6 +1,8 @@
+-----19/6/25-----
+- Nektarios: Cherry pick the Portal 3 current measurment to the ArMega board.
+
 -----29/4/25-----
 - Nektarios: Commiting ROM and ADC, both measured and working fine. Add cmt1 for debugging proposes and timing measurements.
-
 
 -----14/4/25-----
 - Nektarios: Porting ROM FuSa testing. Does not be tested yet.

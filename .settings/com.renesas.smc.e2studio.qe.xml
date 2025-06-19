@@ -4,9 +4,6 @@
         <Setting id="SrcGeneratedPath" value="src/smc_gen"/>
     </Segment>
     <Segment id="Pin">
-        <Setting id="PB3" value="PB3"/>
-        <Setting id="PB7" value="PB7"/>
-        <Setting id="PB6" value="PB6"/>
         <Setting id="RES#" value="RES#"/>
         <Setting id="P72" value="MTIOC4A"/>
         <Setting id="P71" value="MTIOC3B"/>
@@ -44,7 +41,6 @@
         <Setting id="Config_S12AD0" value="CG"/>
         <Setting id="Config_PORT" value="CG"/>
         <Setting id="Config_IWDT" value="CG"/>
-        <Setting id="Config_CMT1" value="CG"/>
         <Setting id="Config_CMT0" value="CG"/>
         <Setting id="Config_MOTOR" value="CG"/>
         <Setting id="Config_POE" value="CG"/>
@@ -96,14 +92,14 @@
             <Setting id="SDFmode" value="Unused"/>
             <Setting id="Internal" value="Unuse"/>
             <Setting id="SDFVolt" value="VREFHAVCC0V"/>
-            <Setting id="ANx01_Sampling" value="0.54"/>
+            <Setting id="ANx01_Sampling" value="0.20"/>
             <Setting id="DataAligh" value="Right"/>
             <Setting id="Valuecount" value="1time"/>
             <Setting id="StartTrigger" value="TRG4AN"/>
             <Setting id="ANx00_Add" value="Unuse"/>
             <Setting id="ANx00" value="Use"/>
             <Setting id="ANx02_Add" value="Unuse"/>
-            <Setting id="DSH_Sampling" value="0.54"/>
+            <Setting id="DSH_Sampling" value="0.56"/>
             <Setting id="ANx02" value="Use"/>
             <Setting id="Internal_Add" value="Unuse"/>
             <Setting id="ANx01DSHchk" value="Use"/>
@@ -118,14 +114,14 @@
             <Setting id="AmpPass0" value="Use"/>
             <Setting id="Countmode" value="Addition"/>
             <Setting id="DoubleTriggermode" value="Unuse"/>
-            <Setting id="ANx02_Sampling" value="0.54"/>
+            <Setting id="ANx02_Sampling" value="0.20"/>
             <Setting id="AmpGain0" value="5_000"/>
             <Setting id="AmpGain1" value="5_000"/>
             <Setting id="AmpGain2" value="5_000"/>
             <Setting id="ANx04_Add" value="Unuse"/>
             <Setting id="ANx02DSHchk" value="Use"/>
             <Setting id="S12ADIPrity" value="Level15"/>
-            <Setting id="ANx00_Sampling" value="0.54"/>
+            <Setting id="ANx00_Sampling" value="0.20"/>
             <Setting id="Internal_Sampling" value="5"/>
             <Setting id="Autoclean" value="DisAutoclean"/>
             <Setting id="DDcharge" value="Unused"/>
@@ -133,7 +129,7 @@
             <Setting id="ANx03_Add" value="Unuse"/>
             <Setting id="AmpEn2" value="Use"/>
             <Setting id="AmpEn0" value="Use"/>
-            <Setting id="ANx03_Sampling" value="0.54"/>
+            <Setting id="ANx03_Sampling" value="0.20"/>
             <Setting id="ANx00DSHchk" value="Use"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.port" id="Config_PORT" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
@@ -158,7 +154,7 @@
                 </Segment>
             </Segment>
             <Segment id="PORTB_Check">
-                <Setting id="PortnEnable" value="Enable"/>
+                <Setting id="PortnEnable" value="Disable"/>
             </Segment>
             <Segment id="PORT9_Chan">
                 <Setting id="Output1All" value="Output1UnuseAll"/>
@@ -333,7 +329,7 @@
                 <Setting id="PortnEnable" value="Disable"/>
             </Segment>
             <Segment id="PORT7_Check">
-                <Setting id="PortnEnable" value="Enable"/>
+                <Setting id="PortnEnable" value="Disable"/>
             </Segment>
             <Segment id="PORTE_Chan">
                 <Setting id="UseStatusAll" value="UnuseAll"/>
@@ -351,14 +347,6 @@
             <Setting id="ClkDiv" value="128"/>
             <Setting id="StartMdSel" value="RegMd"/>
             <Setting id="CountStopSel" value="CountStopEn"/>
-        </Segment>
-        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.cmtw" id="Config_CMT1" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
-            <Setting id="IntervalUnit" value="ms"/>
-            <Setting id="MultiIntCMIEnable" value="UnCheck"/>
-            <Setting id="ClockDivision" value="Devide32"/>
-            <Setting id="IntCMWIEnable" value="Disable"/>
-            <Setting id="IntervalValue" value="65"/>
-            <Setting id="IntCMWIPriority" value="Level11"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.cmtw" id="Config_CMT0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="IntervalUnit" value="ms"/>

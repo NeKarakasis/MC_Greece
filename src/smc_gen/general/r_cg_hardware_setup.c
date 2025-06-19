@@ -40,10 +40,8 @@ Includes
 #include "Config_S12AD0.h"
 #include "Config_MOTOR.h"
 #include "Config_POE.h"
-#include "Config_CMT1.h"
 #include "r_smc_cgc.h"
 #include "r_smc_interrupt.h"
-
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -76,6 +74,7 @@ void r_undefined_exception(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
+
 void R_Systeminit(void)
 {
     /* Enable writing to registers related to operating modes, LPC, CGC, software reset and LVD */
@@ -95,7 +94,6 @@ void R_Systeminit(void)
     R_Config_S12AD0_Create();
     R_Config_MOTOR_Create();
     R_Config_POE_Create();
-    R_Config_CMT1_Create();
 
 #if BSP_CFG_BOOTLOADER_PROJECT == 0
     /* Disable the following codes in the bootloader project. */

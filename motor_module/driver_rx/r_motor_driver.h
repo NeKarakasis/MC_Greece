@@ -153,10 +153,13 @@ void R_MOTOR_DRIVER_ParameterUpdate(st_motor_driver_t * p_st_driver,
 * Return Value  : None
 ***********************************************************************************************************************/
 void R_MOTOR_DRIVER_BldcAnalogGet(st_motor_driver_t * p_st_driver,
-                                  float * p_f4_iu_ad,
-								  float * p_f4_iv_ad,
-                                  float * p_f4_iw_ad,
-                                  float * p_f4_vdc_ad);
+                                  float f4_duty_u,
+                                  float f4_duty_v,
+                                  float f4_duty_w,
+                                  float * p_f4_iu,
+                                  float * p_f4_iv,
+                                  float * p_f4_iw,
+                                  float * p_f4_vdc);
 #elif defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 /***********************************************************************************************************************
 * Function Name : R_MOTOR_DRIVER_1ShuntBldcAnalogGet
