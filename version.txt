@@ -1,4 +1,5 @@
 -----19/6/25-----
+- Nektarios: Add the clock FuSa without the files.
 - Nektarios: Cherry pick the Portal 3 current measurment to the ArMega board.
 
 -----29/4/25-----

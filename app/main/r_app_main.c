@@ -39,6 +39,7 @@
 #include "r_ram_diag.h"
 #include "r_adc_diag.h"
 #include "r_rom_diag.h"
+#include "r_clock_mon.h"
 
 
 #define CHECKSUM_START_ADDRESS (0xFFFFFF10)
@@ -62,6 +63,11 @@ static void 	ram_test_sample(void);					/* Test RAM for safety */
 static void		rom_test_sample(void);					/* Test RAM for safety */
 static void		adc_init_sample(void);					/* Initialaze for test the ADC for safety*/
 static void 	adc_test_sample(void);					/* The ADC for safety */
+static void 	FuSa_clock_monitor(void);				/*Initiate and start the clock monitor*/
+
+#pragma interrupt r_Config_CAC_OSCILATION_interrupt(vect = VECT_CAC_FERRF)
+#pragma interrupt r_Config_CAC_OVERFLOW_interrupt(vect = VECT_CAC_OVFF)
+
 
 /***********************************************************************************************************************
 * Function Name : main
@@ -92,19 +98,19 @@ setpsw_i();                                       /* Enable interrupt */
     /* Start peripheral functions */
     r_app_main_start_motor_ctrl();
 
-/*clrpsw_i();
+//Disable interrupt
+clrpsw_i();
 MTU.TRWERA.BIT.RWE = 1U;
 int32_t mtu_counter = MTU4.TCNT;
- Disable interrupt
 
 int32_t tempcounter;
 safety_CPU_test();
 ram_test_sample();
 rom_test_sample();
-tempcounter = CMT1.CMCNT;
+//tempcounter = CMT1.CMCNT;
 R_Config_S12AD0_Stop();
 S12AD.ADCSR.BIT.ADST = 0;
-adc_cmt_counts[0] = CMT1.CMCNT - tempcounter;
+//adc_cmt_counts[0] = CMT1.CMCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 1U;
 tempcounter =MTU4.TCNT;
 adc_init_sample();
@@ -112,7 +118,7 @@ adc_cmt_counts[1] = MTU4.TCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 0U;
 tempcounter =CMT1.CMCNT;
 adc_test_sample();
-adc_cmt_counts[2] = CMT1.CMCNT - tempcounter;
+//adc_cmt_counts[2] = CMT1.CMCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 1U;
 tempcounter =MTU4.TCNT;
 S12AD.ADCSR.BIT.ADST = 1;
@@ -120,7 +126,9 @@ R_Config_S12AD0_Create();
 R_Config_S12AD0_Start();
 adc_cmt_counts[3] = MTU4.TCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 0U;
-setpsw_i();*/                                       /* Enable interrupt */
+
+FuSa_clock_monitor();
+setpsw_i();                                       /* Enable interrupt */
 
 
     /*** Main routine ***/
@@ -464,3 +472,21 @@ void rom_test_sample(void)
 /* Enabling interrupts */
 	MTU.TRWERA.BIT.RWE = 0U;
 }
+
+void FuSa_clock_monitor(void)
+{
+/* Measurement target clocks: main, Frequency of measurement target clock: 12 MHz, Tolerance limit: 25 % */
+uint32_t clk_sel = 1, clock_freq = 32000, tolerance = 16;
+R_CLOCK_Mon_Init(clk_sel, clock_freq, tolerance); /* Call API */
+}
+
+static void r_Config_CAC_OSCILATION_interrupt()
+{
+	SafetyErrorHandler();
+}
+
+static void r_Config_CAC_OVERFLOW_interrupt()
+{
+	SafetyErrorHandler();
+}
+
