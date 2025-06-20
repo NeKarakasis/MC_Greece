@@ -40,7 +40,6 @@
         <Setting id="r_bsp" value="FIT"/>
         <Setting id="Config_S12AD0" value="CG"/>
         <Setting id="Config_PORT" value="CG"/>
-        <Setting id="Config_IWDT" value="CG"/>
         <Setting id="Config_CMT0" value="CG"/>
         <Setting id="Config_MOTOR" value="CG"/>
         <Setting id="Config_POE" value="CG"/>
@@ -182,20 +181,20 @@
                 <Setting id="PortnEnable" value="Disable"/>
             </Segment>
             <Segment id="PORTB_Chan">
-                <Setting id="Output1All" value="Output1Alldisable"/>
+                <Setting id="Output1All" value="Output1UnuseAll"/>
                 <Setting id="UseStatusAll" value="UnuseAll"/>
                 <Setting id="ApplyAll" value="ApplyallUnuse"/>
-                <Setting id="PullupAll" value="PullupAlldisable"/>
-                <Setting id="OpendrainAll" value="OpendrainAlldisable"/>
+                <Setting id="PullupAll" value="PullupUnuseAll"/>
+                <Setting id="OpendrainAll" value="CMOSAll"/>
                 <Segment id="PORTx3_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="Highdrive" value="HighdriveUnuse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
-                    <Setting id="Output1" value="Output1Use"/>
+                    <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx7_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="Highdrive" value="HighdriveUnuse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
@@ -215,7 +214,7 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx6_Item">
-                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="UseStatus" value="Unuse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>
@@ -338,15 +337,6 @@
                     <Setting id="UseStatus" value="Unuse"/>
                 </Segment>
             </Segment>
-        </Segment>
-        <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.wdtiwdt" id="Config_IWDT" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
-            <Setting id="EndPos" value="0"/>
-            <Setting id="TmoutCycle" value="2048"/>
-            <Setting id="StartPos" value="100"/>
-            <Setting id="ResetInterruptRequest" value="Res"/>
-            <Setting id="ClkDiv" value="128"/>
-            <Setting id="StartMdSel" value="RegMd"/>
-            <Setting id="CountStopSel" value="CountStopEn"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.cmtw" id="Config_CMT0" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="IntervalUnit" value="ms"/>

@@ -78,6 +78,15 @@
             </Category>
           </Category>
         </Category>
+        <Category Name="PC">
+          <Category Name="cfg">
+            <Path>Safety_module\PC\cfg\r_pc_mon_config.h</Path>
+          </Category>
+          <Category Name="src">
+            <Path>Safety_module\PC\src\r_pc_mon.c</Path>
+            <Path>Safety_module\PC\src\r_pc_mon.h</Path>
+          </Category>
+        </Category>
         <Category Name="RAM">
           <Category Name="cfg">
             <Path>Safety_module\RAM\cfg\r_ram_diag_config.h</Path>
@@ -188,11 +197,6 @@
             <Path>src\smc_gen\Config_CMT0\Config_CMT0.h</Path>
             <Path>src\smc_gen\Config_CMT0\Config_CMT0_user.c</Path>
           </Category>
-          <Category Name="Config_IWDT">
-            <Path>src\smc_gen\Config_IWDT\Config_IWDT.c</Path>
-            <Path>src\smc_gen\Config_IWDT\Config_IWDT.h</Path>
-            <Path>src\smc_gen\Config_IWDT\Config_IWDT_user.c</Path>
-          </Category>
           <Category Name="Config_MOTOR">
             <Path>src\smc_gen\Config_MOTOR\Config_MOTOR.c</Path>
             <Path>src\smc_gen\Config_MOTOR\Config_MOTOR.h</Path>
@@ -216,7 +220,6 @@
           <Category Name="general">
             <Path>src\smc_gen\general\r_cg_cmt.h</Path>
             <Path>src\smc_gen\general\r_cg_hardware_setup.c</Path>
-            <Path>src\smc_gen\general\r_cg_iwdt.h</Path>
             <Path>src\smc_gen\general\r_cg_macrodriver.h</Path>
             <Path>src\smc_gen\general\r_cg_poe.h</Path>
             <Path>src\smc_gen\general\r_cg_port.h</Path>
@@ -312,264 +315,6 @@
         </Category>
       </Category>
       <Category Name="trash">
-        <Category Name="2025-05-26-17-06-56">
-          <Category Name="src">
-            <Category Name="smc_gen">
-              <Category Name="Config_CMT0">
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_CMT0\Config_CMT0.c</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_CMT0\Config_CMT0.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_CMT0\Config_CMT0_user.c</Path>
-              </Category>
-              <Category Name="Config_CMT1">
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_CMT1\Config_CMT1.c</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_CMT1\Config_CMT1.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_CMT1\Config_CMT1_user.c</Path>
-              </Category>
-              <Category Name="Config_IWDT">
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_IWDT\Config_IWDT.c</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_IWDT\Config_IWDT.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_IWDT\Config_IWDT_user.c</Path>
-              </Category>
-              <Category Name="Config_MOTOR">
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_MOTOR\Config_MOTOR.c</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_MOTOR\Config_MOTOR.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_MOTOR\Config_MOTOR_user.c</Path>
-              </Category>
-              <Category Name="Config_POE">
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_POE\Config_POE.c</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_POE\Config_POE.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_POE\Config_POE_user.c</Path>
-              </Category>
-              <Category Name="Config_PORT">
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_PORT\Config_PORT.c</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_PORT\Config_PORT.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_PORT\Config_PORT_user.c</Path>
-              </Category>
-              <Category Name="Config_S12AD0">
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_S12AD0\Config_S12AD0.c</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_S12AD0\Config_S12AD0.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\Config_S12AD0\Config_S12AD0_user.c</Path>
-              </Category>
-              <Category Name="general">
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_cg_cmt.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_cg_hardware_setup.c</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_cg_iwdt.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_cg_macrodriver.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_cg_poe.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_cg_port.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_cg_s12ad.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_cg_userdefine.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_smc_cgc.c</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_smc_cgc.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_smc_cgc_user.c</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_smc_entry.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_smc_interrupt.c</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\general\r_smc_interrupt.h</Path>
-              </Category>
-              <Category Name="r_bsp">
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\platform.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\readme.txt</Path>
-                <Category Name="board">
-                  <Category Name="generic_rx13t">
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\board\generic_rx13t\hwsetup.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\board\generic_rx13t\hwsetup.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\board\generic_rx13t\r_bsp.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\board\generic_rx13t\r_bsp_config_reference.h</Path>
-                  </Category>
-                  <Category Name="user">
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\board\user\r_bsp.h</Path>
-                  </Category>
-                </Category>
-                <Category Name="mcu">
-                  <Category Name="all">
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\dbsct.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\fsp_common_api.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\lowlvl.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\lowlvl.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\lowsrc.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\lowsrc.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\mcu_locks.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_common.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_fsp_error.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_rtos.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_rx_compiler.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_typedefs.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\resetprg.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\sbrk.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\sbrk.h</Path>
-                  </Category>
-                  <Category Name="rx13t">
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\mcu_clocks.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\mcu_clocks.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\mcu_info.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\mcu_init.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\mcu_init.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\mcu_locks.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\r_bsp_cpu.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\r_bsp_locking.h</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.c</Path>
-                    <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.h</Path>
-                    <Category Name="register_access">
-                      <Category Name="ccrx">
-                        <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\register_access\ccrx\iodefine.h</Path>
-                      </Category>
-                    </Category>
-                  </Category>
-                </Category>
-              </Category>
-              <Category Name="r_config">
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_config\r_bsp_config.h</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_config\r_bsp_config_readme.txt</Path>
-              </Category>
-              <Category Name="r_pincfg">
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_pincfg\Pin.c</Path>
-                <Path>trash\2025-05-26-17-06-56\src\smc_gen\r_pincfg\Pin.h</Path>
-              </Category>
-            </Category>
-          </Category>
-        </Category>
-        <Category Name="2025-05-26-17-07-06">
-          <Category Name="src">
-            <Category Name="smc_gen">
-              <Category Name="Config_CMT0">
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_CMT0\Config_CMT0.c</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_CMT0\Config_CMT0.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_CMT0\Config_CMT0_user.c</Path>
-              </Category>
-              <Category Name="Config_CMT1">
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_CMT1\Config_CMT1.c</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_CMT1\Config_CMT1.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_CMT1\Config_CMT1_user.c</Path>
-              </Category>
-              <Category Name="Config_IWDT">
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_IWDT\Config_IWDT.c</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_IWDT\Config_IWDT.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_IWDT\Config_IWDT_user.c</Path>
-              </Category>
-              <Category Name="Config_MOTOR">
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_MOTOR\Config_MOTOR.c</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_MOTOR\Config_MOTOR.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_MOTOR\Config_MOTOR_user.c</Path>
-              </Category>
-              <Category Name="Config_POE">
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_POE\Config_POE.c</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_POE\Config_POE.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_POE\Config_POE_user.c</Path>
-              </Category>
-              <Category Name="Config_PORT">
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_PORT\Config_PORT.c</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_PORT\Config_PORT.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_PORT\Config_PORT_user.c</Path>
-              </Category>
-              <Category Name="Config_S12AD0">
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_S12AD0\Config_S12AD0.c</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_S12AD0\Config_S12AD0.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\Config_S12AD0\Config_S12AD0_user.c</Path>
-              </Category>
-              <Category Name="general">
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_cg_cmt.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_cg_hardware_setup.c</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_cg_iwdt.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_cg_macrodriver.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_cg_poe.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_cg_port.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_cg_s12ad.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_cg_userdefine.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_smc_cgc.c</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_smc_cgc.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_smc_cgc_user.c</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_smc_entry.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_smc_interrupt.c</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\general\r_smc_interrupt.h</Path>
-              </Category>
-              <Category Name="r_bsp">
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\platform.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\readme.txt</Path>
-                <Category Name="board">
-                  <Category Name="generic_rx13t">
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\board\generic_rx13t\hwsetup.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\board\generic_rx13t\hwsetup.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\board\generic_rx13t\r_bsp.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\board\generic_rx13t\r_bsp_config_reference.h</Path>
-                  </Category>
-                  <Category Name="user">
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\board\user\r_bsp.h</Path>
-                  </Category>
-                </Category>
-                <Category Name="mcu">
-                  <Category Name="all">
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\dbsct.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\fsp_common_api.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\lowlvl.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\lowlvl.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\lowsrc.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\lowsrc.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\mcu_locks.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_common.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_fsp_error.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_rtos.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_rx_compiler.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_typedefs.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\resetprg.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\sbrk.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\sbrk.h</Path>
-                  </Category>
-                  <Category Name="rx13t">
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_clocks.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_clocks.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_info.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_init.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_init.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_locks.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\r_bsp_cpu.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\r_bsp_locking.h</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.c</Path>
-                    <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.h</Path>
-                    <Category Name="register_access">
-                      <Category Name="ccrx">
-                        <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\register_access\ccrx\iodefine.h</Path>
-                      </Category>
-                    </Category>
-                  </Category>
-                </Category>
-              </Category>
-              <Category Name="r_config">
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_config\r_bsp_config.h</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_config\r_bsp_config_readme.txt</Path>
-              </Category>
-              <Category Name="r_pincfg">
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_pincfg\Pin.c</Path>
-                <Path>trash\2025-05-26-17-07-06\src\smc_gen\r_pincfg\Pin.h</Path>
-              </Category>
-            </Category>
-          </Category>
-        </Category>
         <Category Name="2025-05-26-17-07-15">
           <Category Name="src">
             <Category Name="smc_gen">
@@ -952,6 +697,248 @@
             </Category>
           </Category>
         </Category>
+        <Category Name="2025-06-20-15-29-44">
+          <Category Name="src">
+            <Category Name="smc_gen">
+              <Category Name="Config_CMT0">
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_CMT0\Config_CMT0.c</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_CMT0\Config_CMT0.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_CMT0\Config_CMT0_user.c</Path>
+              </Category>
+              <Category Name="Config_IWDT">
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_IWDT\Config_IWDT.c</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_IWDT\Config_IWDT.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_IWDT\Config_IWDT_user.c</Path>
+              </Category>
+              <Category Name="Config_MOTOR">
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_MOTOR\Config_MOTOR.c</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_MOTOR\Config_MOTOR.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_MOTOR\Config_MOTOR_user.c</Path>
+              </Category>
+              <Category Name="Config_POE">
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_POE\Config_POE.c</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_POE\Config_POE.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_POE\Config_POE_user.c</Path>
+              </Category>
+              <Category Name="Config_PORT">
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_PORT\Config_PORT.c</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_PORT\Config_PORT.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_PORT\Config_PORT_user.c</Path>
+              </Category>
+              <Category Name="Config_S12AD0">
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_S12AD0\Config_S12AD0.c</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_S12AD0\Config_S12AD0.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\Config_S12AD0\Config_S12AD0_user.c</Path>
+              </Category>
+              <Category Name="general">
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_cg_cmt.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_cg_hardware_setup.c</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_cg_iwdt.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_cg_macrodriver.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_cg_poe.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_cg_port.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_cg_s12ad.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_cg_userdefine.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_smc_cgc.c</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_smc_cgc.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_smc_cgc_user.c</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_smc_entry.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_smc_interrupt.c</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\general\r_smc_interrupt.h</Path>
+              </Category>
+              <Category Name="r_bsp">
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\platform.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\readme.txt</Path>
+                <Category Name="board">
+                  <Category Name="generic_rx13t">
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\board\generic_rx13t\hwsetup.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\board\generic_rx13t\hwsetup.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\board\generic_rx13t\r_bsp.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\board\generic_rx13t\r_bsp_config_reference.h</Path>
+                  </Category>
+                  <Category Name="user">
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\board\user\r_bsp.h</Path>
+                  </Category>
+                </Category>
+                <Category Name="mcu">
+                  <Category Name="all">
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\dbsct.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\fsp_common_api.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\lowlvl.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\lowlvl.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\lowsrc.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\lowsrc.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\mcu_locks.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_common.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_fsp_error.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_rtos.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_rx_compiler.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_typedefs.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\resetprg.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\sbrk.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\sbrk.h</Path>
+                  </Category>
+                  <Category Name="rx13t">
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\mcu_clocks.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\mcu_clocks.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\mcu_info.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\mcu_init.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\mcu_init.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\mcu_locks.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\r_bsp_cpu.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\r_bsp_locking.h</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.c</Path>
+                    <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.h</Path>
+                    <Category Name="register_access">
+                      <Category Name="ccrx">
+                        <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\register_access\ccrx\iodefine.h</Path>
+                      </Category>
+                    </Category>
+                  </Category>
+                </Category>
+              </Category>
+              <Category Name="r_config">
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_config\r_bsp_config.h</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_config\r_bsp_config_readme.txt</Path>
+              </Category>
+              <Category Name="r_pincfg">
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_pincfg\Pin.c</Path>
+                <Path>trash\2025-06-20-15-29-44\src\smc_gen\r_pincfg\Pin.h</Path>
+              </Category>
+            </Category>
+          </Category>
+        </Category>
+        <Category Name="2025-06-20-15-30-06">
+          <Category Name="src">
+            <Category Name="smc_gen">
+              <Category Name="Config_CMT0">
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_CMT0\Config_CMT0.c</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_CMT0\Config_CMT0.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_CMT0\Config_CMT0_user.c</Path>
+              </Category>
+              <Category Name="Config_MOTOR">
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_MOTOR\Config_MOTOR.c</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_MOTOR\Config_MOTOR.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_MOTOR\Config_MOTOR_user.c</Path>
+              </Category>
+              <Category Name="Config_POE">
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_POE\Config_POE.c</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_POE\Config_POE.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_POE\Config_POE_user.c</Path>
+              </Category>
+              <Category Name="Config_PORT">
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_PORT\Config_PORT.c</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_PORT\Config_PORT.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_PORT\Config_PORT_user.c</Path>
+              </Category>
+              <Category Name="Config_S12AD0">
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_S12AD0\Config_S12AD0.c</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_S12AD0\Config_S12AD0.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\Config_S12AD0\Config_S12AD0_user.c</Path>
+              </Category>
+              <Category Name="general">
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_cg_cmt.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_cg_hardware_setup.c</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_cg_macrodriver.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_cg_poe.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_cg_port.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_cg_s12ad.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_cg_userdefine.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_smc_cgc.c</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_smc_cgc.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_smc_cgc_user.c</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_smc_entry.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_smc_interrupt.c</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\general\r_smc_interrupt.h</Path>
+              </Category>
+              <Category Name="r_bsp">
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\platform.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\readme.txt</Path>
+                <Category Name="board">
+                  <Category Name="generic_rx13t">
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\board\generic_rx13t\hwsetup.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\board\generic_rx13t\hwsetup.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\board\generic_rx13t\r_bsp.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\board\generic_rx13t\r_bsp_config_reference.h</Path>
+                  </Category>
+                  <Category Name="user">
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\board\user\r_bsp.h</Path>
+                  </Category>
+                </Category>
+                <Category Name="mcu">
+                  <Category Name="all">
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\dbsct.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\fsp_common_api.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\lowlvl.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\lowlvl.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\lowsrc.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\lowsrc.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\mcu_locks.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_common.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_fsp_error.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_rtos.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_rx_compiler.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_typedefs.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\resetprg.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\sbrk.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\sbrk.h</Path>
+                  </Category>
+                  <Category Name="rx13t">
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_clocks.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_clocks.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_info.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_init.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_init.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_locks.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\r_bsp_cpu.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\r_bsp_locking.h</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.c</Path>
+                    <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.h</Path>
+                    <Category Name="register_access">
+                      <Category Name="ccrx">
+                        <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\register_access\ccrx\iodefine.h</Path>
+                      </Category>
+                    </Category>
+                  </Category>
+                </Category>
+              </Category>
+              <Category Name="r_config">
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_config\r_bsp_config.h</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_config\r_bsp_config_readme.txt</Path>
+              </Category>
+              <Category Name="r_pincfg">
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_pincfg\Pin.c</Path>
+                <Path>trash\2025-06-20-15-30-06\src\smc_gen\r_pincfg\Pin.h</Path>
+              </Category>
+            </Category>
+          </Category>
+        </Category>
       </Category>
     </Files>
     <Device Category="com.renesas.cdt.managedbuild.renesas.ccrx.common.option.cpu.rx200" Series="RX">R5F513T3AxFJ</Device>
@@ -997,7 +984,6 @@
           <Option>-include="${ProjDirPath}\src\smc_gen\Config_S12AD0"</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\Config_MOTOR"</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\Config_PORT"</Option>
-          <Option>-include="${ProjDirPath}\src\smc_gen\Config_IWDT"</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\r_pincfg"</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\r_bsp"</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\r_config"</Option>
@@ -1006,6 +992,9 @@
           <Option>-include="${ProjDirPath}\Safety_module\CLOCK"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\CLOCK\cfg"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\CLOCK\src"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\PC"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\PC\cfg"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\PC\src"</Option>
           <Option>-define=RX_DEVICE_TYPE=0x11000021</Option>
           <Option>-utf8</Option>
           <Option>-nomessage</Option>
@@ -1021,6 +1010,9 @@
           <Option>-isa=rxv1</Option>
           <Option>-fpu</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\Config_CMT0"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\PC"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\PC\cfg"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\PC\src"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\Voltage"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\Voltage\cfg"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\Voltage\src"</Option>
@@ -1045,7 +1037,6 @@
           <Option>-include="${ProjDirPath}\src\smc_gen\Config_S12AD0"</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\Config_MOTOR"</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\Config_PORT"</Option>
-          <Option>-include="${ProjDirPath}\src\smc_gen\Config_IWDT"</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\r_pincfg"</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\r_bsp"</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\r_config"</Option>
@@ -1118,8 +1109,6 @@
           <Path>HardwareDebug\r_motor_speed_pi_gain_calc.obj</Path>
           <Path>HardwareDebug\Config_CMT0.obj</Path>
           <Path>HardwareDebug\Config_CMT0_user.obj</Path>
-          <Path>HardwareDebug\Config_IWDT.obj</Path>
-          <Path>HardwareDebug\Config_IWDT_user.obj</Path>
           <Path>HardwareDebug\Config_PORT.obj</Path>
           <Path>HardwareDebug\Config_PORT_user.obj</Path>
           <Path>HardwareDebug\Config_S12AD0.obj</Path>
@@ -1188,81 +1177,8 @@
           <Path>HardwareDebug\r_adc_diag.obj</Path>
           <Path>HardwareDebug\r_clock_mon.obj</Path>
           <Path>HardwareDebug\r_vol_mon.obj</Path>
+          <Path>HardwareDebug\r_pc_mon.obj</Path>
         </LinkOrder>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_CMT0\Config_CMT0.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_CMT0\Config_CMT0_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_CMT1\Config_CMT1.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_CMT1\Config_CMT1_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_IWDT\Config_IWDT.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_IWDT\Config_IWDT_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_MOTOR\Config_MOTOR.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_MOTOR\Config_MOTOR_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_POE\Config_POE.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_POE\Config_POE_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_PORT\Config_PORT.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_PORT\Config_PORT_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_S12AD0\Config_S12AD0.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\Config_S12AD0\Config_S12AD0_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\general\r_cg_hardware_setup.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\general\r_smc_cgc.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\general\r_smc_cgc_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\general\r_smc_interrupt.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\board\generic_rx13t\hwsetup.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\dbsct.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\lowlvl.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\lowsrc.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\mcu_locks.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\resetprg.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\all\sbrk.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\mcu_clocks.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\mcu_init.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-06-56\src\smc_gen\r_pincfg\Pin.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_CMT0\Config_CMT0.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_CMT0\Config_CMT0_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_CMT1\Config_CMT1.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_CMT1\Config_CMT1_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_IWDT\Config_IWDT.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_IWDT\Config_IWDT_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_MOTOR\Config_MOTOR.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_MOTOR\Config_MOTOR_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_POE\Config_POE.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_POE\Config_POE_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_PORT\Config_PORT.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_PORT\Config_PORT_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_S12AD0\Config_S12AD0.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\Config_S12AD0\Config_S12AD0_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\general\r_cg_hardware_setup.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\general\r_smc_cgc.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\general\r_smc_cgc_user.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\general\r_smc_interrupt.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\board\generic_rx13t\hwsetup.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\dbsct.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\lowlvl.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\lowsrc.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\mcu_locks.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\resetprg.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\all\sbrk.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_clocks.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_init.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.c"/>
-        <NoTargetFile Target="trash\2025-05-26-17-07-06\src\smc_gen\r_pincfg\Pin.c"/>
         <NoTargetFile Target="trash\2025-05-26-17-07-15\src\smc_gen\Config_CMT0\Config_CMT0.c"/>
         <NoTargetFile Target="trash\2025-05-26-17-07-15\src\smc_gen\Config_CMT0\Config_CMT0_user.c"/>
         <NoTargetFile Target="trash\2025-05-26-17-07-15\src\smc_gen\Config_CMT1\Config_CMT1.c"/>
@@ -1372,6 +1288,74 @@
         <NoTargetFile Target="trash\2025-06-18-15-09-32\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.c"/>
         <NoTargetFile Target="trash\2025-06-18-15-09-32\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.c"/>
         <NoTargetFile Target="trash\2025-06-18-15-09-32\src\smc_gen\r_pincfg\Pin.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\Config_CMT0\Config_CMT0.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\Config_CMT0\Config_CMT0_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\Config_IWDT\Config_IWDT.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\Config_IWDT\Config_IWDT_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\Config_MOTOR\Config_MOTOR.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\Config_MOTOR\Config_MOTOR_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\Config_POE\Config_POE.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\Config_POE\Config_POE_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\Config_PORT\Config_PORT.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\Config_PORT\Config_PORT_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\Config_S12AD0\Config_S12AD0.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\Config_S12AD0\Config_S12AD0_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\general\r_cg_hardware_setup.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\general\r_smc_cgc.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\general\r_smc_cgc_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\general\r_smc_interrupt.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\board\generic_rx13t\hwsetup.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\dbsct.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\lowlvl.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\lowsrc.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\mcu_locks.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\resetprg.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\all\sbrk.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\mcu_clocks.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\mcu_init.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-29-44\src\smc_gen\r_pincfg\Pin.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\Config_CMT0\Config_CMT0.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\Config_CMT0\Config_CMT0_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\Config_MOTOR\Config_MOTOR.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\Config_MOTOR\Config_MOTOR_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\Config_POE\Config_POE.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\Config_POE\Config_POE_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\Config_PORT\Config_PORT.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\Config_PORT\Config_PORT_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\Config_S12AD0\Config_S12AD0.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\Config_S12AD0\Config_S12AD0_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\general\r_cg_hardware_setup.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\general\r_smc_cgc.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\general\r_smc_cgc_user.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\general\r_smc_interrupt.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\board\generic_rx13t\hwsetup.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\dbsct.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\lowlvl.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\lowsrc.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\mcu_locks.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\resetprg.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\all\sbrk.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_clocks.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_init.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\mcu_interrupts.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_bsp\mcu\rx13t\vecttbl.c"/>
+        <NoTargetFile Target="trash\2025-06-20-15-30-06\src\smc_gen\r_pincfg\Pin.c"/>
         <IndividualOptions Target="Safety_module\CPU\src\diag\r_cpu_diag_11_1.src">
           <AssembleOptions>
             <Option>-isa=rxv1</Option>
@@ -1434,7 +1418,6 @@
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\Config_S12AD0"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\Config_MOTOR"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\Config_PORT"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\src\smc_gen\Config_IWDT"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_pincfg"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_bsp"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_config"</IncludePathForC>
@@ -1443,7 +1426,13 @@
           <IncludePathForC>"${ProjDirPath}\Safety_module\CLOCK"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\Safety_module\CLOCK\cfg"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\Safety_module\CLOCK\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\Safety_module\PC"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\Safety_module\PC\cfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\Safety_module\PC\src"</IncludePathForC>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\Config_CMT0"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\Safety_module\PC"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\Safety_module\PC\cfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\Safety_module\PC\src"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\Safety_module\Voltage"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\Safety_module\Voltage\cfg"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\Safety_module\Voltage\src"</IncludePathForAsm>
@@ -1468,7 +1457,6 @@
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\Config_S12AD0"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\Config_MOTOR"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\Config_PORT"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\Config_IWDT"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_pincfg"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_bsp"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_config"</IncludePathForAsm>

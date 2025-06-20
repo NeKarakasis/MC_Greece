@@ -1,4 +1,8 @@
+-----20/6/25-----
+- Nektarios: Add Clock Fusa Functions and current and speed measurment variables.
+
 -----19/6/25-----
+- Nektarios: Port Voltage and add files of Voltage and Clock FuSa functions.
 - Nektarios: Add the clock FuSa without the files.
 - Nektarios: Cherry pick the Portal 3 current measurment to the ArMega board.
 
@@ -13,7 +17,7 @@
 
 -----3/4/25-----
 - Nektarios: Porting CPU FuSa testing.
-- Nektarios: Add missing safety CPU, mtpa, POEG files.
+- Nektarios: Add missing safety C PU, mtpa, POEG files.
 
 -----5/3/25-----
 - Nektarios: Add the POE functionality, used the POE#8

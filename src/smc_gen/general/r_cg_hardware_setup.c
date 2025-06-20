@@ -35,7 +35,6 @@ Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "Config_PORT.h"
-#include "Config_IWDT.h"
 #include "Config_CMT0.h"
 #include "Config_S12AD0.h"
 #include "Config_MOTOR.h"
@@ -89,7 +88,6 @@ void R_Systeminit(void)
 
     /* Set peripheral settings */
     R_Config_PORT_Create();
-    R_Config_IWDT_Create();
     R_Config_CMT0_Create();
     R_Config_S12AD0_Create();
     R_Config_MOTOR_Create();

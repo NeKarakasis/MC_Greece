@@ -37,6 +37,7 @@ Includes
 #include "Config_CMT0.h"
 /* Start user code for include. Do not edit comment generated here */
 #include "r_motor_sensorless_vector_api.h"
+#include "r_pc_mon.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -44,6 +45,10 @@ Includes
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
+static uint16_t g_watchdog_refresh_counter = 0;
+uint16_t speed_loop_ticks = 0;
+uint16_t speed_loop_ticks_max = 0;
+uint16_t CMT_point1 = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -74,7 +79,23 @@ void R_Config_CMT0_Create_UserInit(void)
 static void r_Config_CMT0_cmi0_interrupt(void)
 {
     /* Start user code for r_Config_CMT0_cmi0_interrupt. Do not edit comment generated here */
+    CMT_point1 = CMT0.CMCNT;
+	g_watchdog_refresh_counter ++;
+	if (g_watchdog_refresh_counter > 500) // it is about 50% of watchdog timer
+	{
+		R_PC_Mon_Refresh();
+		g_watchdog_refresh_counter = 0;
+	}
     R_MOTOR_SENSORLESS_VECTOR_SpeedInterrupt(&g_st_sensorless_vector);
+	if (STATEMACHINE_STATE_RUN == motor_sensorless_vector_statemachine_status_get(&g_st_sensorless_vector.st_stm))
+	    {
+			speed_loop_ticks  =  CMT0.CMCNT - CMT_point1;
+
+			if ((speed_loop_ticks_max < speed_loop_ticks))
+			{
+				speed_loop_ticks_max = speed_loop_ticks;
+			}
+	    }
     /* End user code. Do not edit comment generated here */
 }
 

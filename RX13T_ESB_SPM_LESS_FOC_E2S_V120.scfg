@@ -302,57 +302,6 @@
             </allocator>
             <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
         </configuration>
-        <configuration apiMode="FULL_API" id="e6914ad5-0fe6-427d-bf05-61b446e17b0e" inuse="true" name="Config_IWDT">
-            <allocatable id="IWDT">
-                <osocket id="IOFS0Byte" value="true"/>
-                <isocket id="PCLKBClock" selection="Clock.tool_clock_pclkb" value="3.2E7"/>
-                <isocket id="lptclk" value="0.0"/>
-                <isocket id="IWDTClock" selection="Clock.tool_clock_cacilsclk" value="15000.0"/>
-                <option enabled="true" id="StartMdSel" selection="RegMd">
-                    <item id="RegMd" input="" vlaue="0"/>
-                    <item id="AutoMd" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ClkDiv" selection="128">
-                    <item id="1" input="" vlaue="0"/>
-                    <item id="16" input="" vlaue="0"/>
-                    <item id="32" input="" vlaue="0"/>
-                    <item id="64" input="" vlaue="0"/>
-                    <item id="128" input="" vlaue="0"/>
-                    <item id="256" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="TmoutCycle" selection="2048">
-                    <item id="128" input="" vlaue="0"/>
-                    <item id="512" input="" vlaue="0"/>
-                    <item id="1024" input="" vlaue="0"/>
-                    <item id="2048" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="StartPos" selection="100">
-                    <item id="25" input="" vlaue="0"/>
-                    <item id="50" input="" vlaue="0"/>
-                    <item id="75" input="" vlaue="0"/>
-                    <item id="100" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="EndPos" selection="0">
-                    <item id="75" input="" vlaue="0"/>
-                    <item id="50" input="" vlaue="0"/>
-                    <item id="25" input="" vlaue="0"/>
-                    <item id="0" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="CountStopSel" selection="CountStopEn">
-                    <item id="CountStopEn" input="" vlaue="0"/>
-                    <item id="CountStopDis" input="" vlaue="0"/>
-                </option>
-                <option enabled="true" id="ResetInterruptRequest" selection="Res">
-                    <item id="NmiInt" input="" vlaue="0"/>
-                    <item id="Res" input="" vlaue="0"/>
-                </option>
-            </allocatable>
-            <component description="This software component provides configuration for Watchdog Timer (WDT) / Independent Watchdog Timer (IWDT)." detailDescription="" display="Watchdog Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.wdtiwdt" version="1.11.0"/>
-            <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Independent Watchdog Timer" display="IWDT" id="com.renesas.smc.tools.swcomponent.codegenerator.wdtiwdt.rx13t.iwdt" type="IWDT">
-                <context/>
-            </allocator>
-            <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
-        </configuration>
         <configuration apiMode="FULL_API" id="6dd6e26d-9d1a-4db5-9548-4d03b0df1fc8" inuse="true" name="Config_CMT0">
             <allocatable id="CMT0">
                 <isocket id="CountingClock" selection="Clock.tool_clock_pclkb" value="3.2E7"/>
@@ -783,7 +732,7 @@
                         <item id="Use" input="" vlaue="0"/>
                         <item id="Unuse" input="" vlaue="0"/>
                     </option>
-                    <option enabled="false" id="optFuncNameCre" selection="optFuncNameCre">
+                    <option enabled="true" id="optFuncNameCre" selection="optFuncNameCre">
                         <item id="optFuncNameCre" input="CrestFunction" vlaue="0"/>
                     </option>
                     <option enabled="true" id="optUPhaseChan" selection="MTU3 B-D">
@@ -915,7 +864,7 @@
                         <item id="Use" input="" vlaue="0"/>
                         <item id="Unuse" input="" vlaue="0"/>
                     </option>
-                    <option enabled="false" id="optFuncNameAd" selection="optFuncNameAd">
+                    <option enabled="true" id="optFuncNameAd" selection="optFuncNameAd">
                         <item id="optFuncNameAd" input="AdFunction" vlaue="0"/>
                     </option>
                 </allocatable>
