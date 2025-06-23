@@ -117,6 +117,13 @@
             <Path>Safety_module\Voltage\src\r_vol_mon.h</Path>
           </Category>
         </Category>
+        <Category Name="cfg">
+          <Path>Safety_module\cfg\safety_error_codes.h</Path>
+          <Path>Safety_module\cfg\safety_functions_api.h</Path>
+        </Category>
+        <Category Name="src">
+          <Path>Safety_module\src\safety_functions_api.c</Path>
+        </Category>
       </Category>
       <Category Name="app">
         <Category Name="board_ui">
@@ -951,6 +958,8 @@
           <Option>-isa=rxv1</Option>
           <Option>-fpu</Option>
           <Option>-include="${ProjDirPath}\motor_module\current_rx"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\cfg"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\src"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\Voltage"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\Voltage\cfg"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\Voltage\src"</Option>
@@ -1010,6 +1019,8 @@
           <Option>-isa=rxv1</Option>
           <Option>-fpu</Option>
           <Option>-include="${ProjDirPath}\src\smc_gen\Config_CMT0"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\cfg"</Option>
+          <Option>-include="${ProjDirPath}\Safety_module\src"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\PC"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\PC\cfg"</Option>
           <Option>-include="${ProjDirPath}\Safety_module\PC\src"</Option>
@@ -1178,6 +1189,7 @@
           <Path>HardwareDebug\r_clock_mon.obj</Path>
           <Path>HardwareDebug\r_vol_mon.obj</Path>
           <Path>HardwareDebug\r_pc_mon.obj</Path>
+          <Path>HardwareDebug\safety_functions_api.obj</Path>
         </LinkOrder>
         <NoTargetFile Target="trash\2025-05-26-17-07-15\src\smc_gen\Config_CMT0\Config_CMT0.c"/>
         <NoTargetFile Target="trash\2025-05-26-17-07-15\src\smc_gen\Config_CMT0\Config_CMT0_user.c"/>
@@ -1385,6 +1397,8 @@
         </IndividualOptions>
         <CommonOptions>
           <IncludePathForC>"${ProjDirPath}\motor_module\current_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\Safety_module\cfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\Safety_module\src"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\Safety_module\Voltage"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\Safety_module\Voltage\cfg"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\Safety_module\Voltage\src"</IncludePathForC>
@@ -1430,6 +1444,8 @@
           <IncludePathForC>"${ProjDirPath}\Safety_module\PC\cfg"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\Safety_module\PC\src"</IncludePathForC>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\Config_CMT0"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\Safety_module\cfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\Safety_module\src"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\Safety_module\PC"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\Safety_module\PC\cfg"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\Safety_module\PC\src"</IncludePathForAsm>

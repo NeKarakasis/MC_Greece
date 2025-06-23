@@ -1,3 +1,6 @@
+-----23/6/25-----
+- Nektarios: Restructor the FuSa call functions and definitions.
+
 -----20/6/25-----
 - Nektarios: Add Clock Fusa Functions and current and speed measurment variables.
 

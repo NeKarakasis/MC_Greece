@@ -47,6 +47,8 @@
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.fpu.1697987007" name="Use floating point arithmetic instructions (-fpu/-nofpu)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.fpu" useByScannerDiscovery="false" value="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.fpu.yes" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.include.358520661" name="Include file directories (-include)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.include" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/motor_module/current_rx}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Safety_module/cfg}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Safety_module/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Safety_module/Voltage}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Safety_module/Voltage/cfg}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Safety_module/Voltage/src}&quot;"/>
@@ -119,6 +121,8 @@
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.assembler.option.characterCode.521339256" name="Character code of an input program (-euc/-sjis/-latin1/-utf8/-big5/-gb2312)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.assembler.option.characterCode" useByScannerDiscovery="false" value="com.renesas.cdt.managedbuild.renesas.ccrx.assembler.option.characterCode.utf8" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.managedbuild.renesas.ccrx.assembler.option.include.1570396646" name="Include file directories (-include)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.assembler.option.include" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/Config_CMT0}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Safety_module/cfg}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Safety_module/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Safety_module/PC}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Safety_module/PC/cfg}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Safety_module/PC/src}&quot;"/>
