@@ -40,7 +40,6 @@
 #define     MAIN_UI_RMW                 (0)         /* ICS (Analyzer) */
 #define     MAIN_UI_BOARD               (1)         /* Board */
 #define     MAIN_UI_SIZE                (2)         /* Number of UI */
-#define     CPU_DIAG_SIZE				(12)		/* Number of the size of CPU_DIAG_Table 0-9,11,12
 /***********************************************************************************************************************
 * global functions
 ***********************************************************************************************************************/
