@@ -1,3 +1,6 @@
+-----23/6/25-----
+- Nektarios: restracture the function call of the FuSa.
+
 -----12/6/25-----
 - Nektarios: Add execution time measurments for current and speed.
 - Nektarios: Add PC FuSa function.
