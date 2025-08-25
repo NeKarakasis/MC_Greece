@@ -1,36 +1,38 @@
- @echo off
-REM ------------------------------------------------------------------
-REM Prohibited editing part
-REM ------------------------------------------------------------------
+@echo off
+REM Auto-generated CRC batch file
+
 set RLINK=%1
 set ABS=%2.abs
 set TEMP=temp.mot
-REM ------------------------------------------------------------------
-REM User editable part
-REM ------------------------------------------------------------------
-REM Download module name
-
 set OUTMOT=data.mot
 del /Q %OUTMOT%
-REM Set Endian (little or big)
 set ENDIAN=little
-REM Generate CRC checksum
-REM GenCRC romStart romEnd crcStart crcEnd
-call:GenCRC FFFF0100 FFFF10FF FFFFFF10 FFFFFF11
-call:GenCRC FFFF1100 FFFF20FF FFFFFF12 FFFFFF13
-call:GenCRC FFFF2100 FFFF30FF FFFFFF14 FFFFFF15
-call:GenCRC FFFF3100 FFFF40FF FFFFFF16 FFFFFF17
-REM ------------------------------------------------------------------
-REM Prohibited editing part
-REM ------------------------------------------------------------------
-REM Merge
+
+REM CRC Generation Calls
+call:GenCRC FFFF0100 FFFF04FF FFFFFF10 FFFFFF11
+call:GenCRC FFFF0500 FFFF08FF FFFFFF12 FFFFFF13
+call:GenCRC FFFF0900 FFFF0CFF FFFFFF14 FFFFFF15
+call:GenCRC FFFF0D00 FFFF10FF FFFFFF16 FFFFFF17
+call:GenCRC FFFF1100 FFFF14FF FFFFFF18 FFFFFF19
+call:GenCRC FFFF1500 FFFF18FF FFFFFF1A FFFFFF1B
+call:GenCRC FFFF1900 FFFF1CFF FFFFFF1C FFFFFF1D
+call:GenCRC FFFF1D00 FFFF20FF FFFFFF1E FFFFFF1F
+call:GenCRC FFFF2100 FFFF24FF FFFFFF20 FFFFFF21
+call:GenCRC FFFF2500 FFFF28FF FFFFFF22 FFFFFF23
+call:GenCRC FFFF2900 FFFF2CFF FFFFFF24 FFFFFF25
+call:GenCRC FFFF2D00 FFFF30FF FFFFFF26 FFFFFF27
+call:GenCRC FFFF3100 FFFF34FF FFFFFF28 FFFFFF29
+call:GenCRC FFFF3500 FFFF38FF FFFFFF2A FFFFFF2B
+call:GenCRC FFFF3900 FFFF3CFF FFFFFF2C FFFFFF2D
+call:GenCRC FFFF3D00 FFFF40FF FFFFFF2E FFFFFF2F
+call:GenCRC FFFF4100 FFFF44FF FFFFFF30 FFFFFF31
+
 copy /Y %OUTMOT% %TEMP%
 %RLINK% %TEMP% -form=stype -output=%OUTMOT%
 del /Q %TEMP%
 exit
-REM Generate CRC checksum (CRC-16)
+
 :GenCRC
  %RLINK% %ABS% -crc=%3=%1-%2/16:%ENDIAN% -form=stype -output=%TEMP%=%3-%4 > nul 2>&1
-REM %RLINK% %ABS% -crc=%3=%1-%2/16:%ENDIAN% -form=stype -output=%TEMP%=%3-%4
 type %TEMP% >> %OUTMOT%
 exit /b

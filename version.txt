@@ -1,3 +1,6 @@
+-----25/8/25-----
+- Nektarios: change the safety module for better modularity.
+
 -----23/6/25-----
 - Nektarios: restracture the function call of the FuSa.
 

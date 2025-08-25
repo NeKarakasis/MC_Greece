@@ -36,6 +36,7 @@
 #ifndef R_RAM_DIAG_CONFIG_H
 #define R_RAM_DIAG_CONFIG_H
 
+#include "safety_functions_api.h"
 /*******************************************************************************
 * Macro definitions
 *******************************************************************************/
@@ -47,13 +48,10 @@
 /* MUTSizeN       : Overall size of RAM area N (Expressed in double words) */
 /* BUTSizeN       : RAM block size of RAM area N (Expressed in double words) */
 /* numberOfBUTN   : Number of RAM blocks in RAM area N */
-/*#define startAddress0       (0x00000000)
-#define MUTSize0            (8*1024/4)
-#define numberOfBUT0        (8)
-#define BUTSize0            (MUTSize0/numberOfBUT0)  Block size = 1K byte */
-#define startAddress0       (0x00000400)
-#define MUTSize0            (1500*4*1/4)//(15360 / 4 )//(((uint32_t)__secend("SI")-1) - 0x00000400) / 4//(8*1024/4) //(16384 / 4 )//
-#define numberOfBUT0        (1500)
+
+#define startAddress0       RAM_TEST_START_ADDRESS
+#define MUTSize0            (RAM_TEST_TOTAL_SIZE*4/4)
+#define numberOfBUT0        (RAM_TEST_TOTAL_SIZE)
 #define BUTSize0            (MUTSize0/numberOfBUT0) /* Block size = 1K byte */
 
 #if NUMBER_OF_AREA > 1
@@ -69,8 +67,8 @@
 
 /* Address assignment of reserved area */
 /* Note: Assign 3 reserved areas to different RAM blocks separately */
-#define RAM_BUFFER_ADDRESS  0x00000400
-#define RAM_RESULT1_ADDRESS 0x00000420
-#define RAM_RESULT2_ADDRESS 0x00000450
+#define RAM_BUFFER_ADDRESS  RAM_MAIN_BUFFER_ADDRESS
+#define RAM_RESULT1_ADDRESS RAM_RESULT_ADDRESS_1
+#define RAM_RESULT2_ADDRESS RAM_RESULT2_ADDRESS_2
 
 #endif /* R_RAM_DIAG_CONFIG_H */

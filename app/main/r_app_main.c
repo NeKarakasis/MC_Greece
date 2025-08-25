@@ -89,26 +89,47 @@ MTU.TRWERA.BIT.RWE = 1U;
 int32_t mtu_counter = MTU4.TCNT;
 
 int32_t tempcounter;
-safety_CPU_test();
-ram_test_sample();
-rom_test_sample();
+uint16_t i = 0;
+for (i = 0; i < 2; i++)
+{
+	safety_CPU_test(i);
+}
+
+for (i = 0; i < 64; i++)
+{
+	ram_test_sample(RAM_TEST_MODE_AUTO,0);
+}
+rom_test_init();
+for (i = 0; i < 258; i++)
+{
+	rom_test_sample(ROM_TEST_MODE_AUTO,0,0);
+}
+
 //tempcounter = CMT1.CMCNT;
 R_Config_S12AD0_Stop();
 S12AD.ADCSR.BIT.ADST = 0;
 //adc_cmt_counts[0] = CMT1.CMCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 1U;
-tempcounter =MTU4.TCNT;
-adc_init_sample();
+tempcounter = MTU4.TCNT;
+//adc_init_sample();
 adc_cmt_counts[1] = MTU4.TCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 0U;
 tempcounter =CMT1.CMCNT;
-adc_test_sample();
+st_adc_driver st_voltage_test;
+st_voltage_test.typeOfTest = ADC_VOLTAGE_LEVEL_0;
+st_voltage_test.voltageUnit = 0;
+st_voltage_test.ReInitialazationADC = R_Config_S12AD0_Create;
+st_voltage_test.StartADC = R_Config_S12AD0_Start;
+adc_test_sample(st_voltage_test);
+st_voltage_test.typeOfTest = ADC_VOLTAGE_LEVEL_HALF;
+adc_test_sample(st_voltage_test);
+
 //adc_cmt_counts[2] = CMT1.CMCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 1U;
 tempcounter =MTU4.TCNT;
 S12AD.ADCSR.BIT.ADST = 1;
-R_Config_S12AD0_Create();
-R_Config_S12AD0_Start();
+/*R_Config_S12AD0_Create();
+R_Config_S12AD0_Start();*/
 adc_cmt_counts[3] = MTU4.TCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 0U;
 
@@ -117,7 +138,7 @@ IWDT_Reset_out_chk();
 
 FuSa_PC_init();
 
-/* 2.9V trigger voltage */
+// 2.9V trigger voltage
 FuSa_Voltage_init();
 
 setpsw_i();                                       /* Enable interrupt */

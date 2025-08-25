@@ -83,7 +83,7 @@ static void r_Config_CMT0_cmi0_interrupt(void)
 	g_watchdog_refresh_counter ++;
 	if (g_watchdog_refresh_counter > 500) // it is about 50% of watchdog timer
 	{
-		R_PC_Mon_Refresh();
+		FuSa_PC_refresh();
 		g_watchdog_refresh_counter = 0;
 	}
 	R_MOTOR_SENSORLESS_VECTOR_SpeedInterrupt(&g_st_sensorless_vector);
