@@ -1,156 +1,156 @@
 Renesas Optimizing Linker
 _g_st_rmw_input_buffer
-20000154  b4  data ,g
+20000160  b4  data ,g
 struct  {
 _g_st_rmw_input_buffer.u2_offset_calc_time
-20000154  2  unsigned short
+20000160  2  unsigned short
 _g_st_rmw_input_buffer.st_motor
-20000158  1c
+20000164  1c
 struct  {
 _g_st_rmw_input_buffer.st_motor.u2_mtr_pp
-20000158  2  unsigned short
+20000164  2  unsigned short
 _g_st_rmw_input_buffer.st_motor.f4_mtr_r
-2000015c  4  float
-_g_st_rmw_input_buffer.st_motor.f4_mtr_ld
-20000160  4  float
-_g_st_rmw_input_buffer.st_motor.f4_mtr_lq
-20000164  4  float
-_g_st_rmw_input_buffer.st_motor.f4_mtr_m
 20000168  4  float
-_g_st_rmw_input_buffer.st_motor.f4_mtr_j
+_g_st_rmw_input_buffer.st_motor.f4_mtr_ld
 2000016c  4  float
-_g_st_rmw_input_buffer.st_motor.f4_nominal_current_rms
+_g_st_rmw_input_buffer.st_motor.f4_mtr_lq
 20000170  4  float
+_g_st_rmw_input_buffer.st_motor.f4_mtr_m
+20000174  4  float
+_g_st_rmw_input_buffer.st_motor.f4_mtr_j
+20000178  4  float
+_g_st_rmw_input_buffer.st_motor.f4_nominal_current_rms
+2000017c  4  float
 }
 _g_st_rmw_input_buffer.f4_max_speed_rpm
-20000174  4  float
-_g_st_rmw_input_buffer.u1_ctrl_loop_mode
-20000178  1  unsigned char
-_g_st_rmw_input_buffer.f4_current_omega_hz
-2000017c  4  float
-_g_st_rmw_input_buffer.f4_current_zeta
 20000180  4  float
-_g_st_rmw_input_buffer.f4_speed_omega_hz
-20000184  4  float
-_g_st_rmw_input_buffer.f4_speed_zeta
+_g_st_rmw_input_buffer.u1_ctrl_loop_mode
+20000184  1  unsigned char
+_g_st_rmw_input_buffer.f4_current_omega_hz
 20000188  4  float
-_g_st_rmw_input_buffer.f4_speed_lpf_hz
+_g_st_rmw_input_buffer.f4_current_zeta
 2000018c  4  float
-_g_st_rmw_input_buffer.f4_ref_speed_rpm
+_g_st_rmw_input_buffer.f4_speed_omega_hz
 20000190  4  float
-_g_st_rmw_input_buffer.f4_speed_rate_limit_rpm
+_g_st_rmw_input_buffer.f4_speed_zeta
 20000194  4  float
-_g_st_rmw_input_buffer.f4_overspeed_limit_rpm
+_g_st_rmw_input_buffer.f4_speed_lpf_hz
 20000198  4  float
-_g_st_rmw_input_buffer.u1_flag_volt_err_comp_use
-2000019c  1  unsigned char
-_g_st_rmw_input_buffer.u1_flag_fluxwkn_use
-2000019d  1  unsigned char
-_g_st_rmw_input_buffer.u1_flag_extobserver_use
-2000019e  1  unsigned char
-_g_st_rmw_input_buffer.f4_extobs_omega
+_g_st_rmw_input_buffer.f4_ref_speed_rpm
+2000019c  4  float
+_g_st_rmw_input_buffer.f4_speed_rate_limit_rpm
 200001a0  4  float
-_g_st_rmw_input_buffer.u1_flag_mtpa_use
-200001a4  1  unsigned char
-_g_st_rmw_input_buffer.u1_flag_flying_start_use
-200001a5  1  unsigned char
-_g_st_rmw_input_buffer.u1_flag_stall_detection_use
-200001a6  1  unsigned char
-_g_st_rmw_input_buffer.u1_flag_trq_vibration_comp_use
-200001a7  1  unsigned char
-_g_st_rmw_input_buffer.f4_e_obs_omega_hz
-200001a8  4  float
-_g_st_rmw_input_buffer.f4_e_obs_zeta
+_g_st_rmw_input_buffer.f4_overspeed_limit_rpm
+200001a4  4  float
+_g_st_rmw_input_buffer.u1_flag_volt_err_comp_use
+200001a8  1  unsigned char
+_g_st_rmw_input_buffer.u1_flag_fluxwkn_use
+200001a9  1  unsigned char
+_g_st_rmw_input_buffer.u1_flag_extobserver_use
+200001aa  1  unsigned char
+_g_st_rmw_input_buffer.f4_extobs_omega
 200001ac  4  float
-_g_st_rmw_input_buffer.f4_pll_est_omega_hz
-200001b0  4  float
-_g_st_rmw_input_buffer.f4_pll_est_zeta
+_g_st_rmw_input_buffer.u1_flag_mtpa_use
+200001b0  1  unsigned char
+_g_st_rmw_input_buffer.u1_flag_flying_start_use
+200001b1  1  unsigned char
+_g_st_rmw_input_buffer.u1_flag_stall_detection_use
+200001b2  1  unsigned char
+_g_st_rmw_input_buffer.u1_flag_trq_vibration_comp_use
+200001b3  1  unsigned char
+_g_st_rmw_input_buffer.f4_e_obs_omega_hz
 200001b4  4  float
-_g_st_rmw_input_buffer.f4_pll_estlow_omega_hz
+_g_st_rmw_input_buffer.f4_e_obs_zeta
 200001b8  4  float
-_g_st_rmw_input_buffer.f4_pll_estlow_zeta
+_g_st_rmw_input_buffer.f4_pll_est_omega_hz
 200001bc  4  float
-_g_st_rmw_input_buffer.f4_highspd_threshold
+_g_st_rmw_input_buffer.f4_pll_est_zeta
 200001c0  4  float
-_g_st_rmw_input_buffer.f4_lowspd_threshold
+_g_st_rmw_input_buffer.f4_pll_estlow_omega_hz
 200001c4  4  float
-_g_st_rmw_input_buffer.f4_id_hpf_time
+_g_st_rmw_input_buffer.f4_pll_estlow_zeta
 200001c8  4  float
-_g_st_rmw_input_buffer.f4_iq_hpf_time
+_g_st_rmw_input_buffer.f4_highspd_threshold
 200001cc  4  float
-_g_st_rmw_input_buffer.f4_threshold_level
+_g_st_rmw_input_buffer.f4_lowspd_threshold
 200001d0  4  float
-_g_st_rmw_input_buffer.f4_threshold_time
+_g_st_rmw_input_buffer.f4_id_hpf_time
 200001d4  4  float
-_g_st_rmw_input_buffer.u1_flag_trqvib_comp_learning
-200001d8  1  unsigned char
-_g_st_rmw_input_buffer.f4_timelead
+_g_st_rmw_input_buffer.f4_iq_hpf_time
+200001d8  4  float
+_g_st_rmw_input_buffer.f4_threshold_level
 200001dc  4  float
-_g_st_rmw_input_buffer.f4_tf_lpf_time
+_g_st_rmw_input_buffer.f4_threshold_time
 200001e0  4  float
-_g_st_rmw_input_buffer.f4_output_gain
-200001e4  4  float
-_g_st_rmw_input_buffer.f4_input_weight2
+_g_st_rmw_input_buffer.u1_flag_trqvib_comp_learning
+200001e4  1  unsigned char
+_g_st_rmw_input_buffer.f4_timelead
 200001e8  4  float
-_g_st_rmw_input_buffer.f4_input_weight1
+_g_st_rmw_input_buffer.f4_tf_lpf_time
 200001ec  4  float
-_g_st_rmw_input_buffer.f4_input_weight0
+_g_st_rmw_input_buffer.f4_output_gain
 200001f0  4  float
-_g_st_rmw_input_buffer.f4_restart_speed
+_g_st_rmw_input_buffer.f4_input_weight2
 200001f4  4  float
-_g_st_rmw_input_buffer.f4_off_time
+_g_st_rmw_input_buffer.f4_input_weight1
 200001f8  4  float
-_g_st_rmw_input_buffer.f4_over_time
+_g_st_rmw_input_buffer.f4_input_weight0
 200001fc  4  float
-_g_st_rmw_input_buffer.f4_active_brake_time
+_g_st_rmw_input_buffer.f4_restart_speed
 20000200  4  float
-_g_st_rmw_input_buffer.f4_on_current_th
+_g_st_rmw_input_buffer.f4_off_time
 20000204  4  float
+_g_st_rmw_input_buffer.f4_over_time
+20000208  4  float
+_g_st_rmw_input_buffer.f4_active_brake_time
+2000020c  4  float
+_g_st_rmw_input_buffer.f4_on_current_th
+20000210  4  float
 }
 _com_u1_system_mode
-2000014f  1  data ,g
+2000015b  1  data ,g
 _g_u1_system_mode
-2000014e  1  data ,g
+2000015a  1  data ,g
 _com_u1_enable_write
-2000014d  1  data ,g
+20000159  1  data ,g
 _g_u1_enable_write
-2000014c  1  data ,g
+20000158  1  data ,g
 _com_u2_offset_calc_time
-2000014a  2  data ,g
+20000156  2  data ,g
 _com_u2_mtr_pp
-20000148  2  data ,g
+20000154  2  data ,g
 _com_f4_mtr_r
-20000144  4  data ,g
+20000150  4  data ,g
 _com_f4_mtr_ld
-20000140  4  data ,g
+2000014c  4  data ,g
 _com_f4_mtr_lq
-2000013c  4  data ,g
+20000148  4  data ,g
 _com_f4_mtr_m
-20000138  4  data ,g
+20000144  4  data ,g
 _com_f4_mtr_j
-20000134  4  data ,g
+20000140  4  data ,g
 _com_f4_nominal_current_rms
-20000130  4  data ,g
+2000013c  4  data ,g
 _com_f4_max_speed_rpm
-2000012c  4  data ,g
+20000138  4  data ,g
 _com_u1_ctrl_loop_mode
-20000128  1  data ,g
+20000134  1  data ,g
 _com_f4_current_omega_hz
-20000124  4  data ,g
+20000130  4  data ,g
 _com_f4_current_zeta
-20000120  4  data ,g
+2000012c  4  data ,g
 _com_f4_speed_omega_hz
-2000011c  4  data ,g
+20000128  4  data ,g
 _com_f4_speed_zeta
-20000118  4  data ,g
+20000124  4  data ,g
 _com_f4_speed_lpf_hz
-20000114  4  data ,g
+20000120  4  data ,g
 _com_f4_ref_speed_rpm
-20000110  4  data ,g
+2000011c  4  data ,g
 _com_f4_speed_rate_limit_rpm
-2000010c  4  data ,g
+20000118  4  data ,g
 _com_f4_overspeed_limit_rpm
-20000108  4  data ,g
+20000114  4  data ,g
 _com_u1_flag_volt_err_comp_use
 20000105  1  data ,g
 _com_u1_flag_fluxwkn_use
@@ -214,1272 +214,1286 @@ _com_f4_active_brake_time
 _com_f4_on_current_th
 20000098  4  data ,g
 _g_u2_conf_hw
-20000256  2  data ,g
+20000262  2  data ,g
 _g_u2_conf_sw
-20000254  2  data ,g
+20000260  2  data ,g
 _g_u2_conf_tool
-20000252  2  data ,g
+2000025e  2  data ,g
 _gui_u1_active_gui
 00000000  1  data ,g
 _g_u2_conf_sw_ver
 00000000  2  data ,g
 _g_u1_conf_motor_type_len
-20000250  1  data ,g
+2000025c  1  data ,g
 _g_u1_conf_control_len
-2000024f  1  data ,g
+2000025b  1  data ,g
 _g_u1_conf_inverter_len
-2000024e  1  data ,g
+2000025a  1  data ,g
 _g_u1_conf_motor_type
-2000023c  12  data ,g
+20000248  12  data ,g
 _g_u1_conf_control
-20000210  29  data ,g
+2000021c  29  data ,g
 _g_u1_conf_inverter
-20000208  8  data ,g
+20000214  8  data ,g
 _g_u1_update_param_flag
-20000150  1  data ,g
+2000015c  1  data ,g
+_com_f4_speed_rate_limit_rpm1
+20000110  4  data ,g
+_com_f4_speed_rate_limit_rpm2
+2000010c  4  data ,g
+_com_f4_speed_rate_limit_rpm3
+20000108  4  data ,g
 _com_f4_timelead
 200000c0  4  data ,g
 _g_u2_pfc_status_pre
-2000025a  2  data ,g
+20000266  2  data ,g
 _g_u1_relay_flg
-20000258  1  data ,g
+20000264  1  data ,g
 _g_st_pfc_manager
-2000025c  5d0  data ,g
+20000268  5d0  data ,g
 struct  {
 _g_st_pfc_manager.u1_pfc_ctrl_enable_flg
-2000025c  1  unsigned char
+20000268  1  unsigned char
 _g_st_pfc_manager.u1_relay_ctrl_on_flg
-2000025d  1  unsigned char
+20000269  1  unsigned char
 _g_st_pfc_manager.u1_error_cancel_flg
-2000025e  1  unsigned char
+2000026a  1  unsigned char
 _g_st_pfc_manager.u1_volt_dip_flg
-2000025f  1  unsigned char
+2000026b  1  unsigned char
 _g_st_pfc_manager.u2_error_status
-20000260  2  unsigned short
+2000026c  2  unsigned short
 _g_st_pfc_manager.u2_run_mode
-20000262  2  unsigned short
+2000026e  2  unsigned short
 _g_st_pfc_manager.f4_vac_ad
-20000264  4  float
-_g_st_pfc_manager.f4_vdc_ad
-20000268  4  float
-_g_st_pfc_manager.f4_ichp_ad
-2000026c  4  float
-_g_st_pfc_manager.f4_vac_ad_lpf
 20000270  4  float
-_g_st_pfc_manager.f4_vdc_ad_lpf
+_g_st_pfc_manager.f4_vdc_ad
 20000274  4  float
-_g_st_pfc_manager.f4_ref_vdc_ctrl
+_g_st_pfc_manager.f4_ichp_ad
 20000278  4  float
-_g_st_pfc_manager.f4_vdc_up_step
+_g_st_pfc_manager.f4_vac_ad_lpf
 2000027c  4  float
-_g_st_pfc_manager.f4_target_vdc
+_g_st_pfc_manager.f4_vdc_ad_lpf
 20000280  4  float
-_g_st_pfc_manager.f4_ac_overvoltage_limit
+_g_st_pfc_manager.f4_ref_vdc_ctrl
 20000284  4  float
-_g_st_pfc_manager.f4_bus_overvoltage_limit
+_g_st_pfc_manager.f4_vdc_up_step
 20000288  4  float
-_g_st_pfc_manager.f4_bus_undervoltage_limit
+_g_st_pfc_manager.f4_target_vdc
 2000028c  4  float
-_g_st_pfc_manager.f4_overcurrent_limit
+_g_st_pfc_manager.f4_ac_overvoltage_limit
 20000290  4  float
+_g_st_pfc_manager.f4_bus_overvoltage_limit
+20000294  4  float
+_g_st_pfc_manager.f4_bus_undervoltage_limit
+20000298  4  float
+_g_st_pfc_manager.f4_overcurrent_limit
+2000029c  4  float
 _g_st_pfc_manager.u1_overheat_detect_level
-20000294  1  unsigned char
+200002a0  1  unsigned char
 _g_st_pfc_manager.st_vac_ad_lpf
-20000298  14
+200002a4  14
 struct  {
 _g_st_pfc_manager.st_vac_ad_lpf.f4_pre_output
-20000298  4  float
-_g_st_pfc_manager.st_vac_ad_lpf.f4_pre_input
-2000029c  4  float
-_g_st_pfc_manager.st_vac_ad_lpf.f4_omega_t
-200002a0  4  float
-_g_st_pfc_manager.st_vac_ad_lpf.f4_gain_ka
 200002a4  4  float
-_g_st_pfc_manager.st_vac_ad_lpf.f4_gain_kb
+_g_st_pfc_manager.st_vac_ad_lpf.f4_pre_input
 200002a8  4  float
+_g_st_pfc_manager.st_vac_ad_lpf.f4_omega_t
+200002ac  4  float
+_g_st_pfc_manager.st_vac_ad_lpf.f4_gain_ka
+200002b0  4  float
+_g_st_pfc_manager.st_vac_ad_lpf.f4_gain_kb
+200002b4  4  float
 }
 _g_st_pfc_manager.st_vdc_ad_lpf
-200002ac  14
+200002b8  14
 struct  {
 _g_st_pfc_manager.st_vdc_ad_lpf.f4_pre_output
-200002ac  4  float
-_g_st_pfc_manager.st_vdc_ad_lpf.f4_pre_input
-200002b0  4  float
-_g_st_pfc_manager.st_vdc_ad_lpf.f4_omega_t
-200002b4  4  float
-_g_st_pfc_manager.st_vdc_ad_lpf.f4_gain_ka
 200002b8  4  float
-_g_st_pfc_manager.st_vdc_ad_lpf.f4_gain_kb
+_g_st_pfc_manager.st_vdc_ad_lpf.f4_pre_input
 200002bc  4  float
+_g_st_pfc_manager.st_vdc_ad_lpf.f4_omega_t
+200002c0  4  float
+_g_st_pfc_manager.st_vdc_ad_lpf.f4_gain_ka
+200002c4  4  float
+_g_st_pfc_manager.st_vdc_ad_lpf.f4_gain_kb
+200002c8  4  float
 }
 _g_st_pfc_manager.st_vdc_notch_fil
-200002c0  34
+200002cc  34
 struct  {
 _g_st_pfc_manager.st_vdc_notch_fil.f4_in_data
-200002c0  c  float
-_g_st_pfc_manager.st_vdc_notch_fil.f4_out_data
 200002cc  c  float
-_g_st_pfc_manager.st_vdc_notch_fil.f4_coef_n
+_g_st_pfc_manager.st_vdc_notch_fil.f4_out_data
 200002d8  c  float
-_g_st_pfc_manager.st_vdc_notch_fil.f4_coef_d
+_g_st_pfc_manager.st_vdc_notch_fil.f4_coef_n
 200002e4  c  float
+_g_st_pfc_manager.st_vdc_notch_fil.f4_coef_d
+200002f0  c  float
 _g_st_pfc_manager.st_vdc_notch_fil.f4_omega_t
-200002f0  4  float
+200002fc  4  float
 }
 _g_st_pfc_manager.st_pfc_ctrl_output
-200002f4  4
+20000300  4
 struct  {
 _g_st_pfc_manager.st_pfc_ctrl_output.f4_duty
-200002f4  4  float
+20000300  4  float
 }
 _g_st_pfc_manager.st_ac_fil
-200002f8  514
+20000304  514
 struct  {
 _g_st_pfc_manager.st_ac_fil.u2_data_num
-200002f8  2  unsigned short
+20000304  2  unsigned short
 _g_st_pfc_manager.st_ac_fil.f4_data_sum
-200002fc  4  float
+20000308  4  float
 _g_st_pfc_manager.st_ac_fil.f4_data_array
-20000300  500  float
+2000030c  500  float
 _g_st_pfc_manager.st_ac_fil.f4_data_ave
-20000800  4  float
+2000080c  4  float
 _g_st_pfc_manager.st_ac_fil.f4_data_peak
-20000804  4  float
+20000810  4  float
 _g_st_pfc_manager.st_ac_fil.f4_data_rms
-20000808  4  float
+20000814  4  float
 }
 _g_st_pfc_manager.st_relay_ctrl
-2000080c  18
+20000818  18
 struct  {
 _g_st_pfc_manager.st_relay_ctrl.u2_relay_on_delay_cnt
-2000080c  2  unsigned short
+20000818  2  unsigned short
 _g_st_pfc_manager.st_relay_ctrl.u2_relay_off_delay_cnt
-2000080e  2  unsigned short
+2000081a  2  unsigned short
 _g_st_pfc_manager.st_relay_ctrl.u2_relay_on_delay_cnt_limit
-20000810  2  unsigned short
+2000081c  2  unsigned short
 _g_st_pfc_manager.st_relay_ctrl.u2_relay_off_delay_cnt_limit
-20000812  2  unsigned short
+2000081e  2  unsigned short
 _g_st_pfc_manager.st_relay_ctrl.f4_relay_on_vac_rms_min
-20000814  4  float
-_g_st_pfc_manager.st_relay_ctrl.f4_relay_off_vac_rms_min
-20000818  4  float
-_g_st_pfc_manager.st_relay_ctrl.f4_relay_on_div_min
-2000081c  4  float
-_g_st_pfc_manager.st_relay_ctrl.f4_relay_off_div_max
 20000820  4  float
+_g_st_pfc_manager.st_relay_ctrl.f4_relay_off_vac_rms_min
+20000824  4  float
+_g_st_pfc_manager.st_relay_ctrl.f4_relay_on_div_min
+20000828  4  float
+_g_st_pfc_manager.st_relay_ctrl.f4_relay_off_div_max
+2000082c  4  float
 }
 _g_st_pfc_manager.p_st_pfc_driver
-20000824  4  [pointer]
+20000830  4  [pointer]
 _g_st_pfc_manager.p_st_pfc_ctrl
-20000828  4  [pointer]
+20000834  4  [pointer]
 }
 _g_st_pfc_driver
-2000082c  38  data ,g
+20000838  38  data ,g
 struct  {
 _g_st_pfc_driver.ADCDataGet
-2000082c  4  [pointer]
-_g_st_pfc_driver.DutySet
-20000830  4  [pointer]
-_g_st_pfc_driver.PWMOutputStop
-20000834  4  [pointer]
-_g_st_pfc_driver.PWMOutputStart
 20000838  4  [pointer]
-_g_st_pfc_driver.RelayOn
+_g_st_pfc_driver.DutySet
 2000083c  4  [pointer]
-_g_st_pfc_driver.RelayOff
+_g_st_pfc_driver.PWMOutputStop
 20000840  4  [pointer]
-_g_st_pfc_driver.OverheatCheck
+_g_st_pfc_driver.PWMOutputStart
 20000844  4  [pointer]
+_g_st_pfc_driver.RelayOn
+20000848  4  [pointer]
+_g_st_pfc_driver.RelayOff
+2000084c  4  [pointer]
+_g_st_pfc_driver.OverheatCheck
+20000850  4  [pointer]
 _g_st_pfc_driver.f4_ad_vac_per_digit
-20000848  4  float
-_g_st_pfc_driver.f4_ad_vdc_per_digit
-2000084c  4  float
-_g_st_pfc_driver.f4_ad_crnt_per_digit
-20000850  4  float
-_g_st_pfc_driver.f4_pwm_period_cnt
 20000854  4  float
+_g_st_pfc_driver.f4_ad_vdc_per_digit
+20000858  4  float
+_g_st_pfc_driver.f4_ad_crnt_per_digit
+2000085c  4  float
+_g_st_pfc_driver.f4_pwm_period_cnt
+20000860  4  float
 _g_st_pfc_driver.s2_input_volt_offset
-20000858  2  short
+20000864  2  short
 _g_st_pfc_driver.s2_bus_volt_offset
-2000085a  2  short
+20000866  2  short
 _g_st_pfc_driver.s2_pfc_crnt_offset
-2000085c  2  short
+20000868  2  short
 _g_st_pfc_driver.u2_pwm_valid_max_cnt
-2000085e  2  unsigned short
+2000086a  2  unsigned short
 _g_st_pfc_driver.u2_pwm_valid_min_cnt
-20000860  2  unsigned short
+2000086c  2  unsigned short
 }
 _g_st_pfc_ctrl
-20000864  80  data ,g
+20000870  80  data ,g
 struct  {
 _g_st_pfc_ctrl.f4_vac_ad
-20000864  4  float
-_g_st_pfc_ctrl.f4_vdc_ad
-20000868  4  float
-_g_st_pfc_ctrl.f4_ichp_ad
-2000086c  4  float
-_g_st_pfc_ctrl.f4_vac_rms
 20000870  4  float
-_g_st_pfc_ctrl.f4_ref_vdc_ctrl
+_g_st_pfc_ctrl.f4_vdc_ad
 20000874  4  float
-_g_st_pfc_ctrl.f4_ref_ichp_ctrl
+_g_st_pfc_ctrl.f4_ichp_ad
 20000878  4  float
-_g_st_pfc_ctrl.f4_power_max_limit
+_g_st_pfc_ctrl.f4_vac_rms
 2000087c  4  float
-_g_st_pfc_ctrl.f4_power_min_limit
+_g_st_pfc_ctrl.f4_ref_vdc_ctrl
 20000880  4  float
-_g_st_pfc_ctrl.f4_power_slope
+_g_st_pfc_ctrl.f4_ref_ichp_ctrl
 20000884  4  float
-_g_st_pfc_ctrl.f4_avr_ff_comp_min_limit
+_g_st_pfc_ctrl.f4_power_max_limit
 20000888  4  float
-_g_st_pfc_ctrl.f4_acr_ff_comp_min_limit
+_g_st_pfc_ctrl.f4_power_min_limit
 2000088c  4  float
-_g_st_pfc_ctrl.u2_duty_ff_softstart_cnt
-20000890  2  unsigned short
-_g_st_pfc_ctrl.u2_duty_ff_softstart_max_cnt
-20000892  2  unsigned short
-_g_st_pfc_ctrl.f4_duty_ff_softstart_up_step
+_g_st_pfc_ctrl.f4_power_slope
+20000890  4  float
+_g_st_pfc_ctrl.f4_avr_ff_comp_min_limit
 20000894  4  float
-_g_st_pfc_ctrl.f4_duty_ff_comp
+_g_st_pfc_ctrl.f4_acr_ff_comp_min_limit
 20000898  4  float
-_g_st_pfc_ctrl.f4_duty_ff_comp_coef
-2000089c  4  float
-_g_st_pfc_ctrl.f4_duty
+_g_st_pfc_ctrl.u2_duty_ff_softstart_cnt
+2000089c  2  unsigned short
+_g_st_pfc_ctrl.u2_duty_ff_softstart_max_cnt
+2000089e  2  unsigned short
+_g_st_pfc_ctrl.f4_duty_ff_softstart_up_step
 200008a0  4  float
-_g_st_pfc_ctrl.f4_duty_max
+_g_st_pfc_ctrl.f4_duty_ff_comp
 200008a4  4  float
-_g_st_pfc_ctrl.f4_duty_min
+_g_st_pfc_ctrl.f4_duty_ff_comp_coef
 200008a8  4  float
-_g_st_pfc_ctrl.f4_avr_pi_output
+_g_st_pfc_ctrl.f4_duty
 200008ac  4  float
-_g_st_pfc_ctrl.f4_acr_pi_output
+_g_st_pfc_ctrl.f4_duty_max
 200008b0  4  float
+_g_st_pfc_ctrl.f4_duty_min
+200008b4  4  float
+_g_st_pfc_ctrl.f4_avr_pi_output
+200008b8  4  float
+_g_st_pfc_ctrl.f4_acr_pi_output
+200008bc  4  float
 _g_st_pfc_ctrl.st_pi_voltage
-200008b4  18
+200008c0  18
 struct  {
 _g_st_pfc_ctrl.st_pi_voltage.f4_err
-200008b4  4  float
-_g_st_pfc_ctrl.st_pi_voltage.f4_kp
-200008b8  4  float
-_g_st_pfc_ctrl.st_pi_voltage.f4_ki
-200008bc  4  float
-_g_st_pfc_ctrl.st_pi_voltage.f4_refp
 200008c0  4  float
-_g_st_pfc_ctrl.st_pi_voltage.f4_refi
+_g_st_pfc_ctrl.st_pi_voltage.f4_kp
 200008c4  4  float
-_g_st_pfc_ctrl.st_pi_voltage.f4_ilimit
+_g_st_pfc_ctrl.st_pi_voltage.f4_ki
 200008c8  4  float
+_g_st_pfc_ctrl.st_pi_voltage.f4_refp
+200008cc  4  float
+_g_st_pfc_ctrl.st_pi_voltage.f4_refi
+200008d0  4  float
+_g_st_pfc_ctrl.st_pi_voltage.f4_ilimit
+200008d4  4  float
 }
 _g_st_pfc_ctrl.st_pi_current
-200008cc  18
+200008d8  18
 struct  {
 _g_st_pfc_ctrl.st_pi_current.f4_err
-200008cc  4  float
-_g_st_pfc_ctrl.st_pi_current.f4_kp
-200008d0  4  float
-_g_st_pfc_ctrl.st_pi_current.f4_ki
-200008d4  4  float
-_g_st_pfc_ctrl.st_pi_current.f4_refp
 200008d8  4  float
-_g_st_pfc_ctrl.st_pi_current.f4_refi
+_g_st_pfc_ctrl.st_pi_current.f4_kp
 200008dc  4  float
-_g_st_pfc_ctrl.st_pi_current.f4_ilimit
+_g_st_pfc_ctrl.st_pi_current.f4_ki
 200008e0  4  float
+_g_st_pfc_ctrl.st_pi_current.f4_refp
+200008e4  4  float
+_g_st_pfc_ctrl.st_pi_current.f4_refi
+200008e8  4  float
+_g_st_pfc_ctrl.st_pi_current.f4_ilimit
+200008ec  4  float
 }
 }
 _g_st_sc
-200008e4  f4  data ,g
+200008f0  f4  data ,g
 struct  {
 _g_st_sc.u1_active
-200008e4  1  unsigned char
+200008f0  1  unsigned char
 _g_st_sc.u1_state_speed_ref
-200008e5  1  unsigned char
+200008f1  1  unsigned char
 _g_st_sc.u1_flag_extobserver_use
-200008e6  1  unsigned char
+200008f2  1  unsigned char
 _g_st_sc.u1_flag_fluxwkn_use
-200008e7  1  unsigned char
+200008f3  1  unsigned char
 _g_st_sc.u1_flag_mtpa_use
-200008e8  1  unsigned char
+200008f4  1  unsigned char
 _g_st_sc.u1_state_estmode
-200008e9  1  unsigned char
+200008f5  1  unsigned char
 _g_st_sc.f4_speed_ctrl_period
-200008ec  4  float
-_g_st_sc.f4_ref_speed_rad_ctrl
-200008f0  4  float
-_g_st_sc.f4_ref_speed_rad
-200008f4  4  float
-_g_st_sc.f4_ref_speed_rad_manual
 200008f8  4  float
-_g_st_sc.f4_speed_rad_ctrl
+_g_st_sc.f4_ref_speed_rad_ctrl
 200008fc  4  float
-_g_st_sc.f4_speed_rad
+_g_st_sc.f4_ref_speed_rad
 20000900  4  float
-_g_st_sc.f4_max_speed_rad
+_g_st_sc.f4_ref_speed_rad_manual
 20000904  4  float
-_g_st_sc.f4_speed_rate_limit_rad
+_g_st_sc.f4_speed_rad_ctrl
 20000908  4  float
-_g_st_sc.f4_speed_obsrv_rad
+_g_st_sc.f4_speed_rad
 2000090c  4  float
-_g_st_sc.f4_id_ref_output
+_g_st_sc.f4_max_speed_rad
 20000910  4  float
-_g_st_sc.f4_iq_ref_output
+_g_st_sc.f4_speed_rate_limit_rad
 20000914  4  float
-_g_st_sc.f4_va_max
+_g_st_sc.f4_speed_obsrv_rad
 20000918  4  float
-_g_st_sc.f4_id_ad
+_g_st_sc.f4_id_ref_output
 2000091c  4  float
-_g_st_sc.f4_iq_ad
+_g_st_sc.f4_iq_ref_output
 20000920  4  float
-_g_st_sc.f4_torque_current
+_g_st_sc.f4_va_max
 20000924  4  float
-_g_st_sc.f4_max_ta
+_g_st_sc.f4_id_ad
 20000928  4  float
-_g_st_sc.f4_id_limit
+_g_st_sc.f4_iq_ad
 2000092c  4  float
+_g_st_sc.f4_torque_current
+20000930  4  float
+_g_st_sc.f4_max_ta
+20000934  4  float
+_g_st_sc.f4_id_limit
+20000938  4  float
 _g_st_sc.st_motor
-20000930  1c
+2000093c  1c
 struct  {
 _g_st_sc.st_motor.u2_mtr_pp
-20000930  2  unsigned short
+2000093c  2  unsigned short
 _g_st_sc.st_motor.f4_mtr_r
-20000934  4  float
-_g_st_sc.st_motor.f4_mtr_ld
-20000938  4  float
-_g_st_sc.st_motor.f4_mtr_lq
-2000093c  4  float
-_g_st_sc.st_motor.f4_mtr_m
 20000940  4  float
-_g_st_sc.st_motor.f4_mtr_j
+_g_st_sc.st_motor.f4_mtr_ld
 20000944  4  float
-_g_st_sc.st_motor.f4_nominal_current_rms
+_g_st_sc.st_motor.f4_mtr_lq
 20000948  4  float
+_g_st_sc.st_motor.f4_mtr_m
+2000094c  4  float
+_g_st_sc.st_motor.f4_mtr_j
+20000950  4  float
+_g_st_sc.st_motor.f4_nominal_current_rms
+20000954  4  float
 }
 _g_st_sc.st_pi_speed
-2000094c  14
+20000958  14
 struct  {
 _g_st_sc.st_pi_speed.f4_err
-2000094c  4  float
-_g_st_sc.st_pi_speed.f4_kp
-20000950  4  float
-_g_st_sc.st_pi_speed.f4_ki
-20000954  4  float
-_g_st_sc.st_pi_speed.f4_refi
 20000958  4  float
-_g_st_sc.st_pi_speed.f4_ilimit
+_g_st_sc.st_pi_speed.f4_kp
 2000095c  4  float
+_g_st_sc.st_pi_speed.f4_ki
+20000960  4  float
+_g_st_sc.st_pi_speed.f4_refi
+20000964  4  float
+_g_st_sc.st_pi_speed.f4_ilimit
+20000968  4  float
 }
 _g_st_sc.st_extobs
-20000960  40
+2000096c  40
 struct  {
 _g_st_sc.st_extobs.f4_gain_distb_est
-20000960  4  float
-_g_st_sc.st_extobs.f4_gain_speed_est
-20000964  4  float
-_g_st_sc.st_extobs.f4_estimated_distb
-20000968  4  float
-_g_st_sc.st_extobs.f4_estimated_speed
 2000096c  4  float
-_g_st_sc.st_extobs.f4_inertia_kgms2
+_g_st_sc.st_extobs.f4_gain_speed_est
 20000970  4  float
-_g_st_sc.st_extobs.f4_natural_freq_hz
+_g_st_sc.st_extobs.f4_estimated_distb
 20000974  4  float
-_g_st_sc.st_extobs.f4_ctrl_period_s
+_g_st_sc.st_extobs.f4_estimated_speed
 20000978  4  float
-_g_st_sc.st_extobs.f4_nominal_cur_peak
+_g_st_sc.st_extobs.f4_inertia_kgms2
 2000097c  4  float
-_g_st_sc.st_extobs.f4_nominal_cur
+_g_st_sc.st_extobs.f4_natural_freq_hz
 20000980  4  float
-_g_st_sc.st_extobs.f4_outputlim_start_rad
+_g_st_sc.st_extobs.f4_ctrl_period_s
 20000984  4  float
-_g_st_sc.st_extobs.f4_outputlim_end_rad
+_g_st_sc.st_extobs.f4_nominal_cur_peak
 20000988  4  float
+_g_st_sc.st_extobs.f4_nominal_cur
+2000098c  4  float
+_g_st_sc.st_extobs.f4_outputlim_start_rad
+20000990  4  float
+_g_st_sc.st_extobs.f4_outputlim_end_rad
+20000994  4  float
 _g_st_sc.st_extobs.st_lpf
-2000098c  14
+20000998  14
 struct  {
 _g_st_sc.st_extobs.st_lpf.f4_pre_output
-2000098c  4  float
-_g_st_sc.st_extobs.st_lpf.f4_pre_input
-20000990  4  float
-_g_st_sc.st_extobs.st_lpf.f4_omega_t
-20000994  4  float
-_g_st_sc.st_extobs.st_lpf.f4_gain_ka
 20000998  4  float
-_g_st_sc.st_extobs.st_lpf.f4_gain_kb
+_g_st_sc.st_extobs.st_lpf.f4_pre_input
 2000099c  4  float
+_g_st_sc.st_extobs.st_lpf.f4_omega_t
+200009a0  4  float
+_g_st_sc.st_extobs.st_lpf.f4_gain_ka
+200009a4  4  float
+_g_st_sc.st_extobs.st_lpf.f4_gain_kb
+200009a8  4  float
 }
 }
 _g_st_sc.st_fluxwkn
-200009a0  20
+200009ac  20
 struct  {
 _g_st_sc.st_fluxwkn.p_motor
-200009a0  4  [pointer]
+200009ac  4  [pointer]
 _g_st_sc.st_fluxwkn.f4_ia_max
-200009a4  4  float
-_g_st_sc.st_fluxwkn.f4_va_max
-200009a8  4  float
-_g_st_sc.st_fluxwkn.f4_vfw_ratio
-200009ac  4  float
-_g_st_sc.st_fluxwkn.f4_id_demag
 200009b0  4  float
-_g_st_sc.st_fluxwkn.f4_id_min
+_g_st_sc.st_fluxwkn.f4_va_max
 200009b4  4  float
-_g_st_sc.st_fluxwkn.f4_v_fw
+_g_st_sc.st_fluxwkn.f4_vfw_ratio
 200009b8  4  float
+_g_st_sc.st_fluxwkn.f4_id_demag
+200009bc  4  float
+_g_st_sc.st_fluxwkn.f4_id_min
+200009c0  4  float
+_g_st_sc.st_fluxwkn.f4_v_fw
+200009c4  4  float
 _g_st_sc.st_fluxwkn.u2_fw_status
-200009bc  2  unsigned short
+200009c8  2  unsigned short
 }
 _g_st_sc.st_slpf
-200009c0  14
+200009cc  14
 struct  {
 _g_st_sc.st_slpf.f4_pre_output
-200009c0  4  float
-_g_st_sc.st_slpf.f4_pre_input
-200009c4  4  float
-_g_st_sc.st_slpf.f4_omega_t
-200009c8  4  float
-_g_st_sc.st_slpf.f4_gain_ka
 200009cc  4  float
-_g_st_sc.st_slpf.f4_gain_kb
+_g_st_sc.st_slpf.f4_pre_input
 200009d0  4  float
+_g_st_sc.st_slpf.f4_omega_t
+200009d4  4  float
+_g_st_sc.st_slpf.f4_gain_ka
+200009d8  4  float
+_g_st_sc.st_slpf.f4_gain_kb
+200009dc  4  float
 }
 _g_st_sc.st_mtpa
-200009d4  4
+200009e0  4
 struct  {
 _g_st_sc.st_mtpa.p_motor
-200009d4  4  [pointer]
+200009e0  4  [pointer]
 }
 }
 _g_st_sensorless_vector
-200009d8  130  data ,g
+200009e4  130  data ,g
 struct  {
 _g_st_sensorless_vector.u1_flag_flying_start_use
-200009d8  1  unsigned char
+200009e4  1  unsigned char
 _g_st_sensorless_vector.u1_state_speed_ref
-200009d9  1  unsigned char
+200009e5  1  unsigned char
 _g_st_sensorless_vector.u1_state_estmode
-200009da  1  unsigned char
+200009e6  1  unsigned char
 _g_st_sensorless_vector.u2_estmode_state_chg_cnt
-200009dc  2  unsigned short
+200009e8  2  unsigned short
 _g_st_sensorless_vector.u1_direction
-200009de  1  unsigned char
+200009ea  1  unsigned char
 _g_st_sensorless_vector.u1_ctrl_loop_mode
-200009df  1  unsigned char
+200009eb  1  unsigned char
 _g_st_sensorless_vector.u2_error_status
-200009e0  2  unsigned short
+200009ec  2  unsigned short
 _g_st_sensorless_vector.u2_run_mode
-200009e2  2  unsigned short
+200009ee  2  unsigned short
 _g_st_sensorless_vector.f4_vdc_ad
-200009e4  4  float
-_g_st_sensorless_vector.f4_pfc_vdc_ad
-200009e8  4  float
-_g_st_sensorless_vector.f4_iu_ad
-200009ec  4  float
-_g_st_sensorless_vector.f4_iv_ad
 200009f0  4  float
-_g_st_sensorless_vector.f4_iw_ad
+_g_st_sensorless_vector.f4_pfc_vdc_ad
 200009f4  4  float
-_g_st_sensorless_vector.f4_overcurrent_limit
+_g_st_sensorless_vector.f4_iu_ad
 200009f8  4  float
-_g_st_sensorless_vector.f4_overvoltage_limit
+_g_st_sensorless_vector.f4_iv_ad
 200009fc  4  float
-_g_st_sensorless_vector.f4_undervoltage_limit
+_g_st_sensorless_vector.f4_iw_ad
 20000a00  4  float
-_g_st_sensorless_vector.f4_overspeed_limit_rad
+_g_st_sensorless_vector.f4_overcurrent_limit
 20000a04  4  float
-_g_st_sensorless_vector.u2_est_timeout_cnt
-20000a08  2  unsigned short
-_g_st_sensorless_vector.f4_phase_err_rad_lpf
+_g_st_sensorless_vector.f4_overvoltage_limit
+20000a08  4  float
+_g_st_sensorless_vector.f4_undervoltage_limit
 20000a0c  4  float
+_g_st_sensorless_vector.f4_overspeed_limit_rad
+20000a10  4  float
+_g_st_sensorless_vector.u2_est_timeout_cnt
+20000a14  2  unsigned short
+_g_st_sensorless_vector.f4_phase_err_rad_lpf
+20000a18  4  float
 _g_st_sensorless_vector.u1_relay_first_on
-20000a10  1  unsigned char
+20000a1c  1  unsigned char
 _g_st_sensorless_vector.st_phase_err_lpf
-20000a14  14
+20000a20  14
 struct  {
 _g_st_sensorless_vector.st_phase_err_lpf.f4_pre_output
-20000a14  4  float
-_g_st_sensorless_vector.st_phase_err_lpf.f4_pre_input
-20000a18  4  float
-_g_st_sensorless_vector.st_phase_err_lpf.f4_omega_t
-20000a1c  4  float
-_g_st_sensorless_vector.st_phase_err_lpf.f4_gain_ka
 20000a20  4  float
-_g_st_sensorless_vector.st_phase_err_lpf.f4_gain_kb
+_g_st_sensorless_vector.st_phase_err_lpf.f4_pre_input
 20000a24  4  float
+_g_st_sensorless_vector.st_phase_err_lpf.f4_omega_t
+20000a28  4  float
+_g_st_sensorless_vector.st_phase_err_lpf.f4_gain_ka
+20000a2c  4  float
+_g_st_sensorless_vector.st_phase_err_lpf.f4_gain_kb
+20000a30  4  float
 }
 _g_st_sensorless_vector.st_current_output
-20000a28  2c
+20000a34  2c
 struct  {
 _g_st_sensorless_vector.st_current_output.u1_flag_offset_calc
-20000a28  1  unsigned char
+20000a34  1  unsigned char
 _g_st_sensorless_vector.st_current_output.f4_modu
-20000a2c  4  float
-_g_st_sensorless_vector.st_current_output.f4_modv
-20000a30  4  float
-_g_st_sensorless_vector.st_current_output.f4_modw
-20000a34  4  float
-_g_st_sensorless_vector.st_current_output.f4_neutral_duty
 20000a38  4  float
-_g_st_sensorless_vector.st_current_output.f4_va_max
+_g_st_sensorless_vector.st_current_output.f4_modv
 20000a3c  4  float
-_g_st_sensorless_vector.st_current_output.f4_ref_id_ctrl
+_g_st_sensorless_vector.st_current_output.f4_modw
 20000a40  4  float
-_g_st_sensorless_vector.st_current_output.f4_speed_rad
+_g_st_sensorless_vector.st_current_output.f4_neutral_duty
 20000a44  4  float
-_g_st_sensorless_vector.st_current_output.f4_ed
+_g_st_sensorless_vector.st_current_output.f4_va_max
 20000a48  4  float
-_g_st_sensorless_vector.st_current_output.f4_eq
+_g_st_sensorless_vector.st_current_output.f4_ref_id_ctrl
 20000a4c  4  float
-_g_st_sensorless_vector.st_current_output.f4_phase_err_rad
+_g_st_sensorless_vector.st_current_output.f4_speed_rad
 20000a50  4  float
+_g_st_sensorless_vector.st_current_output.f4_ed
+20000a54  4  float
+_g_st_sensorless_vector.st_current_output.f4_eq
+20000a58  4  float
+_g_st_sensorless_vector.st_current_output.f4_phase_err_rad
+20000a5c  4  float
 }
 _g_st_sensorless_vector.st_speed_output
-20000a54  10
+20000a60  10
 struct  {
 _g_st_sensorless_vector.st_speed_output.f4_id_ref
-20000a54  4  float
-_g_st_sensorless_vector.st_speed_output.f4_iq_ref
-20000a58  4  float
-_g_st_sensorless_vector.st_speed_output.f4_ref_speed_rad_ctrl
-20000a5c  4  float
-_g_st_sensorless_vector.st_speed_output.f4_speed_rad_lpf
 20000a60  4  float
+_g_st_sensorless_vector.st_speed_output.f4_iq_ref
+20000a64  4  float
+_g_st_sensorless_vector.st_speed_output.f4_ref_speed_rad_ctrl
+20000a68  4  float
+_g_st_sensorless_vector.st_speed_output.f4_speed_rad_lpf
+20000a6c  4  float
 }
 _g_st_sensorless_vector.st_stm
-20000a64  6
+20000a70  6
 struct  {
 _g_st_sensorless_vector.st_stm.u1_status
-20000a64  1  unsigned char
+20000a70  1  unsigned char
 _g_st_sensorless_vector.st_stm.u1_status_next
-20000a65  1  unsigned char
+20000a71  1  unsigned char
 _g_st_sensorless_vector.st_stm.u2_error_status
-20000a66  2  unsigned short
+20000a72  2  unsigned short
 _g_st_sensorless_vector.st_stm.u1_current_event
-20000a68  1  unsigned char
+20000a74  1  unsigned char
 }
 _g_st_sensorless_vector.st_motor
-20000a6c  1c
+20000a78  1c
 struct  {
 _g_st_sensorless_vector.st_motor.u2_mtr_pp
-20000a6c  2  unsigned short
+20000a78  2  unsigned short
 _g_st_sensorless_vector.st_motor.f4_mtr_r
-20000a70  4  float
-_g_st_sensorless_vector.st_motor.f4_mtr_ld
-20000a74  4  float
-_g_st_sensorless_vector.st_motor.f4_mtr_lq
-20000a78  4  float
-_g_st_sensorless_vector.st_motor.f4_mtr_m
 20000a7c  4  float
-_g_st_sensorless_vector.st_motor.f4_mtr_j
+_g_st_sensorless_vector.st_motor.f4_mtr_ld
 20000a80  4  float
-_g_st_sensorless_vector.st_motor.f4_nominal_current_rms
+_g_st_sensorless_vector.st_motor.f4_mtr_lq
 20000a84  4  float
+_g_st_sensorless_vector.st_motor.f4_mtr_m
+20000a88  4  float
+_g_st_sensorless_vector.st_motor.f4_mtr_j
+20000a8c  4  float
+_g_st_sensorless_vector.st_motor.f4_nominal_current_rms
+20000a90  4  float
 }
 _g_st_sensorless_vector.st_flystart
-20000a88  74
+20000a94  74
 struct  {
 _g_st_sensorless_vector.st_flystart.f4_iu_ad
-20000a88  4  float
-_g_st_sensorless_vector.st_flystart.f4_iv_ad
-20000a8c  4  float
-_g_st_sensorless_vector.st_flystart.f4_iw_ad
-20000a90  4  float
-_g_st_sensorless_vector.st_flystart.f4_ia_ad
 20000a94  4  float
-_g_st_sensorless_vector.st_flystart.f4_ib_ad
+_g_st_sensorless_vector.st_flystart.f4_iv_ad
 20000a98  4  float
-_g_st_sensorless_vector.st_flystart.f4_current_mag
+_g_st_sensorless_vector.st_flystart.f4_iw_ad
 20000a9c  4  float
-_g_st_sensorless_vector.st_flystart.f4_ia_ad1st
+_g_st_sensorless_vector.st_flystart.f4_ia_ad
 20000aa0  4  float
-_g_st_sensorless_vector.st_flystart.f4_ib_ad1st
+_g_st_sensorless_vector.st_flystart.f4_ib_ad
 20000aa4  4  float
-_g_st_sensorless_vector.st_flystart.f4_ia_ad2nd
+_g_st_sensorless_vector.st_flystart.f4_current_mag
 20000aa8  4  float
-_g_st_sensorless_vector.st_flystart.f4_ib_ad2nd
+_g_st_sensorless_vector.st_flystart.f4_ia_ad1st
 20000aac  4  float
-_g_st_sensorless_vector.st_flystart.f4_id_ad
+_g_st_sensorless_vector.st_flystart.f4_ib_ad1st
 20000ab0  4  float
-_g_st_sensorless_vector.st_flystart.f4_iq_ad
+_g_st_sensorless_vector.st_flystart.f4_ia_ad2nd
 20000ab4  4  float
-_g_st_sensorless_vector.st_flystart.f4_angle1st
+_g_st_sensorless_vector.st_flystart.f4_ib_ad2nd
 20000ab8  4  float
-_g_st_sensorless_vector.st_flystart.f4_angle2nd
+_g_st_sensorless_vector.st_flystart.f4_id_ad
 20000abc  4  float
-_g_st_sensorless_vector.st_flystart.f4_omega_e_ini
+_g_st_sensorless_vector.st_flystart.f4_iq_ad
 20000ac0  4  float
-_g_st_sensorless_vector.st_flystart.f4_omega_m_ini
+_g_st_sensorless_vector.st_flystart.f4_angle1st
 20000ac4  4  float
-_g_st_sensorless_vector.st_flystart.f4_angle_dq
+_g_st_sensorless_vector.st_flystart.f4_angle2nd
 20000ac8  4  float
-_g_st_sensorless_vector.st_flystart.f4_angle_e_ini
+_g_st_sensorless_vector.st_flystart.f4_omega_e_ini
 20000acc  4  float
-_g_st_sensorless_vector.st_flystart.f4_angle_rotate
+_g_st_sensorless_vector.st_flystart.f4_omega_m_ini
 20000ad0  4  float
-_g_st_sensorless_vector.st_flystart.f4_emf_volt
+_g_st_sensorless_vector.st_flystart.f4_angle_dq
 20000ad4  4  float
-_g_st_sensorless_vector.st_flystart.f4_restart_speed
+_g_st_sensorless_vector.st_flystart.f4_angle_e_ini
 20000ad8  4  float
-_g_st_sensorless_vector.st_flystart.f4_ctrl_period
+_g_st_sensorless_vector.st_flystart.f4_angle_rotate
 20000adc  4  float
-_g_st_sensorless_vector.st_flystart.f4_on_time
+_g_st_sensorless_vector.st_flystart.f4_emf_volt
 20000ae0  4  float
-_g_st_sensorless_vector.st_flystart.f4_off_time
+_g_st_sensorless_vector.st_flystart.f4_restart_speed
 20000ae4  4  float
-_g_st_sensorless_vector.st_flystart.f4_on_current_th
+_g_st_sensorless_vector.st_flystart.f4_ctrl_period
 20000ae8  4  float
+_g_st_sensorless_vector.st_flystart.f4_on_time
+20000aec  4  float
+_g_st_sensorless_vector.st_flystart.f4_off_time
+20000af0  4  float
+_g_st_sensorless_vector.st_flystart.f4_on_current_th
+20000af4  4  float
 _g_st_sensorless_vector.st_flystart.u2_time_cnt
-20000aec  2  unsigned short
+20000af8  2  unsigned short
 _g_st_sensorless_vector.st_flystart.u2_on_time_cnt
-20000aee  2  unsigned short
+20000afa  2  unsigned short
 _g_st_sensorless_vector.st_flystart.u2_off_time_cnt
-20000af0  2  unsigned short
+20000afc  2  unsigned short
 _g_st_sensorless_vector.st_flystart.u2_over_time_cnt
-20000af2  2  unsigned short
+20000afe  2  unsigned short
 _g_st_sensorless_vector.st_flystart.u2_active_brake_time_cnt
-20000af4  2  unsigned short
+20000b00  2  unsigned short
 _g_st_sensorless_vector.st_flystart.u1_state
-20000af6  1  unsigned char
+20000b02  1  unsigned char
 _g_st_sensorless_vector.st_flystart.u1_action
-20000af7  1  unsigned char
+20000b03  1  unsigned char
 _g_st_sensorless_vector.st_flystart.p_st_motor
-20000af8  4  [pointer]
-}
-_g_st_sensorless_vector.p_st_driver
-20000afc  4  [pointer]
-_g_st_sensorless_vector.p_st_cc
-20000b00  4  [pointer]
-_g_st_sensorless_vector.p_st_sc
 20000b04  4  [pointer]
 }
+_g_st_sensorless_vector.p_st_driver
+20000b08  4  [pointer]
+_g_st_sensorless_vector.p_st_cc
+20000b0c  4  [pointer]
+_g_st_sensorless_vector.p_st_sc
+20000b10  4  [pointer]
+}
 _g_st_driver
-20000b08  28  data ,g
+20000b14  28  data ,g
 struct  {
 _g_st_driver.ADCDataGet
-20000b08  4  [pointer]
-_g_st_driver.BLDCDutySet
-20000b0c  4  [pointer]
-_g_st_driver.BLDCZeroDutySet
-20000b10  4  [pointer]
-_g_st_driver.BLDCCompareDutySet
 20000b14  4  [pointer]
-_g_st_driver.PWMOutputStop
+_g_st_driver.BLDCDutySet
 20000b18  4  [pointer]
-_g_st_driver.PWMOutputStart
+_g_st_driver.BLDCZeroDutySet
 20000b1c  4  [pointer]
+_g_st_driver.BLDCCompareDutySet
+20000b20  4  [pointer]
+_g_st_driver.PWMOutputStop
+20000b24  4  [pointer]
+_g_st_driver.PWMOutputStart
+20000b28  4  [pointer]
 _g_st_driver.f4_ad_crnt_per_digit
-20000b20  4  float
-_g_st_driver.f4_ad_vdc_per_digit
-20000b24  4  float
-_g_st_driver.f4_pwm_period_cnt
-20000b28  4  float
-_g_st_driver.f4_pwm_dead_time_cnt
 20000b2c  4  float
+_g_st_driver.f4_ad_vdc_per_digit
+20000b30  4  float
+_g_st_driver.f4_pwm_period_cnt
+20000b34  4  float
+_g_st_driver.f4_pwm_dead_time_cnt
+20000b38  4  float
 }
 _g_st_cc
-20000b34  710  data ,g
+20000b40  710  data ,g
 struct  {
 _g_st_cc.u1_active
-20000b34  1  unsigned char
+20000b40  1  unsigned char
 _g_st_cc.u1_flag_volt_err_comp_use
-20000b35  1  unsigned char
+20000b41  1  unsigned char
 _g_st_cc.u1_state_estmode
-20000b36  1  unsigned char
+20000b42  1  unsigned char
 _g_st_cc.u1_flag_stall_detection_use
-20000b37  1  unsigned char
+20000b43  1  unsigned char
 _g_st_cc.u1_flag_trq_vibration_comp_use
-20000b38  1  unsigned char
+20000b44  1  unsigned char
 _g_st_cc.u1_flag_offset_calc
-20000b39  1  unsigned char
+20000b45  1  unsigned char
 _g_st_cc.u2_offset_calc_time
-20000b3a  2  unsigned short
+20000b46  2  unsigned short
 _g_st_cc.u2_crnt_offset_cnt
-20000b3c  2  unsigned short
+20000b48  2  unsigned short
 _g_st_cc.f4_ctrl_period
-20000b40  4  float
-_g_st_cc.f4_refu
-20000b44  4  float
-_g_st_cc.f4_refv
-20000b48  4  float
-_g_st_cc.f4_refw
 20000b4c  4  float
-_g_st_cc.f4_vd_ref
+_g_st_cc.f4_refu
 20000b50  4  float
-_g_st_cc.f4_vq_ref
+_g_st_cc.f4_refv
 20000b54  4  float
-_g_st_cc.f4_vd_ref2
+_g_st_cc.f4_refw
 20000b58  4  float
-_g_st_cc.f4_id_ref
+_g_st_cc.f4_vd_ref
 20000b5c  4  float
-_g_st_cc.f4_iq_ref
+_g_st_cc.f4_vq_ref
 20000b60  4  float
-_g_st_cc.f4_id_ad
+_g_st_cc.f4_vd_ref2
 20000b64  4  float
-_g_st_cc.f4_iq_ad
+_g_st_cc.f4_id_ref
 20000b68  4  float
-_g_st_cc.f4_ia_max
+_g_st_cc.f4_iq_ref
 20000b6c  4  float
-_g_st_cc.f4_id_ad2
+_g_st_cc.f4_id_ad
 20000b70  4  float
-_g_st_cc.f4_iq_ad2
+_g_st_cc.f4_iq_ad
 20000b74  4  float
-_g_st_cc.f4_lim_iq
+_g_st_cc.f4_ia_max
 20000b78  4  float
-_g_st_cc.f4_offset_iu
+_g_st_cc.f4_id_ad2
 20000b7c  4  float
-_g_st_cc.f4_offset_iw
+_g_st_cc.f4_iq_ad2
 20000b80  4  float
-_g_st_cc.f4_sum_iu_ad
+_g_st_cc.f4_lim_iq
 20000b84  4  float
-_g_st_cc.f4_sum_iw_ad
+_g_st_cc.f4_offset_iu
 20000b88  4  float
-_g_st_cc.f4_vdc_ad
+_g_st_cc.f4_offset_iw
 20000b8c  4  float
-_g_st_cc.f4_iu_ad
+_g_st_cc.f4_sum_iu_ad
 20000b90  4  float
-_g_st_cc.f4_iv_ad
+_g_st_cc.f4_sum_iw_ad
 20000b94  4  float
-_g_st_cc.f4_iw_ad
+_g_st_cc.f4_vdc_ad
 20000b98  4  float
-_g_st_cc.f4_modu
+_g_st_cc.f4_iu_ad
 20000b9c  4  float
-_g_st_cc.f4_modv
+_g_st_cc.f4_iv_ad
 20000ba0  4  float
-_g_st_cc.f4_modw
+_g_st_cc.f4_iw_ad
 20000ba4  4  float
-_g_st_cc.f4_speed_rad
+_g_st_cc.f4_modu
 20000ba8  4  float
-_g_st_cc.f4_ref_id_ctrl
+_g_st_cc.f4_modv
 20000bac  4  float
-_g_st_cc.f4_ref_iq_ctrl
+_g_st_cc.f4_modw
 20000bb0  4  float
-_g_st_cc.f4_va_max
+_g_st_cc.f4_speed_rad
 20000bb4  4  float
-_g_st_cc.f4_ed
+_g_st_cc.f4_ref_id_ctrl
 20000bb8  4  float
-_g_st_cc.f4_eq
+_g_st_cc.f4_ref_iq_ctrl
 20000bbc  4  float
-_g_st_cc.f4_phase_err_rad
+_g_st_cc.f4_va_max
 20000bc0  4  float
-_g_st_cc.f4_ref_speed_rad_ctrl
+_g_st_cc.f4_ed
 20000bc4  4  float
+_g_st_cc.f4_eq
+20000bc8  4  float
+_g_st_cc.f4_phase_err_rad
+20000bcc  4  float
+_g_st_cc.f4_ref_speed_rad_ctrl
+20000bd0  4  float
 _g_st_cc.st_mod
-20000bc8  18
+20000bd4  18
 struct  {
 _g_st_cc.st_mod.f4_vdc
-20000bc8  4  float
-_g_st_cc.st_mod.f4_1_div_vdc
-20000bcc  4  float
-_g_st_cc.st_mod.f4_voltage_error_ratio
-20000bd0  4  float
-_g_st_cc.st_mod.f4_max_duty
 20000bd4  4  float
-_g_st_cc.st_mod.f4_min_duty
+_g_st_cc.st_mod.f4_1_div_vdc
 20000bd8  4  float
-_g_st_cc.st_mod.f4_neutral_duty
+_g_st_cc.st_mod.f4_voltage_error_ratio
 20000bdc  4  float
+_g_st_cc.st_mod.f4_max_duty
+20000be0  4  float
+_g_st_cc.st_mod.f4_min_duty
+20000be4  4  float
+_g_st_cc.st_mod.f4_neutral_duty
+20000be8  4  float
 }
 _g_st_cc.st_volt_comp
-20000be0  74
+20000bec  74
 struct  {
 _g_st_cc.st_volt_comp.f4_comp_v
-20000be0  14  float
+20000bec  14  float
 _g_st_cc.st_volt_comp.f4_comp_i
-20000bf4  14  float
+20000c00  14  float
 _g_st_cc.st_volt_comp.f4_slope
-20000c08  18  float
+20000c14  18  float
 _g_st_cc.st_volt_comp.f4_intcept
-20000c20  18  float
+20000c2c  18  float
 _g_st_cc.st_volt_comp.f4_volt_comp_array
-20000c38  c  float
+20000c44  c  float
 _g_st_cc.st_volt_comp.f4_vdc
-20000c44  4  float
+20000c50  4  float
 _g_st_cc.st_volt_comp.f4_volt_comp_limit
-20000c48  4  float
+20000c54  4  float
 _g_st_cc.st_volt_comp.f4_volt_comp_limit_ratio
-20000c4c  4  float
+20000c58  4  float
 _g_st_cc.st_volt_comp.u1_volt_err_comp_enable
-20000c50  1  unsigned char
+20000c5c  1  unsigned char
 _g_st_cc.st_volt_comp.u1_volt_comp_use_motor_type
-20000c51  1  unsigned char
+20000c5d  1  unsigned char
 }
 _g_st_cc.st_bemf_observer
-20000c54  40
+20000c60  40
 struct  {
 _g_st_cc.st_bemf_observer.f4_dt
-20000c54  4  float
+20000c60  4  float
 _g_st_cc.st_bemf_observer.p_st_motor
-20000c58  4  [pointer]
+20000c64  4  [pointer]
 _g_st_cc.st_bemf_observer.st_d_axis
-20000c5c  1c
+20000c68  1c
 struct  {
 _g_st_cc.st_bemf_observer.st_d_axis.f4_k_e_obs_1
-20000c5c  4  float
-_g_st_cc.st_bemf_observer.st_d_axis.f4_k_e_obs_2
-20000c60  4  float
-_g_st_cc.st_bemf_observer.st_d_axis.f4_i_pre
-20000c64  4  float
-_g_st_cc.st_bemf_observer.st_d_axis.f4_i_est_pre
 20000c68  4  float
-_g_st_cc.st_bemf_observer.st_d_axis.f4_d_est
+_g_st_cc.st_bemf_observer.st_d_axis.f4_k_e_obs_2
 20000c6c  4  float
-_g_st_cc.st_bemf_observer.st_d_axis.f4_d_est_pre
+_g_st_cc.st_bemf_observer.st_d_axis.f4_i_pre
 20000c70  4  float
-_g_st_cc.st_bemf_observer.st_d_axis.f4_d_est_limit
+_g_st_cc.st_bemf_observer.st_d_axis.f4_i_est_pre
 20000c74  4  float
+_g_st_cc.st_bemf_observer.st_d_axis.f4_d_est
+20000c78  4  float
+_g_st_cc.st_bemf_observer.st_d_axis.f4_d_est_pre
+20000c7c  4  float
+_g_st_cc.st_bemf_observer.st_d_axis.f4_d_est_limit
+20000c80  4  float
 }
 _g_st_cc.st_bemf_observer.st_q_axis
-20000c78  1c
+20000c84  1c
 struct  {
 _g_st_cc.st_bemf_observer.st_q_axis.f4_k_e_obs_1
-20000c78  4  float
-_g_st_cc.st_bemf_observer.st_q_axis.f4_k_e_obs_2
-20000c7c  4  float
-_g_st_cc.st_bemf_observer.st_q_axis.f4_i_pre
-20000c80  4  float
-_g_st_cc.st_bemf_observer.st_q_axis.f4_i_est_pre
 20000c84  4  float
-_g_st_cc.st_bemf_observer.st_q_axis.f4_d_est
+_g_st_cc.st_bemf_observer.st_q_axis.f4_k_e_obs_2
 20000c88  4  float
-_g_st_cc.st_bemf_observer.st_q_axis.f4_d_est_pre
+_g_st_cc.st_bemf_observer.st_q_axis.f4_i_pre
 20000c8c  4  float
-_g_st_cc.st_bemf_observer.st_q_axis.f4_d_est_limit
+_g_st_cc.st_bemf_observer.st_q_axis.f4_i_est_pre
 20000c90  4  float
+_g_st_cc.st_bemf_observer.st_q_axis.f4_d_est
+20000c94  4  float
+_g_st_cc.st_bemf_observer.st_q_axis.f4_d_est_pre
+20000c98  4  float
+_g_st_cc.st_bemf_observer.st_q_axis.f4_d_est_limit
+20000c9c  4  float
 }
 }
 _g_st_cc.st_pll_est
-20000c94  c
-struct  {
-_g_st_cc.st_pll_est.f4_kp_est_speed
-20000c94  4  float
-_g_st_cc.st_pll_est.f4_ki_est_speed
-20000c98  4  float
-_g_st_cc.st_pll_est.f4_i_est_speed
-20000c9c  4  float
-}
-_g_st_cc.st_pll_est_low
 20000ca0  c
 struct  {
-_g_st_cc.st_pll_est_low.f4_kp_est_speed
+_g_st_cc.st_pll_est.f4_kp_est_speed
 20000ca0  4  float
-_g_st_cc.st_pll_est_low.f4_ki_est_speed
+_g_st_cc.st_pll_est.f4_ki_est_speed
 20000ca4  4  float
-_g_st_cc.st_pll_est_low.f4_i_est_speed
+_g_st_cc.st_pll_est.f4_i_est_speed
 20000ca8  4  float
 }
+_g_st_cc.st_pll_est_low
+20000cac  c
+struct  {
+_g_st_cc.st_pll_est_low.f4_kp_est_speed
+20000cac  4  float
+_g_st_cc.st_pll_est_low.f4_ki_est_speed
+20000cb0  4  float
+_g_st_cc.st_pll_est_low.f4_i_est_speed
+20000cb4  4  float
+}
 _g_st_cc.st_pi_id
-20000cac  14
+20000cb8  14
 struct  {
 _g_st_cc.st_pi_id.f4_err
-20000cac  4  float
-_g_st_cc.st_pi_id.f4_kp
-20000cb0  4  float
-_g_st_cc.st_pi_id.f4_ki
-20000cb4  4  float
-_g_st_cc.st_pi_id.f4_refi
 20000cb8  4  float
-_g_st_cc.st_pi_id.f4_ilimit
+_g_st_cc.st_pi_id.f4_kp
 20000cbc  4  float
+_g_st_cc.st_pi_id.f4_ki
+20000cc0  4  float
+_g_st_cc.st_pi_id.f4_refi
+20000cc4  4  float
+_g_st_cc.st_pi_id.f4_ilimit
+20000cc8  4  float
 }
 _g_st_cc.st_pi_iq
-20000cc0  14
+20000ccc  14
 struct  {
 _g_st_cc.st_pi_iq.f4_err
-20000cc0  4  float
-_g_st_cc.st_pi_iq.f4_kp
-20000cc4  4  float
-_g_st_cc.st_pi_iq.f4_ki
-20000cc8  4  float
-_g_st_cc.st_pi_iq.f4_refi
 20000ccc  4  float
-_g_st_cc.st_pi_iq.f4_ilimit
+_g_st_cc.st_pi_iq.f4_kp
 20000cd0  4  float
-}
-_g_st_cc.st_rotor_angle
-20000cd4  c
-struct  {
-_g_st_cc.st_rotor_angle.f4_rotor_angle_rad
+_g_st_cc.st_pi_iq.f4_ki
 20000cd4  4  float
-_g_st_cc.st_rotor_angle.f4_sin
+_g_st_cc.st_pi_iq.f4_refi
 20000cd8  4  float
-_g_st_cc.st_rotor_angle.f4_cos
+_g_st_cc.st_pi_iq.f4_ilimit
 20000cdc  4  float
 }
-_g_st_cc.st_rotor_angle_phasecomp
+_g_st_cc.st_rotor_angle
 20000ce0  c
 struct  {
-_g_st_cc.st_rotor_angle_phasecomp.f4_rotor_angle_rad
+_g_st_cc.st_rotor_angle.f4_rotor_angle_rad
 20000ce0  4  float
-_g_st_cc.st_rotor_angle_phasecomp.f4_sin
+_g_st_cc.st_rotor_angle.f4_sin
 20000ce4  4  float
-_g_st_cc.st_rotor_angle_phasecomp.f4_cos
+_g_st_cc.st_rotor_angle.f4_cos
 20000ce8  4  float
 }
+_g_st_cc.st_rotor_angle_phasecomp
+20000cec  c
+struct  {
+_g_st_cc.st_rotor_angle_phasecomp.f4_rotor_angle_rad
+20000cec  4  float
+_g_st_cc.st_rotor_angle_phasecomp.f4_sin
+20000cf0  4  float
+_g_st_cc.st_rotor_angle_phasecomp.f4_cos
+20000cf4  4  float
+}
 _g_st_cc.st_motor
-20000cec  1c
+20000cf8  1c
 struct  {
 _g_st_cc.st_motor.u2_mtr_pp
-20000cec  2  unsigned short
+20000cf8  2  unsigned short
 _g_st_cc.st_motor.f4_mtr_r
-20000cf0  4  float
-_g_st_cc.st_motor.f4_mtr_ld
-20000cf4  4  float
-_g_st_cc.st_motor.f4_mtr_lq
-20000cf8  4  float
-_g_st_cc.st_motor.f4_mtr_m
 20000cfc  4  float
-_g_st_cc.st_motor.f4_mtr_j
+_g_st_cc.st_motor.f4_mtr_ld
 20000d00  4  float
-_g_st_cc.st_motor.f4_nominal_current_rms
+_g_st_cc.st_motor.f4_mtr_lq
 20000d04  4  float
+_g_st_cc.st_motor.f4_mtr_m
+20000d08  4  float
+_g_st_cc.st_motor.f4_mtr_j
+20000d0c  4  float
+_g_st_cc.st_motor.f4_nominal_current_rms
+20000d10  4  float
 }
 _g_st_cc.st_lowspd
-20000d08  e0
+20000d14  e0
 struct  {
 _g_st_cc.st_lowspd.f4_ctrl_period
-20000d08  4  float
-_g_st_cc.st_lowspd.f4_pulse_inj_interval
-20000d0c  4  float
-_g_st_cc.st_lowspd.f4_ld_pulse
-20000d10  4  float
-_g_st_cc.st_lowspd.f4_lq_pulse
 20000d14  4  float
-_g_st_cc.st_lowspd.f4_volt_pulse_inj
+_g_st_cc.st_lowspd.f4_pulse_inj_interval
 20000d18  4  float
-_g_st_cc.st_lowspd.f4_vd_ref_pulse_inj
+_g_st_cc.st_lowspd.f4_ld_pulse
 20000d1c  4  float
-_g_st_cc.st_lowspd.u1_pulse_freq
-20000d20  1  unsigned char
-_g_st_cc.st_lowspd.u1_pulse_cnt
-20000d21  1  unsigned char
-_g_st_cc.st_lowspd.u1_pulse_sign
-20000d22  1  unsigned char
-_g_st_cc.st_lowspd.f4_PF
+_g_st_cc.st_lowspd.f4_lq_pulse
+20000d20  4  float
+_g_st_cc.st_lowspd.f4_volt_pulse_inj
 20000d24  4  float
+_g_st_cc.st_lowspd.f4_vd_ref_pulse_inj
+20000d28  4  float
+_g_st_cc.st_lowspd.u1_pulse_freq
+20000d2c  1  unsigned char
+_g_st_cc.st_lowspd.u1_pulse_cnt
+20000d2d  1  unsigned char
+_g_st_cc.st_lowspd.u1_pulse_sign
+20000d2e  1  unsigned char
+_g_st_cc.st_lowspd.f4_PF
+20000d30  4  float
 _g_st_cc.st_lowspd.f4_array_id_p
-20000d28  20  float
+20000d34  20  float
 _g_st_cc.st_lowspd.f4_array_id_n
-20000d48  20  float
+20000d54  20  float
 _g_st_cc.st_lowspd.f4_array_iq_p
-20000d68  20  float
+20000d74  20  float
 _g_st_cc.st_lowspd.f4_array_iq_n
-20000d88  20  float
+20000d94  20  float
 _g_st_cc.st_lowspd.f4_id_peak_p
-20000da8  4  float
-_g_st_cc.st_lowspd.f4_id_peak_n
-20000dac  4  float
-_g_st_cc.st_lowspd.f4_id_ad_ave
-20000db0  4  float
-_g_st_cc.st_lowspd.f4_iq_ad_ave
 20000db4  4  float
-_g_st_cc.st_lowspd.f4_delt_id
+_g_st_cc.st_lowspd.f4_id_peak_n
 20000db8  4  float
-_g_st_cc.st_lowspd.f4_delt_iq
+_g_st_cc.st_lowspd.f4_id_ad_ave
 20000dbc  4  float
-_g_st_cc.st_lowspd.f4_delta_ang
+_g_st_cc.st_lowspd.f4_iq_ad_ave
 20000dc0  4  float
-_g_st_cc.st_lowspd.u1_PF_start_cnt
-20000dc4  1  unsigned char
-_g_st_cc.st_lowspd.u1_cur_chg_cnt
-20000dc5  1  unsigned char
-_g_st_cc.st_lowspd.u1_div_ang_cnt
-20000dc6  1  unsigned char
-_g_st_cc.st_lowspd.u1_pf_calculated
-20000dc7  1  unsigned char
-_g_st_cc.st_lowspd.u1_posest_calculated
-20000dc8  1  unsigned char
-_g_st_cc.st_lowspd.f4_pf_last_idc_plus
+_g_st_cc.st_lowspd.f4_delt_id
+20000dc4  4  float
+_g_st_cc.st_lowspd.f4_delt_iq
+20000dc8  4  float
+_g_st_cc.st_lowspd.f4_delta_ang
 20000dcc  4  float
-_g_st_cc.st_lowspd.f4_pf_last_idc_minus
-20000dd0  4  float
-_g_st_cc.st_lowspd.f4_highspd_threshold
-20000dd4  4  float
-_g_st_cc.st_lowspd.f4_lowspd_threshold
+_g_st_cc.st_lowspd.u1_PF_start_cnt
+20000dd0  1  unsigned char
+_g_st_cc.st_lowspd.u1_cur_chg_cnt
+20000dd1  1  unsigned char
+_g_st_cc.st_lowspd.u1_div_ang_cnt
+20000dd2  1  unsigned char
+_g_st_cc.st_lowspd.u1_pf_calculated
+20000dd3  1  unsigned char
+_g_st_cc.st_lowspd.u1_posest_calculated
+20000dd4  1  unsigned char
+_g_st_cc.st_lowspd.f4_pf_last_idc_plus
 20000dd8  4  float
-_g_st_cc.st_lowspd.u2_ang_est_count
-20000ddc  2  unsigned short
-_g_st_cc.st_lowspd.f4_div_ang
+_g_st_cc.st_lowspd.f4_pf_last_idc_minus
+20000ddc  4  float
+_g_st_cc.st_lowspd.f4_highspd_threshold
 20000de0  4  float
-_g_st_cc.st_lowspd.f4_last_ang
+_g_st_cc.st_lowspd.f4_lowspd_threshold
 20000de4  4  float
+_g_st_cc.st_lowspd.u2_ang_est_count
+20000de8  2  unsigned short
+_g_st_cc.st_lowspd.f4_div_ang
+20000dec  4  float
+_g_st_cc.st_lowspd.f4_last_ang
+20000df0  4  float
 }
 _g_st_cc.st_stalldet
-20000de8  1c
+20000df4  1c
 struct  {
 _g_st_cc.st_stalldet.f4_threshold_level
-20000de8  4  float
-_g_st_cc.st_stalldet.f4_id_hpf_time
-20000dec  4  float
-_g_st_cc.st_stalldet.f4_iq_hpf_time
-20000df0  4  float
-_g_st_cc.st_stalldet.f4_threshold_time
 20000df4  4  float
-_g_st_cc.st_stalldet.f4_id_current_abs_val
+_g_st_cc.st_stalldet.f4_id_hpf_time
 20000df8  4  float
-_g_st_cc.st_stalldet.f4_iq_current_abs_val
+_g_st_cc.st_stalldet.f4_iq_hpf_time
 20000dfc  4  float
+_g_st_cc.st_stalldet.f4_threshold_time
+20000e00  4  float
+_g_st_cc.st_stalldet.f4_id_current_abs_val
+20000e04  4  float
+_g_st_cc.st_stalldet.f4_iq_current_abs_val
+20000e08  4  float
 _g_st_cc.st_stalldet.u1_stall_detected
-20000e00  1  unsigned char
+20000e0c  1  unsigned char
 }
 _g_st_cc.st_trqvib_comp
-20000e04  440
+20000e10  440
 struct  {
 _g_st_cc.st_trqvib_comp.u1_flag_trqvib_comp_learning
-20000e04  1  unsigned char
+20000e10  1  unsigned char
 _g_st_cc.st_trqvib_comp.u2_motor_pp
-20000e06  2  unsigned short
+20000e12  2  unsigned short
 _g_st_cc.st_trqvib_comp.u2_k2_timelead
-20000e08  2  unsigned short
+20000e14  2  unsigned short
 _g_st_cc.st_trqvib_comp.s2_last_index
-20000e0a  2  short
+20000e16  2  short
 _g_st_cc.st_trqvib_comp.s2_last_index_comp
-20000e0c  2  short
+20000e18  2  short
 _g_st_cc.st_trqvib_comp.f4_angle_rad_machine
-20000e10  4  float
+20000e1c  4  float
 _g_st_cc.st_trqvib_comp.f4_angle_electric_last
-20000e14  4  float
+20000e20  4  float
 _g_st_cc.st_trqvib_comp.f4_repetitive_table
-20000e18  400  float
+20000e24  400  float
 _g_st_cc.st_trqvib_comp.f4_last_spd_ref
-20001218  4  float
-_g_st_cc.st_trqvib_comp.f4_last_spd_det
-2000121c  4  float
-_g_st_cc.st_trqvib_comp.f4_last_spd_comp
-20001220  4  float
-_g_st_cc.st_trqvib_comp.f4_output_gain
 20001224  4  float
-_g_st_cc.st_trqvib_comp.f4_input_weight2
+_g_st_cc.st_trqvib_comp.f4_last_spd_det
 20001228  4  float
-_g_st_cc.st_trqvib_comp.f4_input_weight1
+_g_st_cc.st_trqvib_comp.f4_last_spd_comp
 2000122c  4  float
-_g_st_cc.st_trqvib_comp.f4_input_weight0
+_g_st_cc.st_trqvib_comp.f4_output_gain
 20001230  4  float
-_g_st_cc.st_trqvib_comp.f4_tf_lpf_buf_x
+_g_st_cc.st_trqvib_comp.f4_input_weight2
 20001234  4  float
-_g_st_cc.st_trqvib_comp.f4_tf_lpf_buf_y
+_g_st_cc.st_trqvib_comp.f4_input_weight1
 20001238  4  float
-_g_st_cc.st_trqvib_comp.f4_tf_lpf_time
+_g_st_cc.st_trqvib_comp.f4_input_weight0
 2000123c  4  float
-_g_st_cc.st_trqvib_comp.f4_tf_output
+_g_st_cc.st_trqvib_comp.f4_tf_lpf_buf_x
 20001240  4  float
+_g_st_cc.st_trqvib_comp.f4_tf_lpf_buf_y
+20001244  4  float
+_g_st_cc.st_trqvib_comp.f4_tf_lpf_time
+20001248  4  float
+_g_st_cc.st_trqvib_comp.f4_tf_output
+2000124c  4  float
 }
 }
+_id_table
+00000000  34  data ,g
+_iq_table
+00000000  34  data ,g
+_ld_table
+00000000  2a4  data ,g
+_lq_table
+00000000  2a4  data ,g
 _g_u1_trq_vibration_comp_update_flag
-20000b30  1  data ,g
+20000b3c  1  data ,g
 _g_external_irq2_ctrl
-2000124c  10  data ,g
+20001258  10  data ,g
 struct  {
 _g_external_irq2_ctrl.open
-2000124c  4  unsigned long
+20001258  4  unsigned long
 _g_external_irq2_ctrl.irq
-20001250  1  enum
+2000125c  1  enum
 _g_external_irq2_ctrl.channel
-20001251  1  unsigned char
+2000125d  1  unsigned char
 _g_external_irq2_ctrl.p_callback
-20001254  4  [pointer]
+20001260  4  [pointer]
 _g_external_irq2_ctrl.p_context
-20001258  4  [pointer]
+20001264  4  [pointer]
 }
 _g_ioport_ctrl
-20001244  8  data ,g
+20001250  8  data ,g
 struct  {
 _g_ioport_ctrl.open
-20001244  4  unsigned long
+20001250  4  unsigned long
 _g_ioport_ctrl.p_context
-20001248  4  [pointer]
+20001254  4  [pointer]
 }
 _g_agt1_ctrl
-20001358  20  data ,g
+20001364  20  data ,g
 struct  {
 _g_agt1_ctrl.open
-20001358  4  unsigned long
+20001364  4  unsigned long
 _g_agt1_ctrl.p_cfg
-2000135c  4  [pointer]
+20001368  4  [pointer]
 _g_agt1_ctrl.p_reg
-20001360  4  [pointer]
-_g_agt1_ctrl.is_agtw
-20001364  1  _Bool
-_g_agt1_ctrl.period
-20001368  4  unsigned long
-_g_agt1_ctrl.p_callback
 2000136c  4  [pointer]
+_g_agt1_ctrl.is_agtw
+20001370  1  _Bool
+_g_agt1_ctrl.period
+20001374  4  unsigned long
+_g_agt1_ctrl.p_callback
+20001378  4  [pointer]
 _g_agt1_ctrl.p_callback_memory
-20001370  4  [pointer]
+2000137c  4  [pointer]
 _g_agt1_ctrl.p_context
-20001374  4  [pointer]
+20001380  4  [pointer]
 }
 _g_timer_gpt1_ctrl
-20001338  20  data ,g
+20001344  20  data ,g
 struct  {
 _g_timer_gpt1_ctrl.open
-20001338  4  unsigned long
-_g_timer_gpt1_ctrl.p_cfg
-2000133c  4  [pointer]
-_g_timer_gpt1_ctrl.p_reg
-20001340  4  [pointer]
-_g_timer_gpt1_ctrl.channel_mask
 20001344  4  unsigned long
-_g_timer_gpt1_ctrl.variant
-20001348  1  enum
-_g_timer_gpt1_ctrl.p_callback
+_g_timer_gpt1_ctrl.p_cfg
+20001348  4  [pointer]
+_g_timer_gpt1_ctrl.p_reg
 2000134c  4  [pointer]
+_g_timer_gpt1_ctrl.channel_mask
+20001350  4  unsigned long
+_g_timer_gpt1_ctrl.variant
+20001354  1  enum
+_g_timer_gpt1_ctrl.p_callback
+20001358  4  [pointer]
 _g_timer_gpt1_ctrl.p_callback_memory
-20001350  4  [pointer]
+2000135c  4  [pointer]
 _g_timer_gpt1_ctrl.p_context
-20001354  4  [pointer]
+20001360  4  [pointer]
 }
 _g_agt0_ctrl
-20001318  20  data ,g
+20001324  20  data ,g
 struct  {
 _g_agt0_ctrl.open
-20001318  4  unsigned long
+20001324  4  unsigned long
 _g_agt0_ctrl.p_cfg
-2000131c  4  [pointer]
+20001328  4  [pointer]
 _g_agt0_ctrl.p_reg
-20001320  4  [pointer]
-_g_agt0_ctrl.is_agtw
-20001324  1  _Bool
-_g_agt0_ctrl.period
-20001328  4  unsigned long
-_g_agt0_ctrl.p_callback
 2000132c  4  [pointer]
+_g_agt0_ctrl.is_agtw
+20001330  1  _Bool
+_g_agt0_ctrl.period
+20001334  4  unsigned long
+_g_agt0_ctrl.p_callback
+20001338  4  [pointer]
 _g_agt0_ctrl.p_callback_memory
-20001330  4  [pointer]
+2000133c  4  [pointer]
 _g_agt0_ctrl.p_context
-20001334  4  [pointer]
+20001340  4  [pointer]
 }
 _g_poeg3_ctrl
-20001300  18  data ,g
+2000130c  18  data ,g
 struct  {
 _g_poeg3_ctrl.open
-20001300  4  unsigned long
+2000130c  4  unsigned long
 _g_poeg3_ctrl.p_cfg
-20001304  4  [pointer]
-_g_poeg3_ctrl.p_reg
-20001308  4  [pointer]
-_g_poeg3_ctrl.p_callback
-2000130c  4  [pointer]
-_g_poeg3_ctrl.p_callback_memory
 20001310  4  [pointer]
-_g_poeg3_ctrl.p_context
+_g_poeg3_ctrl.p_reg
 20001314  4  [pointer]
+_g_poeg3_ctrl.p_callback
+20001318  4  [pointer]
+_g_poeg3_ctrl.p_callback_memory
+2000131c  4  [pointer]
+_g_poeg3_ctrl.p_context
+20001320  4  [pointer]
 }
 _g_timer_gpt6_ctrl
-200012e0  20  data ,g
+200012ec  20  data ,g
 struct  {
 _g_timer_gpt6_ctrl.open
-200012e0  4  unsigned long
-_g_timer_gpt6_ctrl.p_cfg
-200012e4  4  [pointer]
-_g_timer_gpt6_ctrl.p_reg
-200012e8  4  [pointer]
-_g_timer_gpt6_ctrl.channel_mask
 200012ec  4  unsigned long
-_g_timer_gpt6_ctrl.variant
-200012f0  1  enum
-_g_timer_gpt6_ctrl.p_callback
+_g_timer_gpt6_ctrl.p_cfg
+200012f0  4  [pointer]
+_g_timer_gpt6_ctrl.p_reg
 200012f4  4  [pointer]
+_g_timer_gpt6_ctrl.channel_mask
+200012f8  4  unsigned long
+_g_timer_gpt6_ctrl.variant
+200012fc  1  enum
+_g_timer_gpt6_ctrl.p_callback
+20001300  4  [pointer]
 _g_timer_gpt6_ctrl.p_callback_memory
-200012f8  4  [pointer]
+20001304  4  [pointer]
 _g_timer_gpt6_ctrl.p_context
-200012fc  4  [pointer]
+20001308  4  [pointer]
 }
 _g_timer_gpt5_ctrl
-200012c0  20  data ,g
+200012cc  20  data ,g
 struct  {
 _g_timer_gpt5_ctrl.open
-200012c0  4  unsigned long
-_g_timer_gpt5_ctrl.p_cfg
-200012c4  4  [pointer]
-_g_timer_gpt5_ctrl.p_reg
-200012c8  4  [pointer]
-_g_timer_gpt5_ctrl.channel_mask
 200012cc  4  unsigned long
-_g_timer_gpt5_ctrl.variant
-200012d0  1  enum
-_g_timer_gpt5_ctrl.p_callback
+_g_timer_gpt5_ctrl.p_cfg
+200012d0  4  [pointer]
+_g_timer_gpt5_ctrl.p_reg
 200012d4  4  [pointer]
+_g_timer_gpt5_ctrl.channel_mask
+200012d8  4  unsigned long
+_g_timer_gpt5_ctrl.variant
+200012dc  1  enum
+_g_timer_gpt5_ctrl.p_callback
+200012e0  4  [pointer]
 _g_timer_gpt5_ctrl.p_callback_memory
-200012d8  4  [pointer]
+200012e4  4  [pointer]
 _g_timer_gpt5_ctrl.p_context
-200012dc  4  [pointer]
+200012e8  4  [pointer]
 }
 _g_timer_gpt4_ctrl
-200012a0  20  data ,g
+200012ac  20  data ,g
 struct  {
 _g_timer_gpt4_ctrl.open
-200012a0  4  unsigned long
-_g_timer_gpt4_ctrl.p_cfg
-200012a4  4  [pointer]
-_g_timer_gpt4_ctrl.p_reg
-200012a8  4  [pointer]
-_g_timer_gpt4_ctrl.channel_mask
 200012ac  4  unsigned long
-_g_timer_gpt4_ctrl.variant
-200012b0  1  enum
-_g_timer_gpt4_ctrl.p_callback
+_g_timer_gpt4_ctrl.p_cfg
+200012b0  4  [pointer]
+_g_timer_gpt4_ctrl.p_reg
 200012b4  4  [pointer]
+_g_timer_gpt4_ctrl.channel_mask
+200012b8  4  unsigned long
+_g_timer_gpt4_ctrl.variant
+200012bc  1  enum
+_g_timer_gpt4_ctrl.p_callback
+200012c0  4  [pointer]
 _g_timer_gpt4_ctrl.p_callback_memory
-200012b8  4  [pointer]
+200012c4  4  [pointer]
 _g_timer_gpt4_ctrl.p_context
-200012bc  4  [pointer]
+200012c8  4  [pointer]
 }
 _g_three_phase0_ctrl
-20001284  1c  data ,g
+20001290  1c  data ,g
 struct  {
 _g_three_phase0_ctrl.open
-20001284  4  unsigned long
+20001290  4  unsigned long
 _g_three_phase0_ctrl.p_reg
-20001288  c  [pointer]
+20001294  c  [pointer]
 _g_three_phase0_ctrl.channel_mask
-20001294  4  unsigned long
+200012a0  4  unsigned long
 _g_three_phase0_ctrl.buffer_mode
-20001298  1  enum
+200012a4  1  enum
 _g_three_phase0_ctrl.p_cfg
-2000129c  4  [pointer]
+200012a8  4  [pointer]
 }
 _g_adc0_ctrl
-2000125c  28  data ,g
+20001268  28  data ,g
 struct  {
 _g_adc0_ctrl.adc_state
-2000125c  1  enum
+20001268  1  enum
 _g_adc0_ctrl.cached_adtrgenr
-20001260  4  unsigned long
+2000126c  4  unsigned long
 _g_adc0_ctrl.cached_adsystr
-20001264  4  unsigned long
+20001270  4  unsigned long
 _g_adc0_ctrl.trigger_disable_wait_cycles
-20001268  4  unsigned long
+20001274  4  unsigned long
 _g_adc0_ctrl.p_cfg
-2000126c  4  [pointer]
-_g_adc0_ctrl.p_callback
-20001270  4  [pointer]
-_g_adc0_ctrl.p_callback_memory
-20001274  4  [pointer]
-_g_adc0_ctrl.p_context
 20001278  4  [pointer]
+_g_adc0_ctrl.p_callback
+2000127c  4  [pointer]
+_g_adc0_ctrl.p_callback_memory
+20001280  4  [pointer]
+_g_adc0_ctrl.p_context
+20001284  4  [pointer]
 _g_adc0_ctrl.initialized
-2000127c  4  unsigned long
+20001288  4  unsigned long
 _g_adc0_ctrl.opened
-20001280  4  unsigned long
+2000128c  4  unsigned long
 }
 _g_bsp_group_irq_sources
-20001380  40  data ,g
+2000138c  40  data ,g
 _g_protect_pfswe_counter
-200013c0  4  data ,g
+200013cc  4  data ,g
 _gp_renesas_isr_context
-200013c4  180  data ,g
+200013d0  180  data ,g
 _g_protect_counters
-20001544  8  data ,g
+20001550  8  data ,g
 _SystemCoreClock
-2000154c  4  data ,g
+20001558  4  data ,g
 _g_f4_stalldet_id_ave
-200015e8  4  data ,g
+200015f4  4  data ,g
 _g_f4_stalldet_iq_ave
-200015e4  4  data ,g
+200015f0  4  data ,g
 _g_f4_stalldet_id_hbf_abs_sum
-200015e0  4  data ,g
+200015ec  4  data ,g
 _g_f4_stalldet_iq_hbf_abs_sum
-200015dc  4  data ,g
+200015e8  4  data ,g
 _g_f4_last_values
-200015f4  c  data ,g
+20001600  c  data ,g
 _g_s2_last_index
-200015ec  6  data ,g
+200015f8  6  data ,g

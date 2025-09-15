@@ -41,7 +41,7 @@
 * Exported global variables
 ***********************************************************************************************************************/
 st_speed_control_t      g_st_sc;          /* Speed control structure */
-
+extern st_current_control_t    g_st_cc;
 /***********************************************************************************************************************
 * Static variables
 ***********************************************************************************************************************/
@@ -308,6 +308,9 @@ void R_MOTOR_SPEED_SpeedCyclic(st_speed_control_t * p_st_sc)
         {
             p_st_sc->f4_iq_ref_output =  0;
         }
+
+        p_st_sc->st_motor.f4_mtr_ld = g_st_cc.st_motor.f4_mtr_ld;
+        p_st_sc->st_motor.f4_mtr_lq = g_st_cc.st_motor.f4_mtr_lq;
         /*=================================*/
         /*   Executes the Flux-weakening   */
         /*=================================*/
