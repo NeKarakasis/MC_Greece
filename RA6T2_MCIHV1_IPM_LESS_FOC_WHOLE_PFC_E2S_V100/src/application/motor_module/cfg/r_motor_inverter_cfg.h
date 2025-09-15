@@ -43,10 +43,10 @@
 /* Target Inverter definitions */
 #ifdef MOTOR_COMMON_CFG_BOARD_HVI
 
-#define     INVERTER_CFG_SHUNT_RESIST           (0.047f)               /* Resistance of shunt resistor [ohm] */
+#define     INVERTER_CFG_SHUNT_RESIST           (0.2f)               /* Resistance of shunt resistor [ohm] */
 #define     INVERTER_CFG_DEADTIME               (2.0f)                /* Deadtime [us] */
-#define     INVERTER_CFG_VOLTAGE_GAIN           (174.913f)            /* Voltage measurement gain */
-#define     INVERTER_CFG_CURRENT_AMP_GAIN       (4.17f)               /* Current amplifier gain */
+#define     INVERTER_CFG_VOLTAGE_GAIN           (201.0f)            /* Voltage measurement gain */
+#define     INVERTER_CFG_CURRENT_AMP_GAIN       (2.00f)               /* Current amplifier gain */
 #define     INVERTER_CFG_CURRENT_LIMIT          (21.2f)               /* Current limit[A] for the inverter board */
 #define     INVERTER_CFG_OVERVOLTAGE_LIMIT      (450.0f)              /* Over voltage limit [V] */
 #define     INVERTER_CFG_UNDERVOLTAGE_LIMIT     (100.0f)              /* Under voltage limit [V] */

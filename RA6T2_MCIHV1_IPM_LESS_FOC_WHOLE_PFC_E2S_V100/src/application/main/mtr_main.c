@@ -37,8 +37,9 @@
 #include "r_motor_sensorless_vector_api.h"
 #include "r_motor_sensorless_vector_statemachine.h"
 #include "r_system_manager_api.h"
-#include "r_pfc_manager_api.h"
 #include "r_motor_driver_fsp.h"
+
+
 
 /***********************************************************************************************************************
 * Global variables
@@ -136,16 +137,14 @@ static void software_init(void)
 ***********************************************************************************************************************/
 static void motor_fsp_init(void)
 {
-    uint32_t u4_port_config;
+  //  uint32_t u4_port_config;
     adc_status_t status;
 
     R_POEG_Open(g_poeg3.p_ctrl, g_poeg3.p_cfg);
 
-    R_ICU_ExternalIrqOpen(&g_external_irq2_ctrl, &g_external_irq2_cfg);
-    R_ICU_ExternalIrqEnable(&g_external_irq2_ctrl);
 
-    u4_port_config = (((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT | (uint32_t) IOPORT_CFG_PORT_OUTPUT_LOW));
-    R_IOPORT_PinCfg(&g_ioport_ctrl, BSP_IO_PORT_11_PIN_14, u4_port_config);
+  //  u4_port_config = (((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT | (uint32_t) IOPORT_CFG_PORT_OUTPUT_LOW));
+ //   R_IOPORT_PinCfg(&g_ioport_ctrl, BSP_IO_PORT_11_PIN_14, u4_port_config);
 
     /* GPT Output Disable to prevent gate on */
     R_Config_MOTOR_StopTimerCtrl();
@@ -240,7 +239,8 @@ void callback_gpt_adc_cyclic(adc_callback_args_t *p_args)
 
             case ADC_GROUP_MASK_1:
                 /* PFC control cyclic */
-                R_SYSTEM_MANAGER_PfcCurrentInterrupt();
+               // R_SYSTEM_MANAGER_PfcCurrentInterrupt();
+
             break;
 
             default:
@@ -277,20 +277,6 @@ void callback_agt_system_manager_cyclic(timer_callback_args_t * p_args)
         R_SYSTEM_MANAGER_ControlInterrupt();
     }
 } /* End of function callback_agt_system_manager_cyclic */
-
-/***********************************************************************************************************************
-* Function Name : callback_irq2_pfc_error
-* Description   : IRQ2 Interrupt callback function
-* Arguments     : p_args - Callback argument
-* Return Value  : None
-***********************************************************************************************************************/
-void callback_irq2_pfc_error(external_irq_callback_args_t *p_args)
-{
-    if (NULL != p_args)
-    {
-        R_SYSTEM_MANAGER_PfcOverCurrentInterrupt();
-    }
-} /* End of function callback_irq2_pfc_error */
 
 /***********************************************************************************************************************
 * Function Name : callback_poe_overcurrent

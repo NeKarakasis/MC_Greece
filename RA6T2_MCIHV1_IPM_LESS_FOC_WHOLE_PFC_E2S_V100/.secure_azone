@@ -11,6 +11,7 @@
             <slot name="PA15" secure="true"/>
         </peripheral>
         <peripheral name="PORTB" group="PORT">
+            <slot name="PB01" secure="true"/>
             <slot name="PB03" secure="true"/>
             <slot name="PB04" secure="true"/>
             <slot name="PB05" secure="true"/>
@@ -18,6 +19,7 @@
             <slot name="PB07" secure="true"/>
             <slot name="PB08" secure="true"/>
             <slot name="PB09" secure="true"/>
+            <slot name="PB10" secure="true"/>
             <slot name="PB14" secure="true"/>
         </peripheral>
         <peripheral name="PORTC" group="PORT">
@@ -34,6 +36,7 @@
         </peripheral>
         <peripheral name="PORTE" group="PORT">
             <slot name="PE01" secure="true"/>
+            <slot name="PE15" secure="true"/>
         </peripheral>
         <peripheral name="GPT4" group="GPT" security="s"/>
         <peripheral name="GPT5" group="GPT" security="s"/>
@@ -41,9 +44,6 @@
         <peripheral name="GPT_POEG3" group="GPT_POEG" security="s"/>
         <peripheral name="AGT0" group="AGT" security="s"/>
         <peripheral name="GPT1" group="GPT" security="s"/>
-        <peripheral name="ICU_EXT_IRQ">
-            <slot name="ICU_EXT_IRQ2" secure="true"/>
-        </peripheral>
         <peripheral name="AGT1" group="AGT" security="s"/>
         <peripheral name="ICU">
             <slot name="IRQ0" secure="true"/>
@@ -53,7 +53,6 @@
             <slot name="IRQ4" secure="true"/>
             <slot name="IRQ5" secure="true"/>
             <slot name="IRQ6" secure="true"/>
-            <slot name="IRQ7" secure="true"/>
         </peripheral>
     </partition>
 </azone>

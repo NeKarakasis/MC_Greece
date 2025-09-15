@@ -364,9 +364,11 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
                                     &p_st_sensorless_vector->f4_iu_ad,
    								 &p_st_sensorless_vector->f4_iv_ad,
                                     &p_st_sensorless_vector->f4_iw_ad,
+									&p_st_sensorless_vector->f4_iu_ref_ad,
+									&p_st_sensorless_vector->f4_iv_ref_ad,
+									&p_st_sensorless_vector->f4_iw_ref_ad,
                                     &p_st_sensorless_vector->f4_vdc_ad);
-    /* Set the VDC value obtained by PFC */
-    p_st_sensorless_vector->f4_vdc_ad = p_st_sensorless_vector->f4_pfc_vdc_ad;
+
 
     /* current offset adjustment */
     R_MOTOR_CURRENT_CurrentOffsetRemove(p_st_sensorless_vector->p_st_cc,

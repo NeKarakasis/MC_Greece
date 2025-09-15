@@ -31,108 +31,13 @@
 #include "r_motor_current.h"
 #include "r_motor_current_api.h"
 
+
 /***********************************************************************************************************************
 * Exported global variables
-
 ***********************************************************************************************************************/
-#include <LUT_inductances.h>
 st_current_control_t      g_st_cc;           /* Current control structure */
 uint8_t g_u1_trq_vibration_comp_update_flag;
-st_current_control_t      g_st_cc;
 
-
-
-static float interpolate_ld(float id, float iq) {
-
-	if (fabsf(id) < 0.35f && iq < 0.3536f) return MOTOR_CFG_D_INDUCTANCE;
-
-    int i, j;
-
-    // Clamp Id and Iq within the bounds
-    if (id <= id_table[0]) i = 0;
-    else if (id >= id_table[ID_SIZE - 2]) i = ID_SIZE - 2;
-    else {
-        for (i = 0; i < ID_SIZE - 1; i++) {
-            if (id >= id_table[i] && id < id_table[i + 1]) break;
-        }
-    }
-
-    if (iq <= iq_table[0]) j = 0;
-    else if (iq >= iq_table[IQ_SIZE - 2]) j = IQ_SIZE - 2;
-    else {
-        for (j = 0; j < IQ_SIZE - 1; j++) {
-            if (iq >= iq_table[j] && iq < iq_table[j + 1]) break;
-        }
-    }
-
-    // Coordinates for interpolation
-    float x1 = id_table[i];
-    float x2 = id_table[i + 1];
-    float y1 = iq_table[j];
-    float y2 = iq_table[j + 1];
-
-    float Q11 = ld_table[i][j];
-    float Q21 = ld_table[i + 1][j];
-    float Q12 = ld_table[i][j + 1];
-    float Q22 = ld_table[i + 1][j + 1];
-
-    // Bilinear interpolation formula
-    float denom = (x2 - x1) * (y2 - y1);
-    float ld = 1.0f / denom * (
-        Q11 * (x2 - id) * (y2 - iq) +
-        Q21 * (id - x1) * (y2 - iq) +
-        Q12 * (x2 - id) * (iq - y1) +
-        Q22 * (id - x1) * (iq - y1)
-    );
-
-    return ld;
-}
-
-static float interpolate_lq(float id, float iq) {
-
-	if (fabsf(id) < 0.35f && iq < 0.3536f)return MOTOR_CFG_Q_INDUCTANCE;
-
-    int i, j;
-
-    // Clamp Id and Iq within the bounds
-    if (id <= id_table[0]) i = 0;
-    else if (id >= id_table[ID_SIZE - 2]) i = ID_SIZE - 2;
-    else {
-        for (i = 0; i < ID_SIZE - 1; i++) {
-            if (id >= id_table[i] && id < id_table[i + 1]) break;
-        }
-    }
-
-    if (iq <= iq_table[0]) j = 0;
-    else if (iq >= iq_table[IQ_SIZE - 2]) j = IQ_SIZE - 2;
-    else {
-        for (j = 0; j < IQ_SIZE - 1; j++) {
-            if (iq >= iq_table[j] && iq < iq_table[j + 1]) break;
-        }
-    }
-
-    // Coordinates for interpolation
-    float x1 = id_table[i];
-    float x2 = id_table[i + 1];
-    float y1 = iq_table[j];
-    float y2 = iq_table[j + 1];
-
-    float Q11 = lq_table[i][j];
-    float Q21 = lq_table[i + 1][j];
-    float Q12 = lq_table[i][j + 1];
-    float Q22 = lq_table[i + 1][j + 1];
-
-    // Bilinear interpolation formula
-    float denom = (x2 - x1) * (y2 - y1);
-    float lq = 1.0f / denom * (
-        Q11 * (x2 - id) * (y2 - iq) +
-        Q21 * (id - x1) * (y2 - iq) +
-        Q12 * (x2 - id) * (iq - y1) +
-        Q22 * (id - x1) * (iq - y1)
-    );
-
-    return lq;
-}
 
 
 /***********************************************************************************************************************
@@ -174,6 +79,9 @@ void R_MOTOR_CURRENT_Open(void)
     p_st_cc->st_motor.f4_mtr_m               = MOTOR_CFG_MAGNETIC_FLUX;
     p_st_cc->st_motor.f4_mtr_j               = MOTOR_CFG_ROTOR_INERTIA;
     p_st_cc->st_motor.f4_nominal_current_rms = MOTOR_CFG_NOMINAL_CURRENT_RMS;
+
+
+
 
     /* low speed sensorless */
     p_st_cc->u1_state_estmode = CURRENT_STATE_ESTMODE_POWEROFF;
@@ -439,16 +347,12 @@ void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc)
 {
     float f4_angle_rad;
 
-    st_bemf_observer_cfg_t     st_bemf_obs_cfg;
-
-    //st_bemf_obs_cfg.f4_e_obs_omega_hz         = 1200;
-   // st_bemf_obs_cfg.f4_e_obs_zeta             = 1;
-   // st_bemf_obs_cfg.f4_pll_est_omega_hz       = 50;
-   // st_bemf_obs_cfg.f4_pll_est_zeta           = 1;
-
 
     if (MTR_FLG_SET == p_st_cc->u1_active)
     {
+
+
+
         motor_current_mod_vdc_set(&p_st_cc->st_mod, p_st_cc->f4_vdc_ad);
 
         p_st_cc->f4_ref_iq_ctrl = motor_current_reference_iq_set(p_st_cc);
@@ -511,10 +415,10 @@ void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc)
         }
 
         /*update PI gains based on new inductances*/
-                 //   p_st_cc->st_motor.f4_mtr_ld = interpolate_ld(p_st_cc->f4_id_ad,p_st_cc->f4_iq_ad);
-                  //  p_st_cc->st_motor.f4_mtr_lq = interpolate_lq(p_st_cc->f4_id_ad,p_st_cc->f4_iq_ad);
-                 //   motor_current_pi_gain_calc(p_st_cc, CURRENT_CFG_OMEGA, CURRENT_CFG_ZETA);
-                //    R_MOTOR_CURRENT_BEMFObserverParameterUpdate(p_st_cc, &st_bemf_obs_cfg);
+
+
+                      //  motor_current_pi_gain_calc(p_st_cc, CURRENT_CFG_OMEGA, CURRENT_CFG_ZETA);
+                       // R_MOTOR_CURRENT_BEMFObserverParameterUpdate(p_st_cc, &st_bemf_obs_cfg);
         /*====================================*/
         /*     Feedback control (Current)     */
         /*====================================*/
@@ -552,6 +456,7 @@ void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc)
                 else
                 {
                     /* No injection (changing to BEMF observer, suppress ripple current.) */
+
                 }
 
                 break;
@@ -563,6 +468,7 @@ void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc)
 
             case CURRENT_STATE_ESTMODE_DRIVE_HIGH:
                 p_st_cc->f4_vd_ref2 = p_st_cc->f4_vd_ref;
+
                 break;
 
             case CURRENT_STATE_ESTMODE_POWEROFF:
@@ -573,6 +479,18 @@ void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc)
                 break;
 
         }
+
+
+      /*   p_st_cc->st_motor.f4_mtr_ld =  interpolate_ld(p_st_cc->f4_id_ad,p_st_cc->f4_iq_ad);
+         p_st_cc->st_motor.f4_mtr_lq =  interpolate_lq(p_st_cc->f4_id_ad,p_st_cc->f4_iq_ad);
+         if ( fabsf(p_st_cc->f4_id_ad) < 0.35f &&  p_st_cc->f4_iq_ad < 0.3536f)  p_st_cc->st_motor.f4_mtr_m  = MOTOR_CFG_MAGNETIC_FLUX;
+
+         else
+             {
+               fluxq = interpolate_fluxq(g_st_cc.f4_id_ad,g_st_cc.f4_iq_ad);
+               fluxd = interpolate_fluxd(g_st_cc.f4_id_ad,g_st_cc.f4_iq_ad);
+               p_st_cc->st_motor.f4_mtr_m  = sqrt(fluxq*fluxq + fluxd*fluxd);
+               }*/
 
         /*==============================*/
         /*     Limit voltage vector     */

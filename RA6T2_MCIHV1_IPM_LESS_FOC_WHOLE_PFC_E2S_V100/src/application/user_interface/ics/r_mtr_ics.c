@@ -92,9 +92,7 @@ float       com_f4_speed_lpf_hz;                /* Natural frequency for speed L
 float       com_f4_ref_speed_rpm;               /* motor speed reference [rpm] (mechanical) */
 float       com_f4_speed_rate_limit_rpm;        /* limit of speed change [rpm/s] */
 float       com_f4_overspeed_limit_rpm;         /* over speed limit [rpm] (mechanical) */
-float       com_f4_speed_rate_limit_rpm1;        /* limit of speed change [rpm/s] */
-float       com_f4_speed_rate_limit_rpm2;
-float       com_f4_speed_rate_limit_rpm3;         /* over speed limit [rpm] (mechanical) */
+
 
 /* Optional functions */
 /* Voltage error compensation */
@@ -227,9 +225,7 @@ void r_app_rmw_ui_init(void)
     com_f4_ref_speed_rpm        = 0.0f;
     com_f4_speed_rate_limit_rpm = SPEED_CFG_RATE_LIMIT_RPM;
     com_f4_overspeed_limit_rpm  = SPEED_CFG_SPEED_LIMIT_RPM;
-    com_f4_speed_rate_limit_rpm1 = SPEED_CFG_RATE_LIMIT_RPM1;
-    com_f4_speed_rate_limit_rpm2 = SPEED_CFG_RATE_LIMIT_RPM2;
-    com_f4_speed_rate_limit_rpm3  =  SPEED_CFG_RATE_LIMIT_RPM3;
+
     /* Optional functions */
     /* Voltage error compensation */
     com_u1_flag_volt_err_comp_use = CURRENT_CFG_VOLT_ERR_COMP;
@@ -443,15 +439,10 @@ void r_app_rmw_interrupt_handler(void)
 static void r_app_rmw_system_mode(void)
 {
     uint8_t  u1_motor_status;
-    uint16_t u2_pfc_status;
 
-    /*============================*/
-    /*        Get PFC status      */
-    /*============================*/
-    u2_pfc_status = R_SYSTEM_MANAGER_PfcStatusGet();
 
-    if ((PFC_MODE_PFC_ON == u2_pfc_status) || (PFC_MODE_PFC_ERROR == u2_pfc_status))
-    {
+
+
         /*============================*/
         /*        Execute event       */
         /*============================*/
@@ -478,19 +469,9 @@ static void r_app_rmw_system_mode(void)
                 /* Do nothing */
             }
 
-            /*============================*/
-            /*     PFC reset control      */
-            /*============================*/
-            if (PFC_MODE_PFC_ERROR == u2_pfc_status)
-            {
-                R_SYSTEM_MANAGER_PfcErrorCancel();
-            }
         }
-    }
-    else
-    {
-    	com_u1_system_mode = g_u1_system_mode;
-    }
+
+
 } /* End of function r_app_rmw_system_mode */
 
 /***********************************************************************************************************************

@@ -47,16 +47,20 @@ typedef struct
     uint16_t   u2_iv_ad;
     uint16_t   u2_iw_ad;
     uint16_t   u2_vdc_ad;
-    uint16_t   u2_vphase_u_ad;
-    uint16_t   u2_vphase_v_ad;
-    uint16_t   u2_vphase_w_ad;
+    uint16_t   u2_iu_ref_ad;
+    uint16_t   u2_iv_ref_ad;
+    uint16_t   u2_iw_ref_ad;
 } r_mtr_adc_tb;
 #endif
+
+
 
 typedef struct st_motor_driver
 {
     /* The function pointer for AdcGetConvVal function in motor component */
     void (*ADCDataGet)(r_mtr_adc_tb * mtr_ad_data);
+
+
 
     /* The function pointer for UpdDuty function in motor component */
     void (*BLDCDutySet)(uint16_t f4_duty_u, uint16_t f4_duty_v, uint16_t f4_duty_w);
@@ -79,10 +83,14 @@ typedef struct st_motor_driver
     float f4_pwm_dead_time_cnt;                         /* The number of counts of PWM deadtime */
 } st_motor_driver_t;
 
+
+
 typedef struct
 {
     /* The function pointer for AdcGetConvVal function in motor component */
     void (*ADCDataGet)(r_mtr_adc_tb * mtr_ad_data);
+
+
 
     /* The function pointer for UpdDuty function in motor component */
     void (*BLDCDutySet)(uint16_t f4_duty_u, uint16_t f4_duty_v, uint16_t f4_duty_w);
@@ -117,7 +125,7 @@ extern st_motor_driver_t g_st_driver;
 void R_MOTOR_DRIVER_Open(void);
 void R_MOTOR_DRIVER_Close(void);
 void R_MOTOR_DRIVER_ParameterUpdate(st_motor_driver_t * p_st_driver, const st_motor_driver_cfg_t * p_st_driver_cfg);
-void R_MOTOR_DRIVER_BldcAnalogGet(st_motor_driver_t * p_st_driver,float f4_duty_u,float f4_duty_v,float f4_duty_w, float * p_f4_iu_ad,float * p_f4_iv_ad, float * p_f4_iw_ad, float * p_f4_vdc_ad);
+void R_MOTOR_DRIVER_BldcAnalogGet(st_motor_driver_t * p_st_driver,float f4_duty_u,float f4_duty_v,float f4_duty_w, float * p_f4_iu_ad,float * p_f4_iv_ad, float * p_f4_iw_ad, float * p_f4_iu_ref_ad, float * p_f4_iv_ref_ad, float * p_f4_iw_ref_ad, float * p_f4_vdc_ad);
 void R_MOTOR_DRIVER_BldcDutySet(st_motor_driver_t * p_st_driver, float f4_duty_u, float f4_duty_v, float f4_duty_w);
 void R_MOTOR_DRIVER_BldcZeroDutySet(st_motor_driver_t * p_st_driver);
 void R_MOTOR_DRIVER_BldcCompareDutySet(st_motor_driver_t * p_st_driver);

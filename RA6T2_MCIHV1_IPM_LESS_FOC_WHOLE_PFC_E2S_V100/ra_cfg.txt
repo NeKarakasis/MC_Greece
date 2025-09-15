@@ -131,7 +131,7 @@ FSP Configuration
       PA14 76 JTAG/SWD_TCK - L - "Peripheral mode" - - "AGT1: AGTO1; JTAG/SWD: SWCLK; JTAG/SWD: TCK; SCI0: TXD0; SCI9: DE9; SCI9: SCK9" - I - - 
       PA15 77 JTAG/SWD_TDI - L None "Peripheral mode" - - "ACMPHS (CMPOUT): CMPOUT012; ADC_B: ADTRG0; GPT: GTADSM1; GPT: GTCPPO4; GPT_POEGB: GTETRGB; ICU1: IRQ1; JTAG/SWD: TDI; KINT: KR02; SCI0: RXD0; SCI9: RXD9; SPI0: SSLA0" - I - - 
       PB00 35 - - - - Disabled - - "ADC_B: AN008; ADC_B(PGAOUT0): PGAOUT0; ADC_B(PGAOUT2): PGAOUT2; ICU0: IRQ0" - None - - 
-      PB01 36 - - - - Disabled - - "ADC_B: AN009; ADC_B(PGAOUT1): PGAOUT1; ADC_B(PGAOUT3): PGAOUT3; ICU1: IRQ1" - None - - 
+      PB01 36 GPIO - - None "Input mode" - - "ADC_B: AN009; ADC_B(PGAOUT1): PGAOUT1; ADC_B(PGAOUT3): PGAOUT3; ICU1: IRQ1" - I - - 
       PB02 37 - - - - Disabled - - "ACMPHS3: IVCMP32; ADC_B: AN018; ADC_B(PGA3): PGAIN3; ICU15: IRQ15-DS" - None - - 
       PB03 89 JTAG/SWD_TDO - L None "Peripheral mode" - - "ACMPHS (CMPOUT3): CMPOUT3; ADC_B: ADTRG1; AGT1: AGTO1; CANFD0: CRX0; GPT: GTCPPO1; GPT: GTCPPO3; GPT4: GTIOC4A; ICU0: IRQ0; JTAG/SWD: SWO; JTAG/SWD: TDO; KINT: KR03; SCI2: TXD2; SCI9: TXD9; SPI0: RSPCK0" - O - - 
       PB04 90 GPT4_GTIOC4A - L None "Peripheral mode" - - "AGT0: AGTOA0; CAC: CACREF; CANFD0: CTX0; CGC: VCOUT; GPT0: GTIOC0A; GPT4: GTIOC4A; GPT5: GTIOC5A; ICU13: IRQ13; KINT: KR04; SCI2: RXD2; SCI3: RXD3; SPI0: MISO0" - IO - - 
@@ -140,7 +140,7 @@ FSP Configuration
       PB07 93 GPT5_GTIOC5B - L None "Peripheral mode" - - "AGT1: AGTOB1; GPT: GTETRGC; GPT1: GTIOC1B; GPT5: GTIOC5B; GPT_OPS: GTIW; ICU5: IRQ5-DS; IIC0: SDA0; KINT: KR07; SCI0: RXD0; SCI1: DE1; SCI1: SS_CTS_RTS1" - IO - - 
       PB08 95 GPT6_GTIOC6A - L None "Peripheral mode" - - "AGT0: AGTIO0; CANFD0: CRX0; GPT2: GTIOC2A; GPT5: GTIOC5B; GPT6: GTIOC6A; ICU1: IRQ1-DS; IIC1: SCL1; KINT: KR00; SCI1: RXD1; SCI4: RXD4" - IO - - 
       PB09 96 GPT6_GTIOC6B - L None "Peripheral mode" - - "AGT1: AGTIO1; CANFD0: CTX0; GPT2: GTIOC2B; GPT6: GTIOC6B; ICU2: IRQ2-DS; IIC1: SDA1; KINT: KR01; SCI1: TXD1; SCI4: TXD4" - IO - - 
-      PB10 47 - - - - Disabled - - "ADC_B: AN028; CAC: CACREF; CGC: VCOUT; GPT: GTCPPO4; GPT: GTCPPO7; GPT: GTETRGA; GPT: GTETRGB; GPT_OPS: GTIU; ICU10: IRQ10-DS; SCI3: CTS3; SCI4: TXD4" - None - - 
+      PB10 47 GPIO - L None "Output mode (Initial Low)" - - "ADC_B: AN028; CAC: CACREF; CGC: VCOUT; GPT: GTCPPO4; GPT: GTCPPO7; GPT: GTETRGA; GPT: GTETRGB; GPT_OPS: GTIU; ICU10: IRQ10-DS; SCI3: CTS3; SCI4: TXD4" - IO - - 
       PB12 51 - - - - Disabled - - "ADC_B: ADTRG0; CANFD0: CRX0; GPT0: GTIOC0A; GPT4: GTIOC4A; GPT_POEGA: GTETRGA; ICU2: IRQ2; SCI3: RXD3; SCI4: DE4; SCI4: SCK4; SPI1: SSLB0" - None - - 
       PB13 52 - - - - Disabled - - "CANFD0: CTX0; GPT0: GTIOC0B; GPT5: GTIOC5A; GPT7: GTIOC7A; GPT_OPS: GTOULO; ICU3: IRQ3; SCI3: TXD3; SCI4: CTS4; SPI1: RSPCK1" - None - - 
       PB14 53 GPT1_GTIOC1A - L None "Peripheral mode" - - "GPT1: GTIOC1A; GPT6: GTIOC6A; GPT8: GTIOC8A; GPT_OPS: GTOVLO; ICU4: IRQ4; IIC0: SDA0; SCI3: DE3; SCI3: SCK3; SCI4: DE4; SCI4: SS_CTS_RTS4; SPI1: MISO1" - IO - - 
@@ -191,7 +191,7 @@ FSP Configuration
       PE12 43 - - - - Disabled - - "ADC_B: AN024; GPT1: GTIOC1A; GPT6: GTIOC6A; GPT9: GTIOC9A; GPT_OPS: GTOVLO; KINT: KR04; SPI0: RSPCK0" - None - - 
       PE13 44 - - - - Disabled - - "ADC_B: AN025; GPT1: GTIOC1B; GPT4: GTIOC4B; GPT7: GTIOC7B; GPT_OPS: GTOVUP; KINT: KR05; SPI0: MISO0" - None - - 
       PE14 45 - - - - Disabled - - "ADC_B: AN026; GPT0: GTIOC0A; GPT5: GTIOC5B; GPT8: GTIOC8B; GPT_OPS: GTOWLO; KINT: KR06; SPI0: MOSI0" - None - - 
-      PE15 46 - - - - Disabled - - "ADC_B: AN027; GPT0: GTIOC0B; GPT6: GTIOC6B; GPT9: GTIOC9B; GPT_OPS: GTOWUP; KINT: KR07; SCI4: RXD4" - None - - 
+      PE15 46 GPIO - L - "Output mode (Initial Low)" - - "ADC_B: AN027; GPT0: GTIOC0B; GPT6: GTIOC6B; GPT9: GTIOC9B; GPT_OPS: GTOWUP; KINT: KR07; SCI4: RXD4" - IO - - 
       RES 14 SYSTEM_RES - - - - - - - - I "Read only" - 
       VCC 11 SYSTEM_VCC - - - - - - - - I "Read only" - 
       VCC 6 SYSTEM_VCC - - - - - - - - I "Read only" - 
@@ -232,7 +232,7 @@ FSP Configuration
       PA14 76 JTAG/SWD_TCK - L - "Peripheral mode" - - "AGT1: AGTO1; JTAG/SWD: SWCLK; JTAG/SWD: TCK; SCI0: TXD0; SCI9: DE9; SCI9: SCK9" - I - - 
       PA15 77 JTAG/SWD_TDI - L None "Peripheral mode" - - "ACMPHS (CMPOUT): CMPOUT012; ADC_B: ADTRG0; GPT: GTADSM1; GPT: GTCPPO4; GPT_POEGB: GTETRGB; ICU1: IRQ1; JTAG/SWD: TDI; KINT: KR02; SCI0: RXD0; SCI9: RXD9; SPI0: SSLA0" - I - - 
       PB00 35 - - - - Disabled - - "ADC_B: AN008; ADC_B(PGAOUT0): PGAOUT0; ADC_B(PGAOUT2): PGAOUT2; ICU0: IRQ0" - None - - 
-      PB01 36 GPIO - - - "Input mode" - - "ADC_B: AN009; ADC_B(PGAOUT1): PGAOUT1; ADC_B(PGAOUT3): PGAOUT3; ICU1: IRQ1" - None - - 
+      PB01 36 GPIO - - IRQ1 "Input mode" - - "ADC_B: AN009; ADC_B(PGAOUT1): PGAOUT1; ADC_B(PGAOUT3): PGAOUT3; ICU1: IRQ1" - I - - 
       PB02 37 - - - - Disabled - - "ACMPHS3: IVCMP32; ADC_B: AN018; ADC_B(PGA3): PGAIN3; ICU15: IRQ15-DS" - None - - 
       PB03 89 JTAG/SWD_TDO - L None "Peripheral mode" - - "ACMPHS (CMPOUT3): CMPOUT3; ADC_B: ADTRG1; AGT1: AGTO1; CANFD0: CRX0; GPT: GTCPPO1; GPT: GTCPPO3; GPT4: GTIOC4A; ICU0: IRQ0; JTAG/SWD: SWO; JTAG/SWD: TDO; KINT: KR03; SCI2: TXD2; SCI9: TXD9; SPI0: RSPCK0" - O - - 
       PB04 90 GPT4_GTIOC4A - L None "Peripheral mode" - - "AGT0: AGTOA0; CAC: CACREF; CANFD0: CTX0; CGC: VCOUT; GPT0: GTIOC0A; GPT4: GTIOC4A; GPT5: GTIOC5A; ICU13: IRQ13; KINT: KR04; SCI2: RXD2; SCI3: RXD3; SPI0: MISO0" - IO - - 
@@ -241,7 +241,7 @@ FSP Configuration
       PB07 93 GPT5_GTIOC5B - L None "Peripheral mode" - - "AGT1: AGTOB1; GPT: GTETRGC; GPT1: GTIOC1B; GPT5: GTIOC5B; GPT_OPS: GTIW; ICU5: IRQ5-DS; IIC0: SDA0; KINT: KR07; SCI0: RXD0; SCI1: DE1; SCI1: SS_CTS_RTS1" - IO - - 
       PB08 95 GPT6_GTIOC6A - L None "Peripheral mode" - - "AGT0: AGTIO0; CANFD0: CRX0; GPT2: GTIOC2A; GPT5: GTIOC5B; GPT6: GTIOC6A; ICU1: IRQ1-DS; IIC1: SCL1; KINT: KR00; SCI1: RXD1; SCI4: RXD4" - IO - - 
       PB09 96 GPT6_GTIOC6B - L None "Peripheral mode" - - "AGT1: AGTIO1; CANFD0: CTX0; GPT2: GTIOC2B; GPT6: GTIOC6B; ICU2: IRQ2-DS; IIC1: SDA1; KINT: KR01; SCI1: TXD1; SCI4: TXD4" - IO - - 
-      PB10 47 - - - - Disabled - - "ADC_B: AN028; CAC: CACREF; CGC: VCOUT; GPT: GTCPPO4; GPT: GTCPPO7; GPT: GTETRGA; GPT: GTETRGB; GPT_OPS: GTIU; ICU10: IRQ10-DS; SCI3: CTS3; SCI4: TXD4" - None - - 
+      PB10 47 - - L None Disabled - - "ADC_B: AN028; CAC: CACREF; CGC: VCOUT; GPT: GTCPPO4; GPT: GTCPPO7; GPT: GTETRGA; GPT: GTETRGB; GPT_OPS: GTIU; ICU10: IRQ10-DS; SCI3: CTS3; SCI4: TXD4" - IO - - 
       PB12 51 - - - - Disabled - - "ADC_B: ADTRG0; CANFD0: CRX0; GPT0: GTIOC0A; GPT4: GTIOC4A; GPT_POEGA: GTETRGA; ICU2: IRQ2; SCI3: RXD3; SCI4: DE4; SCI4: SCK4; SPI1: SSLB0" - None - - 
       PB13 52 - - - - Disabled - - "CANFD0: CTX0; GPT0: GTIOC0B; GPT5: GTIOC5A; GPT7: GTIOC7A; GPT_OPS: GTOULO; ICU3: IRQ3; SCI3: TXD3; SCI4: CTS4; SPI1: RSPCK1" - None - - 
       PB14 53 - - L None Disabled - - "GPT1: GTIOC1A; GPT6: GTIOC6A; GPT8: GTIOC8A; GPT_OPS: GTOVLO; ICU4: IRQ4; IIC0: SDA0; SCI3: DE3; SCI3: SCK3; SCI4: DE4; SCI4: SS_CTS_RTS4; SPI1: MISO1" - IO - - 
@@ -292,7 +292,7 @@ FSP Configuration
       PE12 43 - - - - Disabled - - "ADC_B: AN024; GPT1: GTIOC1A; GPT6: GTIOC6A; GPT9: GTIOC9A; GPT_OPS: GTOVLO; KINT: KR04; SPI0: RSPCK0" - None - - 
       PE13 44 - - - - Disabled - - "ADC_B: AN025; GPT1: GTIOC1B; GPT4: GTIOC4B; GPT7: GTIOC7B; GPT_OPS: GTOVUP; KINT: KR05; SPI0: MISO0" - None - - 
       PE14 45 - - - - Disabled - - "ADC_B: AN026; GPT0: GTIOC0A; GPT5: GTIOC5B; GPT8: GTIOC8B; GPT_OPS: GTOWLO; KINT: KR06; SPI0: MOSI0" - None - - 
-      PE15 46 - - - - Disabled - - "ADC_B: AN027; GPT0: GTIOC0B; GPT6: GTIOC6B; GPT9: GTIOC9B; GPT_OPS: GTOWUP; KINT: KR07; SCI4: RXD4" - None - - 
+      PE15 46 - - L - Disabled - - "ADC_B: AN027; GPT0: GTIOC0B; GPT6: GTIOC6B; GPT9: GTIOC9B; GPT_OPS: GTOWUP; KINT: KR07; SCI4: RXD4" - IO - - 
       RES 14 SYSTEM_RES - - - - - - - - I "Read only" - 
       VCC 11 SYSTEM_VCC - - - - - - - - I "Read only" - 
       VCC 6 SYSTEM_VCC - - - - - - - - I "Read only" - 
@@ -333,9 +333,6 @@ FSP Configuration
     Parameter Checking: Default (BSP)
     Pin Output Support: Disabled
     Pin Input Support: Disabled
-    
-  Module "External IRQ (r_icu)"
-    Parameter Checking: Default (BSP)
     
   HAL
     Instance "g_ioport I/O Port (r_ioport)"
@@ -487,9 +484,9 @@ FSP Configuration
       Virtual Channels: Virtual Channel 2: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 2: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 2: Digital Filter Selection: Disabled
-      Virtual Channels: Virtual Channel 3: Scan Group: Scan Group 1
-      Virtual Channels: Virtual Channel 3: Channel Select: AN027
-      Virtual Channels: Virtual Channel 3: Sampling State Table ID: Sampling State Entry 2
+      Virtual Channels: Virtual Channel 3: Scan Group: Scan Group 0
+      Virtual Channels: Virtual Channel 3: Channel Select: AN007
+      Virtual Channels: Virtual Channel 3: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 3: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 3: Channel Offset Table: Disabled
       Virtual Channels: Virtual Channel 3: Add/Average Mode: Disabled
@@ -497,9 +494,9 @@ FSP Configuration
       Virtual Channels: Virtual Channel 3: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 3: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 3: Digital Filter Selection: Disabled
-      Virtual Channels: Virtual Channel 4: Scan Group: Scan Group 1
-      Virtual Channels: Virtual Channel 4: Channel Select: AN028
-      Virtual Channels: Virtual Channel 4: Sampling State Table ID: Sampling State Entry 2
+      Virtual Channels: Virtual Channel 4: Scan Group: Scan Group 0
+      Virtual Channels: Virtual Channel 4: Channel Select: AN003
+      Virtual Channels: Virtual Channel 4: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 4: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 4: Channel Offset Table: Disabled
       Virtual Channels: Virtual Channel 4: Add/Average Mode: Disabled
@@ -507,7 +504,7 @@ FSP Configuration
       Virtual Channels: Virtual Channel 4: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 4: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 4: Digital Filter Selection: Disabled
-      Virtual Channels: Virtual Channel 5: Scan Group: Scan Group 1
+      Virtual Channels: Virtual Channel 5: Scan Group: Scan Group 0
       Virtual Channels: Virtual Channel 5: Channel Select: AN006
       Virtual Channels: Virtual Channel 5: Sampling State Table ID: Sampling State Entry 1
       Virtual Channels: Virtual Channel 5: Channel Gain Table: Disabled
@@ -517,8 +514,8 @@ FSP Configuration
       Virtual Channels: Virtual Channel 5: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 5: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 5: Digital Filter Selection: Disabled
-      Virtual Channels: Virtual Channel 6: Scan Group: None
-      Virtual Channels: Virtual Channel 6: Channel Select: AN000
+      Virtual Channels: Virtual Channel 6: Scan Group: Scan Group 0
+      Virtual Channels: Virtual Channel 6: Channel Select: AN001
       Virtual Channels: Virtual Channel 6: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 6: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 6: Channel Offset Table: Disabled
@@ -939,7 +936,7 @@ FSP Configuration
     Instance "Three-Phase PWM (r_gpt_three_phase)"
       General: Name: g_three_phase0
       General: Mode: Triangle-Wave Symmetric PWM
-      General: Period: 20
+      General: Period: 14
       General: Period Unit: Kilohertz
       General: GPT U-Channel: 4
       General: GPT V-Channel: 5
@@ -955,7 +952,7 @@ FSP Configuration
         General: Name: g_timer_gpt4
         General: Channel: 4
         General: Mode: Triangle-wave PWM (symmetric, Mode 1)
-        General: Period: 20
+        General: Period: 14
         General: Compare Match: Compare Match A: Status: Disabled
         General: Compare Match: Compare Match A: Compare match value: 0
         General: Compare Match: Compare Match B: Status: Disabled
@@ -1007,7 +1004,7 @@ FSP Configuration
         General: Name: g_timer_gpt5
         General: Channel: 5
         General: Mode: Triangle-wave PWM (symmetric, Mode 1)
-        General: Period: 20
+        General: Period: 14
         General: Compare Match: Compare Match A: Status: Disabled
         General: Compare Match: Compare Match A: Compare match value: 0
         General: Compare Match: Compare Match B: Status: Disabled
@@ -1059,7 +1056,7 @@ FSP Configuration
         General: Name: g_timer_gpt6
         General: Channel: 6
         General: Mode: Triangle-wave PWM (symmetric, Mode 1)
-        General: Period: 20
+        General: Period: 14
         General: Compare Match: Compare Match A: Status: Disabled
         General: Compare Match: Compare Match A: Compare match value: 0
         General: Compare Match: Compare Match B: Status: Disabled
@@ -1111,7 +1108,7 @@ FSP Configuration
       General: Name: g_poeg3
       General: Channel: 3
       General: Trigger: GTETRG Pin
-      Input: GTETRG Polarity: Active Low
+      Input: GTETRG Polarity: Active High
       Input: GTETRG Noise Filter: PCLKB/32
       Interrupts: Callback: callback_poe_overcurrent
       Interrupts: Interrupt Priority: Priority 0 (highest)
@@ -1139,12 +1136,12 @@ FSP Configuration
       General: Name: g_timer_gpt1
       General: Channel: 1
       General: Mode: Triangle-wave PWM (symmetric, Mode 1)
-      General: Period: 31250
+      General: Period: 50
       General: Compare Match: Compare Match A: Status: Disabled
       General: Compare Match: Compare Match A: Compare match value: 0
       General: Compare Match: Compare Match B: Status: Disabled
       General: Compare Match: Compare Match B: Compare match value: 0
-      General: Period Unit: Nanoseconds
+      General: Period Unit: Kilohertz
       Output: Custom Waveform: GTIOA: Initial Output Level: Pin Level High
       Output: Custom Waveform: GTIOA: Cycle End Output Level: Pin Level Retain
       Output: Custom Waveform: GTIOA: Compare Match Output Level: Pin Level Toggle
@@ -1186,15 +1183,6 @@ FSP Configuration
       Extra Features: Interrupt Skipping (Channels with GTITC only): Skip ADC Events: None
       Extra Features: Output Disable: GTIOCA Disable Setting: Disable Prohibited
       Extra Features: Output Disable: GTIOCB Disable Setting: Disable Prohibited
-      
-    Instance "g_external_irq2 External IRQ (r_icu)"
-      Name: g_external_irq2
-      Channel: 2
-      Trigger: Falling
-      Digital Filtering: Enabled
-      Digital Filtering Sample Clock (Only valid when Digital Filtering is Enabled): PCLK / 64
-      Callback: callback_irq2_pfc_error
-      Pin Interrupt Priority: Priority 0 (highest)
       
     Instance "g_agt1 Timer, Low-Power (r_agt)"
       General: Name: g_agt1
