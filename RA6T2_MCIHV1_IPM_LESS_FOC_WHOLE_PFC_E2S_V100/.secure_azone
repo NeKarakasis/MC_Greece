@@ -53,6 +53,7 @@
             <slot name="IRQ4" secure="true"/>
             <slot name="IRQ5" secure="true"/>
             <slot name="IRQ6" secure="true"/>
+            <slot name="IRQ7" secure="true"/>
         </peripheral>
     </partition>
 </azone>

@@ -32,8 +32,8 @@ extern const timer_instance_t g_timer_gpt1;
 extern gpt_instance_ctrl_t g_timer_gpt1_ctrl;
 extern const timer_cfg_t g_timer_gpt1_cfg;
 
-#ifndef NULL
-void NULL(timer_callback_args_t *p_args);
+#ifndef pfc_pwm_cyclic
+void pfc_pwm_cyclic(timer_callback_args_t *p_args);
 #endif
 /** AGT Timer Instance */
 extern const timer_instance_t g_agt0;

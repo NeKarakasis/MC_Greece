@@ -137,14 +137,14 @@ static void software_init(void)
 ***********************************************************************************************************************/
 static void motor_fsp_init(void)
 {
-  //  uint32_t u4_port_config;
+    uint32_t u4_port_config;
     adc_status_t status;
 
     R_POEG_Open(g_poeg3.p_ctrl, g_poeg3.p_cfg);
 
 
-  //  u4_port_config = (((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT | (uint32_t) IOPORT_CFG_PORT_OUTPUT_LOW));
- //   R_IOPORT_PinCfg(&g_ioport_ctrl, BSP_IO_PORT_11_PIN_14, u4_port_config);
+   u4_port_config = (((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT | (uint32_t) IOPORT_CFG_PORT_OUTPUT_LOW));
+    R_IOPORT_PinCfg(&g_ioport_ctrl, BSP_IO_PORT_11_PIN_14, u4_port_config);
 
     /* GPT Output Disable to prevent gate on */
     R_Config_MOTOR_StopTimerCtrl();
@@ -158,6 +158,7 @@ static void motor_fsp_init(void)
 
     R_GPT_Stop(&g_timer_gpt1_ctrl);
     R_GPT_Reset(&g_timer_gpt1_ctrl);
+    R_Config_MC_PWM_PFC_DUTY_StartTimerCtrl();
 
     /* Adjust PWM timing of the motor control and PFC control */
     gpt_periodset(&g_timer_gpt4_ctrl, g_timer_gpt4.p_cfg->period_counts);
@@ -249,6 +250,18 @@ void callback_gpt_adc_cyclic(adc_callback_args_t *p_args)
         }
     }
 } /* End of function callback_gpt_adc_cyclic */
+
+
+/* Callback function */
+void pfc_pwm_cyclic(timer_callback_args_t *p_args)
+{
+	/* TODO: add your own code here */
+	if( TIMER_EVENT_CREST == p_args->event)
+	{
+		R_Config_MC_PWM_PFC_DUTY_UpdDuty();
+	}
+}
+
 
 /***********************************************************************************************************************
 * Function Name : callback_agt_motor_speed_cyclic

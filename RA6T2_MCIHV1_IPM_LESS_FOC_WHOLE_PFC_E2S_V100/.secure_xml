@@ -61,12 +61,12 @@
   <raPinConfiguration>
     <pincfg active="true" name="" symbol="">
       <configSetting altId="gpt1.gtioc1a.pb14" configurationId="gpt1.gtioc1a" isUsedByDriver="true" peripheral="GPT1"/>
-      <configSetting altId="gpt4.gtioc4a.pb04" configurationId="gpt4.gtioc4a" peripheral="GPT4"/>
-      <configSetting altId="gpt4.gtioc4b.pb05" configurationId="gpt4.gtioc4b" peripheral="GPT4"/>
-      <configSetting altId="gpt5.gtioc5a.pb06" configurationId="gpt5.gtioc5a" peripheral="GPT5"/>
-      <configSetting altId="gpt5.gtioc5b.pb07" configurationId="gpt5.gtioc5b" peripheral="GPT5"/>
-      <configSetting altId="gpt6.gtioc6a.pb08" configurationId="gpt6.gtioc6a" peripheral="GPT6"/>
-      <configSetting altId="gpt6.gtioc6b.pb09" configurationId="gpt6.gtioc6b" peripheral="GPT6"/>
+      <configSetting altId="gpt4.gtioc4a.pb04" configurationId="gpt4.gtioc4a" isUsedByDriver="true" peripheral="GPT4"/>
+      <configSetting altId="gpt4.gtioc4b.pb05" configurationId="gpt4.gtioc4b" isUsedByDriver="true" peripheral="GPT4"/>
+      <configSetting altId="gpt5.gtioc5a.pb06" configurationId="gpt5.gtioc5a" isUsedByDriver="true" peripheral="GPT5"/>
+      <configSetting altId="gpt5.gtioc5b.pb07" configurationId="gpt5.gtioc5b" isUsedByDriver="true" peripheral="GPT5"/>
+      <configSetting altId="gpt6.gtioc6a.pb08" configurationId="gpt6.gtioc6a" isUsedByDriver="true" peripheral="GPT6"/>
+      <configSetting altId="gpt6.gtioc6b.pb09" configurationId="gpt6.gtioc6b" isUsedByDriver="true" peripheral="GPT6"/>
       <configSetting altId="gpt_poegd.gtetrgd.pc13" configurationId="gpt_poegd.gtetrgd" peripheral="GPT_POEGD"/>
       <configSetting altId="jtag_fslash_swd.tck.pa14" configurationId="jtag_fslash_swd.tck" peripheral="JTAG/SWD"/>
       <configSetting altId="jtag_fslash_swd.tdi.pa15" configurationId="jtag_fslash_swd.tdi" peripheral="JTAG/SWD"/>

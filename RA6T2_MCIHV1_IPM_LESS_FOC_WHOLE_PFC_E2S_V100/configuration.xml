@@ -1039,8 +1039,8 @@
       <property id="module.driver.timer.capture_b_source" value=""/>
       <property id="module.driver.timer.gtioca_filter" value="module.driver.timer.gtioc_filter.gtioc_filter_none"/>
       <property id="module.driver.timer.gtiocb_filter" value="module.driver.timer.gtioc_filter.gtioc_filter_none"/>
-      <property id="module.driver.timer.p_callback" value="NULL"/>
-      <property id="module.driver.timer.ipl" value="_disabled"/>
+      <property id="module.driver.timer.p_callback" value="pfc_pwm_cyclic"/>
+      <property id="module.driver.timer.ipl" value="board.icu.common.irq.priority5"/>
       <property id="module.driver.timer.capture_a_ipl" value="_disabled"/>
       <property id="module.driver.timer.capture_b_ipl" value="_disabled"/>
       <property id="module.driver.timer.trough_ipl" value="_disabled"/>
@@ -1114,6 +1114,9 @@
     </config>
   </raModuleConfiguration>
   <raPinConfiguration>
+    <symbolicName propertyId="pb01.symbolic_name" value="SC_MC_DIO_BLDC_FAULT"/>
+    <symbolicName propertyId="pb10.symbolic_name" value="MC_DIO_BLDC_BRAKE"/>
+    <symbolicName propertyId="pe15.symbolic_name" value="MC_DIO_BLDC_STOP"/>
     <pincfg active="true" name="R7FA6T2BD3CFP.pincfg" selected="true" symbol="g_bsp_pin_cfg">
       <configSetting altId="gpt1.gtioc1a.pb14" configurationId="gpt1.gtioc1a"/>
       <configSetting altId="gpt1.mode.gtiocaorgtiocb.free" configurationId="gpt1.mode"/>

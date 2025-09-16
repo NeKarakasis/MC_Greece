@@ -121,14 +121,14 @@ const timer_cfg_t g_timer_gpt1_cfg = { .mode =
 		TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
 /* Actual period: 0.00002 seconds. Actual duty: 50%. */.period_counts =
 		(uint32_t) 0x4b0, .duty_cycle_counts = 0x258, .source_div =
-		(timer_source_div_t) 0, .channel = 1, .p_callback = NULL,
+		(timer_source_div_t) 0, .channel = 1, .p_callback = pfc_pwm_cyclic,
 /** If NULL then do not add & */
 #if defined(NULL)
     .p_context           = NULL,
 #else
 		.p_context = &NULL,
 #endif
-		.p_extend = &g_timer_gpt1_extend, .cycle_end_ipl = (BSP_IRQ_DISABLED),
+		.p_extend = &g_timer_gpt1_extend, .cycle_end_ipl = (5),
 #if defined(VECTOR_NUMBER_GPT1_COUNTER_OVERFLOW)
     .cycle_end_irq       = VECTOR_NUMBER_GPT1_COUNTER_OVERFLOW,
 #else
