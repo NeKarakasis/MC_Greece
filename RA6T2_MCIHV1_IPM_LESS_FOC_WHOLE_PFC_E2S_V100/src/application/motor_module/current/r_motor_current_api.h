@@ -94,6 +94,9 @@ typedef struct
     float   f4_iv_ad;                                       /* V-phase current value */
     float   f4_iw_ad;                                       /* W-phase current value */
     float   f4_vdc_ad;                                      /* Bus voltage [V] */
+    float   f4_iu_ref_ad;
+    float   f4_iv_ref_ad;
+    float   f4_iw_ref_ad;
     float   f4_id_ref;                                      /* The reference d-axis current value [A] */
     float   f4_iq_ref;                                      /* The reference q-axis current value [A] */
     float   f4_ref_speed_rad_ctrl;                          /* command speed value for speed PI control [rad/s] */
@@ -160,6 +163,12 @@ typedef struct
     float                 f4_iu_ad;                         /* U-phase current value [A] */
     float                 f4_iv_ad;                         /* V-phase current value [A] */
     float                 f4_iw_ad;                         /* W-phase current value [A] */
+
+    float                 f4_iu_ref_ad;
+	float                 f4_iv_ref_ad;
+	float                 f4_iw_ref_ad;
+
+
     float                 f4_modu;                          /* U-phase duty cycle */
     float                 f4_modv;                          /* V-phase duty cycle */
     float                 f4_modw;                          /* W-phase duty cycle */

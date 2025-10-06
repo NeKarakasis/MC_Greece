@@ -105,9 +105,16 @@ void R_MOTOR_DRIVER_AdcConvert(st_motor_driver_t * p_st_driver,
 								float * p_f4_iw_ad_ref,
                                 float * p_f4_vdc_ad)
 {
-	  *p_f4_iu_ad  = -1.0f * (st_ad_data.u2_iu_ad - *p_f4_iu_ad_ref) * p_st_driver->f4_ad_crnt_per_digit;
-	   *p_f4_iv_ad  = -1.0f * (st_ad_data.u2_iv_ad - *p_f4_iv_ad_ref) * p_st_driver->f4_ad_crnt_per_digit;
-	    *p_f4_iw_ad  = -1.0f * (st_ad_data.u2_iw_ad - *p_f4_iw_ad_ref) * p_st_driver->f4_ad_crnt_per_digit;
+	  float f4_volt_per_digit;
+      f4_volt_per_digit = MOTOR_DRIVER_PRV_ADC_REF_VOLTAGE / MOTOR_MCU_CFG_AD12BIT_DATA;
+
+	  *p_f4_iu_ad_ref = st_ad_data.u2_iu_ref_ad*f4_volt_per_digit;
+      *p_f4_iu_ad_ref = st_ad_data.u2_iu_ref_ad*f4_volt_per_digit;
+      *p_f4_iu_ad_ref = st_ad_data.u2_iu_ref_ad*f4_volt_per_digit;
+
+	  *p_f4_iu_ad  = -1.0f * (st_ad_data.u2_iu_ad - st_ad_data.u2_iu_ref_ad) * p_st_driver->f4_ad_crnt_per_digit;
+	  *p_f4_iv_ad  = -1.0f * (st_ad_data.u2_iv_ad - st_ad_data.u2_iv_ref_ad) * p_st_driver->f4_ad_crnt_per_digit;
+	  *p_f4_iw_ad  = -1.0f * (st_ad_data.u2_iw_ad - st_ad_data.u2_iw_ref_ad) * p_st_driver->f4_ad_crnt_per_digit;
 
 	    *p_f4_vdc_ad = st_ad_data.u2_vdc_ad * p_st_driver->f4_ad_vdc_per_digit;
 }
@@ -190,9 +197,9 @@ void R_MOTOR_DRIVER_BldcAnalogGet(st_motor_driver_t * p_st_driver,
 								  float * p_f4_iw_ref_ad,
                                   float * p_f4_vdc_ad)
 {
-    r_mtr_adc_tb st_ad_data;
-    float iu_raw, iv_raw, iw_raw, iu_ref_raw, iv_ref_raw, iw_ref_raw;
 
+	r_mtr_adc_tb st_ad_data;
+	float iu_raw, iv_raw, iw_raw, iu_ref_raw, iv_ref_raw, iw_ref_raw;
     p_st_driver->ADCDataGet(&st_ad_data);
 
     R_MOTOR_DRIVER_AdcConvert(p_st_driver, st_ad_data, &iu_raw, &iv_raw, &iw_raw, &iu_ref_raw, &iv_ref_raw, &iw_ref_raw, p_f4_vdc_ad);

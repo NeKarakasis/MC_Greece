@@ -45,6 +45,7 @@
 * Global functions definitions
 ***********************************************************************************************************************/
 
+
 /***********************************************************************************************************************
 * Function Name: R_Config_MOTOR_StartTimerOutput
 * Description  : This function starts the PWM output for motor control
@@ -173,6 +174,8 @@ void R_Config_MOTOR_UpdCompareDuty(void)
 ***********************************************************************************************************************/
 void R_Config_MOTOR_AdcGetConvVal(r_mtr_adc_tb * mtr_ad_data)
 {
+
+
     uint16_t u2_ad_conv_iu;
     uint16_t u2_ad_conv_iw;
     uint16_t u2_ad_conv_iv;
@@ -181,7 +184,6 @@ void R_Config_MOTOR_AdcGetConvVal(r_mtr_adc_tb * mtr_ad_data)
     uint16_t u2_ad_conv_iu_ref;
     uint16_t u2_ad_conv_iw_ref;
     uint16_t u2_ad_conv_iv_ref;
-
 
 
     /* ADC read from FSP API */
@@ -194,13 +196,13 @@ void R_Config_MOTOR_AdcGetConvVal(r_mtr_adc_tb * mtr_ad_data)
     R_ADC_B_Read(&g_adc0_ctrl, 1, &u2_ad_conv_iw_ref);
 
     /* Store ADC read data */
-    mtr_ad_data->u2_iu_ad  = (uint16_t)u2_ad_conv_iu;
-    mtr_ad_data->u2_iv_ad  = (uint16_t)u2_ad_conv_iv;
-    mtr_ad_data->u2_iw_ad  = (uint16_t)u2_ad_conv_iw;
-    mtr_ad_data->u2_vdc_ad = (uint16_t)u2_ad_conv_vdc;
+    mtr_ad_data->u2_iu_ad      = (uint16_t)u2_ad_conv_iu;
+    mtr_ad_data->u2_iv_ad      = (uint16_t)u2_ad_conv_iv;
+    mtr_ad_data->u2_iw_ad      = (uint16_t)u2_ad_conv_iw;
+    mtr_ad_data->u2_vdc_ad     = (uint16_t)u2_ad_conv_vdc;
     mtr_ad_data->u2_iu_ref_ad  = (uint16_t)u2_ad_conv_iu_ref;
-    mtr_ad_data->u2_iu_ref_ad  = (uint16_t)u2_ad_conv_iu_ref;
-    mtr_ad_data->u2_iu_ref_ad  = (uint16_t)u2_ad_conv_iu_ref;
+    mtr_ad_data->u2_iv_ref_ad  = (uint16_t)u2_ad_conv_iv_ref;
+    mtr_ad_data->u2_iw_ref_ad  = (uint16_t)u2_ad_conv_iw_ref;
 
 
 } /* End of function R_Config_MOTOR_AdcGetConvVal */

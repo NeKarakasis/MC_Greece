@@ -199,6 +199,9 @@ void R_MOTOR_CURRENT_Reset(st_current_control_t *p_st_cc)
     p_st_cc->f4_iu_ad            = 0.0f;
     p_st_cc->f4_iv_ad            = 0.0f;
     p_st_cc->f4_iw_ad            = 0.0f;
+    p_st_cc->f4_iu_ref_ad        = 0.0f;
+    p_st_cc->f4_iv_ref_ad        = 0.0f;
+    p_st_cc->f4_iw_ref_ad        = 0.0f;
     p_st_cc->f4_modu             = 0.0f;
     p_st_cc->f4_modv             = 0.0f;
     p_st_cc->f4_modw             = 0.0f;
@@ -259,6 +262,9 @@ void R_MOTOR_CURRENT_ParameterSet(st_current_control_t *p_st_cc, const st_curren
     p_st_cc->f4_iv_ad               = p_st_current_input->f4_iv_ad;
     p_st_cc->f4_iw_ad               = p_st_current_input->f4_iw_ad;
     p_st_cc->f4_vdc_ad              = p_st_current_input->f4_vdc_ad;
+    p_st_cc->f4_iu_ref_ad           = p_st_current_input->f4_iu_ref_ad;
+    p_st_cc->f4_iv_ref_ad           = p_st_current_input->f4_iv_ref_ad;
+    p_st_cc->f4_iw_ref_ad           = p_st_current_input->f4_iw_ref_ad;
     p_st_cc->f4_iq_ref              = p_st_current_input->f4_iq_ref;
     p_st_cc->f4_id_ref              = p_st_current_input->f4_id_ref;
     p_st_cc->f4_ref_speed_rad_ctrl  = p_st_current_input->f4_ref_speed_rad_ctrl;

@@ -649,7 +649,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 		.channel_cfg_bits.group = (1), .channel_cfg_bits.channel =
 				(ADC_CHANNEL_6), .channel_cfg_bits.self_diag_enabled =
 				((ADC_CHANNEL_6) == ADC_CHANNEL_SELF_DIAGNOSIS),
-				.channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_1,
+				.channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
 				.channel_control_a_bits.digital_filter_id = 0x0,
 				.channel_control_a_bits.offset_table_id =

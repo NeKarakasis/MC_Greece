@@ -47,6 +47,9 @@
  *********************************************************************************************************************/
 st_sensorless_vector_control_t g_st_sensorless_vector;
 
+
+
+
 /***********************************************************************************************************************
 * Function Name : R_MOTOR_SENSORLESS_VECTOR_Open
 * Description   : Open Sensorless FOC Control module
@@ -362,7 +365,7 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
    							     p_st_sensorless_vector->st_current_output.f4_modv,
    							     p_st_sensorless_vector->st_current_output.f4_modw,
                                     &p_st_sensorless_vector->f4_iu_ad,
-   								 &p_st_sensorless_vector->f4_iv_ad,
+   								    &p_st_sensorless_vector->f4_iv_ad,
                                     &p_st_sensorless_vector->f4_iw_ad,
 									&p_st_sensorless_vector->f4_iu_ref_ad,
 									&p_st_sensorless_vector->f4_iv_ref_ad,
@@ -370,10 +373,11 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
                                     &p_st_sensorless_vector->f4_vdc_ad);
 
 
+
     /* current offset adjustment */
-    R_MOTOR_CURRENT_CurrentOffsetRemove(p_st_sensorless_vector->p_st_cc,
+  /*  R_MOTOR_CURRENT_CurrentOffsetRemove(p_st_sensorless_vector->p_st_cc,
                                         &p_st_sensorless_vector->f4_iu_ad,
-                                        &p_st_sensorless_vector->f4_iw_ad);
+                                        &p_st_sensorless_vector->f4_iw_ad);  */
 
     /* V-phase current calculation */
    // p_st_sensorless_vector->f4_iv_ad = -(p_st_sensorless_vector->f4_iu_ad + p_st_sensorless_vector->f4_iw_ad);

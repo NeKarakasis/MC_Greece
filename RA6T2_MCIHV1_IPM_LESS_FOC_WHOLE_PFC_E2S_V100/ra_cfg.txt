@@ -506,7 +506,7 @@ FSP Configuration
       Virtual Channels: Virtual Channel 4: Digital Filter Selection: Disabled
       Virtual Channels: Virtual Channel 5: Scan Group: Scan Group 0
       Virtual Channels: Virtual Channel 5: Channel Select: AN006
-      Virtual Channels: Virtual Channel 5: Sampling State Table ID: Sampling State Entry 1
+      Virtual Channels: Virtual Channel 5: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 5: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 5: Channel Offset Table: Disabled
       Virtual Channels: Virtual Channel 5: Add/Average Mode: Disabled
