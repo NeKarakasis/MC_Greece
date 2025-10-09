@@ -40,6 +40,7 @@
 #include "r_motor_current_modulation.h"
 #include "r_motor_current_volt_err_comp.h"
 #include "r_motor_current_bemf_observer.h"
+#include "r_motor_filter.h"
 
 /***********************************************************************************************************************
 * Macro definitions
@@ -181,6 +182,9 @@ typedef struct
     st_pi_ctrl_t          st_pi_iq;                    /* The q-axis current PI controller */
     st_rotor_angle_t      st_rotor_angle;              /* Rotor angle structure */
     st_motor_parameter_t  st_motor;                    /* Motor parameter structure */
+    st_1st_order_lpf_t	  st_current_filter_u;		/* current filter structure*/
+    st_1st_order_lpf_t	  st_current_filter_v;		/* current filter structure*/
+    st_1st_order_lpf_t	  st_current_filter_w;		/* current filter structure*/
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
     uint16_t              u2_duty_u;                   /* U-phase duty cycle */
     uint16_t              u2_duty_v;                   /* V-phase duty cycle */

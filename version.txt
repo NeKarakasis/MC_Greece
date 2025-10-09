@@ -1,3 +1,6 @@
+-----9/10/25-----
+- Nektarios: Add the motor protection functions, they are not running. Tuned Circlulation motor and dry motor. the define DRY or CIRC in r_motor_targetmotor will select the correspoding motor 
+
 -----25/8/25-----
 - Nektarios: change the safety module for better modularity.
 

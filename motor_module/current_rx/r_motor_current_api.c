@@ -124,6 +124,19 @@ void R_MOTOR_CURRENT_Open(void)
     motor_current_mod_min_duty_set(&p_st_cc->st_mod, f4_min_duty_cycle);
     motor_current_mod_volt_err_ratio_set(&p_st_cc->st_mod, f4_duty_cycle_deadtime);
     motor_current_volt_err_vlimit_set(&p_st_cc->st_volt_comp, CURRENT_VERR_COMP_LIMIT);
+    /* Initialization of the current filter*/
+    motor_filter_first_order_lpff_init(&p_st_cc->st_current_filter_u);
+    motor_filter_first_order_lpff_gain_calc(&p_st_cc->st_current_filter_u,
+            CURRENT_CFG_LPF_OMEGA, CURRENT_CFG_CTRL_PERIOD);
+
+    motor_filter_first_order_lpff_init(&p_st_cc->st_current_filter_v);
+    motor_filter_first_order_lpff_gain_calc(&p_st_cc->st_current_filter_v,
+            CURRENT_CFG_LPF_OMEGA, CURRENT_CFG_CTRL_PERIOD);
+
+    motor_filter_first_order_lpff_init(&p_st_cc->st_current_filter_w);
+    motor_filter_first_order_lpff_gain_calc(&p_st_cc->st_current_filter_w,
+            CURRENT_CFG_LPF_OMEGA, CURRENT_CFG_CTRL_PERIOD);
+
 
     R_MOTOR_CURRENT_Reset(p_st_cc);
 } /* End of function R_MOTOR_CURRENT_Open */

@@ -29,6 +29,7 @@
 #ifndef R_MOTOR_TARGETMOTOR_CFG_H
 #define R_MOTOR_TARGETMOTOR_CFG_H
 
+#define DRY
 /***********************************************************************************************************************
 * Includes <System Includes> , "Project Includes"
 ***********************************************************************************************************************/
@@ -53,15 +54,26 @@
 #define     MOTOR_CFG_NOMINAL_CURRENT_RMS   (5.0f)          Nominal current [Arms]
 #define     MOTOR_CFG_MAX_SPEED_RPM         (2650.0f)        maximum speed [rpm] (mechanical angle)
 */
-
+#ifdef CIRC
 #define     MOTOR_CFG_POLE_PAIRS            (4)             /* Number of pole pairs */
-#define     MOTOR_CFG_MAGNETIC_FLUX         (0.0086f)      /* Permanent magnetic flux [Wb] */
+#define     MOTOR_CFG_MAGNETIC_FLUX         (0.069f)      /* Permanent magnetic flux [Wb] */ //(0.069f)(0.069f)
 #define     MOTOR_CFG_RESISTANCE            (34.4f)          /* Resistance [ohm] */
 #define     MOTOR_CFG_D_INDUCTANCE          (0.0534f)       /* D-axis inductance [H] */
-#define     MOTOR_CFG_Q_INDUCTANCE          (0.0534f)       /* Q-axis inductance [H] */
-#define     MOTOR_CFG_ROTOR_INERTIA         (0.0003666f)    /* Rotor inertia [kgm^2] */
-#define     MOTOR_CFG_NOMINAL_CURRENT_RMS   (1.0f)         /* Nominal current [Arms] */
+#define     MOTOR_CFG_Q_INDUCTANCE          (0.0624f)       /* Q-axis inductance [H] */
+#define     MOTOR_CFG_ROTOR_INERTIA         (0.0004666f)//(0.008666f)    /* Rotor inertia [kgm^2] */ //(0.0003666f) (0.002666f)
+#define     MOTOR_CFG_NOMINAL_CURRENT_RMS   (1.5f)         /* Nominal current [Arms] */
 #define     MOTOR_CFG_MAX_SPEED_RPM         (5000.0f)       /* maximum speed [rpm] (mechanical angle) */
+#endif
+#ifdef DRY
+#define     MOTOR_CFG_POLE_PAIRS            (1)             /* Number of pole pairs */
+#define     MOTOR_CFG_MAGNETIC_FLUX         (0.135f)      /* Permanent magnetic flux [Wb] */ //(0.069f)(0.069f)
+#define     MOTOR_CFG_RESISTANCE            (170.0f)          /* Resistance [ohm] */
+#define     MOTOR_CFG_D_INDUCTANCE          (0.410f)       /* D-axis inductance [H] */
+#define     MOTOR_CFG_Q_INDUCTANCE          (0.390f)       /* Q-axis inductance [H] */
+#define     MOTOR_CFG_ROTOR_INERTIA         (0.0004666f)//(0.008666f)    /* Rotor inertia [kgm^2] */ //(0.0003666f) (0.002666f)
+#define     MOTOR_CFG_NOMINAL_CURRENT_RMS   (0.45f)         /* Nominal current [Arms] */
+#define     MOTOR_CFG_MAX_SPEED_RPM         (5000.0f)       /* maximum speed [rpm] (mechanical angle) */
+#endif
 
 #endif /* MOTOR_COMMON_CFG_MTR_TG55L */
 

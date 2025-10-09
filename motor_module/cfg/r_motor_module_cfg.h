@@ -98,7 +98,7 @@
  * for Current Module(current_rx)
  */
 /* Defines whether use voltage error compensation in FOC */
-#define     CURRENT_CFG_VOLT_ERR_COMP           (MTR_ENABLE)
+#define     CURRENT_CFG_VOLT_ERR_COMP           (MTR_DISABLE)
 
 /* Select modulation method
 * - MOD_METHOD_SPWM
@@ -114,27 +114,44 @@
 #define     CURRENT_CFG_PERIOD_MAG_VALUE        (1.0f)                              /* Period magnification value for coordinate transformation */
 #define     CURRENT_CFG_PI_INTEGRAL_LIMIT_VD    (INVERTER_CFG_INPUT_V * 0.5f)       /* Current PI integral term limit for vd */
 #define     CURRENT_CFG_PI_INTEGRAL_LIMIT_VQ    (INVERTER_CFG_INPUT_V * 0.5f)       /* Current PI integral term limit for vq */
-#define     CURRENT_CFG_OMEGA                   (50.0f)                            /* natural frequency for current loop */
+#define		CURRENT_CFG_LPF_OMEGA				(2.f * 3.141592f * 2000.f)			/* Cut off frequency of 1st order LPF for the currents*/
+#define		CURRENT_CFG_CTRL_PERIOD				(1.0F/(MOTOR_MCU_CFG_CARRIER_FREQ * 1000.0f)) /* Period of the current control loop, it needs for LPF filter for currents */
+#define     CURRENT_CFG_OMEGA                   (300.0f)                            /* natural frequency for current loop */ //50
 #define     CURRENT_CFG_ZETA                    (1.0f)                              /* damping ratio for current loop */
-#define     CURRENT_CFG_REF_ID_OPENLOOP         (0.5f)                              /* id reference when low speed [A] */
+#ifdef CIRC
+#define     CURRENT_CFG_REF_ID_OPENLOOP         (0.7f)                              /* id reference when low speed [A] */
+#endif
+#ifdef DRY
+#define     CURRENT_CFG_REF_ID_OPENLOOP         (0.3f)
+#endif
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 #define     CURRENT_CFG_ID_UP_STEP_TIME         (640.0f)                            /* Time to increase id */
 #elif defined(MOTOR_SHUNT_TYPE_2_SHUNT)
-#define     CURRENT_CFG_ID_UP_STEP_TIME         (1280.0f)                           /* Time to increase id */
+#define     CURRENT_CFG_ID_UP_STEP_TIME         (1250.0f)                           /* Time to increase id */ //1250
 #endif
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 #define     CURRENT_CFG_ID_DOWN_STEP_TIME       (125.0f)                            /* Time to decrease id */
 #elif defined(MOTOR_SHUNT_TYPE_2_SHUNT)
-#define     CURRENT_CFG_ID_DOWN_STEP_TIME       (1000.0f)                            /* Time to decrease id */
+#define     CURRENT_CFG_ID_DOWN_STEP_TIME       (2000.0f)                            /* Time to decrease id */  //1000 or 2000
 #endif
 #define     CURRENT_CFG_IQ_DOWN_STEP_TIME_INV   (1.0f /CURRENT_CFG_ID_UP_STEP_TIME) /* Inverse number of time to decrease iq */
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 #define     CURRENT_CFG_E_OBS_OMEGA             (550.0f)                            /* Natural frequency of BEMF observer */
 #elif defined(MOTOR_SHUNT_TYPE_2_SHUNT)
-#define     CURRENT_CFG_E_OBS_OMEGA             (200.0f)                            /* Natural frequency of BEMF observer */
+#ifdef CIRC
+#define     CURRENT_CFG_E_OBS_OMEGA             (400.0f)                            /* Natural frequency of BEMF observer */ //100
+#endif
+#ifdef DRY
+#define     CURRENT_CFG_E_OBS_OMEGA             (300.0f)
+#endif
 #endif
 #define     CURRENT_CFG_E_OBS_ZETA              (1.0f)                              /* Damping ratio of BEMF observer */
-#define     CURRENT_CFG_PLL_EST_OMEGA           (15.0f)                             /* Natural frequency of PLL Speed estimate loop */
+#ifdef CIRC
+#define     CURRENT_CFG_PLL_EST_OMEGA           (25.0f)                             /* Natural frequency of PLL Speed estimate loop */ //10
+#endif
+#ifdef DRY
+#define     CURRENT_CFG_PLL_EST_OMEGA           (10.0f)                             /* Natural frequency of PLL Speed estimate loop */ //10
+#endif
 #define     CURRENT_CFG_PLL_EST_ZETA            (1.0f)                              /* Damping ratio of PLL Speed estimate loop */
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 #define     CURRENT_CFG_MIN_DIFFERENCE_DUTY     (192)                               /* Minimum difference of PWM duty */
@@ -160,15 +177,20 @@
 #define     SPEED_CFG_LESS_SWITCH               (MTR_ENABLE)
 
 /* Defines whether use the open-loop damping control */
-#define     SPEED_CFG_OPENLOOP_DAMPING          (MTR_ENABLE)
+#define     SPEED_CFG_OPENLOOP_DAMPING          (MTR_DISABLE)
 
 #define     SPEED_CFG_CTRL_PERIOD               (0.001f)        /* control period for speed loop */
-#define     SPEED_CFG_OMEGA                     (0.1f)          /* natural frequency for speed loop */
+#ifdef CIRC
+#define     SPEED_CFG_OMEGA                     (0.4f)          /* natural frequency for speed loop */ //1
+#endif
+#ifdef DRY
+#define     SPEED_CFG_OMEGA                     (0.04f)
+#endif
 #define     SPEED_CFG_ZETA                      (1.0f)          /* damping ratio for speed loop */
 #define     SPEED_CFG_LPF_OMEGA                 (10.0f)         /* natural frequency for speed LPF */
 #define     SPEED_CFG_SPEED_LIMIT_RPM           (6000.0f)       /* over speed limit [rpm] (mechanical angle) */
-#define     SPEED_CFG_RATE_LIMIT_RPM            (500.0f)       /* Rate limit of speed change [rpm/s] */
-#define     SPEED_OPL2LESS_SWITCH_TIME          (0.8f)        /* Time[s] to switch open-loop to sensor-less */
+#define     SPEED_CFG_RATE_LIMIT_RPM            (100.0f)       /* Rate limit of speed change [rpm/s] */
+#define     SPEED_OPL2LESS_SWITCH_TIME          (1.5f)        /* Time[s] to switch open-loop to sensor-less */ //0.8
 #define     SPEED_OPL_DAMP_ED_HPF_OMEGA         (2.5f)          /* HPF cutoff frequency for ed [Hz] */
 #define     SPEED_OPL_DAMP_ZETA                 (1.0f)          /* Damping ratio of open-loop damping control */
 #define     SPEED_OPL_DAMP_FB_SPEED_LIMIT_RATE  (0.2f)          /* Rate of reference speed for feedback speed limiter */
@@ -177,9 +199,13 @@
 /*
  * for sensorless vector Manager(sensorless_vector_rx)
  */
-#define     SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM                         (700.0f)
-                                                            /* Speed to start decreasing id [rpm] */
-#define     SENSORLESS_VECTOR_ID_UP_SPEED_RPM                           (600.0f)
+#ifdef CIRC
+#define     SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM                         (800.0f) //800
+#endif
+#ifdef DRY
+#define     SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM                     	(1500.f)
+#endif                                                            /* Speed to start decreasing id [rpm] */
+#define     SENSORLESS_VECTOR_ID_UP_SPEED_RPM                           (500.0f)
                                                             /* Speed to start increasing id [rpm] */
 #define     SENSORLESS_VECTOR_OPL2LESS_SWITCH_PHASE_ERR_DEG             (3.0f)
                                                             /* Phase error[deg] to decide sensor-less switch timing */

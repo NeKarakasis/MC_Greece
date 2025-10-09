@@ -31,7 +31,9 @@
 ***********************************************************************************************************************/
 #include <math.h>
 #include <r_motor_sensorless_vector_api.h>
+#include <r_motor_filter.h>
 #include "r_smc_entry.h"
+#include "r_motor_protection.h"
 
 /* Main associated header file */
 #include "r_motor_sensorless_vector_manager.h"
@@ -48,6 +50,7 @@
  Exported global variables
  *********************************************************************************************************************/
 st_sensorless_vector_control_t g_st_sensorless_vector;
+static motor_protection_t g_mp;
 
 /***********************************************************************************************************************
 * Function Name : R_MOTOR_SENSORLESS_VECTOR_Open
@@ -61,6 +64,7 @@ void R_MOTOR_SENSORLESS_VECTOR_Open(void)
     R_MOTOR_SPEED_Open();
     R_MOTOR_DRIVER_Open();
 
+    //Protect_Init(true,0);
     /* Store the address of the module instance in a structure and connect the module to be used */
     g_st_sensorless_vector.p_st_cc             = &g_st_cc;
     g_st_sensorless_vector.p_st_sc             = &g_st_sc;
@@ -379,6 +383,11 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
 								 &p_st_sensorless_vector->f4_iv_ad,
                                  &p_st_sensorless_vector->f4_iw_ad,
                                  &p_st_sensorless_vector->f4_vdc_ad);
+/*    	R_MOTOR_DRIVER_BldcAnalogGet_old(p_st_sensorless_vector->p_st_driver,
+    		&p_st_sensorless_vector->f4_iu_ad,
+			&p_st_sensorless_vector->f4_iv_ad,
+            &p_st_sensorless_vector->f4_iw_ad,
+            &p_st_sensorless_vector->f4_vdc_ad);*/
 
     /* current offset adjustment */
     R_MOTOR_CURRENT_CurrentOffsetRemove(p_st_sensorless_vector->p_st_cc,
@@ -388,6 +397,13 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
 
     /* V-phase current calculation */
     p_st_sensorless_vector->f4_iv_ad = -(p_st_sensorless_vector->f4_iu_ad + p_st_sensorless_vector->f4_iw_ad);
+
+    /*p_st_sensorless_vector->f4_iu_ad = motor_filter_first_order_lpff(&p_st_sensorless_vector->p_st_cc->st_current_filter_u,p_st_sensorless_vector->f4_iu_ad);
+    p_st_sensorless_vector->f4_iv_ad = motor_filter_first_order_lpff(&p_st_sensorless_vector->p_st_cc->st_current_filter_v,p_st_sensorless_vector->f4_iv_ad);
+    p_st_sensorless_vector->f4_iw_ad = motor_filter_first_order_lpff(&p_st_sensorless_vector->p_st_cc->st_current_filter_w,p_st_sensorless_vector->f4_iw_ad);*/
+
+    /* Start of Application Test */
+
 
 #elif defined(MOTOR_SHUNT_TYPE_1_SHUNT)
     /* Current, Voltage detection */
@@ -450,6 +466,17 @@ setpsw_i();                                             /* Interrupt enable */
         }
         else
         {
+        	/* Start the application specific safety functions */
+            //motor_protection_update(&g_mp, p_st_sensorless_vector->f4_iu_ad, p_st_sensorless_vector->f4_iv_ad, p_st_sensorless_vector->f4_iw_ad);
+            uint32_t alarms = motor_protection_get_alarms(&g_mp);
+
+            if ((alarms & MP_ALARM_CURRENT_MAX) != 0u)
+            {
+                p_st_sensorless_vector->u2_error_status |= MOTOR_SENSORLESS_VECTOR_ERROR_APPLICATION;
+                motor_sensorless_vector_statemachine_event(&p_st_sensorless_vector->st_stm,
+                                                           p_st_sensorless_vector,
+                                                           STATEMACHINE_EVENT_ERROR);
+            }
             R_MOTOR_CURRENT_CurrentCyclic(p_st_sensorless_vector->p_st_cc);
             R_MOTOR_CURRENT_ParameterGet(p_st_sensorless_vector->p_st_cc, &p_st_sensorless_vector->st_current_output);
 
@@ -465,6 +492,11 @@ setpsw_i();                                             /* Interrupt enable */
 #endif
         }
     }
+/*    else
+    {
+        // We’re idle / not running: zero timers (and optionally clear alarms)
+        motor_protection_enter_idle(&g_mp, true);
+    } */
 
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
     if (MTR_FLG_SET == p_st_sensorless_vector->st_current_output.u1_flag_offset_calc)

@@ -61,6 +61,9 @@ static void     r_app_main_start_motor_ctrl(void);      /* Start motor control *
 * Return Value  : None
 ***********************************************************************************************************************/
 volatile static int32_t adc_cmt_counts[4] = {0,0,0,0};
+static float g_manual_speed = 0;
+static int g_manual_state_cmd = 0;
+static int temp_g_manual_state_cmd = 0;
 void main(void)
 {
 clrpsw_i();                                       /* Disable interrupt */
@@ -84,7 +87,7 @@ setpsw_i();                                       /* Enable interrupt */
     r_app_main_start_motor_ctrl();
 
 //Disable interrupt
-clrpsw_i();
+/*clrpsw_i();
 MTU.TRWERA.BIT.RWE = 1U;
 int32_t mtu_counter = MTU4.TCNT;
 
@@ -128,8 +131,6 @@ adc_test_sample(st_voltage_test);
 MTU.TRWERA.BIT.RWE = 1U;
 tempcounter =MTU4.TCNT;
 S12AD.ADCSR.BIT.ADST = 1;
-/*R_Config_S12AD0_Create();
-R_Config_S12AD0_Start();*/
 adc_cmt_counts[3] = MTU4.TCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 0U;
 
@@ -141,7 +142,7 @@ FuSa_PC_init();
 // 2.9V trigger voltage
 FuSa_Voltage_init();
 
-setpsw_i();                                       /* Enable interrupt */
+setpsw_i(); */                                      /* Enable interrupt */
 
 
     /*** Main routine ***/
@@ -200,9 +201,11 @@ static void r_app_main_ui_mainloop(void)
     /*============================*/
     /*        Execute event       */
     /*============================*/
+    //g_u1_sw_userif = MAIN_UI_SERIAL;
+    //g_manual_speed = -1500;
     if (MAIN_UI_RMW == g_u1_sw_userif)
     {
-        /* Main process for ICS UI */
+         /*Main process for ICS UI*/
         r_app_rmw_ui_mainloop();
     }
     else if (MAIN_UI_BOARD == g_u1_sw_userif)
@@ -210,10 +213,49 @@ static void r_app_main_ui_mainloop(void)
         /* Main process for board UI */
         r_app_board_ui_mainloop();
     }
+#if 0
+    else if (MAIN_UI_SERIAL == g_u1_sw_userif)
+    {
+        switch (g_manual_state_cmd)
+            {
+                case STATEMACHINE_STATE_STOP:
+                    if (temp_g_manual_state_cmd == STATEMACHINE_STATE_RUN)
+                    {
+                        R_MOTOR_SENSORLESS_VECTOR_MotorStart(&g_st_sensorless_vector); /* Execute active event */
+                        g_manual_state_cmd = 1;
+                    }
+                break;
+
+                case STATEMACHINE_STATE_RUN:
+
+                    if (temp_g_manual_state_cmd == STATEMACHINE_STATE_STOP) /* Check SW1 */
+                    {
+                        R_MOTOR_SENSORLESS_VECTOR_MotorStop(&g_st_sensorless_vector); /* Execute stop event */
+                        g_manual_state_cmd = 0;
+                    }
+                    u1_temp = R_MOTOR_SENSORLESS_VECTOR_LoopModeStatusGet(&g_st_sensorless_vector);
+                    if (u1_temp == MOTOR_LOOP_SPEED)
+                    {
+                        /*=============================*/
+                        /*     Set speed reference     */
+                        /*=============================*/
+
+                        R_MOTOR_SENSORLESS_VECTOR_SpeedSet(&g_st_sensorless_vector, g_manual_speed);
+                                                                                        /* set speed reference */
+                    }
+                    else
+                    {
+                        /* Do nothing */
+                    }
+
+            }
+    }
+#endif
     else
     {
-        /* Do Nothing */
+         //Do Nothing
     }
+
 
     /*============================*/
     /*         LED control        */

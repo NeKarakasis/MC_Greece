@@ -56,6 +56,7 @@
 #define     MOTOR_SENSORLESS_VECTOR_ERROR_BEMF_PATTERN      (0x0040)
 #define     MOTOR_SENSORLESS_VECTOR_ERROR_LOW_VOLTAGE       (0x0080)
 #define     MOTOR_SENSORLESS_VECTOR_ERROR_OVER_CURRENT_SW   (0x0100)
+#define		MOTOR_SENSORLESS_VECTOR_ERROR_APPLICATION		(0x0120)
 #define     MOTOR_SENSORLESS_VECTOR_ERROR_UNKNOWN           (0xffff)
 
 /***********************************************************************************************************************

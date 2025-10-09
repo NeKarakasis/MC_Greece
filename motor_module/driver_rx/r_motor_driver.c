@@ -132,9 +132,10 @@ void R_MOTOR_DRIVER_BldcAnalogGet_old(st_motor_driver_t * p_st_driver,
     iv_adc_value = st_ad_data.u2_iv_ad;
     iw_adc_value = st_ad_data.u2_iw_ad;
     vdc_adc_value = st_ad_data.u2_vdc_ad;
-    *p_f4_iu_ad  = (1.968f - st_ad_data.u2_iu_ad * f4_volt_per_digit)*(5.896f);//(0.639f - st_ad_data.u2_iu_ad * f4_volt_per_digit)*(15.625f); // 33.33 - st_ad_data.u2_iu_ad/78.56;//(MOTOR_MCU_CFG_ADC_OFFSET - st_ad_data.u2_iu_ad) * p_st_driver->f4_ad_crnt_per_digit;
-    *p_f4_iw_ad  = (1.968f - st_ad_data.u2_iw_ad * f4_volt_per_digit)*(5.896f);//(0.639f - st_ad_data.u2_iw_ad * f4_volt_per_digit)*(15.625f) //33.33 - st_ad_data.u2_iw_ad/78.56;//(MOTOR_MCU_CFG_ADC_OFFSET - st_ad_data.u2_iw_ad) * p_st_driver->f4_ad_crnt_per_digit;
-    *p_f4_iv_ad  = (1.968f - st_ad_data.u2_iv_ad * f4_volt_per_digit)*(5.896f);//(0.639f - st_ad_data.u2_iv_ad * f4_volt_per_digit)*(15.625f);
+    *p_f4_iu_ad = ( 0.639535f - ((st_ad_data.u2_iu_ad * f4_volt_per_digit) / 3.077f) ) * 2.293333f;
+    *p_f4_iv_ad = ( 0.639535f - ((st_ad_data.u2_iv_ad * f4_volt_per_digit) / 3.077f)  ) * 2.293333f;
+    *p_f4_iw_ad = ( 0.639535f - ((st_ad_data.u2_iw_ad * f4_volt_per_digit) / 3.077f) ) * 2.293333f;
+
     *p_f4_vdc_ad = st_ad_data.u2_vdc_ad * p_st_driver->f4_ad_vdc_per_digit;
 } /* End of function R_MOTOR_DRIVER_BldcAnalogGet */
 
@@ -169,10 +170,12 @@ void R_MOTOR_DRIVER_AdcConvert(st_motor_driver_t * p_st_driver,
                                 float * p_f4_vdc)
 {
     float f4_volt_per_digit = MOTOR_DRIVER_PRV_ADC_REF_VOLTAGE / MOTOR_MCU_CFG_AD12BIT_DATA;
+    
 
-    *p_f4_iu  = (1.968f - p_st_adc_raw->u2_iu_ad * f4_volt_per_digit) * 5.896f;
-    *p_f4_iv  = (1.968f - p_st_adc_raw->u2_iv_ad * f4_volt_per_digit) * 5.896f;
-    *p_f4_iw  = (1.968f - p_st_adc_raw->u2_iw_ad * f4_volt_per_digit) * 5.896f;
+    *p_f4_iu = ( 0.639535f - ((p_st_adc_raw->u2_iu_ad * f4_volt_per_digit) / 3.077f) ) * 2.293333f;
+    *p_f4_iv = ( 0.639535f - ((p_st_adc_raw->u2_iv_ad * f4_volt_per_digit) / 3.077f)  ) * 2.293333f;
+    *p_f4_iw = ( 0.639535f - ((p_st_adc_raw->u2_iw_ad * f4_volt_per_digit) / 3.077f) ) * 2.293333f;
+
     *p_f4_vdc = p_st_adc_raw->u2_vdc_ad * p_st_driver->f4_ad_vdc_per_digit;
 }
 /***********************************************************************************************************************
@@ -201,9 +204,9 @@ void R_MOTOR_DRIVER_BldcCurrentReconstruct(float f4_duty_u,
                                                   float * p_iv,
                                                   float * p_iw)
 {
-    if (f4_duty_u <= f4_duty_v)
+    if (f4_duty_u >= f4_duty_v)
     {
-        if (f4_duty_u <= f4_duty_w)
+        if (f4_duty_u >= f4_duty_w)
         {
             // U is min > discard IU
             *p_iv = iv_raw;
@@ -220,7 +223,7 @@ void R_MOTOR_DRIVER_BldcCurrentReconstruct(float f4_duty_u,
     }
     else
     {
-        if (f4_duty_v <= f4_duty_w)
+        if (f4_duty_v >= f4_duty_w)
         {
             // V is min > discard IV
             *p_iu = iu_raw;

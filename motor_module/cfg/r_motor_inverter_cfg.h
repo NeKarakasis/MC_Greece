@@ -44,7 +44,7 @@
 #ifdef MOTOR_COMMON_CFG_BOARD_ESB
 
 #define     INVERTER_CFG_SHUNT_RESIST           (0.150f)                /* Resistance of shunt resistor [ohm] */
-#define     INVERTER_CFG_DEADTIME               (1.0f)                  /* Deadtime [us] */
+#define     INVERTER_CFG_DEADTIME               (1.5f)                  /* Deadtime [us] */
 #define     INVERTER_CFG_VOLTAGE_GAIN           (177.0f)              	/* Voltage measurement gain */
 #define     INVERTER_CFG_CURRENT_AMP_GAIN       (0.096f)              /* Current amplifier gain */
 #define     INVERTER_CFG_CURRENT_LIMIT          (10.0f)                 /* Current limit[A] for the inverter board */
