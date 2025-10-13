@@ -1,0 +1,2 @@
+eclipse.preferences.version=1
+org.eclipse.core.variables.valueVariables=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<valueVariables>\r\n    <valueVariable description\="Path to J-Link installation folder" name\="renesas.da.jlink_path" readOnly\="false" value\="${renesas.support.targetLoc\:dialog-debug}/ARM/Segger"/>\r\n</valueVariables>\r\n

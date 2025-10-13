@@ -46,6 +46,16 @@
 ***********************************************************************************************************************/
 
 
+   uint16_t u2_ad_conv_iu;
+    uint16_t u2_ad_conv_iw;
+    uint16_t u2_ad_conv_iv;
+    uint16_t u2_ad_conv_vdc;
+
+    uint16_t u2_ad_conv_iu_ref;
+    uint16_t u2_ad_conv_iw_ref;
+    uint16_t u2_ad_conv_iv_ref;
+
+
 /***********************************************************************************************************************
 * Function Name: R_Config_MOTOR_StartTimerOutput
 * Description  : This function starts the PWM output for motor control
@@ -176,14 +186,6 @@ void R_Config_MOTOR_AdcGetConvVal(r_mtr_adc_tb * mtr_ad_data)
 {
 
 
-    uint16_t u2_ad_conv_iu;
-    uint16_t u2_ad_conv_iw;
-    uint16_t u2_ad_conv_iv;
-    uint16_t u2_ad_conv_vdc;
-
-    uint16_t u2_ad_conv_iu_ref;
-    uint16_t u2_ad_conv_iw_ref;
-    uint16_t u2_ad_conv_iv_ref;
 
 
     /* ADC read from FSP API */

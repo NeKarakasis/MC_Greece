@@ -217,6 +217,9 @@ void motor_sensorless_vector_reset(st_sensorless_vector_control_t *p_st_sensorle
     p_st_sensorless_vector->f4_iu_ad             = 0.0f;
     p_st_sensorless_vector->f4_iv_ad             = 0.0f;
     p_st_sensorless_vector->f4_iw_ad             = 0.0f;
+    p_st_sensorless_vector->f4_iu_ref_ad         = 0.0f;
+    p_st_sensorless_vector->f4_iv_ref_ad         = 0.0f;
+    p_st_sensorless_vector->f4_iw_ref_ad         = 0.0f;
     p_st_sensorless_vector->f4_phase_err_rad_lpf = 0.0f;
 
     /* Reset phase error LPF */

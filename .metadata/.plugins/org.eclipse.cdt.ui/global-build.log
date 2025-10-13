@@ -1,0 +1,336 @@
+Extracting support files...
+[ERROR] Toolchain configured for project is not currently available. Please add/enable toolchain through Renesas Toolchain Management or select a different toolchain for this project.
+15:41:29 **** Build of configuration Debug for project RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100 ****
+make -r -j8 all 
+make --no-print-directory main-build
+Building file: ../src/application/motor_module/driver/r_motor_driver.c
+../src/application/motor_module/driver/r_motor_driver.c:99:6: warning: no previous declaration for 'R_MOTOR_DRIVER_AdcConvert' [-Wmissing-declarations]
+   99 | void R_MOTOR_DRIVER_AdcConvert(st_motor_driver_t * p_st_driver,
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~
+../src/application/motor_module/driver/r_motor_driver.c: In function 'R_MOTOR_DRIVER_BldcAnalogGet':
+../src/application/motor_module/driver/r_motor_driver.c:196:75: warning: unused parameter 'p_f4_iu_ref_ad' [-Wunused-parameter]
+  196 |                                                                   float * p_f4_iu_ref_ad,
+      |                                                                   ~~~~~~~~^~~~~~~~~~~~~~
+../src/application/motor_module/driver/r_motor_driver.c:197:75: warning: unused parameter 'p_f4_iv_ref_ad' [-Wunused-parameter]
+  197 |                                                                   float * p_f4_iv_ref_ad,
+      |                                                                   ~~~~~~~~^~~~~~~~~~~~~~
+../src/application/motor_module/driver/r_motor_driver.c:198:75: warning: unused parameter 'p_f4_iw_ref_ad' [-Wunused-parameter]
+  198 |                                                                   float * p_f4_iw_ref_ad,
+      |                                                                   ~~~~~~~~^~~~~~~~~~~~~~
+Building target: RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100.elf
+arm-none-eabi-objcopy -O srec "RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100.elf"  "RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100.srec"
+arm-none-eabi-size --format=berkeley "RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100.elf"
+   text	   data	    bss	    dec	    hex	filename
+  39520	     88	   5224	  44832	   af20	RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100.elf
+make --no-print-directory post-build
+..\src\application\user_interface\ics\convert.bat RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100
+
+C:\Users\a5143778\Documents\MC_Greece\MC_Greece\RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100\Debug>set arg1=RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100 
+
+C:\Users\a5143778\Documents\MC_Greece\MC_Greece\RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100\Debug>arm-none-eabi-objdump.exe -W RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100.elf 1>RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100.txt 
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x292 - 0x2aa] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x2b6 - 0x2ce] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x2dc - 0x318] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x322 - 0x32d] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x337 - 0x343] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x34d - 0x35f] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x3b9 - 0x3c5] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x3cf - 0x3db] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x3e7 - 0x405] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xd1c - 0xd3b] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xd8b - 0xdaa] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xdb6 - 0xdcd] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xe14 - 0xe39] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xe9a - 0xec4] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xfe8 - 0x1007] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x18f0 - 0x1908] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1914 - 0x1934] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1942 - 0x1978] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x198a - 0x1a0a] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1a14 - 0x1a20] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1a2c - 0x1a48] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1a54 - 0x1a70] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1a7c - 0x1a98] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1aa4 - 0x1ad8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1ae2 - 0x1af6] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1b02 - 0x1b18] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1b2a - 0x1b6d] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1b7d - 0x1ba9] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1c28 - 0x1c47] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1c55 - 0x1c9f] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1cf7 - 0x1d16] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1d24 - 0x1d6e] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1d7a - 0x1d96] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1da2 - 0x1dba] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1dc8 - 0x1df2] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x1e00 - 0x1e2a] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x2a5e - 0x2a70] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x2a7c - 0x2a94] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x399e - 0x39ca] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x4d8e - 0x4da4] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x4db0 - 0x4dc6] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x4dd4 - 0x4df8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x4e04 - 0x4e23] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x4e2f - 0x4e4e] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x4e5a - 0x4e79] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x4e85 - 0x4ea4] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x4eb0 - 0x4ecf] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x50f5 - 0x5100] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x510a - 0x5115] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x511f - 0x512a] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5134 - 0x513f] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5218 - 0x5242] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x524e - 0x5264] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5270 - 0x5286] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5296 - 0x52cc] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x52dc - 0x530a] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x531a - 0x5348] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5354 - 0x5374] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x537e - 0x5389] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5393 - 0x539e] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x53a8 - 0x53b3] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x53bd - 0x53c8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x53d2 - 0x53dd] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x53e7 - 0x53f8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5402 - 0x540d] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5752 - 0x5785] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5791 - 0x57a8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x57b4 - 0x57cb] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x57d5 - 0x57e0] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x57ea - 0x57f6] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5800 - 0x580b] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5815 - 0x5821] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x582b - 0x5836] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5840 - 0x584f] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5859 - 0x586a] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5b33 - 0x5b71] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5b81 - 0x5bbf] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5bd1 - 0x5c20] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5c30 - 0x5c6e] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5c7e - 0x5cbc] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5ccc - 0x5cfa] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5d04 - 0x5d1b] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5d27 - 0x5d4c] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5d58 - 0x5d83] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5d8d - 0x5d99] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5da3 - 0x5dae] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5db8 - 0x5dc4] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5dce - 0x5dd9] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5de3 - 0x5dee] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5df8 - 0x5e04] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5e0e - 0x5e19] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5e25 - 0x5e44] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5e50 - 0x5e6f] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5e7d - 0x5ea6] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5fa2 - 0x5fc1] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x5fcd - 0x5fec] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x71ed - 0x723e] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7252 - 0x72a3] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x72af - 0x72c7] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x72d3 - 0x72e9] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x72f5 - 0x730b] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7317 - 0x732d] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7339 - 0x7353] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x735d - 0x7368] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7372 - 0x7381] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x738d - 0x73a3] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x73ad - 0x73b8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x73c8 - 0x7406] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7416 - 0x7454] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7460 - 0x7478] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7484 - 0x749a] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x74a8 - 0x74d2] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x74de - 0x74f4] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x750c - 0x7588] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x75a0 - 0x761c] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7628 - 0x7640] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7660 - 0x7738] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7746 - 0x7774] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7780 - 0x7798] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x77a6 - 0x77d4] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x77e0 - 0x77f6] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7806 - 0x7837] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7843 - 0x785b] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7865 - 0x7871] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x787b - 0x7886] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7890 - 0x78a1] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x78ab - 0x78bc] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x78c8 - 0x78de] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x78ea - 0x7900] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7910 - 0x7952] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7962 - 0x79a4] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x79ae - 0x79b9] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x79c9 - 0x79fa] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7a06 - 0x7a1e] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7a28 - 0x7a34] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7a3e - 0x7a49] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7a53 - 0x7a64] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7a6e - 0x7a7f] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7a8b - 0x7aaa] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7ab6 - 0x7ad5] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7ae5 - 0x7b23] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7b33 - 0x7b71] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7b7d - 0x7b95] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7ba1 - 0x7bb7] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7bc3 - 0x7bd9] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7be5 - 0x7bfb] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7c09 - 0x7c3c] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7c48 - 0x7c62] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7c72 - 0x7cb0] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7cc0 - 0x7cfe] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7d0a - 0x7d20] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7d30 - 0x7d6e] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7d7e - 0x7dbc] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x7dcc - 0x7dfc] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x87d6 - 0x87ef] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x87fb - 0x8814] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8820 - 0x8839] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8845 - 0x885e] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x886a - 0x8883] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x888f - 0x88a8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x88b4 - 0x88cd] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x88d9 - 0x88f2] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x88fe - 0x8917] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8923 - 0x893c] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8948 - 0x8961] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x896d - 0x8986] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8990 - 0x899b] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x89a5 - 0x89b3] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x89bd - 0x89c8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x89d2 - 0x89dd] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x89e9 - 0x8a02] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8a0e - 0x8a2a] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8a34 - 0x8a3f] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8a4b - 0x8a61] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8a6d - 0x8a86] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8a90 - 0x8a9b] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8aa5 - 0x8ab3] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8abd - 0x8ac8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8ad2 - 0x8ae0] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8aea - 0x8af5] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8aff - 0x8b0d] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8b71 - 0x8b7c] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8b86 - 0x8b91] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8b9b - 0x8bb1] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8bbb - 0x8bd8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8be2 - 0x8bed] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8bf7 - 0x8c05] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8c0f - 0x8c1a] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8c24 - 0x8c2f] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8c39 - 0x8c4f] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8c59 - 0x8c76] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8c80 - 0x8c8b] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8c95 - 0x8ca3] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8caf - 0x8cc8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8cd4 - 0x8ced] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8cf9 - 0x8d12] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8d1e - 0x8d37] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8d41 - 0x8d4c] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8d56 - 0x8d61] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8d6b - 0x8d81] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8d8b - 0x8da8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8db2 - 0x8dbd] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x8dc7 - 0x8dd5] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x92e9 - 0x9308] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9433 - 0x9452] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x945e - 0x947d] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x948f - 0x94cb] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x94d7 - 0x94ee] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x94f8 - 0x9503] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x950d - 0x9519] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9523 - 0x952e] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x953a - 0x9551] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x955b - 0x9566] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9570 - 0x957c] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9586 - 0x9591] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x959b - 0x95a6] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x95b4 - 0x95d7] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x95e1 - 0x95ee] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x95fa - 0x9612] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x961c - 0x9629] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9637 - 0x965a] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9666 - 0x967d] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9689 - 0x96ad] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x96b9 - 0x96d8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x96e2 - 0x96ed] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x96f9 - 0x9718] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9728 - 0x975f] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x976f - 0x97ac] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x97b8 - 0x97ce] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x97de - 0x9819] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9823 - 0x982e] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9840 - 0x98ab] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x98b5 - 0x98c6] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x98d0 - 0x98db] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x98e7 - 0x98fd] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9909 - 0x9928] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9934 - 0x9953] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x995d - 0x9968] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9972 - 0x9982] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x998e - 0x99ad] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x99b7 - 0x99c2] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x99ce - 0x99e8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x99f2 - 0x9a01] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9b38 - 0x9b57] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9b63 - 0x9b82] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9b8c - 0x9b97] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9ba5 - 0x9bc8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9bd4 - 0x9bea] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9bf6 - 0x9c15] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9c1f - 0x9c2a] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9c99 - 0x9caf] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0x9cb9 - 0x9cc4] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xa889 - 0xa8a8] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xa8b4 - 0xa8e9] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xa987 - 0xa9b1] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xa9bf - 0xa9e9] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xa9f5 - 0xaa14] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xaa22 - 0xaa5c] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xaa6a - 0xaa8c] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xaa9a - 0xaabc] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xaac6 - 0xaad1] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xaadd - 0xaaf3] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xab01 - 0xab25] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xab2f - 0xab43] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xab4d - 0xab58] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xab62 - 0xab76] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xab80 - 0xab8b] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xab95 - 0xaba0] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xabac - 0xabc3] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xabff - 0xac15] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xae54 - 0xae6a] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xbbe0 - 0xbbfc] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xbc06 - 0xbc12] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xcd8d - 0xcdbd] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xcdcd - 0xcdfd] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xce07 - 0xce13] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xd453 - 0xd483] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: Hole and overlap detection requires adjacent view lists and loclists.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xe081 - 0xe0a0] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xe8b0 - 0xe8bc] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xe8c6 - 0xe8d1] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There is a hole [0xe8dd - 0xe8fc] in .debug_loc section.
+arm-none-eabi-objdump.exe: Warning: There are 31 unused bytes at the end of section .debug_loc
+
+C:\Users\a5143778\Documents\MC_Greece\MC_Greece\RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100\Debug>..\src\application\user_interface\ics\ElfMapConverter.exe RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100.txt 
+Successful RMAP file generation.
+
+C:\Users\a5143778\Documents\MC_Greece\MC_Greece\RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100\Debug>copy RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100.rmap ..\src\application\user_interface\ics\RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100_conv.map 
+        1 file(s) copied.
+ 

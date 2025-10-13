@@ -1,0 +1,4 @@
+1757928114042	Delete resource 'RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module'
+1757928907908	Delete 2 resources
+1757941944279	Delete resource 'RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/current/LUT_inductances.h'
+1757942066528	Delete resource 'RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/current/r_motor_current_api.c'

@@ -391,6 +391,9 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
     st_current_input.f4_iu_ad        = p_st_sensorless_vector->f4_iu_ad;
     st_current_input.f4_iv_ad        = p_st_sensorless_vector->f4_iv_ad;
     st_current_input.f4_iw_ad        = p_st_sensorless_vector->f4_iw_ad;
+    st_current_input.f4_iu_ref_ad    = p_st_sensorless_vector->f4_iu_ref_ad;
+    st_current_input.f4_iv_ref_ad    = p_st_sensorless_vector->f4_iv_ref_ad;
+    st_current_input.f4_iw_ref_ad    = p_st_sensorless_vector->f4_iw_ref_ad;
     st_current_input.f4_vdc_ad       = p_st_sensorless_vector->f4_vdc_ad;
     st_current_input.f4_iq_ref       = p_st_sensorless_vector->st_speed_output.f4_iq_ref;
     st_current_input.f4_id_ref       = p_st_sensorless_vector->st_speed_output.f4_id_ref;

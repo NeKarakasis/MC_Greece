@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="LastUsedHeaderTemplate" value="Default C header template"/>
+	<section name="completion_proposal_size">
+	</section>
+	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
+	</section>
+	<section name="PDOMSearchPage">
+		<item key="caseSensitive" value="false"/>
+		<item key="searchFlags" value="227191"/>
+		<list key="previousPatterns">
+			<item value="iu_ref_raw"/>
+			<item value="R_Config_MC_PWM_PFC_DUTY_UpdDuty"/>
+			<item value="g_st_sensorless_vectoru2_error_status"/>
+			<item value="callback_poe_overcurrent"/>
+			<item value="R_MOTOR_DRIVER_BldcDutySet"/>
+			<item value="STATEMACHINE_ERROR_ACTION_EXCEPTION"/>
+			<item value="R_MOTOR_SENSORLESS_VECTOR_ErrorSet"/>
+			<item value="motor_sensorless_vector_statemachine_event"/>
+			<item value="r_app_rmw_ui_mainloop"/>
+			<item value="r_app_rmw_ui_mainloo"/>
+			<item value="r_app_rmw_system_mode"/>
+			<item value="com_u1_system_mode"/>
+			<item value="f4_ad_vdc_per_digit"/>
+			<item value="R_MOTOR_DRIVER_ParameterUpdate"/>
+			<item value="u2_ad_conv_iu_ref"/>
+			<item value="R_MOTOR_CURRENT_OffsetCalibration"/>
+			<item value="f4_iu_ad"/>
+			<item value="p_st_cc"/>
+			<item value="f4_iu_ref_ad"/>
+			<item value="callback_agt_system_manager_cyclic"/>
+			<item value="gpt4_isr"/>
+			<item value="DRIVER_CFG_FUNC_ADC_DATA_GET"/>
+			<item value="R_IOPORT_PinRead"/>
+			<item value="R_SYSTEM_MANAGER_MotorSpeedInterrupt"/>
+			<item value="INVERTER_CFG_CURRENT_AMP_GAIN"/>
+			<item value="INVERTER_CFG_VOLTAGE_GAIN"/>
+			<item value="R_MOTOR_DRIVER_BldcAnalogGet"/>
+			<item value="R_Config_MOTOR_AdcGetConvVal"/>
+			<item value="R_Config_MOTOR_UpdCompareDuty"/>
+			<item value="R_Config_PFC_UpdDuty"/>
+			<item value="R_SYSTEM_MANAGER_PfcOverCurrentInterrupt"/>
+			<item value="R_SYSTEM_MANAGER_ControlInterrupt"/>
+			<item value="R_SYSTEM_MANAGER_UpdateCommand"/>
+			<item value="R_SYSTEM_MANAGER_SystemMode"/>
+			<item value="interpolate_ld"/>
+			<item value="motor_speed_mtpa_wekn_judgε"/>
+			<item value="motor_speed_flux_weakening"/>
+			<item value="motor_speed_flux_weakn_start"/>
+			<item value="motor_speed_flux_weakn_init"/>
+			<item value="motor_speed_flux_weakn_vamax_set"/>
+			<item value="motor_speed_mtpa_wekn_judge"/>
+		</list>
+	</section>
+	<section name="NewHeaderFileCreationWizard.dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="700"/>
+		<item key="DIALOG_Y_ORIGIN" value="299"/>
+		<item key="DIALOG_WIDTH" value="537"/>
+		<item key="DIALOG_HEIGHT" value="434"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

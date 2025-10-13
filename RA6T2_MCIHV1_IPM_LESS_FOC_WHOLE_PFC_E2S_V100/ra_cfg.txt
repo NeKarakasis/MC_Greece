@@ -390,7 +390,7 @@ FSP Configuration
       Digital Filter: ADC 1: Table Entry 4: Sinc Filter (Oversampling Rate = 8)
       General: Sampling State Table: Entry 0: 10
       General: Sampling State Table: Entry 1: 4
-      General: Sampling State Table: Entry 2: 24
+      General: Sampling State Table: Entry 2: 10
       General: Sampling State Table: Entry 3: 95
       General: Sampling State Table: Entry 4: 95
       General: Sampling State Table: Entry 5: 95
@@ -484,9 +484,9 @@ FSP Configuration
       Virtual Channels: Virtual Channel 2: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 2: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 2: Digital Filter Selection: Disabled
-      Virtual Channels: Virtual Channel 3: Scan Group: Scan Group 0
+      Virtual Channels: Virtual Channel 3: Scan Group: Scan Group 1
       Virtual Channels: Virtual Channel 3: Channel Select: AN007
-      Virtual Channels: Virtual Channel 3: Sampling State Table ID: Sampling State Entry 0
+      Virtual Channels: Virtual Channel 3: Sampling State Table ID: Sampling State Entry 2
       Virtual Channels: Virtual Channel 3: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 3: Channel Offset Table: Disabled
       Virtual Channels: Virtual Channel 3: Add/Average Mode: Disabled
@@ -494,9 +494,9 @@ FSP Configuration
       Virtual Channels: Virtual Channel 3: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 3: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 3: Digital Filter Selection: Disabled
-      Virtual Channels: Virtual Channel 4: Scan Group: Scan Group 0
+      Virtual Channels: Virtual Channel 4: Scan Group: Scan Group 2
       Virtual Channels: Virtual Channel 4: Channel Select: AN003
-      Virtual Channels: Virtual Channel 4: Sampling State Table ID: Sampling State Entry 0
+      Virtual Channels: Virtual Channel 4: Sampling State Table ID: Sampling State Entry 2
       Virtual Channels: Virtual Channel 4: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 4: Channel Offset Table: Disabled
       Virtual Channels: Virtual Channel 4: Add/Average Mode: Disabled
@@ -504,9 +504,9 @@ FSP Configuration
       Virtual Channels: Virtual Channel 4: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 4: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 4: Digital Filter Selection: Disabled
-      Virtual Channels: Virtual Channel 5: Scan Group: Scan Group 0
+      Virtual Channels: Virtual Channel 5: Scan Group: Scan Group 1
       Virtual Channels: Virtual Channel 5: Channel Select: AN006
-      Virtual Channels: Virtual Channel 5: Sampling State Table ID: Sampling State Entry 0
+      Virtual Channels: Virtual Channel 5: Sampling State Table ID: Sampling State Entry 1
       Virtual Channels: Virtual Channel 5: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 5: Channel Offset Table: Disabled
       Virtual Channels: Virtual Channel 5: Add/Average Mode: Disabled
@@ -514,9 +514,9 @@ FSP Configuration
       Virtual Channels: Virtual Channel 5: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 5: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 5: Digital Filter Selection: Disabled
-      Virtual Channels: Virtual Channel 6: Scan Group: Scan Group 0
+      Virtual Channels: Virtual Channel 6: Scan Group: Scan Group 2
       Virtual Channels: Virtual Channel 6: Channel Select: AN001
-      Virtual Channels: Virtual Channel 6: Sampling State Table ID: Sampling State Entry 0
+      Virtual Channels: Virtual Channel 6: Sampling State Table ID: Sampling State Entry 2
       Virtual Channels: Virtual Channel 6: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 6: Channel Offset Table: Disabled
       Virtual Channels: Virtual Channel 6: Add/Average Mode: Disabled
@@ -843,20 +843,20 @@ FSP Configuration
       Scan Groups: Scan Group 1: Scan End Interrupt Enable: Enable
       Scan Groups: Scan Group 1: External Trigger Enable: 
       Scan Groups: Scan Group 1: ELC Trigger Enable: 
-      Scan Groups: Scan Group 1: GPT Trigger Enable: GPT Channel 1 Request A
+      Scan Groups: Scan Group 1: GPT Trigger Enable: GPT Channel 4 Request A
       Scan Groups: Scan Group 1: Limit Clip Interrupt Enable: Disable
       Scan Groups: Scan Group 1: FIFO Enable: Disable
       Scan Groups: Scan Group 1: FIFO Interrupt Enable: Disable
       Scan Groups: Scan Group 1: FIFO Interrupt Generation Level : 0
-      Scan Groups: Scan Group 2: Enable: Disable
+      Scan Groups: Scan Group 2: Enable: Enable
       Scan Groups: Scan Group 2: Converter Selection: ADC 0
       Scan Groups: Scan Group 2: Start Trigger Delay: 0
       Scan Groups: Scan Group 2: Self Diagnosis: Voltage Selection: Self-Diagnosis Mode Disabled
       Scan Groups: Scan Group 2: Scan End Interrupt Enable: Enable
       Scan Groups: Scan Group 2: External Trigger Enable: 
       Scan Groups: Scan Group 2: ELC Trigger Enable: 
-      Scan Groups: Scan Group 2: GPT Trigger Enable: 
-      Scan Groups: Scan Group 2: Limit Clip Interrupt Enable: Enable
+      Scan Groups: Scan Group 2: GPT Trigger Enable: GPT Channel 1 Request A
+      Scan Groups: Scan Group 2: Limit Clip Interrupt Enable: Disable
       Scan Groups: Scan Group 2: FIFO Enable: Disable
       Scan Groups: Scan Group 2: FIFO Interrupt Enable: Disable
       Scan Groups: Scan Group 2: FIFO Interrupt Generation Level : 0
