@@ -87,6 +87,7 @@ typedef struct
 
 typedef struct
 {
+	uint8_t		  u1_sc_motor_id;						 /* The motor ID, id->0 is the circulation motor, id->1 is the dry motor */
     uint8_t       u1_active;                         /* Flag to set active/inactive the speed control */
     uint8_t       u1_state_speed_ref;                /* The speed command status */
     uint8_t       u1_flag_fluxwkn_use;               /* whether use the output from flux-weakening */
@@ -260,5 +261,12 @@ void R_MOTOR_SPEED_HuntingSuppress(st_speed_control_t * p_st_sc, float f4_iq_ref
 * Return Value  : None
 ***********************************************************************************************************************/
 void R_MOTOR_SPEED_SwitchingFlagSet(st_speed_control_t * p_st_sc);
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_SPEED_SetMotorID
+* Description   : Set the motor ID, ID -> 0 circulation motor, ID -> 1 dry motor
+* Arguments     : The motor ID
+* Return Value  : None
+***********************************************************************************************************************/
+void R_MOTOR_SPEED_SetMotorID(uint8_t motor_id);
 
 #endif /* R_MOTOR_SPEED_API_H */

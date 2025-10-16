@@ -69,11 +69,19 @@ typedef enum
     MOTOR_CTRL_TYPE_SPEED           = 1,
 } e_mtr_ctrl_type_t;
 
+typedef enum
+{
+    CIRCULATION_MOTOR   = 0,
+    DRY_MOTOR           = 1,
+} e_motor_id_t;
+
+
 /***********************************************************************************************************************
 * Global structure / type definitions
 ***********************************************************************************************************************/
 typedef struct
 {
+	uint8_t		  u1_motor_id;					/* the motor ID, id -> 0 is the circulation motor and id -> 1 is the dry motor */
     uint8_t       u1_flag_less_switch_use;      /* Soft switching between open-loop and vector control use flag */
     uint8_t       u1_flag_openloop_damping_use; /* Open-loop damping control use flag */
     uint8_t       u1_flag_down_to_ol;           /* The open-loop drive flag */
@@ -274,5 +282,13 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
 * Return Value  : None
 ***********************************************************************************************************************/
 void R_MOTOR_SENSORLESS_VECTOR_OverCurrentInterrupt(st_sensorless_vector_control_t * p_st_sensorless_vector);
+
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_SENSORLESS_VECTOR_Set_motor_id
+* Description   : Set the motor ID, ID -> 0 circulation motor, ID -> 1 dry motor
+* Arguments     : p_st_sensorless_vector - The pointer to the motor control management data structure
+* Return Value  : None
+***********************************************************************************************************************/
+void R_MOTOR_SENSORLESS_VECTOR_Set_motor_id(e_motor_id_t motor_id);
 
 #endif /* R_MOTOR_SENSORLESS_VECTOR_API_H */

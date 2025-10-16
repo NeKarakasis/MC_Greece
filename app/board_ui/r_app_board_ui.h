@@ -45,7 +45,7 @@
 #define BOARD_AD12BIT_DATA             (MOTOR_MCU_CFG_AD12BIT_DATA) /* A/D 12Bit data */
 #define BOARD_VR1_SPEED_DEAD_BAND      (80)                         /* speed dead-band [rpm] */
 #define BOARD_VR1_SPEED_MARGIN         (50)                         /* speed margin [rpm] */
-#define BOARD_VR1_SCALING_SPEED        ((MOTOR_CFG_MAX_SPEED_RPM + BOARD_VR1_SPEED_MARGIN) / (BOARD_AD12BIT_DATA/2 + 1))
+#define BOARD_VR1_SCALING_SPEED(ch)        ((MOTOR_CFG_MAX_SPEED_RPM(ch) + BOARD_VR1_SPEED_MARGIN) / (BOARD_AD12BIT_DATA/2 + 1))
                                                                     /* scaling factor for speed reference (A/D) */
                                                                     /* (MAX_SPEED + margin) / (A/D(12bit)/2+1) */
 #define BOARD_ADJUST_OFFSET            (MOTOR_MCU_CFG_ADC_OFFSET)   /* Adjusting offset for reference */

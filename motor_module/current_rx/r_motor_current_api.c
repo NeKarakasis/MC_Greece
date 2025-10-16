@@ -61,26 +61,41 @@ void R_MOTOR_CURRENT_Open(void)
     p_st_cc->u2_offset_calc_time             = CURRENT_CFG_OFFSET_CALC_TIME;
     p_st_cc->u2_crnt_offset_cnt              = 0;
     p_st_cc->f4_ctrl_period                  = MOTOR_COMMON_CTRL_PERIOD;
-    p_st_cc->f4_lim_iq                       = MOTOR_COMMON_LIMIT_IQ;
+    p_st_cc->f4_lim_iq                       = MOTOR_COMMON_LIMIT_IQ(g_st_cc.u1_cc_motor_id);
     p_st_cc->f4_offset_iu                    = 0.0f;
     p_st_cc->f4_offset_iw                    = 0.0f;
     p_st_cc->f4_sum_iu_ad                    = 0.0f;
     p_st_cc->f4_sum_iw_ad                    = 0.0f;
-    p_st_cc->f4_id_up_step                   = MOTOR_COMMON_ID_UP_STEP_RATE;
-    p_st_cc->f4_id_down_step                 = MOTOR_COMMON_ID_DOWN_STEP_RATE;
+
     p_st_cc->f4_iq_down_step                 = 0.0f;
     p_st_cc->f4_iq_down_step_time_inv        = CURRENT_CFG_IQ_DOWN_STEP_TIME_INV;
-    p_st_cc->f4_ol_ref_id                    = CURRENT_CFG_REF_ID_OPENLOOP;
+/*    if (g_st_cc.u1_motor_id == 1)
+    {
+        p_st_cc->f4_id_up_step                   = CIRC_MOTOR_COMMON_ID_UP_STEP_RATE;
+        p_st_cc->f4_id_down_step                 = CIRC_MOTOR_COMMON_ID_DOWN_STEP_RATE;
+    	p_st_cc->f4_ol_ref_id                    = CIRC_CURRENT_CFG_REF_ID_OPENLOOP;
+    }
+    else
+    {
+        p_st_cc->f4_id_down_step                 = DRY_MOTOR_COMMON_ID_DOWN_STEP_RATE;
+        p_st_cc->f4_id_up_step                   = DRY_MOTOR_COMMON_ID_UP_STEP_RATE;
+    	p_st_cc->f4_ol_ref_id                    = DRY_CURRENT_CFG_REF_ID_OPENLOOP;
+    }
+    */
+    p_st_cc->f4_id_up_step 					 = MOTOR_COMMON_ID_UP_STEP_RATE(g_st_cc.u1_cc_motor_id);
+    p_st_cc->f4_id_down_step				 = MOTOR_COMMON_ID_DOWN_STEP_RATE(g_st_cc.u1_cc_motor_id);
+    p_st_cc->f4_ol_ref_id 					 = CURRENT_CFG_REF_ID_OPENLOOP(g_st_cc.u1_cc_motor_id);
+
     p_st_cc->f4_va_max                       = 0.0f;
     p_st_cc->st_pi_id.f4_ilimit              = CURRENT_CFG_PI_INTEGRAL_LIMIT_VD;
     p_st_cc->st_pi_iq.f4_ilimit              = CURRENT_CFG_PI_INTEGRAL_LIMIT_VQ;
-    p_st_cc->st_motor.u2_mtr_pp              = MOTOR_CFG_POLE_PAIRS;
-    p_st_cc->st_motor.f4_mtr_r               = MOTOR_CFG_RESISTANCE;
-    p_st_cc->st_motor.f4_mtr_ld              = MOTOR_CFG_D_INDUCTANCE;
-    p_st_cc->st_motor.f4_mtr_lq              = MOTOR_CFG_Q_INDUCTANCE;
-    p_st_cc->st_motor.f4_mtr_m               = MOTOR_CFG_MAGNETIC_FLUX;
-    p_st_cc->st_motor.f4_mtr_j               = MOTOR_CFG_ROTOR_INERTIA;
-    p_st_cc->st_motor.f4_nominal_current_rms = MOTOR_CFG_NOMINAL_CURRENT_RMS;
+    p_st_cc->st_motor.u2_mtr_pp              = MOTOR_CFG_POLE_PAIRS(g_st_cc.u1_cc_motor_id);
+    p_st_cc->st_motor.f4_mtr_r               = MOTOR_CFG_RESISTANCE(g_st_cc.u1_cc_motor_id);
+    p_st_cc->st_motor.f4_mtr_ld              = MOTOR_CFG_D_INDUCTANCE(g_st_cc.u1_cc_motor_id);
+    p_st_cc->st_motor.f4_mtr_lq              = MOTOR_CFG_Q_INDUCTANCE(g_st_cc.u1_cc_motor_id);
+    p_st_cc->st_motor.f4_mtr_m               = MOTOR_CFG_MAGNETIC_FLUX(g_st_cc.u1_cc_motor_id);
+    p_st_cc->st_motor.f4_mtr_j               = MOTOR_CFG_ROTOR_INERTIA(g_st_cc.u1_cc_motor_id);
+    p_st_cc->st_motor.f4_nominal_current_rms = MOTOR_CFG_NOMINAL_CURRENT_RMS(g_st_cc.u1_cc_motor_id);
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
     p_st_cc->s2_difference_minimum           = CURRENT_CFG_MIN_DIFFERENCE_DUTY;
     p_st_cc->s2_adjust_adc_delay             = CURRENT_CFG_ADJUST_ADC_DELAY;
@@ -96,17 +111,18 @@ void R_MOTOR_CURRENT_Open(void)
     motor_current_volt_err_comp_init(&(p_st_cc->st_volt_comp),VERROR_COMP_USE_UVW);
     /* BEMF observer and PLL */
     motor_current_bemf_observer_init(&(p_st_cc->st_bemf_observer), &(p_st_cc->st_motor));
+
     motor_current_bemf_observer_gain_calc(&(p_st_cc->st_bemf_observer),
                                           &(p_st_cc->st_motor),
-                                          CURRENT_CFG_E_OBS_OMEGA,
+                                          CURRENT_CFG_E_OBS_OMEGA(g_st_cc.u1_cc_motor_id),
                                           CURRENT_CFG_E_OBS_ZETA,
                                           MOTOR_COMMON_CTRL_PERIOD);
-    (p_st_cc->st_bemf_observer).st_d_axis.f4_d_est_limit = MOTOR_COMMON_CURRENT_OBS_LIMIT;
-    (p_st_cc->st_bemf_observer).st_q_axis.f4_d_est_limit = MOTOR_COMMON_CURRENT_OBS_LIMIT;
+    (p_st_cc->st_bemf_observer).st_d_axis.f4_d_est_limit = MOTOR_COMMON_CURRENT_OBS_LIMIT(g_st_cc.u1_cc_motor_id);
+    (p_st_cc->st_bemf_observer).st_q_axis.f4_d_est_limit = MOTOR_COMMON_CURRENT_OBS_LIMIT(g_st_cc.u1_cc_motor_id);
 
     motor_current_angle_speed_init(&(p_st_cc->st_pll_est));
     motor_current_angle_speed_gain_calc(&(p_st_cc->st_pll_est),
-                                        CURRENT_CFG_PLL_EST_OMEGA,
+                                        CURRENT_CFG_PLL_EST_OMEGA(g_st_cc.u1_cc_motor_id),
                                         CURRENT_CFG_PLL_EST_ZETA,
                                         MOTOR_COMMON_CTRL_PERIOD);
     /* Rotor angle parameter set */
@@ -555,6 +571,16 @@ void R_MOTOR_CURRENT_HuntingSuppress(st_current_control_t * p_st_cc, float f4_re
     p_st_cc->st_pll_est.f4_i_est_speed = f4_ref_speed_rad_ctrl * p_st_cc->st_motor.u2_mtr_pp;
 } /* End of function R_MOTOR_CURRENT_HuntingSuppress */
 
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_CURRENT_SetMotorID
+* Description   : Set the motor ID, ID -> 0 circulation motor, ID -> 1 dry motor
+* Arguments     : The motor ID
+* Return Value  : None
+***********************************************************************************************************************/
+void R_MOTOR_CURRENT_SetMotorID(uint8_t motor_id)
+{
+	g_st_cc.u1_cc_motor_id = motor_id;
+}
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 /***********************************************************************************************************************
 * Function Name: R_MOTOR_CURRENT_1shuntModulation

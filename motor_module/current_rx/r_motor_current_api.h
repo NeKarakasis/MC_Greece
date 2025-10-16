@@ -131,6 +131,7 @@ typedef struct
 /* Motor current control parameter structure */
 typedef struct
 {
+	uint8_t				  u1_cc_motor_id;					/* the motor id, id -> 0 is circulation motor, id -> 1 is dry motor*/
     uint8_t               u1_active;                   /* Flag to set active/inactive the speed control */
     uint8_t               u1_flag_volt_err_comp_use;   /* Voltage error compensation use flag */
     uint8_t               u1_state_id_ref;             /* The d-axis current command status */
@@ -389,6 +390,15 @@ void R_MOTOR_CURRENT_BEMFObserverParameterUpdate(st_current_control_t * p_st_cc,
 * Return Value  : None
 ***********************************************************************************************************************/
 void R_MOTOR_CURRENT_HuntingSuppress(st_current_control_t * p_st_cc, float f4_ref_speed_rad_ctrl);
+
+
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_CURRENT_SetMotorID
+* Description   : Set the motor ID, ID -> 0 circulation motor, ID -> 1 dry motor
+* Arguments     : The motor ID
+* Return Value  : None
+***********************************************************************************************************************/
+void R_MOTOR_CURRENT_SetMotorID(uint8_t motor_id);
 
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 /***********************************************************************************************************************

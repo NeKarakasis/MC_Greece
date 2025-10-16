@@ -55,6 +55,14 @@ Global variables and functions
 
 void R_Config_PORT_Create(void)
 {
+    /* Set PORTB registers */
+    PORTB.PODR.BYTE = _00_Pm0_OUTPUT_0;
+    PORTB.ODR0.BYTE = _00_Pm0_CMOS_OUTPUT | _00_Pm1_CMOS_OUTPUT | _00_Pm2_CMOS_OUTPUT | _00_Pm3_CMOS_OUTPUT;
+    PORTB.ODR1.BYTE = _00_Pm4_CMOS_OUTPUT | _00_Pm5_CMOS_OUTPUT | _00_Pm6_CMOS_OUTPUT | _00_Pm7_CMOS_OUTPUT;
+    PORTB.DSCR.BYTE = _01_Pm0_HIDRV_ON | _00_Pm3_HIDRV_OFF | _00_Pm4_HIDRV_OFF | _00_Pm5_HIDRV_OFF | _00_Pm7_HIDRV_OFF;
+    PORTB.PMR.BYTE = _00_Pm0_PIN_GPIO;
+    PORTB.PDR.BYTE = _01_Pm0_MODE_OUTPUT;
+
     R_Config_PORT_Create_UserInit();
 }
 

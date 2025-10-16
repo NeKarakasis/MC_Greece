@@ -67,24 +67,24 @@ void motor_sensorless_vector_default_init(st_sensorless_vector_control_t *p_st_s
     st_motor_driver_cfg_t   st_driver_cfg;
 
     /* Initialize member of motor parameter structure */
-    p_st_sensorless_vector->st_motor.u2_mtr_pp = MOTOR_CFG_POLE_PAIRS;
-    p_st_sensorless_vector->st_motor.f4_mtr_r  = MOTOR_CFG_RESISTANCE;
-    p_st_sensorless_vector->st_motor.f4_mtr_ld = MOTOR_CFG_D_INDUCTANCE;
-    p_st_sensorless_vector->st_motor.f4_mtr_lq = MOTOR_CFG_Q_INDUCTANCE;
-    p_st_sensorless_vector->st_motor.f4_mtr_m  = MOTOR_CFG_MAGNETIC_FLUX;
-    p_st_sensorless_vector->st_motor.f4_mtr_j  = MOTOR_CFG_ROTOR_INERTIA;
-    p_st_sensorless_vector->st_motor.f4_nominal_current_rms = MOTOR_CFG_NOMINAL_CURRENT_RMS;
+    p_st_sensorless_vector->st_motor.u2_mtr_pp = MOTOR_CFG_POLE_PAIRS(p_st_sensorless_vector->u1_motor_id);
+    p_st_sensorless_vector->st_motor.f4_mtr_r  = MOTOR_CFG_RESISTANCE(p_st_sensorless_vector->u1_motor_id);
+    p_st_sensorless_vector->st_motor.f4_mtr_ld = MOTOR_CFG_D_INDUCTANCE(p_st_sensorless_vector->u1_motor_id);
+    p_st_sensorless_vector->st_motor.f4_mtr_lq = MOTOR_CFG_Q_INDUCTANCE(p_st_sensorless_vector->u1_motor_id);
+    p_st_sensorless_vector->st_motor.f4_mtr_m  = MOTOR_CFG_MAGNETIC_FLUX(p_st_sensorless_vector->u1_motor_id);
+    p_st_sensorless_vector->st_motor.f4_mtr_j  = MOTOR_CFG_ROTOR_INERTIA(p_st_sensorless_vector->u1_motor_id);
+    p_st_sensorless_vector->st_motor.f4_nominal_current_rms = MOTOR_CFG_NOMINAL_CURRENT_RMS(p_st_sensorless_vector->u1_motor_id);
 
     p_st_sensorless_vector->u1_flag_less_switch_use      = SPEED_CFG_LESS_SWITCH;
     p_st_sensorless_vector->u1_flag_openloop_damping_use = SPEED_CFG_OPENLOOP_DAMPING;
     p_st_sensorless_vector->u1_direction                 = MTR_CW;
     p_st_sensorless_vector->u1_ctrl_loop_mode            = MOTOR_COMMON_CFG_LOOP_MODE;
-    p_st_sensorless_vector->f4_overcurrent_limit         = MOTOR_COMMON_OVERCURRENT_LIMIT;
+    p_st_sensorless_vector->f4_overcurrent_limit         = MOTOR_COMMON_OVERCURRENT_LIMIT(p_st_sensorless_vector->u1_motor_id);
     p_st_sensorless_vector->f4_overvoltage_limit         = INVERTER_CFG_OVERVOLTAGE_LIMIT;
     p_st_sensorless_vector->f4_undervoltage_limit        = INVERTER_CFG_UNDERVOLTAGE_LIMIT;
     p_st_sensorless_vector->f4_overspeed_limit_rad       = (SPEED_CFG_SPEED_LIMIT_RPM * MTR_RPM2RAD);
     p_st_sensorless_vector->f4_switch_phase_err_rad      = SENSORLESS_VECTOR_OPL2LESS_SWITCH_PHASE_ERR_RAD;
-    p_st_sensorless_vector->f4_id_down_speed_rad         = (SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM * MTR_RPM2RAD);
+    p_st_sensorless_vector->f4_id_down_speed_rad         = (SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM(p_st_sensorless_vector->u1_motor_id) * MTR_RPM2RAD);
     p_st_sensorless_vector->f4_id_up_speed_rad           = (SENSORLESS_VECTOR_ID_UP_SPEED_RPM * MTR_RPM2RAD);
 
     /* Initialize phase error LPF */
@@ -103,17 +103,32 @@ void motor_sensorless_vector_default_init(st_sensorless_vector_control_t *p_st_s
     st_cur_cfg.f4_ctrl_period            = MOTOR_COMMON_CTRL_PERIOD;
     st_cur_cfg.f4_current_omega_hz       = CURRENT_CFG_OMEGA;
     st_cur_cfg.f4_current_zeta           = CURRENT_CFG_ZETA;
-    st_cur_cfg.f4_id_up_step             = MOTOR_COMMON_ID_UP_STEP_RATE;
-    st_cur_cfg.f4_id_down_step           = MOTOR_COMMON_ID_DOWN_STEP_RATE;
+
     st_cur_cfg.f4_iq_down_step_time_inv  = CURRENT_CFG_IQ_DOWN_STEP_TIME_INV;
-    st_cur_cfg.f4_ol_ref_id              = CURRENT_CFG_REF_ID_OPENLOOP;
+/*    if (p_st_sensorless_vector->u1_motor_id == 1)
+    {
+        st_cur_cfg.f4_id_down_step           	   = CIRC_MOTOR_COMMON_ID_DOWN_STEP_RATE;
+    	st_cur_cfg.f4_id_up_step             	   = CIRC_MOTOR_COMMON_ID_UP_STEP_RATE;
+    	st_cur_cfg.f4_ol_ref_id                    = CIRC_CURRENT_CFG_REF_ID_OPENLOOP;
+    }
+    else
+    {
+        st_cur_cfg.f4_id_down_step           	   = DRY_MOTOR_COMMON_ID_DOWN_STEP_RATE;
+    	st_cur_cfg.f4_id_up_step             	   = DRY_MOTOR_COMMON_ID_UP_STEP_RATE;
+    	st_cur_cfg.f4_ol_ref_id                    = DRY_CURRENT_CFG_REF_ID_OPENLOOP;
+    }*/
+
+    st_cur_cfg.f4_id_down_step           	   = MOTOR_COMMON_ID_DOWN_STEP_RATE(p_st_sensorless_vector->u1_motor_id);
+	st_cur_cfg.f4_id_up_step             	   = MOTOR_COMMON_ID_UP_STEP_RATE(p_st_sensorless_vector->u1_motor_id);
+	st_cur_cfg.f4_ol_ref_id                    = CURRENT_CFG_REF_ID_OPENLOOP(p_st_sensorless_vector->u1_motor_id);
+
     st_cur_cfg.st_motor                  = p_st_sensorless_vector->st_motor;
     R_MOTOR_CURRENT_ParameterUpdate(p_st_sensorless_vector->p_st_cc, &st_cur_cfg);
 
     /* BEMF observer */
-    st_bemf_obs_cfg.f4_e_obs_omega_hz   = CURRENT_CFG_E_OBS_OMEGA;
+    st_bemf_obs_cfg.f4_e_obs_omega_hz   = CURRENT_CFG_E_OBS_OMEGA(p_st_sensorless_vector->u1_motor_id);
     st_bemf_obs_cfg.f4_e_obs_zeta       = CURRENT_CFG_E_OBS_ZETA;
-    st_bemf_obs_cfg.f4_pll_est_omega_hz = CURRENT_CFG_PLL_EST_OMEGA;
+    st_bemf_obs_cfg.f4_pll_est_omega_hz = CURRENT_CFG_PLL_EST_OMEGA(p_st_sensorless_vector->u1_motor_id);
     st_bemf_obs_cfg.f4_pll_est_zeta     = CURRENT_CFG_PLL_EST_ZETA;
     R_MOTOR_CURRENT_BEMFObserverParameterUpdate(p_st_sensorless_vector->p_st_cc, &st_bemf_obs_cfg);
 
@@ -151,22 +166,30 @@ void motor_sensorless_vector_default_init(st_sensorless_vector_control_t *p_st_s
     /* Speed configuration set */
     st_spd_cfg.u1_flag_fluxwkn_use         = SPEED_CFG_FLUX_WEAKENING;
     st_spd_cfg.f4_speed_ctrl_period        = SPEED_CFG_CTRL_PERIOD;
-    st_spd_cfg.f4_max_speed_rpm            = MOTOR_CFG_MAX_SPEED_RPM;
+    st_spd_cfg.f4_max_speed_rpm            = MOTOR_CFG_MAX_SPEED_RPM(p_st_sensorless_vector->u1_motor_id);
     st_spd_cfg.f4_speed_rate_limit_rpm     = SPEED_CFG_RATE_LIMIT_RPM;
-    st_spd_cfg.f4_speed_omega_hz           = SPEED_CFG_OMEGA;
+    st_spd_cfg.f4_speed_omega_hz           = SPEED_CFG_OMEGA(p_st_sensorless_vector->u1_motor_id);
     st_spd_cfg.f4_speed_zeta               = SPEED_CFG_ZETA;
     st_spd_cfg.f4_speed_lpf_hz             = SPEED_CFG_LPF_OMEGA;
     st_spd_cfg.f4_opl2less_sw_time         = SPEED_OPL2LESS_SWITCH_TIME;
     st_spd_cfg.f4_ed_hpf_omega             = SPEED_OPL_DAMP_ED_HPF_OMEGA;
     st_spd_cfg.f4_ol_damping_zeta          = SPEED_OPL_DAMP_ZETA;
     st_spd_cfg.f4_ol_damping_fb_limit_rate = SPEED_OPL_DAMP_FB_SPEED_LIMIT_RATE;
-    st_spd_cfg.f4_ol_ref_id                = CURRENT_CFG_REF_ID_OPENLOOP;
-    st_spd_cfg.f4_id_down_speed_rpm        = SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM;
+/*    if (p_st_sensorless_vector->u1_motor_id == 1)
+    {
+    	st_cur_cfg.f4_ol_ref_id                    = CIRC_CURRENT_CFG_REF_ID_OPENLOOP;
+    }
+    else
+    {
+    	st_cur_cfg.f4_ol_ref_id                    = DRY_CURRENT_CFG_REF_ID_OPENLOOP;
+    }*/
+    st_cur_cfg.f4_ol_ref_id                = CURRENT_CFG_REF_ID_OPENLOOP(p_st_sensorless_vector->u1_motor_id);
+    st_spd_cfg.f4_id_down_speed_rpm        = SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM(p_st_sensorless_vector->u1_motor_id);
     st_spd_cfg.st_motor                    = p_st_sensorless_vector->st_motor;
     R_MOTOR_SPEED_ParameterUpdate(p_st_sensorless_vector->p_st_sc, &st_spd_cfg);
 
     /* Setup current limits by nominal current of motor */
-    motor_sensorless_vector_nominal_current_set(p_st_sensorless_vector, MOTOR_CFG_NOMINAL_CURRENT_RMS);
+    motor_sensorless_vector_nominal_current_set(p_st_sensorless_vector, MOTOR_CFG_NOMINAL_CURRENT_RMS(p_st_sensorless_vector->u1_motor_id));
 
     /* driver */
     st_driver_cfg.ADCDataGet           = DRIVER_CFG_FUNC_ADC_DATA_GET;

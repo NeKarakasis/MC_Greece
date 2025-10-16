@@ -154,21 +154,21 @@ void r_app_rmw_ui_init(void)
     com_u2_offset_calc_time = CURRENT_CFG_OFFSET_CALC_TIME;
 
     /* Motor parameters */
-    com_u2_mtr_pp              = MOTOR_CFG_POLE_PAIRS;
-    com_f4_mtr_r               = MOTOR_CFG_RESISTANCE;
-    com_f4_mtr_ld              = MOTOR_CFG_D_INDUCTANCE;
-    com_f4_mtr_lq              = MOTOR_CFG_Q_INDUCTANCE;
-    com_f4_mtr_m               = MOTOR_CFG_MAGNETIC_FLUX;
-    com_f4_mtr_j               = MOTOR_CFG_ROTOR_INERTIA;
-    com_f4_nominal_current_rms = MOTOR_CFG_NOMINAL_CURRENT_RMS;
-    com_f4_max_speed_rpm       = MOTOR_CFG_MAX_SPEED_RPM;
+    com_u2_mtr_pp              = MOTOR_CFG_POLE_PAIRS(0);
+    com_f4_mtr_r               = MOTOR_CFG_RESISTANCE(0);
+    com_f4_mtr_ld              = MOTOR_CFG_D_INDUCTANCE(0);
+    com_f4_mtr_lq              = MOTOR_CFG_Q_INDUCTANCE(0);
+    com_f4_mtr_m               = MOTOR_CFG_MAGNETIC_FLUX(0);
+    com_f4_mtr_j               = MOTOR_CFG_ROTOR_INERTIA(0);
+    com_f4_nominal_current_rms = MOTOR_CFG_NOMINAL_CURRENT_RMS(0);
+    com_f4_max_speed_rpm       = MOTOR_CFG_MAX_SPEED_RPM(0);
 
     /* Sensorless parameter */
     com_u1_ctrl_loop_mode    = MOTOR_COMMON_CFG_LOOP_MODE;
-    com_f4_ol_ref_id         = CURRENT_CFG_REF_ID_OPENLOOP;
+    com_f4_ol_ref_id         = CIRC_CURRENT_CFG_REF_ID_OPENLOOP; // just for compiler reasons
     com_f4_id_up_time        = CURRENT_CFG_ID_UP_STEP_TIME;
     com_f4_id_down_time      = CURRENT_CFG_ID_DOWN_STEP_TIME;
-    com_f4_id_down_speed_rpm = SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM;
+    com_f4_id_down_speed_rpm = SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM(0);
     com_f4_id_up_speed_rpm   = SENSORLESS_VECTOR_ID_UP_SPEED_RPM;
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
     com_s2_difference_minimum = CURRENT_CFG_MIN_DIFFERENCE_DUTY;
@@ -181,7 +181,7 @@ void r_app_rmw_ui_init(void)
     com_f4_current_zeta     = CURRENT_CFG_ZETA;
 
     /* Speed control */
-    com_f4_speed_omega_hz       = SPEED_CFG_OMEGA;
+    com_f4_speed_omega_hz       = SPEED_CFG_OMEGA(0);
     com_f4_speed_zeta           = SPEED_CFG_ZETA;
     com_f4_speed_lpf_hz         = SPEED_CFG_LPF_OMEGA;
     com_f4_ref_speed_rpm        = 0.0f;
@@ -196,9 +196,9 @@ void r_app_rmw_ui_init(void)
     com_u1_flag_fluxwkn_use = SPEED_CFG_FLUX_WEAKENING;
 
     /* BEMF observer */
-    com_f4_e_obs_omega_hz   = CURRENT_CFG_E_OBS_OMEGA;
+    com_f4_e_obs_omega_hz   = CURRENT_CFG_E_OBS_OMEGA(0);
     com_f4_e_obs_zeta       = CURRENT_CFG_E_OBS_ZETA;
-    com_f4_pll_est_omega_hz = CURRENT_CFG_PLL_EST_OMEGA;
+    com_f4_pll_est_omega_hz = CURRENT_CFG_PLL_EST_OMEGA(0);
     com_f4_pll_est_zeta     = CURRENT_CFG_PLL_EST_ZETA;
 
     /* Sensor-less switch control */

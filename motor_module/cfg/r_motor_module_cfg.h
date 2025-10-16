@@ -85,7 +85,7 @@
 */
 #define     MOTOR_COMMON_CFG_LOOP_MODE                  (MOTOR_LOOP_SPEED)
 
-#define     MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT    (5.0f)
+#define     MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT    (2.0f)
 
 #if defined(MOTOR_TYPE_BLDC)
 #define     MOTOR_COMMON_CFG_IA_MAX_CALC_MULT           (MTR_SQRT_3)
@@ -118,12 +118,9 @@
 #define		CURRENT_CFG_CTRL_PERIOD				(1.0F/(MOTOR_MCU_CFG_CARRIER_FREQ * 1000.0f)) /* Period of the current control loop, it needs for LPF filter for currents */
 #define     CURRENT_CFG_OMEGA                   (300.0f)                            /* natural frequency for current loop */ //50
 #define     CURRENT_CFG_ZETA                    (1.0f)                              /* damping ratio for current loop */
-#ifdef CIRC
-#define     CURRENT_CFG_REF_ID_OPENLOOP         (0.7f)                              /* id reference when low speed [A] */
-#endif
-#ifdef DRY
-#define     CURRENT_CFG_REF_ID_OPENLOOP         (0.3f)
-#endif
+#define     CIRC_CURRENT_CFG_REF_ID_OPENLOOP    (0.7f)                              /* id reference when low speed [A] for the circulation motor */
+#define     DRY_CURRENT_CFG_REF_ID_OPENLOOP     (0.3f)								/* id reference when low speed [A] for the dry motor */
+#define		CURRENT_CFG_REF_ID_OPENLOOP(ch) 		(float)(((ch)==0 )?   (CIRC_CURRENT_CFG_REF_ID_OPENLOOP) : (DRY_CURRENT_CFG_REF_ID_OPENLOOP) )
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 #define     CURRENT_CFG_ID_UP_STEP_TIME         (640.0f)                            /* Time to increase id */
 #elif defined(MOTOR_SHUNT_TYPE_2_SHUNT)
@@ -138,20 +135,24 @@
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 #define     CURRENT_CFG_E_OBS_OMEGA             (550.0f)                            /* Natural frequency of BEMF observer */
 #elif defined(MOTOR_SHUNT_TYPE_2_SHUNT)
-#ifdef CIRC
-#define     CURRENT_CFG_E_OBS_OMEGA             (400.0f)                            /* Natural frequency of BEMF observer */ //100
+
+#define     CIRC_CURRENT_CFG_E_OBS_OMEGA         (400.0f)                            /* Natural frequency of BEMF observer */ //100
+
+
+#define     DRY_CURRENT_CFG_E_OBS_OMEGA          (300.0f)
+
+
+#define     CURRENT_CFG_E_OBS_OMEGA(ch) 			(float)(((ch)==0 )?   (CIRC_CURRENT_CFG_E_OBS_OMEGA) : (DRY_CURRENT_CFG_E_OBS_OMEGA) )
+
 #endif
-#ifdef DRY
-#define     CURRENT_CFG_E_OBS_OMEGA             (300.0f)
-#endif
-#endif
-#define     CURRENT_CFG_E_OBS_ZETA              (1.0f)                              /* Damping ratio of BEMF observer */
-#ifdef CIRC
-#define     CURRENT_CFG_PLL_EST_OMEGA           (25.0f)                             /* Natural frequency of PLL Speed estimate loop */ //10
-#endif
-#ifdef DRY
-#define     CURRENT_CFG_PLL_EST_OMEGA           (10.0f)                             /* Natural frequency of PLL Speed estimate loop */ //10
-#endif
+#define     CURRENT_CFG_E_OBS_ZETA              	(1.0f)                              /* Damping ratio of BEMF observer */
+
+#define     CIRC_CURRENT_CFG_PLL_EST_OMEGA      	(25.0f)                             /* Natural frequency of PLL Speed estimate loop */ //10
+
+#define     DRY_CURRENT_CFG_PLL_EST_OMEGA           (10.0f)                             /* Natural frequency of PLL Speed estimate loop */ //10
+
+#define     CURRENT_CFG_PLL_EST_OMEGA(ch)           	(float)(((ch)==0 )?   (CIRC_CURRENT_CFG_PLL_EST_OMEGA) : (DRY_CURRENT_CFG_PLL_EST_OMEGA) )                             /* Natural frequency of PLL Speed estimate loop */ //10
+
 #define     CURRENT_CFG_PLL_EST_ZETA            (1.0f)                              /* Damping ratio of PLL Speed estimate loop */
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 #define     CURRENT_CFG_MIN_DIFFERENCE_DUTY     (192)                               /* Minimum difference of PWM duty */
@@ -180,12 +181,12 @@
 #define     SPEED_CFG_OPENLOOP_DAMPING          (MTR_DISABLE)
 
 #define     SPEED_CFG_CTRL_PERIOD               (0.001f)        /* control period for speed loop */
-#ifdef CIRC
-#define     SPEED_CFG_OMEGA                     (0.4f)          /* natural frequency for speed loop */ //1
-#endif
-#ifdef DRY
-#define     SPEED_CFG_OMEGA                     (0.04f)
-#endif
+
+#define     CIRC_SPEED_CFG_OMEGA                     (0.4f)          /* natural frequency for speed loop */ //1
+#define     DRY_SPEED_CFG_OMEGA                     (0.04f)
+
+#define     SPEED_CFG_OMEGA(ch)                     (float)(((ch)==0 )?   (CIRC_SPEED_CFG_OMEGA) : (DRY_SPEED_CFG_OMEGA) )
+
 #define     SPEED_CFG_ZETA                      (1.0f)          /* damping ratio for speed loop */
 #define     SPEED_CFG_LPF_OMEGA                 (10.0f)         /* natural frequency for speed LPF */
 #define     SPEED_CFG_SPEED_LIMIT_RPM           (6000.0f)       /* over speed limit [rpm] (mechanical angle) */
@@ -199,12 +200,11 @@
 /*
  * for sensorless vector Manager(sensorless_vector_rx)
  */
-#ifdef CIRC
-#define     SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM                         (800.0f) //800
-#endif
-#ifdef DRY
-#define     SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM                     	(1500.f)
-#endif                                                            /* Speed to start decreasing id [rpm] */
+#define     CIRC_SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM                    (800.0f) //800
+#define     DRY_SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM                     (1500.f)
+
+#define		SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM(ch)						(float)(((ch)==0 )?   (CIRC_SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM) : (DRY_SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM) )
+
 #define     SENSORLESS_VECTOR_ID_UP_SPEED_RPM                           (500.0f)
                                                             /* Speed to start increasing id [rpm] */
 #define     SENSORLESS_VECTOR_OPL2LESS_SWITCH_PHASE_ERR_DEG             (3.0f)
@@ -246,16 +246,26 @@
 #define     MOTOR_COMMON_CTRL_PERIOD            ((MOTOR_MCU_CFG_INTR_DECIMATION + 1) / (MOTOR_MCU_CFG_CARRIER_FREQ * 1000))
                                                         /* Control period */
 /****** Macro of current control*****/
-#define     MOTOR_COMMON_ID_UP_STEP_RATE        (CURRENT_CFG_REF_ID_OPENLOOP / CURRENT_CFG_ID_UP_STEP_TIME)
+#define     MOTOR_COMMON_ID_UP_STEP_RATE(ch)		(CURRENT_CFG_REF_ID_OPENLOOP(ch) / CURRENT_CFG_ID_UP_STEP_TIME)
+
+/*
+#define     CIRC_MOTOR_COMMON_ID_UP_STEP_RATE       (CIRC_CURRENT_CFG_REF_ID_OPENLOOP / CURRENT_CFG_ID_UP_STEP_TIME)
+                                                         addition value of id
+#define     DRY_MOTOR_COMMON_ID_UP_STEP_RATE        (DRY_CURRENT_CFG_REF_ID_OPENLOOP / CURRENT_CFG_ID_UP_STEP_TIME)
+*/
                                                         /* addition value of id */
-#define     MOTOR_COMMON_ID_DOWN_STEP_RATE      (CURRENT_CFG_REF_ID_OPENLOOP / CURRENT_CFG_ID_DOWN_STEP_TIME)
+#define     MOTOR_COMMON_ID_DOWN_STEP_RATE(ch)		(CURRENT_CFG_REF_ID_OPENLOOP(ch) / CURRENT_CFG_ID_DOWN_STEP_TIME)
+
+#define     CIRC_MOTOR_COMMON_ID_DOWN_STEP_RATE     (CIRC_CURRENT_CFG_REF_ID_OPENLOOP / CURRENT_CFG_ID_DOWN_STEP_TIME)
                                                         /* subtraction value of id */
-#define     MOTOR_COMMON_PI_INTEGRAL_LIMIT_IQ   (MOTOR_CFG_NOMINAL_CURRENT_RMS * MTR_SQRT_3)
+#define     DRY_MOTOR_COMMON_ID_DOWN_STEP_RATE      (DRY_CURRENT_CFG_REF_ID_OPENLOOP / CURRENT_CFG_ID_DOWN_STEP_TIME)
+                                                        /* subtraction value of id */
+#define     MOTOR_COMMON_PI_INTEGRAL_LIMIT_IQ(ch)   (MOTOR_CFG_NOMINAL_CURRENT_RMS(ch) * MTR_SQRT_3)
                                                         /* speed PI integral term limit for iq */
-#define     MOTOR_COMMON_LIMIT_IQ               (MOTOR_CFG_NOMINAL_CURRENT_RMS * MTR_SQRT_3)
+#define     MOTOR_COMMON_LIMIT_IQ(ch)               (MOTOR_CFG_NOMINAL_CURRENT_RMS(ch) * MTR_SQRT_3)
                                                         /* speed PI limit for iq */
-#define     MOTOR_COMMON_CURRENT_OBS_LIMIT      (MOTOR_CFG_NOMINAL_CURRENT_RMS * MTR_SQRT_3 * 3.0f)
+#define     MOTOR_COMMON_CURRENT_OBS_LIMIT(ch)      (MOTOR_CFG_NOMINAL_CURRENT_RMS(ch) * MTR_SQRT_3 * 3.0f)
                                                         /* Integration limit value of voltage disturbance estimate */
-#define     MOTOR_COMMON_OVERCURRENT_LIMIT      (MOTOR_CFG_NOMINAL_CURRENT_RMS * MTR_SQRT_2 * MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT)
+#define     MOTOR_COMMON_OVERCURRENT_LIMIT(ch)      (MOTOR_CFG_NOMINAL_CURRENT_RMS(ch) * MTR_SQRT_2 * MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT)
                                                         /* Over current limit [A] */
 #endif /* R_MOTOR_MODULE_CFG_H */

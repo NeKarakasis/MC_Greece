@@ -17,6 +17,7 @@
         <Setting id="P75" value="MTIOC4C"/>
         <Setting id="P11" value="POE8#"/>
         <Setting id="MD" value="FINED"/>
+        <Setting id="PB0" value="PB0"/>
     </Segment>
     <Segment id="Device">
         <Setting id="Series" value="RX100"/>
@@ -163,7 +164,7 @@
                 </Segment>
             </Segment>
             <Segment id="PORTB_Check">
-                <Setting id="PortnEnable" value="Disable"/>
+                <Setting id="PortnEnable" value="Enable"/>
             </Segment>
             <Segment id="PORT9_Chan">
                 <Setting id="Output1All" value="Output1UnuseAll"/>
@@ -218,8 +219,8 @@
                     <Setting id="Opendrain" value="CMOS"/>
                 </Segment>
                 <Segment id="PORTx0_Item">
-                    <Setting id="UseStatus" value="Unuse"/>
-                    <Setting id="Highdrive" value="HighdriveUnuse"/>
+                    <Setting id="UseStatus" value="Out"/>
+                    <Setting id="Highdrive" value="HighdriveUse"/>
                     <Setting id="Pullup" value="PullupUnuse"/>
                     <Setting id="Output1" value="Output1Unuse"/>
                     <Setting id="Opendrain" value="CMOS"/>

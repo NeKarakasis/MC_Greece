@@ -36,6 +36,7 @@
 #include "r_app_board_ui.h"
 #include "r_motor_sensorless_vector_api.h"
 #include "safety_functions_api.h"
+#include "pin.h"
 
 /***********************************************************************************************************************
 * Global variables
@@ -45,6 +46,13 @@
 uint32_t g_dtc_table[256];
 #pragma section
 /*************************/
+static e_motor_id_t g_current_motor_id = CIRCULATION_MOTOR;      /* what the stack is currently opened for */
+static volatile e_motor_id_t g_requested_motor_id = CIRCULATION_MOTOR; /* what the UI wants */
+static volatile bool g_req_motor_change = false;          /* set true when UI asks to switch */
+static void app_handle_motor_selection(void);			  /* Handles the motor selection */
+void app_request_motor(e_motor_id_t new_id); 			   /* Handles the request for motor selection */
+e_motor_id_t requested_motor;									// temperature variable to request new motor to run
+
 
 /***********************************************************************************************************************
 * Private functions
@@ -52,6 +60,8 @@ uint32_t g_dtc_table[256];
 static void     r_app_main_ui_mainloop(void);           /* User interface control routine */
 static void     r_app_main_init_motor_ctrl(void);       /* Initialize motor control instance */
 static void     r_app_main_start_motor_ctrl(void);      /* Start motor control */
+static void 	app_set_motor_output_path(e_motor_id_t id); /* Implementation to toggle the output relay */
+
 
 
 /***********************************************************************************************************************
@@ -174,7 +184,8 @@ static void r_app_main_ui_mainloop(void)
     /*   User interface switch    */
     /*============================*/
     u1_temp = com_u1_sw_userif;
-
+    app_request_motor(requested_motor);
+    app_handle_motor_selection();
     if (g_u1_sw_userif != u1_temp)
     {
         if (u1_temp >= MAIN_UI_SIZE)
@@ -308,3 +319,63 @@ static void r_app_main_start_motor_ctrl(void)
     //R_Config_POE_Create();
     //R_Config_POE_Start();
 } /* End of function r_app_main_start_motor_ctrl */
+
+static void app_handle_motor_selection(void)
+{
+    if (!g_req_motor_change)
+    {
+        return;
+    }
+
+    /* Only perform change when the system is STOP */
+    if (g_u1_system_mode != STATEMACHINE_EVENT_STOP)
+    {
+        return; /* defer until STOP */
+    }
+
+    /* Double-check underlying MC status is also STOP (or ERROR) */
+/*    uint8_t st = R_MOTOR_SENSORLESS_VECTOR_StatusGet(&g_st_sensorless_vector);
+    if ((st != STATEMACHINE_STATE_STOP) && (st != STATEMACHINE_STATE_ERROR))
+    {
+        return;  still stopping → try again next loop
+    }*/
+
+    /* Close current instance (idempotent if already closed) */
+    R_MOTOR_SENSORLESS_VECTOR_Close();
+
+    /* Switch the physical endpoints first to avoid energizing the wrong motor */
+    app_set_motor_output_path(g_requested_motor_id);
+
+    /* Pick the new motor’s parameter set */
+    R_MOTOR_SENSORLESS_VECTOR_Set_motor_id(g_requested_motor_id);
+
+    /* Re-open with parameters of the selected motor */
+    R_MOTOR_SENSORLESS_VECTOR_Open();
+
+    /* Commit */
+    g_current_motor_id  = g_requested_motor_id;
+    g_req_motor_change  = false;
+}
+
+void app_request_motor(e_motor_id_t new_id)
+{
+    if (new_id == g_current_motor_id)
+    {
+        return; /* no-op */
+    }
+    g_requested_motor_id = new_id;
+    g_req_motor_change   = true;
+}
+
+static void app_set_motor_output_path(e_motor_id_t id)
+{
+    /* Drive your relay GPIO(s) here so the inverter endpoints go to the chosen motor */
+       if (id == CIRCULATION_MOTOR)
+       {
+    	   PIN_WRITE(RelayForMotors) = 0;
+       }
+       else
+       {
+    	   PIN_WRITE(RelayForMotors) = 1;
+       }
+}

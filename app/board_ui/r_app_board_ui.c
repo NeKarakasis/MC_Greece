@@ -83,9 +83,9 @@ void r_app_board_ui_mainloop(void)
                 /*     Set speed reference     */
                 /*=============================*/
                 u2_temp_vr1_signal = 0;//r_app_board_ui_get_vr1();
-                s_f4_ref_speed_rpm = (BOARD_ADJUST_OFFSET - u2_temp_vr1_signal) * BOARD_VR1_SCALING_SPEED;
+                s_f4_ref_speed_rpm = (BOARD_ADJUST_OFFSET - u2_temp_vr1_signal) * BOARD_VR1_SCALING_SPEED(0);
                                                                                    /* read speed reference from VR1 */
-                s_f4_ref_speed_rpm = motor_filter_limitf_abs(s_f4_ref_speed_rpm, MOTOR_CFG_MAX_SPEED_RPM);
+                s_f4_ref_speed_rpm = motor_filter_limitf_abs(s_f4_ref_speed_rpm, MOTOR_CFG_MAX_SPEED_RPM(0));
                 /* limit dead-band */
                 if ((s_f4_ref_speed_rpm <= BOARD_VR1_SPEED_DEAD_BAND) &&
                     (s_f4_ref_speed_rpm >= - BOARD_VR1_SPEED_DEAD_BAND))

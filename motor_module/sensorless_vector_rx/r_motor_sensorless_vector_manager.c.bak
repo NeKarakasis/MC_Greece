@@ -56,7 +56,7 @@
 * Arguments     : p_st_sensorless_vector - The pointer to the motor control management data structure
 * Return Value  : None
 ***********************************************************************************************************************/
-void motor_sensorless_vector_default_init(st_sensorless_vector_control_t *p_st_sensorless_vector)
+void motor_sensorless_vector_default_init(st_sensorless_vector_control_t *p_st_sensorless_vector, uint8_t channel)
 {
     st_current_cfg_t        st_cur_cfg;
     st_bemf_observer_cfg_t  st_bemf_obs_cfg;
@@ -106,7 +106,7 @@ void motor_sensorless_vector_default_init(st_sensorless_vector_control_t *p_st_s
     st_cur_cfg.f4_id_up_step             = MOTOR_COMMON_ID_UP_STEP_RATE;
     st_cur_cfg.f4_id_down_step           = MOTOR_COMMON_ID_DOWN_STEP_RATE;
     st_cur_cfg.f4_iq_down_step_time_inv  = CURRENT_CFG_IQ_DOWN_STEP_TIME_INV;
-    st_cur_cfg.f4_ol_ref_id              = CURRENT_CFG_REF_ID_OPENLOOP;
+    st_cur_cfg.f4_ol_ref_id              = CURRENT_CFG_REF_ID_OPENLOOP(channel);
     st_cur_cfg.st_motor                  = p_st_sensorless_vector->st_motor;
     R_MOTOR_CURRENT_ParameterUpdate(p_st_sensorless_vector->p_st_cc, &st_cur_cfg);
 
@@ -378,8 +378,8 @@ void motor_sensorless_vector_iq_status_select(st_sensorless_vector_control_t *p_
                 R_MOTOR_SPEED_SwitchingFlagSet(p_st_sensorless_vector->p_st_sc);
                 R_MOTOR_CURRENT_HuntingSuppress(p_st_sensorless_vector->p_st_cc,
                                                 p_st_sensorless_vector->st_speed_output.f4_ref_speed_rad_ctrl);
-                /*R_MOTOR_SPEED_HuntingSuppress(p_st_sensorless_vector->p_st_sc,
-                                              p_st_sensorless_vector->st_speed_output.f4_iq_ref);*/
+                R_MOTOR_SPEED_HuntingSuppress(p_st_sensorless_vector->p_st_sc,
+                                              p_st_sensorless_vector->st_speed_output.f4_iq_ref);
             }
         break;
 

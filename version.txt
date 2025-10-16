@@ -1,3 +1,6 @@
+-----16/10/25-----
+- Nektarios: Modify the code in order to be drive 2 motors by using 1 power bringe. Also add the changes in the state machine and the commands for the motor relay.
+
 -----9/10/25-----
 - Nektarios: Add the motor protection functions, they are not running. Tuned Circlulation motor and dry motor. the define DRY or CIRC in r_motor_targetmotor will select the correspoding motor 
 

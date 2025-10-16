@@ -52,6 +52,9 @@ Macro definitions
  *         PIN_WRITE(5,4) = ~PIN_READ(5,4)
  */
 
+/* Symbolic name */
+#define RelayForMotors        B,0
+
 /* Pin write helper */
 #define PIN_WRITE_HELPER(x,y)                    ((PORT##x.PODR.BIT.B##y))
 /* Pin read helper */

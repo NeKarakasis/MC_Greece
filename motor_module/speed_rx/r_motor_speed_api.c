@@ -61,35 +61,45 @@ void R_MOTOR_SPEED_Open(void)
     p_st_sc->f4_speed_ctrl_period            = SPEED_CFG_CTRL_PERIOD;
     p_st_sc->f4_ref_speed_rad                = 0.0f;
     p_st_sc->f4_ref_speed_rad_manual         = 0.0f;
-    p_st_sc->f4_max_speed_rad                = (MOTOR_CFG_MAX_SPEED_RPM * MTR_RPM2RAD);
+    p_st_sc->f4_max_speed_rad                = (MOTOR_CFG_MAX_SPEED_RPM(p_st_sc->u1_sc_motor_id) * MTR_RPM2RAD);
     p_st_sc->f4_speed_rate_limit_rad         = (SPEED_CFG_CTRL_PERIOD * SPEED_CFG_RATE_LIMIT_RPM * MTR_RPM2RAD);
     p_st_sc->f4_opl2less_sw_time             = SPEED_OPL2LESS_SWITCH_TIME;
-    p_st_sc->st_motor.u2_mtr_pp              = MOTOR_CFG_POLE_PAIRS;
-    p_st_sc->st_motor.f4_mtr_r               = MOTOR_CFG_RESISTANCE;
-    p_st_sc->st_motor.f4_mtr_ld              = MOTOR_CFG_D_INDUCTANCE;
-    p_st_sc->st_motor.f4_mtr_lq              = MOTOR_CFG_Q_INDUCTANCE;
-    p_st_sc->st_motor.f4_mtr_m               = MOTOR_CFG_MAGNETIC_FLUX;
-    p_st_sc->st_motor.f4_mtr_j               = MOTOR_CFG_ROTOR_INERTIA;
-    p_st_sc->st_motor.f4_nominal_current_rms = MOTOR_CFG_NOMINAL_CURRENT_RMS;
+    p_st_sc->st_motor.u2_mtr_pp              = MOTOR_CFG_POLE_PAIRS(p_st_sc->u1_sc_motor_id);
+    p_st_sc->st_motor.f4_mtr_r               = MOTOR_CFG_RESISTANCE(p_st_sc->u1_sc_motor_id);
+    p_st_sc->st_motor.f4_mtr_ld              = MOTOR_CFG_D_INDUCTANCE(p_st_sc->u1_sc_motor_id);
+    p_st_sc->st_motor.f4_mtr_lq              = MOTOR_CFG_Q_INDUCTANCE(p_st_sc->u1_sc_motor_id);
+    p_st_sc->st_motor.f4_mtr_m               = MOTOR_CFG_MAGNETIC_FLUX(p_st_sc->u1_sc_motor_id);
+    p_st_sc->st_motor.f4_mtr_j               = MOTOR_CFG_ROTOR_INERTIA(p_st_sc->u1_sc_motor_id);
+    p_st_sc->st_motor.f4_nominal_current_rms = MOTOR_CFG_NOMINAL_CURRENT_RMS(p_st_sc->u1_sc_motor_id);
 
     /* Initialize member of PI control structure */
-    motor_pi_ctrl_integral_limit_set(&p_st_sc->st_pi_speed, MOTOR_COMMON_PI_INTEGRAL_LIMIT_IQ);
-    motor_speed_pi_gain_calc(p_st_sc, SPEED_CFG_OMEGA, SPEED_CFG_ZETA);
+    motor_pi_ctrl_integral_limit_set(&p_st_sc->st_pi_speed, MOTOR_COMMON_PI_INTEGRAL_LIMIT_IQ(p_st_sc->u1_sc_motor_id));
+    motor_speed_pi_gain_calc(p_st_sc, SPEED_CFG_OMEGA(p_st_sc->u1_sc_motor_id), SPEED_CFG_ZETA);
 
     /* Initialize Flux-weakening module */
-    motor_speed_flux_weakn_init(&p_st_sc->st_fluxwkn, MOTOR_COMMON_LIMIT_IQ,
+    motor_speed_flux_weakn_init(&p_st_sc->st_fluxwkn, MOTOR_COMMON_LIMIT_IQ(p_st_sc->u1_sc_motor_id),
             INVERTER_CFG_INPUT_V, FLUXWKN_DEF_VFWRATIO, &p_st_sc->st_motor);
 
     /* Initialize open-loop damping control module */
     motor_speed_opl_damp_init(&p_st_sc->st_opl_damp, SPEED_OPL_DAMP_FB_SPEED_LIMIT_RATE);
-    f4_id_down_speed_elec = (SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM * MTR_RPM2RAD * p_st_sc->st_motor.u2_mtr_pp);
+    f4_id_down_speed_elec = (SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM(p_st_sc->u1_sc_motor_id) * MTR_RPM2RAD * p_st_sc->st_motor.u2_mtr_pp);
+
+/*    uint8_t u1_open_loop_current = 0;
+    if (p_st_sc->u1_motor_id == 1)
+    {
+    	u1_open_loop_current                    = CIRC_CURRENT_CFG_REF_ID_OPENLOOP;
+    }
+    else
+    {
+    	u1_open_loop_current                    = DRY_CURRENT_CFG_REF_ID_OPENLOOP;
+    }*/
     motor_speed_opl_damp_r_gain_set(&p_st_sc->st_opl_damp,
                                     p_st_sc->st_motor.u2_mtr_pp,
                                     p_st_sc->st_motor.f4_mtr_m,
                                     p_st_sc->st_motor.f4_mtr_j,
                                     SPEED_OPL_DAMP_ZETA,
                                     SPEED_OPL_DAMP_ED_HPF_OMEGA,
-                                    CURRENT_CFG_REF_ID_OPENLOOP,
+									CURRENT_CFG_REF_ID_OPENLOOP(p_st_sc->u1_sc_motor_id),
                                     f4_id_down_speed_elec,
                                     SPEED_CFG_CTRL_PERIOD);
 
@@ -412,3 +422,14 @@ void R_MOTOR_SPEED_SwitchingFlagSet(st_speed_control_t * p_st_sc)
 {
     p_st_sc->u1_flag_switching = MTR_FLG_SET;
 } /* End of function R_MOTOR_SPEED_SwitchingFlagSet */
+
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_SPEED_SetMotorID
+* Description   : Set the motor ID, ID -> 0 circulation motor, ID -> 1 dry motor
+* Arguments     : The motor ID
+* Return Value  : None
+***********************************************************************************************************************/
+void R_MOTOR_SPEED_SetMotorID(uint8_t motor_id)
+{
+	g_st_sc.u1_sc_motor_id = motor_id;
+}/* R_MOTOR_SPEED_SetMotorID */

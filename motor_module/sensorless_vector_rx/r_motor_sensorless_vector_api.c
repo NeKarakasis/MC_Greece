@@ -523,3 +523,16 @@ void R_MOTOR_SENSORLESS_VECTOR_OverCurrentInterrupt(st_sensorless_vector_control
 {
     motor_sensorless_vector_error_process(p_st_sensorless_vector, MOTOR_SENSORLESS_VECTOR_ERROR_OVER_CURRENT_HW);
 } /* End of function R_MOTOR_SENSORLESS_VECTOR_OverCurrentInterrupt */
+
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_SENSORLESS_VECTOR_Set_motor_id
+* Description   : Set the motor ID, ID -> 0 circulation motor, ID -> 1 dry motor
+* Arguments     : p_st_sensorless_vector - The pointer to the motor control management data structure
+* Return Value  : None
+***********************************************************************************************************************/
+void R_MOTOR_SENSORLESS_VECTOR_Set_motor_id(e_motor_id_t motor_id)
+{
+	g_st_sensorless_vector.u1_motor_id = (uint8_t)motor_id;
+	R_MOTOR_CURRENT_SetMotorID((uint8_t)motor_id);
+	R_MOTOR_SPEED_SetMotorID((uint8_t)motor_id);
+}
