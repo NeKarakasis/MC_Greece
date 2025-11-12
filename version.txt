@@ -1,3 +1,6 @@
+-----12/11/25-----
+- Nektarios: Add definitions for the delay of motor control and exclude the RMW code from the project.
+
 -----16/10/25-----
 - Nektarios: Modify the code in order to be drive 2 motors by using 1 power bringe. Also add the changes in the state machine and the commands for the motor relay.
 

@@ -62,7 +62,9 @@ static void     r_app_main_init_motor_ctrl(void);       /* Initialize motor cont
 static void     r_app_main_start_motor_ctrl(void);      /* Start motor control */
 static void 	app_set_motor_output_path(e_motor_id_t id); /* Implementation to toggle the output relay */
 
-
+#define USE_UI 0
+#define STARTUP_MOTOR_CONTROL_DELAY		1
+#define VDC_VOLTAGE_STABLE_WAIT_COUNT	(0x325AA0U)  /* motor control delays 500ms for stabilization of VDC and analog inputs */
 
 /***********************************************************************************************************************
 * Function Name : main
@@ -71,6 +73,7 @@ static void 	app_set_motor_output_path(e_motor_id_t id); /* Implementation to to
 * Return Value  : None
 ***********************************************************************************************************************/
 volatile static int32_t adc_cmt_counts[4] = {0,0,0,0};
+volatile static uint32_t d_count = 0;
 static float g_manual_speed = 0;
 static int g_manual_state_cmd = 0;
 static int temp_g_manual_state_cmd = 0;
@@ -82,14 +85,22 @@ clrpsw_i();                                       /* Disable interrupt */
     //r_app_board_ui_led_control(STATEMACHINE_STATE_STOP);
 
     /* Initialize ICS */
+#if USE_UI
     ics2_init((void*)g_dtc_table, APP_CFG_SCI_CH_SELECT, ICS_INT_LEVEL, ICS_BRR, ICS_INT_MODE);
-
+#endif
+#if STARTUP_MOTOR_CONTROL_DELAY
+    for (d_count = 0U; d_count < VDC_VOLTAGE_STABLE_WAIT_COUNT; d_count++)
+    {
+        nop();
+    }
+#endif
     /* Initialize open motor control instance */
     r_app_main_init_motor_ctrl();
-
+#if USE_UI
     /* Initialize RMW communication support for motor control
      * MUST be called after motor instance being configured */
     r_app_rmw_ui_init();
+#endif
 
 setpsw_i();                                       /* Enable interrupt */
 
@@ -178,7 +189,10 @@ static void r_app_main_ui_mainloop(void)
     /*============================*/
     /*        Get ICS value       */
     /*============================*/
+
+#if USE_UI
     r_app_rmw_copy_com_to_buffer();
+#endif
 
     /*============================*/
     /*   User interface switch    */
@@ -186,33 +200,35 @@ static void r_app_main_ui_mainloop(void)
     u1_temp = com_u1_sw_userif;
     app_request_motor(requested_motor);
     app_handle_motor_selection();
-    if (g_u1_sw_userif != u1_temp)
+    g_u1_sw_userif = MAIN_UI_SERIAL;
+    if (g_u1_sw_userif != MAIN_UI_SERIAL)
     {
-        if (u1_temp >= MAIN_UI_SIZE)
-        {
-            com_u1_sw_userif = g_u1_sw_userif;
-        }
-        else
-        {
-            g_u1_sw_userif = u1_temp;
+		if (g_u1_sw_userif != u1_temp)
+		{
+			if (u1_temp >= MAIN_UI_SIZE)
+			{
+				com_u1_sw_userif = g_u1_sw_userif;
+			}
+			else
+			{
+				g_u1_sw_userif = u1_temp;
 
-            if (MAIN_UI_RMW == g_u1_sw_userif)
-            {
-                /* Get status of motor control system */
-                u1_motor_status  = R_MOTOR_SENSORLESS_VECTOR_StatusGet(&g_st_sensorless_vector);
-                g_u1_system_mode = u1_motor_status;
-            }
-            else
-            {
-                /* Do Nothing */
-            }
-        }
+				if (MAIN_UI_RMW == g_u1_sw_userif)
+				{
+					/* Get status of motor control system */
+					u1_motor_status  = R_MOTOR_SENSORLESS_VECTOR_StatusGet(&g_st_sensorless_vector);
+					g_u1_system_mode = u1_motor_status;
+				}
+				else
+				{
+					/* Do Nothing */
+				}
+			}
+		}
     }
-
     /*============================*/
     /*        Execute event       */
     /*============================*/
-    //g_u1_sw_userif = MAIN_UI_SERIAL;
     //g_manual_speed = -1500;
     if (MAIN_UI_RMW == g_u1_sw_userif)
     {
@@ -224,7 +240,7 @@ static void r_app_main_ui_mainloop(void)
         /* Main process for board UI */
         r_app_board_ui_mainloop();
     }
-#if 0
+#if 1
     else if (MAIN_UI_SERIAL == g_u1_sw_userif)
     {
         switch (g_manual_state_cmd)
