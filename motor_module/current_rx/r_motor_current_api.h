@@ -154,6 +154,7 @@ typedef struct
     float				  f4_offset_iv;				   /* U-phase current offset value [A] */
     float                 f4_offset_iw;                /* W-phase current offset value [A] */
     float                 f4_sum_iu_ad;                /* U-phase current summation value for offset calculation [A] */
+    float                 f4_sum_iv_ad;                /* V-phase current summation value for offset calculation [A] */
     float                 f4_sum_iw_ad;                /* W-phase current summation value for offset calculation [A] */
     float                 f4_vdc_ad;                   /* Bus voltage [V] */
     float                 f4_iu_ad;                    /* U-phase current value [A] */

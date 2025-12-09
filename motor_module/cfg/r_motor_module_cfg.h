@@ -183,14 +183,14 @@
 #define     SPEED_CFG_CTRL_PERIOD               (0.001f)        /* control period for speed loop */
 
 #define     CIRC_SPEED_CFG_OMEGA                     (0.4f)          /* natural frequency for speed loop */ //1
-#define     DRY_SPEED_CFG_OMEGA                     (0.04f)
+#define     DRY_SPEED_CFG_OMEGA                     (0.03f)
 
 #define     SPEED_CFG_OMEGA(ch)                     (float)(((ch)==0 )?   (CIRC_SPEED_CFG_OMEGA) : (DRY_SPEED_CFG_OMEGA) )
 
 #define     SPEED_CFG_ZETA                      (1.0f)          /* damping ratio for speed loop */
 #define     SPEED_CFG_LPF_OMEGA                 (10.0f)         /* natural frequency for speed LPF */
 #define     SPEED_CFG_SPEED_LIMIT_RPM           (6000.0f)       /* over speed limit [rpm] (mechanical angle) */
-#define     SPEED_CFG_RATE_LIMIT_RPM            (100.0f)       /* Rate limit of speed change [rpm/s] */
+#define     SPEED_CFG_RATE_LIMIT_RPM            (500.0f)       /* Rate limit of speed change [rpm/s] */
 #define     SPEED_OPL2LESS_SWITCH_TIME          (1.5f)        /* Time[s] to switch open-loop to sensor-less */ //0.8
 #define     SPEED_OPL_DAMP_ED_HPF_OMEGA         (2.5f)          /* HPF cutoff frequency for ed [Hz] */
 #define     SPEED_OPL_DAMP_ZETA                 (1.0f)          /* Damping ratio of open-loop damping control */

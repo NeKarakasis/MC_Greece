@@ -1,8 +1,6 @@
 #include "r_motor_protection.h"
 #include <math.h>
 
-static motor_protection_t g_mp;
-
 /* ===========
  * Tables (2 motors) — built from the #defines in the header
  * =========== */
@@ -18,10 +16,22 @@ static const float    k_avg_cur_thr_A[MP_NUM_MOTORS] =
     MP_AVG_CUR_THR_A_MOTOR1
 };
 
-static const uint16_t k_phl_cnt_max[MP_NUM_MOTORS] =
+static const uint32_t k_phl_cnt_max[MP_NUM_MOTORS] =
 {
     MP_PHL_CNT_MAX_MOTOR0,
     MP_PHL_CNT_MAX_MOTOR1
+};
+
+static const float k_locked_rotor_time[MP_NUM_MOTORS] =
+{
+	MP_LOCKED_ROTOR_TIME_MOTOR0,
+	MP_LOCKED_ROTOR_TIME_MOTOR1
+};
+
+static const float k_locked_rotor_theshold[MP_NUM_MOTORS] =
+{
+	MP_I2_LOCKED_A2_DEFAULT_MOTOR0,
+	MP_I2_LOCKED_A2_DEFAULT_MOTOR1
 };
 
 /* Unitary Clarke (alpha = u, beta = (v - w)/sqrt(3)) */
@@ -29,6 +39,17 @@ static inline void clarke_unitary(float u, float v, float w, float *a, float *b)
 {
     *a = u;
     *b = (v - w) * 0.5773502691896258f; /* 1/sqrt(3) */
+}
+void motor_protection_speed_init(motor_protection_t *mp, float Ts_slow_s)
+{
+	mp->Ts_slow_s = Ts_slow_s;
+	motor_filter_first_order_lpff_init(&mp->lpf_filtered_iq_current);
+	motor_filter_first_order_lpff_gain_calc(&mp->lpf_filtered_iq_current,
+		2.0f * 3.14159265358979f * LOW_WATER_BW, Ts_slow_s);
+
+	motor_filter_first_order_lpff_init(&mp->lpf_filtered_speed);
+	motor_filter_first_order_lpff_gain_calc(&mp->lpf_filtered_speed,
+		2.0f * 3.14159265358979f * LOW_WATER_BW, Ts_slow_s);
 }
 
 void motor_protection_init(motor_protection_t *mp, float Ts_fast_s)
@@ -122,6 +143,8 @@ void motor_protection_select_motor(motor_protection_t *mp, uint8_t motor_index)
     mp->i_min_A       = k_i_min_A[idx];
     mp->avg_cur_thr_A = k_avg_cur_thr_A[idx];
     mp->phl_cnt_max   = k_phl_cnt_max[idx];
+    mp->thr_locked_rotor_I2 = k_locked_rotor_theshold[idx];
+    mp->t_locked_rotor_s = 	k_locked_rotor_time[idx];
 }
 
 void motor_protection_set_thresholds(motor_protection_t *mp,
@@ -140,18 +163,77 @@ void motor_protection_set_thresholds(motor_protection_t *mp,
     mp->unbalance_hold_time_s   = unbalance_hold_time_s;
 }
 
-void motor_protection_update(motor_protection_t *mp, float u, float v, float w)
+void motor_protection_speed_update(motor_protection_t *mp, float speed, float iq_ref, float speed_ref)
+{
+	float speed_rpm;
+	float speed_ref_rpm;
+	float error_ratio;
+	float abs_iq;
+	float abs_speed;
+	float abs_speed_ref;
+	speed_rpm = speed * 60 / (2.0f * 3.14159265358979f);
+	speed_ref_rpm = speed_ref * 60 / (2.0f * 3.14159265358979f);
+	abs_iq =  fabsf(iq_ref);
+	abs_speed = fabsf(speed_rpm);
+	abs_speed_ref = fabsf(speed_ref_rpm);
+	mp->f4_filtered_iq_current = motor_filter_first_order_lpff(&mp->lpf_filtered_iq_current, abs_iq);
+	mp->f4_filtered_speed = motor_filter_first_order_lpff(&mp->lpf_filtered_speed, abs_speed);
+	mp->iq_estimated = IQ_MODEL_K * abs_speed * abs_speed;
+	// the error will be cleared only with reset
+	if (mp->water_empty == 0)
+		{
+		// Avoid division by zero
+		if (iq_ref == 0 || abs_speed_ref < SPEED_THRESHOLD)
+		{
+			mp->water_empty = 0;
+			mp->water_empty_timer_s = 0;
+		}
+		else
+		{
+			// 2. Relative deviation
+			error_ratio = fabsf((mp->iq_estimated - abs_iq)/ abs_iq);
+			mp->UserVariable[5] = error_ratio;
+			mp->UserVariable[6] = mp->iq_estimated;
+			mp->UserVariable[7] = abs_iq;
+			mp->UserVariable[8]++;
+
+
+		}
+		if (error_ratio > IQ_ERROR_THRESHOLD)
+		{
+
+			if (mp->water_empty_timer_s > WATER_EMPTY_DETECT_COUNT)
+			{
+				mp->water_empty = 1;
+			}
+			else
+			{
+				mp->water_empty_timer_s ++;
+			}
+		}
+		else
+		{
+			if (mp->water_empty_timer_s > 0)
+			{
+				mp->water_empty_timer_s --;
+			}
+		}
+	}
+}
+
+
+void motor_protection_update(motor_protection_t *mp, float u, float v, float w, float raw_u,float raw_v,float raw_w, float min_duty)
 {
     /* 1) Plausibility: LPF(u+v+w) @ 0.73 Hz */ // todo add minumut duty case
-    if (0){
-        float sum_uvw = u + v + w;
-        mp->sum_uvw_f = motor_filter_first_order_lpff(&mp->lpf_sum_uvw, sum_uvw);
-
-        if (fabsf(mp->sum_uvw_f) > mp->plaus_sum_abs_threshold)
-        {
-            mp->alarm_bits |= MP_ALARM_PLAUSIBILITY;
-        }
-    }
+	float sum_uvw = raw_u + raw_v + raw_w;
+	if (min_duty > MP_MINIMUM_DUTY)
+		{
+			mp->sum_uvw_f = motor_filter_first_order_lpff(&mp->lpf_sum_uvw, sum_uvw);
+			if (fabsf(mp->sum_uvw_f) > mp->plaus_sum_abs_threshold)
+			{
+				mp->alarm_bits |= MP_ALARM_PLAUSIBILITY;
+			}
+		}
 
     /* 2) Unbalance / Loss of phase
           - LPF(|u|,|v|,|w|) @ 1.46 Hz
@@ -172,20 +254,17 @@ void motor_protection_update(motor_protection_t *mp, float u, float v, float w)
         float sum_abs = mp->u_abs_f + mp->v_abs_f + mp->w_abs_f;
         float avg_abs = sum_abs * (1.0f / 3.0f);
         float thr_unbal = mp->loss_threshold_ratio * avg_abs;
-
-        if (mp->i_min_A > thr_unbal)
-        {
-            thr_unbal = mp->i_min_A;
-        }
-
         /* Condition A: any abs below threshold */
         bool bad_unbalance = false;
 
-        if (mp->u_abs_f < thr_unbal || mp->v_abs_f < thr_unbal || mp->w_abs_f < thr_unbal)
+        if (mp->i_min_A < thr_unbal)
         {
-            bad_unbalance = true;
+            //thr_unbal = mp->i_min_A;
+			if (mp->u_abs_f < thr_unbal || mp->v_abs_f < thr_unbal || mp->w_abs_f < thr_unbal)
+			{
+				bad_unbalance = true;
+			}
         }
-
         /* Condition B: any signed magnitude exceeds ±avg_cur_thr_A */
         bool bad_signed = false;
 
@@ -206,7 +285,6 @@ void motor_protection_update(motor_protection_t *mp, float u, float v, float w)
             else
             {
                 mp->alarm_bits |= (MP_ALARM_LOSS_OF_PHASE | MP_ALARM_UNBALANCE);
-                mp->phl_cnt = 0u;
             }
         }
         else
@@ -274,21 +352,25 @@ void motor_protection_update(motor_protection_t *mp, float u, float v, float w)
     }
 }
 
-void Protect_Init(bool is_drain_pump, uint8_t motor_index ) /* 0 or 1 */
+void Protect_Init(motor_protection_t *mp, uint8_t motor_index)
 {
-    const float Ts_fast = 1.0f / 6000.0f; //todo make it define
-
-    motor_protection_init(&g_mp, Ts_fast);
-    motor_protection_select_motor(&g_mp, motor_index);
+    const float Ts_fast = 1.0f / MP_PERIOD;
+    const float Ts_slow = 1.0f/ MP_SPEED_PERIOD;
+    if (motor_index == 0) // it will run only for ciclulation motor
+    {
+    	motor_protection_speed_init(mp, Ts_slow);
+    }
+    motor_protection_init(mp, Ts_fast);
+    motor_protection_select_motor(mp, motor_index);
 
     /* Optional overrides */
-    motor_protection_set_thresholds(&g_mp,
+/*    motor_protection_set_thresholds(&g_mp,
         MP_PLAUS_THRESH_A_DEFAULT,
         MP_I2_RUN_OVER_A2_DEFAULT,
         MP_I2_LOCKED_A2_DEFAULT,
         MP_I2_CURR_MAX_A2_DEFAULT,
-        is_drain_pump ? 0.2f : 0.2f, //todo make it define
-        MP_UNBAL_HOLD_S_DEFAULT);
+		locked_rotor[motor_index - 1],
+        MP_UNBAL_HOLD_S_DEFAULT);*/
 }
 
 void motor_protection_enter_idle(motor_protection_t *mp, bool clear_alarms)

@@ -123,6 +123,7 @@
             <Setting id="ANx06_Sampling" value="0.406"/>
             <Setting id="ANx03_Add" value="Unuse"/>
             <Setting id="ANx01_Add" value="Unuse"/>
+            <Setting id="Temperature" value="Unuse"/>
             <Setting id="ANx01_Sampling" value="0.20"/>
             <Setting id="DataAligh" value="Right"/>
             <Setting id="ANx00_Add" value="Unuse"/>
@@ -132,6 +133,7 @@
             <Setting id="DoubleTriggermode" value="Unuse"/>
             <Setting id="ANx02_Sampling" value="0.20"/>
             <Setting id="ADSTpin" value="Unuse"/>
+            <Setting id="Temperature_Add" value="Unuse"/>
             <Setting id="Internal_Sampling" value="5"/>
             <Setting id="Autoclean" value="DisAutoclean"/>
             <Setting id="ANx07_Add" value="Unuse"/>
@@ -141,6 +143,7 @@
             <Setting id="AmpEn0" value="Use"/>
             <Setting id="ANx03_Sampling" value="0.20"/>
             <Setting id="ANx00DSHchk" value="Use"/>
+            <Setting id="Temperature_Sampling" value="4.05"/>
         </Segment>
         <Segment component="com.renesas.smc.tools.swcomponent.codegenerator.port" id="Config_PORT" source="com.renesas.smc.tools.swcomponent.codegenerator.source">
             <Setting id="UnuseOutput" value="NoChange"/>

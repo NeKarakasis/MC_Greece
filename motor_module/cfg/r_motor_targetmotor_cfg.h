@@ -80,7 +80,7 @@
 #define     MOTOR_CFG_D_INDUCTANCE(ch)			(float)(((ch)==0 )?   (CIRC_MOTOR_CFG_D_INDUCTANCE) : (DRY_MOTOR_CFG_D_INDUCTANCE) )		 /* D-axis inductance [H] */
 #define     MOTOR_CFG_Q_INDUCTANCE(ch)			(float)(((ch)==0 )?   (CIRC_MOTOR_CFG_Q_INDUCTANCE) : (DRY_MOTOR_CFG_Q_INDUCTANCE) )		 /* Q-axis inductance [H] */
 #define     MOTOR_CFG_ROTOR_INERTIA(ch)			(float)(((ch)==0 )?   (CIRC_MOTOR_CFG_ROTOR_INERTIA) : (DRY_MOTOR_CFG_ROTOR_INERTIA) )		 //(0.008666f)    /* Rotor inertia [kgm^2] */ //(0.0003666f) (0.002666f)
-#define     MOTOR_CFG_NOMINAL_CURRENT_RMS(ch)			(float)(((ch)==0 )?   (CIRC_MOTOR_CFG_NOMINAL_CURRENT_RMS) : (DRY_MOTOR_CFG_NOMINAL_CURRENT_RMS) )		/* Nominal current [Arms] */
+#define     MOTOR_CFG_NOMINAL_CURRENT_RMS(ch)	(float)(((ch)==0 )?   (CIRC_MOTOR_CFG_NOMINAL_CURRENT_RMS) : (DRY_MOTOR_CFG_NOMINAL_CURRENT_RMS) )		/* Nominal current [Arms] */
 #define     MOTOR_CFG_MAX_SPEED_RPM(ch)			(float)(((ch)==0 )?   (CIRC_MOTOR_CFG_MAX_SPEED_RPM) : (DRY_MOTOR_CFG_MAX_SPEED_RPM) )		 /* maximum speed [rpm] (mechanical angle) */
 
 

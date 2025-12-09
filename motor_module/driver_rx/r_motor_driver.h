@@ -159,6 +159,9 @@ void R_MOTOR_DRIVER_BldcAnalogGet(st_motor_driver_t * p_st_driver,
                                   float * p_f4_iu,
                                   float * p_f4_iv,
                                   float * p_f4_iw,
+								  float * p_f4_raw_iu,
+								  float * p_f4_raw_iv,
+								  float * p_f4_raw_iw,
                                   float * p_f4_vdc);
 #elif defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 /***********************************************************************************************************************

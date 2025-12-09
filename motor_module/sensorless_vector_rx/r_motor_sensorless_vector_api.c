@@ -50,7 +50,7 @@
  Exported global variables
  *********************************************************************************************************************/
 st_sensorless_vector_control_t g_st_sensorless_vector;
-static motor_protection_t g_mp;
+motor_protection_t g_mp;
 
 /***********************************************************************************************************************
 * Function Name : R_MOTOR_SENSORLESS_VECTOR_Open
@@ -64,7 +64,8 @@ void R_MOTOR_SENSORLESS_VECTOR_Open(void)
     R_MOTOR_SPEED_Open();
     R_MOTOR_DRIVER_Open();
 
-    //Protect_Init(true,0);
+    Protect_Init(&g_mp, g_st_sensorless_vector.u1_motor_id);
+
     /* Store the address of the module instance in a structure and connect the module to be used */
     g_st_sensorless_vector.p_st_cc             = &g_st_cc;
     g_st_sensorless_vector.p_st_sc             = &g_st_sc;
@@ -332,6 +333,9 @@ setpsw_i();
                 R_MOTOR_SPEED_ParameterSet(p_st_sensorless_vector->p_st_sc, &st_speed_input);
                 R_MOTOR_SPEED_SpeedCyclic(p_st_sensorless_vector->p_st_sc);
                 R_MOTOR_SPEED_ParameterGet(p_st_sensorless_vector->p_st_sc, &p_st_sensorless_vector->st_speed_output);
+                motor_protection_speed_update(&g_mp,p_st_sensorless_vector->st_speed_output.f4_speed_rad_lpf,
+                		p_st_sensorless_vector->p_st_cc->f4_iq_ad,p_st_sensorless_vector->st_speed_output.f4_ref_speed_rad_ctrl);
+
             break;
 
             default:
@@ -368,7 +372,7 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
 {
     st_current_input_t st_current_input;
 #if defined(MOTOR_SHUNT_TYPE_2_SHUNT)
-    float f4_neutral_duty;
+    float f4_neutral_duty, min_duty = 100.0f;
 #elif defined(MOTOR_SHUNT_TYPE_1_SHUNT)
     float f4_Iac_ad[2] = {0.0f};
 #endif
@@ -382,28 +386,16 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
                                  &p_st_sensorless_vector->f4_iu_ad,
 								 &p_st_sensorless_vector->f4_iv_ad,
                                  &p_st_sensorless_vector->f4_iw_ad,
+								 &p_st_sensorless_vector->f4_raw_iu_ad,
+								 &p_st_sensorless_vector->f4_raw_iv_ad,
+								 &p_st_sensorless_vector->f4_raw_iw_ad,
                                  &p_st_sensorless_vector->f4_vdc_ad);
-/*    	R_MOTOR_DRIVER_BldcAnalogGet_old(p_st_sensorless_vector->p_st_driver,
-    		&p_st_sensorless_vector->f4_iu_ad,
-			&p_st_sensorless_vector->f4_iv_ad,
-            &p_st_sensorless_vector->f4_iw_ad,
-            &p_st_sensorless_vector->f4_vdc_ad);*/
 
     /* current offset adjustment */
     R_MOTOR_CURRENT_CurrentOffsetRemove(p_st_sensorless_vector->p_st_cc,
                                         &p_st_sensorless_vector->f4_iu_ad,
 										&p_st_sensorless_vector->f4_iv_ad,
                                         &p_st_sensorless_vector->f4_iw_ad);
-
-    /* V-phase current calculation */
-    p_st_sensorless_vector->f4_iv_ad = -(p_st_sensorless_vector->f4_iu_ad + p_st_sensorless_vector->f4_iw_ad);
-
-    /*p_st_sensorless_vector->f4_iu_ad = motor_filter_first_order_lpff(&p_st_sensorless_vector->p_st_cc->st_current_filter_u,p_st_sensorless_vector->f4_iu_ad);
-    p_st_sensorless_vector->f4_iv_ad = motor_filter_first_order_lpff(&p_st_sensorless_vector->p_st_cc->st_current_filter_v,p_st_sensorless_vector->f4_iv_ad);
-    p_st_sensorless_vector->f4_iw_ad = motor_filter_first_order_lpff(&p_st_sensorless_vector->p_st_cc->st_current_filter_w,p_st_sensorless_vector->f4_iw_ad);*/
-
-    /* Start of Application Test */
-
 
 #elif defined(MOTOR_SHUNT_TYPE_1_SHUNT)
     /* Current, Voltage detection */
@@ -421,6 +413,23 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
 setpsw_i();                                             /* Interrupt enable */
     /* error check */
     motor_sensorless_vector_error_check(p_st_sensorless_vector);
+
+    min_duty = (p_st_sensorless_vector->st_current_output.f4_modu < p_st_sensorless_vector->st_current_output.f4_modv) ? p_st_sensorless_vector->st_current_output.f4_modu : p_st_sensorless_vector->st_current_output.f4_modv;
+    min_duty = (min_duty < p_st_sensorless_vector->st_current_output.f4_modw) ? min_duty : p_st_sensorless_vector->st_current_output.f4_modw;
+
+
+	/* Start the application specific safety functions */
+    motor_protection_update(&g_mp, p_st_sensorless_vector->f4_iu_ad, p_st_sensorless_vector->f4_iv_ad, p_st_sensorless_vector->f4_iw_ad,p_st_sensorless_vector->f4_raw_iu_ad,
+    		p_st_sensorless_vector->f4_raw_iv_ad,p_st_sensorless_vector->f4_raw_iw_ad, min_duty);
+    uint32_t alarms = motor_protection_get_alarms(&g_mp);
+
+    if ((alarms & MP_ALARM_CURRENT_MAX) != 0u)
+    {
+        p_st_sensorless_vector->u2_error_status |= MOTOR_SENSORLESS_VECTOR_ERROR_APPLICATION;
+        motor_sensorless_vector_statemachine_event(&p_st_sensorless_vector->st_stm,
+                                                   p_st_sensorless_vector,
+                                                   STATEMACHINE_EVENT_ERROR);
+    }
 
     /* Select speed value in open loop mode */
     if (MTR_FLG_SET == p_st_sensorless_vector->u1_flag_openloop_damping_use)
@@ -466,20 +475,8 @@ setpsw_i();                                             /* Interrupt enable */
         }
         else
         {
-        	/* Start the application specific safety functions */
-            //motor_protection_update(&g_mp, p_st_sensorless_vector->f4_iu_ad, p_st_sensorless_vector->f4_iv_ad, p_st_sensorless_vector->f4_iw_ad);
-            uint32_t alarms = motor_protection_get_alarms(&g_mp);
-
-            if ((alarms & MP_ALARM_CURRENT_MAX) != 0u)
-            {
-                p_st_sensorless_vector->u2_error_status |= MOTOR_SENSORLESS_VECTOR_ERROR_APPLICATION;
-                motor_sensorless_vector_statemachine_event(&p_st_sensorless_vector->st_stm,
-                                                           p_st_sensorless_vector,
-                                                           STATEMACHINE_EVENT_ERROR);
-            }
             R_MOTOR_CURRENT_CurrentCyclic(p_st_sensorless_vector->p_st_cc);
             R_MOTOR_CURRENT_ParameterGet(p_st_sensorless_vector->p_st_cc, &p_st_sensorless_vector->st_current_output);
-
             /* PWM reference setting */
 #if defined(MOTOR_SHUNT_TYPE_1_SHUNT)
 #else

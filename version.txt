@@ -1,3 +1,6 @@
+-----09/12/25-----
+- Nektarios: Add the offset calculation for v phase, fine tune and finalize the development of motor protection FuSa functions.
+
 -----12/11/25-----
 - Nektarios: Add definitions for the delay of motor control and exclude the RMW code from the project.
 

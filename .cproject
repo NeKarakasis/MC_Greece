@@ -360,6 +360,24 @@
 							<outputType id="org.eclipse.cdt.managedbuilder.ui.rcbs.outputtype.1675795624" name="Resource Custom Build Step Output Type"/>
 						</tool>
 					</fileInfo>
+					<folderInfo id="com.renesas.cdt.managedbuild.renesas.ccrx.hardwaredebug.configuration.1734220329.960489237" name="/" resourcePath="motor_module/motor_protection">
+						<toolChain id="com.renesas.cdt.managedbuild.renesas.ccrx.hardwaredebug.toolChain.1338541094" name="Renesas CCRX Toolchain" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.hardwaredebug.toolChain" unusedChildren="">
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.dsp.102756669" name="DSP Assembler" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.dsp.1239920311"/>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.common.1396212482" name="Common" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.common.833565988"/>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.compiler.211829097" name="Compiler" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.compiler.72658421">
+								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.optimize.364993685" name="Optimization level (-optimize)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.optimize" value="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.optimize.level0" valueType="enumerated"/>
+								<inputType id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.gcc.inputType.1713746271" name="Compiler Input C" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.gcc.inputType"/>
+								<inputType id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.gpp.inputType.780541023" name="Compiler Input CPP" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.gpp.inputType"/>
+							</tool>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.assembler.499865322" name="Assembler" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.assembler.1142677213">
+								<inputType id="com.renesas.cdt.managedbuild.renesas.ccrx.assembler.inputType.1959942115" name="Assembler InputType" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.assembler.inputType"/>
+							</tool>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.linker.391498961" name="Linker" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.linker.335217938"/>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian.1540285323" name="Library Generator" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian.1162397512"/>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.converter.415323419" name="Converter" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.converter.1358191572"/>
+							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig.1402195716" name="RTOS Configurator" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig.957322707"/>
+						</toolChain>
+					</folderInfo>
 					<sourceEntries>
 						<entry excluding="generate|motor_module/src|motor_module/ref|motor_module/lib|motor_module/r_mtr_driver_access.h|demo|motor_module/sensorless_rx|motor_module/sensor_rx|trash|motor_module/r_mtr_driver_access.c|lib|temp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>

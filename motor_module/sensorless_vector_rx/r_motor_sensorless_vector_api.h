@@ -96,6 +96,9 @@ typedef struct
     float         f4_iu_ad;                     /* U-phase current value [A] */
     float         f4_iv_ad;                     /* V-phase current value [A] */
     float         f4_iw_ad;                     /* W-phase current value [A] */
+    float		  f4_raw_iu_ad;
+    float		  f4_raw_iv_ad;
+    float		  f4_raw_iw_ad;
     float         f4_overcurrent_limit;         /* Over-current limit [A] */
     float         f4_overvoltage_limit;         /* Over-voltage limit [V] */
     float         f4_undervoltage_limit;        /* Under voltage limit [V]*/

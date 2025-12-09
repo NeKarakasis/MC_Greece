@@ -43,7 +43,7 @@ that code should be modified based of the hardware.*/
 that code should be modified based of the hardware.*/
 
 #define ROM_START_ADDR         (0xFFFF0100UL)
-#define ROM_TOTAL_SIZE         (16UL * 1024UL)         /* 16 KB */
+#define ROM_TOTAL_SIZE         (31UL * 1024UL)         /* 16 KB */
 #define ROM_BLOCK_SIZE         (1UL * 1024UL)          /* 1 KB */
 #define ROM_NUM_BLOCKS         (ROM_TOTAL_SIZE / ROM_BLOCK_SIZE)
 #define ROM_TEST_CHUNK_SIZE    (32UL)                  /* 32 bytes per test */

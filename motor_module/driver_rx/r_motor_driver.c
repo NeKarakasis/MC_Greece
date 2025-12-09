@@ -264,6 +264,9 @@ void R_MOTOR_DRIVER_BldcAnalogGet(st_motor_driver_t * p_st_driver,
                                   float * p_f4_iu,
                                   float * p_f4_iv,
                                   float * p_f4_iw,
+								  float * p_raw_iu,
+								  float * p_raw_iv,
+								  float * p_raw_iw,
                                   float * p_f4_vdc)
 {
     r_mtr_adc_tb adc_raw;
@@ -274,7 +277,9 @@ void R_MOTOR_DRIVER_BldcAnalogGet(st_motor_driver_t * p_st_driver,
 
     // Step 2: Convert raw ADC values to physical units (Amps, Volts)
     R_MOTOR_DRIVER_AdcConvert(p_st_driver, &adc_raw, &iu_raw, &iv_raw, &iw_raw, p_f4_vdc);
-
+    *p_raw_iu = iu_raw;
+    *p_raw_iv = iv_raw;
+    *p_raw_iw = iw_raw;
     // Step 3: Reconstruct phase currents using valid channels
     R_MOTOR_DRIVER_BldcCurrentReconstruct(f4_duty_u, f4_duty_v, f4_duty_w,
                                               iu_raw, iv_raw, iw_raw,

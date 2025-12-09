@@ -108,7 +108,8 @@ setpsw_i();                                       /* Enable interrupt */
     r_app_main_start_motor_ctrl();
 
 //Disable interrupt
-/*clrpsw_i();
+/*
+clrpsw_i();
 MTU.TRWERA.BIT.RWE = 1U;
 int32_t mtu_counter = MTU4.TCNT;
 
@@ -163,7 +164,8 @@ FuSa_PC_init();
 // 2.9V trigger voltage
 FuSa_Voltage_init();
 
-setpsw_i(); */                                      /* Enable interrupt */
+setpsw_i();                                        Enable interrupt
+*/
 
 
     /*** Main routine ***/
@@ -229,7 +231,7 @@ static void r_app_main_ui_mainloop(void)
     /*============================*/
     /*        Execute event       */
     /*============================*/
-    //g_manual_speed = -1500;
+
     if (MAIN_UI_RMW == g_u1_sw_userif)
     {
          /*Main process for ICS UI*/
@@ -240,7 +242,7 @@ static void r_app_main_ui_mainloop(void)
         /* Main process for board UI */
         r_app_board_ui_mainloop();
     }
-#if 1
+
     else if (MAIN_UI_SERIAL == g_u1_sw_userif)
     {
         switch (g_manual_state_cmd)
@@ -277,7 +279,6 @@ static void r_app_main_ui_mainloop(void)
 
             }
     }
-#endif
     else
     {
          //Do Nothing
