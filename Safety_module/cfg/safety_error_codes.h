@@ -12,6 +12,7 @@ typedef enum {
     SAFETY_RAM_ERROR,       // FUSA RAM error
     SAFETY_ROM_ERROR,       // FUSA ROM error
     SAFETY_VOLTAGE_ERROR,   // FUSA voltage error
+	SAFETY_GENERIC_CONFIGURATION_ERROR,	// FUSA Generic configuration error
     SAFETY_UNKNOWN_ERROR    // Undefined or unknown error
 } SafetyErrorCode;
 

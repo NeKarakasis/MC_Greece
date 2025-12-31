@@ -25,6 +25,7 @@ Includes
 /* Start user code for include. Do not edit comment generated here */
 #include "r_motor_sensorless_vector_api.h"
 #include "r_app_rmw.h"
+#include "safety_functions_api.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -33,6 +34,7 @@ Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
 uint16_t current_loop_ticks = 0;
+uint16_t available_ticks = 0;
 uint16_t current_loop_ticks_max = 0;
 uint16_t MTU_point1,MTU_point2 = 0;
 /* End user code. Do not edit comment generated here */
@@ -59,6 +61,9 @@ void R_Config_S12AD0_Create_UserInit(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
+/* Start user code for include. Do not edit comment generated here */
+uint16_t pause_counter;
+/* End user code. Do not edit comment generated here */
 
 #if FAST_INTERRUPT_VECTOR == VECT_S12AD_S12ADI
 #pragma interrupt r_Config_S12AD0_interrupt(vect=VECT(S12AD,S12ADI),fint)
@@ -75,14 +80,25 @@ static void r_Config_S12AD0_interrupt(void)
     r_app_rmw_interrupt_handler();
     if (STATEMACHINE_STATE_RUN == motor_sensorless_vector_statemachine_status_get(&g_st_sensorless_vector.st_stm))
     {
+    	if (pause_counter > 1000)
+    	{
     MTU_point2 = MTU4.TCNT;
-    current_loop_ticks  = 2*2927 - mtu_counter - MTU4.TCNT;
-
+    //current_loop_ticks  = 5330 - mtu_counter - MTU4.TCNT;//5330 - (counter1 - 40) - counter2
+    current_loop_ticks = 5330 - MTU_point2 - 0x40;
     if ((current_loop_ticks_max < current_loop_ticks) && (current_loop_ticks < 4000))
     {
     	current_loop_ticks_max = current_loop_ticks;
+        available_ticks = MTU_point2 - 0x40;
     }
     MTU.TRWERA.BIT.RWE = 0U;
+    clrpsw_i();
+    FuSa_Manager_Run(&g_cfg, &g_st);
+    setpsw_i();
+    }
+    	else
+    	{
+    		pause_counter ++;
+    	}
     }
     /* End user code. Do not edit comment generated here */
 }

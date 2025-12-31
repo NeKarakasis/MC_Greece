@@ -102,10 +102,7 @@ clrpsw_i();                                       /* Disable interrupt */
     r_app_rmw_ui_init();
 #endif
 
-setpsw_i();                                       /* Enable interrupt */
-
-    /* Start peripheral functions */
-    r_app_main_start_motor_ctrl();
+//setpsw_i();                                       /* Enable interrupt */
 
 //Disable interrupt
 /*
@@ -117,7 +114,7 @@ int32_t tempcounter;
 uint16_t i = 0;
 for (i = 0; i < 2; i++)
 {
-	safety_CPU_test(i);
+	safety_CPU_test(CPU_TEST_MODE_PART,i);
 }
 
 for (i = 0; i < 64; i++)
@@ -131,8 +128,8 @@ for (i = 0; i < 258; i++)
 }
 
 //tempcounter = CMT1.CMCNT;
-R_Config_S12AD0_Stop();
-S12AD.ADCSR.BIT.ADST = 0;
+//R_Config_S12AD0_Stop();
+//S12AD.ADCSR.BIT.ADST = 0;
 //adc_cmt_counts[0] = CMT1.CMCNT - tempcounter;
 MTU.TRWERA.BIT.RWE = 1U;
 tempcounter = MTU4.TCNT;
@@ -163,9 +160,14 @@ FuSa_PC_init();
 
 // 2.9V trigger voltage
 FuSa_Voltage_init();
+setpsw_i();*/
 
-setpsw_i();                                        Enable interrupt
-*/
+
+//clrpsw_i();
+    FuSa_Startup_FullSelfTest_Init_manager(&g_cfg,&g_st);
+/*     Start peripheral functions*/
+    r_app_main_start_motor_ctrl();
+    setpsw_i();                                       // Enable interrupt
 
 
     /*** Main routine ***/

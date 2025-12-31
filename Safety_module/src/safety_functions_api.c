@@ -19,7 +19,7 @@
 
 
 // FuSa functions, those functions will be called in the code when it is necessery
-void	safety_CPU_test(uint32_t part_index);											/* Test CPU for safety */
+void 	safety_CPU_test(cpu_test_mode_t mode, uint32_t part_index);										/* Test CPU for safety */
 void 	ram_test_sample(ram_test_mode_t mode, uint32_t block_index);					/* Test RAM for safety */
 void	rom_test_sample(rom_test_mode_t mode, uint32_t manual_start, uint32_t manual_end); 		/* Test ROM for safety */													/* Test RAM for safety */
 void 	adc_test_sample(st_adc_driver voltage);	/* The ADC for safety */
@@ -34,6 +34,8 @@ void 	rom_test_init(void);
 // variables for PC test depending of the HW
 static const uint32_t CPU_index_Table[CPU_DIAG_TABLE_SIZE] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12 };
 
+fusa_mgr_cfg_t g_cfg;
+fusa_mgr_state_t g_st;
 
 /***********************************************************************************************************************
 * Function Name : SafetyErrorHandler
@@ -46,7 +48,7 @@ void SafetyErrorHandler(SafetyErrorCode error_code)
 	SafetyErrorCode error = error_code;
 	while(1);
 }
-int32_t duration_cpu_sf_test[CPU_DIAG_SIZE] = {0,0,0,0,0,0,0,0,0,0,0,0};
+int32_t duration_cpu_sf_test[CPU_DIAG_SIZE + 1] = {0,0,0,0,0,0,0,0,0,0,0,0};
 
 /***********************************************************************************************************************
 * Function Name : safety_CPU_test
@@ -55,7 +57,94 @@ int32_t duration_cpu_sf_test[CPU_DIAG_SIZE] = {0,0,0,0,0,0,0,0,0,0,0,0};
 * Arguments     : the group of the tests to be tested
 * Return Value  : None
 ***********************************************************************************************************************/
-void safety_CPU_test(uint32_t part_index)
+void safety_CPU_test(cpu_test_mode_t mode, uint32_t part_index)
+{
+    const uint32_t forceFail = 1U;
+    static uint32_t slice_i = 0U;   // persists across calls for SLICE mode
+
+    if (CPU_DIAG_TABLE_SIZE == 0U)
+    {
+        SafetyErrorHandler(SAFETY_CPU_ERROR);
+        return;
+    }
+
+    if (mode == CPU_TEST_MODE_SLICE)
+    {
+        /* Optional strictness: enforce part_index == 0 to avoid misuse */
+        if (part_index != 0U)
+        {
+            SafetyErrorHandler(SAFETY_CPU_ERROR);
+            return;
+        }
+
+        if (slice_i >= CPU_DIAG_TABLE_SIZE)
+        {
+            slice_i = 0U;
+        }
+
+        int32_t result = 0;
+
+        MTU.TRWERA.BIT.RWE = 1U;
+        int32_t start_time = MTU4.TCNT;
+
+        R_CPU_Diag(CPU_index_Table[slice_i], forceFail, &result);
+
+        if (result != 1)
+        {
+            SafetyErrorHandler(SAFETY_CPU_ERROR);
+        }
+
+        duration_cpu_sf_test[CPU_index_Table[slice_i]] =start_time -  MTU4.TCNT ;
+        MTU.TRWERA.BIT.RWE = 0U;
+
+        slice_i++;
+        return;
+    }
+
+    /* Default / PART mode: existing behavior */
+    if (mode != CPU_TEST_MODE_PART)
+    {
+        SafetyErrorHandler(SAFETY_CPU_ERROR);
+        return;
+    }
+
+    if (part_index >= TOTAL_CPU_TEST_PARTS)
+    {
+        SafetyErrorHandler(SAFETY_CPU_ERROR);
+        return;
+    }
+
+    /* Ceiling division as you already do */
+    uint32_t items_per_part = (CPU_DIAG_TABLE_SIZE + TOTAL_CPU_TEST_PARTS - 1U) / TOTAL_CPU_TEST_PARTS;
+
+    uint32_t start_index = part_index * items_per_part;
+    uint32_t end_index = start_index + items_per_part;
+    if (end_index > CPU_DIAG_TABLE_SIZE)
+    {
+        end_index = CPU_DIAG_TABLE_SIZE;
+    }
+
+    for (uint32_t i = start_index; i < end_index; i++)
+    {
+        int32_t result = 0;
+
+        MTU.TRWERA.BIT.RWE = 1U;
+        int32_t start_time = MTU4.TCNT;
+
+        R_CPU_Diag(CPU_index_Table[i], forceFail, &result);
+
+        if (result != 1)
+        {
+            SafetyErrorHandler(SAFETY_CPU_ERROR);
+        }
+
+        duration_cpu_sf_test[CPU_index_Table[i]] = MTU4.TCNT - start_time;
+        MTU.TRWERA.BIT.RWE = 0U;
+    }
+}
+
+
+void safety_CPU_test_old(uint32_t part_index)
 {
     const uint32_t forceFail = 1;
 
@@ -105,7 +194,8 @@ void ram_test_sample(ram_test_mode_t mode, uint32_t block_index)
 {
     static uint32_t auto_block_index = 0;  // Persistent across calls
     uint32_t index = 0;
-
+    MTU.TRWERA.BIT.RWE = 1U;
+    int32_t mtu_counter = MTU4.TCNT;
     if (mode == RAM_TEST_MODE_AUTO)
     {
         if (auto_block_index >= RAM_TEST_NUM_BLOCKS)
@@ -132,9 +222,6 @@ void ram_test_sample(ram_test_mode_t mode, uint32_t block_index)
     uint32_t area = 0;// RAM_TEST_START_ADDRESS + index * RAM_TEST_BLOCK_SIZE;
     uint32_t destructive = (index == 0) ? RAM_MEM_DT : RAM_MEM_NDT;
 
-    MTU.TRWERA.BIT.RWE = 1U;
-    int32_t mtu_counter = MTU4.TCNT;
-
     R_RAM_Diag(area, index, destructive);
 
     if ((RramResult1 != RAM_PASS) || (RramResult2 != RAM_PASS))
@@ -142,15 +229,14 @@ void ram_test_sample(ram_test_mode_t mode, uint32_t block_index)
         SafetyErrorHandler(SAFETY_RAM_ERROR);
     }
 
-    if (index < 10)
-    {
-        duration_ram_sf_test[index] = MTU4.TCNT - mtu_counter;
-    }
     if (mode == RAM_TEST_MODE_AUTO)
 	{
 	auto_block_index = auto_block_index + 1;
 	}
-
+    if (index < 10)
+    {
+        duration_ram_sf_test[index] = MTU4.TCNT - mtu_counter;
+    }
     MTU.TRWERA.BIT.RWE = 0U;
 }
 
@@ -444,3 +530,239 @@ void FuSa_Voltage_init(void)
 	uint8_t evoltage = EVOLTAGE;
 	R_VOL_Mon_Init(evoltage);
 }
+
+static uint8_t due_with_offset(uint32_t tick, uint16_t period, uint16_t offset)
+{
+    if (period == 0U) return 0U;
+    return (uint8_t)(((tick + (uint32_t)offset) % (uint32_t)period) == 0U);
+}
+
+uint32_t GetTicksFun(void)
+{
+	uint32_t tick_units;
+	MTU.TRWERA.BIT.RWE = 1U;
+	tick_units = MTU4.TCNT;
+	MTU.TRWERA.BIT.RWE = 0U;
+	return tick_units;
+}
+
+static uint16_t mod_diff_u16(uint16_t a, uint16_t b, uint16_t m)
+{
+    /* returns (a-b) mod m, safe for unsigned */
+    if (m == 0U) return 0U;
+    return (uint16_t)((a >= b) ? ((a - b) % m) : ((m - ((b - a) % m)) % m));
+}
+
+/* Returns 1 if L is permanently blocked by H, else 0 */
+static uint8_t permanently_blocked(uint16_t pL, uint16_t oL, uint16_t pH, uint16_t oH)
+{
+    if ((pL == 0U) || (pH == 0U)) return 0U;          /* disabled tests cannot starve */
+    if ((pL % pH) != 0U) return 0U;                   /* not a subset */
+    if (mod_diff_u16(oL, oH, pH) != 0U) return 0U;    /* phase mismatch */
+    return 1U;
+}
+
+
+void FuSa_Manager_Init(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st)
+{
+    if ((cfg == 0) || (st == 0))
+    {
+        SafetyErrorHandler(SAFETY_GENERIC_CONFIGURATION_ERROR); // or a generic config error
+        return;
+    }
+    cfg->budget_units = AVAILABLE_UNITS_FOR_FUSA;
+    cfg->adc_period_ticks = ADC_PERIOD_UNITS;
+    cfg->ram_period_ticks = RAM_PERIOD_UNITS;
+    cfg->rom_period_ticks = ROM_PERIOD_UNITS;
+    cfg->adc_offset_ticks = ADC_OFFSET_UNITS;
+    cfg->ram_offset_ticks = RAM_OFFSET_UNITS;
+    cfg->rom_offset_ticks = ROM_OFFSET_UNITS;
+    cfg->max_cpu_slices_per_tick = MAX_CPU_SLICES_PER_UNIT;
+    cfg->adc_driver.ReInitialazationADC = R_Config_S12AD0_Create;
+    cfg->adc_driver.StartADC = R_Config_S12AD0_Start;
+    cfg->get_time_units = GetTicksFun;
+    cfg->margin_budget = MARGIN_BUDGET;
+
+    st->tick = 0U;
+    st->next_adc_level = ADC_VOLTAGE_LEVEL_0;
+    st->last_heavy_test = FUSA_MGR_TEST_NONE;
+    st->last_total_cost_units = 0U;
+    st->last_cpu_slices = 0U;
+    st->over_budget = 0U;
+
+    /* Priority: RAM > ROM > ADC, A TESTING IF THERE IS PERMANENT COLLISION BASED OF THE CONFIGURATION OF PERIOD AND OFFSETS */
+
+    if (permanently_blocked(cfg->rom_period_ticks, cfg->rom_offset_ticks,
+                            cfg->ram_period_ticks, cfg->ram_offset_ticks))
+    {
+        SafetyErrorHandler(SAFETY_GENERIC_CONFIGURATION_ERROR);
+    }
+
+    if (permanently_blocked(cfg->adc_period_ticks, cfg->adc_offset_ticks,
+                            cfg->ram_period_ticks, cfg->ram_offset_ticks) ||
+        permanently_blocked(cfg->adc_period_ticks, cfg->adc_offset_ticks,
+                            cfg->rom_period_ticks, cfg->rom_offset_ticks))
+    {
+        SafetyErrorHandler(SAFETY_GENERIC_CONFIGURATION_ERROR);
+    }
+
+}
+
+//fusa_mgr_test_t debugTestTable[5];
+uint32_t DebugUsedTicks[5];
+fusa_mgr_test_t DebugTable[10];
+uint8_t debug_index = 0;
+uint32_t debug_duty[10];
+void FuSa_Manager_Run(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st)
+{
+	uint32_t margin_ticks;
+	margin_ticks = (uint32_t)(cfg->budget_units*cfg->margin_budget/100);
+    if ((cfg == 0) || (st == 0) || (cfg->get_time_units == 0))
+    {
+        SafetyErrorHandler(SAFETY_GENERIC_CONFIGURATION_ERROR);
+        return;
+    }
+    st->tick++;
+    st->last_heavy_test = FUSA_MGR_TEST_NONE;
+    st->last_cpu_slices = 0U;
+    st->over_budget = 0U;
+
+    uint32_t t0 = cfg->get_time_units();
+    uint32_t used;
+
+    /* Decide ONE heavy test per tick (if due) */
+    uint8_t did_heavy = 0U;
+    if (due_with_offset(st->tick, cfg->adc_period_ticks, cfg->adc_offset_ticks))
+    {
+        st_adc_driver drv = cfg->adc_driver;
+        drv.typeOfTest = st->next_adc_level;
+
+        adc_test_sample(drv);
+
+        /* rotate ADC level */
+        if (st->next_adc_level == ADC_VOLTAGE_LEVEL_0)
+        	{
+        		st->next_adc_level = ADC_VOLTAGE_LEVEL_HALF;
+        	}
+        else if (st->next_adc_level == ADC_VOLTAGE_LEVEL_HALF)
+        	{
+        		st->next_adc_level = ADC_VOLTAGE_LEVEL_FULL;
+        	}
+        else
+        	{
+        	st->next_adc_level = ADC_VOLTAGE_LEVEL_0;
+        	}
+
+        did_heavy = 1U;
+        st->last_heavy_test = FUSA_MGR_TEST_ADC;
+    }
+    else if (due_with_offset(st->tick, cfg->ram_period_ticks, cfg->ram_offset_ticks))
+    {
+        ram_test_sample(RAM_TEST_MODE_AUTO, 0U);
+        did_heavy = 1U;
+        st->last_heavy_test = FUSA_MGR_TEST_RAM_AUTO;
+    }
+    else if (due_with_offset(st->tick, cfg->rom_period_ticks, cfg->rom_offset_ticks))
+    {
+        rom_test_sample(ROM_TEST_MODE_AUTO, 0U, 0U);
+        did_heavy = 1U;
+        st->last_heavy_test = FUSA_MGR_TEST_ROM_AUTO;
+    }
+
+    /* Update used time AFTER heavy test */
+    used = (uint32_t)(t0 - cfg->get_time_units()); // the timer is on down count
+    switch (st->last_heavy_test)
+    {
+    case FUSA_MGR_TEST_ADC:
+    	DebugUsedTicks[0] = used;
+    	break;
+    case FUSA_MGR_TEST_RAM_AUTO:
+    	DebugUsedTicks[1] = used;
+    	break;
+    case FUSA_MGR_TEST_ROM_AUTO:
+    	DebugUsedTicks[2] = used;
+    	break;
+    }
+    if (used >= cfg->budget_units)
+    {
+        st->last_total_cost_units = used;   /* total, not just heavy */
+        st->over_budget = 1U;
+        return;
+    }
+
+    /* CPU slices: conservative if a heavy test ran */
+    uint8_t cpu_limit = cfg->max_cpu_slices_per_tick;
+    if (did_heavy && cpu_limit > 1U)
+    {
+        cpu_limit = 1U; /* or 0U if you want maximum conservatism after ADC */
+    }
+
+    for (uint8_t i = 0U; i < cpu_limit; i++)
+    {
+    	used = (uint32_t)(t0 - cfg->get_time_units());
+        if (used >= cfg->budget_units - margin_ticks)
+        {
+            break;
+        }
+        safety_CPU_test(CPU_TEST_MODE_SLICE, 0U);
+        st->last_cpu_slices++;
+    }
+
+    /* FINAL: total cost for the whole manager call */
+    st->last_total_cost_units = (uint32_t)(t0 - cfg->get_time_units());
+
+    if (st->last_total_cost_units > cfg->budget_units + margin_ticks)
+    {
+        st->over_budget = 1U;
+    		DebugTable[debug_index] = st->last_heavy_test;
+    		debug_duty[debug_index] = st->last_total_cost_units ;
+    		if (debug_index > 9)
+    			debug_index = 0;
+    		else
+    			debug_index ++;
+    }
+}
+
+void FuSa_Startup_FullSelfTest_Init_manager(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st)
+{
+    if ((cfg == 0) || (st == 0))
+    {
+        SafetyErrorHandler(SAFETY_GENERIC_CONFIGURATION_ERROR);
+        return;
+    }
+
+    /* 1) Init manager (reads cfg, initializes st and underlying monitors) */
+    FuSa_Manager_Init(cfg, st);
+    /* One-time init of monitors (your existing API calls) */
+    rom_test_init();
+
+    /* 2) Run full tests (CPU/RAM/ROM/ADC) ... */
+    for (uint32_t p = 0U; p < (uint32_t)TOTAL_CPU_TEST_PARTS; p++)
+    {
+        safety_CPU_test(CPU_TEST_MODE_PART, p);
+    }
+
+    st_adc_driver drv = cfg->adc_driver;
+    drv.typeOfTest = ADC_VOLTAGE_LEVEL_0;
+    adc_test_sample(drv);
+    drv.typeOfTest = ADC_VOLTAGE_LEVEL_HALF;
+    adc_test_sample(drv);
+    drv.typeOfTest = ADC_VOLTAGE_LEVEL_FULL;
+    adc_test_sample(drv);
+
+    for (uint32_t i = 0U; i < (uint32_t)RAM_TEST_NUM_BLOCKS; i++)
+    {
+        ram_test_sample(RAM_TEST_MODE_AUTO, 0U);
+    }
+
+    for (uint32_t i = 0U; i < (uint32_t)(ROM_NUM_BLOCKS * (ROM_BLOCK_SIZE / ROM_TEST_CHUNK_SIZE)); i++)
+    {
+        rom_test_sample(ROM_TEST_MODE_AUTO, 0U, 0U);
+    }
+    /* 3) Initialaze all the rest MCU tests ... */
+    FuSa_PC_init();
+    FuSa_Voltage_init();
+    FuSa_clock_monitor();
+    IWDT_Reset_out_chk();
+}
+

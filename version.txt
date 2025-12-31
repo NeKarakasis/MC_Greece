@@ -1,3 +1,7 @@
+
+-----31/12/25-----
+- Nektarios: add the FuSa manager and task scheduler for FuSa MCU tests. Integrate the FuSa functions and tested.
+
 -----09/12/25-----
 - Nektarios: Add the offset calculation for v phase, fine tune and finalize the development of motor protection FuSa functions.
 

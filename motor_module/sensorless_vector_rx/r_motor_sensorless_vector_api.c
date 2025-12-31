@@ -34,6 +34,7 @@
 #include <r_motor_filter.h>
 #include "r_smc_entry.h"
 #include "r_motor_protection.h"
+#include "safety_functions_api.h"
 
 /* Main associated header file */
 #include "r_motor_sensorless_vector_manager.h"
@@ -51,6 +52,7 @@
  *********************************************************************************************************************/
 st_sensorless_vector_control_t g_st_sensorless_vector;
 motor_protection_t g_mp;
+
 
 /***********************************************************************************************************************
 * Function Name : R_MOTOR_SENSORLESS_VECTOR_Open
