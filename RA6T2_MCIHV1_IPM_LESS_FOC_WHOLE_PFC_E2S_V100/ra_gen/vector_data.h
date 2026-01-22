@@ -34,6 +34,9 @@ void gpt_counter_overflow_isr(void);
 #define GPT1_COUNTER_OVERFLOW_IRQn          ((IRQn_Type) 6) /* GPT1 COUNTER OVERFLOW (Overflow) */
 #define VECTOR_NUMBER_AGT1_INT ((IRQn_Type) 7) /* AGT1 INT (AGT interrupt) */
 #define AGT1_INT_IRQn          ((IRQn_Type) 7) /* AGT1 INT (AGT interrupt) */
+/* The number of entries required for the ICU vector table. */
+#define BSP_ICU_VECTOR_NUM_ENTRIES (8)
+
 #ifdef __cplusplus
         }
         #endif

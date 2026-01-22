@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_inverter_cfg.h
 * Description : Definitions of inverter board parameters
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 29.02.2024 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /* Guard against multiple inclusion */
@@ -56,11 +56,11 @@
 #endif /* MOTOR_COMMON_CFG_BOARD_HVI */
 
 /* Voltage error compensation User set value. */
-#define     INVERTER_CFG_COMP_V0                (0.564f)
-#define     INVERTER_CFG_COMP_V1                (1.607f)
-#define     INVERTER_CFG_COMP_V2                (3.857f)
-#define     INVERTER_CFG_COMP_V3                (6.271f)
-#define     INVERTER_CFG_COMP_V4                (8.714f)
+#define     INVERTER_CFG_COMP_V0                (0.79f)
+#define     INVERTER_CFG_COMP_V1                (2.25f)
+#define     INVERTER_CFG_COMP_V2                (5.4f)
+#define     INVERTER_CFG_COMP_V3                (8.78f)
+#define     INVERTER_CFG_COMP_V4                (12.2f)
 
 #define     INVERTER_CFG_COMP_I0                (0.124f)
 #define     INVERTER_CFG_COMP_I1                (0.22f)

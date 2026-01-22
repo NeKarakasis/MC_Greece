@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_sensorless_vector_manager.h
 * Description : Definitions of the state machine for motor drive system
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 30.10.2021 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /* Guard against multiple inclusion */
@@ -73,6 +73,5 @@ void motor_sensorless_vector_module_activate(st_sensorless_vector_control_t * p_
 void motor_sensorless_phase_err_lpf_setup(st_sensorless_vector_control_t *p_st_sensorless_vector,
                                           float f4_phase_err_lpf_cut_freq,
                                           float f4_ctrl_period);
-void motor_sensorless_vector_estmode_status_select(st_sensorless_vector_control_t *p_st_sensorless_vector);
 
 #endif /* R_MOTOR_SENSORLESS_VECTOR_MANAGER_H */

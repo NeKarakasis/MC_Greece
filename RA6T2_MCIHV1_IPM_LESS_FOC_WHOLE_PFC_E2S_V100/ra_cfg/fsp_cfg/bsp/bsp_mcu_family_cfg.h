@@ -9,6 +9,7 @@ extern "C" {
 #include "bsp_mcu_device_cfg.h"
 #include "../../../ra/fsp/src/bsp/mcu/ra6t2/bsp_override.h"
 #include "../../../ra/fsp/src/bsp/mcu/ra6t2/bsp_mcu_info.h"
+#include "../../../ra/fsp/src/bsp/mcu/ra6t2/r_adc_device_types.h"
 #include "bsp_clock_cfg.h"
 #define BSP_MCU_GROUP_RA6T2 (1)
 #define BSP_LOCO_HZ                 (32768)
@@ -121,7 +122,7 @@ extern "C" {
 #ifndef BSP_TZ_CFG_PSARE
 #define BSP_TZ_CFG_PSARE (\
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 0) /* WDT */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 1) /* IWDT */ | \
+            (((1 > 0) ? 0U : 1U) << 1) /* IWDT */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 4) /* KINT */ | \
             0xffffffec) /* Unused */
 #endif
@@ -146,10 +147,12 @@ extern "C" {
 
 /* Security attribution for registers of LVD channels. */
 #ifndef BSP_TZ_CFG_LVDSAR
-#define BSP_TZ_CFG_LVDSAR (\
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 0) | /* LVD Channel 1 */ \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 1) | /* LVD Channel 2 */ \
-            0xFFFFFFFCU)
+/* The LVD driver needs to access both channels. This means that the security attribution for both channels must be the same. */
+#if (RA_NOT_DEFINED > 0) || (RA_NOT_DEFINED > 0)
+#define BSP_TZ_CFG_LVDSAR (0U)
+#else
+#define BSP_TZ_CFG_LVDSAR (3U)
+#endif
 #endif
 
 /* Security attribution for LPM registers. */
@@ -276,79 +279,9 @@ extern "C" {
 #define BSP_TZ_CFG_NON_SECURE_APPLICATION_FALLBACK (1U)
 #endif
 
-#define OFS_SEQ1 0xA001A001 | (1 << 1) | (3 << 2)
-#define OFS_SEQ2 (15 << 4) | (3 << 8) | (3 << 10)
-#define OFS_SEQ3 (1 << 12) | (1 << 14) | (1 << 17)
-#define OFS_SEQ4 (3 << 18) |(15 << 20) | (3 << 24) | (3 << 26)
-#define OFS_SEQ5 (1 << 28) | (1 << 30)
-#define BSP_CFG_ROM_REG_OFS0 (OFS_SEQ1 | OFS_SEQ2 | OFS_SEQ3 | OFS_SEQ4 | OFS_SEQ5)
-
-/* Option Function Select Register 1 Security Attribution */
-#ifndef BSP_CFG_ROM_REG_OFS1_SEL
-#if defined(_RA_TZ_SECURE) || defined(_RA_TZ_NONSECURE)
-            #define BSP_CFG_ROM_REG_OFS1_SEL (0xFFF0F8F8U | ((0U << 0U)) | ((0U << 2U)) | ((BSP_CFG_CLOCKS_SECURE == 0) ? 0x700U : 0U) | ((0U << 16U)) | ((0U << 17U)) | ((0U << 18U)) | ((0U << 19U)))
-#else
-#define BSP_CFG_ROM_REG_OFS1_SEL (0xFFF0F8F8U)
-#endif
-#endif
-
-#define BSP_CFG_ROM_REG_OFS1 (0xFFF0FEF8 | (1 << 2) | (3) |  (1 << 8) | (0 << 16) | (0 << 17) | (0 << 18) | (0 << 19))
-
 /* Used to create IELS values for the interrupt initialization table g_interrupt_event_link_select. */
 #define BSP_PRV_IELS_ENUM(vector)    (ELC_ ## vector)
 
-/* Dual Mode Select Register */
-#ifndef BSP_CFG_ROM_REG_DUALSEL
-#define BSP_CFG_ROM_REG_DUALSEL (0xFFFFFFFFU)
-#endif
-/* Block Protection Register 0 */
-#ifndef BSP_CFG_ROM_REG_BPS0
-#define BSP_CFG_ROM_REG_BPS0 (~( 0U))
-#endif
-/* Block Protection Register 1 */
-#ifndef BSP_CFG_ROM_REG_BPS1
-#define BSP_CFG_ROM_REG_BPS1 (0xFFFFFFFFU)
-#endif
-/* Block Protection Register 2 */
-#ifndef BSP_CFG_ROM_REG_BPS2
-#define BSP_CFG_ROM_REG_BPS2 (0xFFFFFFFFU)
-#endif
-/* Block Protection Register 3 */
-#ifndef BSP_CFG_ROM_REG_BPS3
-#define BSP_CFG_ROM_REG_BPS3 (0xFFFFFFFFU)
-#endif
-/* Permanent Block Protection Register 0 */
-#ifndef BSP_CFG_ROM_REG_PBPS0
-#define BSP_CFG_ROM_REG_PBPS0 (~( 0U))
-#endif
-/* Permanent Block Protection Register 1 */
-#ifndef BSP_CFG_ROM_REG_PBPS1
-#define BSP_CFG_ROM_REG_PBPS1 (0xFFFFFFFFU)
-#endif
-/* Permanent Block Protection Register 2 */
-#ifndef BSP_CFG_ROM_REG_PBPS2
-#define BSP_CFG_ROM_REG_PBPS2 (0xFFFFFFFFU)
-#endif
-/* Permanent Block Protection Register 3 */
-#ifndef BSP_CFG_ROM_REG_PBPS3
-#define BSP_CFG_ROM_REG_PBPS3 (0xFFFFFFFFU)
-#endif
-/* Security Attribution for Block Protection Register 0 (If any blocks are marked as protected in the secure application, then mark them as secure) */
-#ifndef BSP_CFG_ROM_REG_BPS_SEL0
-#define BSP_CFG_ROM_REG_BPS_SEL0 (BSP_CFG_ROM_REG_BPS0 & BSP_CFG_ROM_REG_PBPS0)
-#endif
-/* Security Attribution for Block Protection Register 1 (If any blocks are marked as protected in the secure application, then mark them as secure) */
-#ifndef BSP_CFG_ROM_REG_BPS_SEL1
-#define BSP_CFG_ROM_REG_BPS_SEL1 (0xFFFFFFFFU)
-#endif
-/* Security Attribution for Block Protection Register 2 (If any blocks are marked as protected in the secure application, then mark them as secure) */
-#ifndef BSP_CFG_ROM_REG_BPS_SEL2
-#define BSP_CFG_ROM_REG_BPS_SEL2 (0xFFFFFFFFU)
-#endif
-/* Security Attribution for Block Protection Register 3 (If any blocks are marked as protected in the secure application, then mark them as secure) */
-#ifndef BSP_CFG_ROM_REG_BPS_SEL3
-#define BSP_CFG_ROM_REG_BPS_SEL3 (0xFFFFFFFFU)
-#endif
 #ifndef BSP_CLOCK_CFG_MAIN_OSC_WAIT
 #define BSP_CLOCK_CFG_MAIN_OSC_WAIT (9)
 #endif

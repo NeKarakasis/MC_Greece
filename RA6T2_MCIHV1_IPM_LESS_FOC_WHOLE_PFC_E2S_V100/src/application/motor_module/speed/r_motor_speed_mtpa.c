@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name    : motor_speed_mtpa.c
 * Description  : This module performs MTPA in FOC
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 29.02.2024 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -130,14 +130,14 @@ uint16_t motor_speed_mtpa_run(st_mtpa_t * p_mtpa, float * p_f4_idq_ref)
 
     /* Calculate Max Ta and d-pole current command */
 
-    f4_max_ta = (f4_flux_pm * 0.5f / (f4_lq - f4_ld));
+    f4_max_ta = ((f4_flux_pm * 0.5f) / (f4_lq - f4_ld));
     f4_iqref = p_f4_idq_ref[1];
 
     /* Id */
     if (f4_max_ta > 0)
     {
         /* Maximum Torque Per Ampere (MTPA) Control */
-        f4_idref = f4_max_ta - sqrtf(f4_max_ta * f4_max_ta + f4_iqref * f4_iqref);
+        f4_idref = f4_max_ta - sqrtf((f4_max_ta * f4_max_ta) + (f4_iqref * f4_iqref));
     }
     else
     {

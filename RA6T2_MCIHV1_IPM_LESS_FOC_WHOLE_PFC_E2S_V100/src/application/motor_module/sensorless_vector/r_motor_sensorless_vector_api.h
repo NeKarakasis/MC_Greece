@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_sensorless_vector_api.h
 * Description : Definitions of accessing driver processes
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 30.10.2021 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /* guard against multiple inclusion */
@@ -59,15 +59,7 @@
 #define     MOTOR_SENSORLESS_VECTOR_ERROR_OVER_CURRENT_SW   (0x0100)
 #define     MOTOR_SENSORLESS_VECTOR_ERROR_STALL_DETECTED    (0x0200)
 #define     MOTOR_SENSORLESS_VECTOR_ERROR_PFC               (0x0400)
-
-#define     MOTOR_SENSORLESS_VECTOR_ERROR_FAIL_POLES        (0x0800)
-#define     MOTOR_SENSORLESS_VECTOR_ERROR_FAIL_POSITION     (0x1000)
 #define     MOTOR_SENSORLESS_VECTOR_ERROR_UNKNOWN           (0xffff)
-
-/* max count of Sensorless mode changing cycle  */
-#define     CURRENT_SENSORLESS_CHGARGCNT_TOSLOW             (1)
-#define     CURRENT_SENSORLESS_CHGARGCNT_TOHIGH             (2)
-
 
 /***********************************************************************************************************************
 * Global structure
@@ -84,10 +76,13 @@ typedef enum
 ***********************************************************************************************************************/
 typedef struct
 {
-    uint8_t       u1_flag_flying_start_use;     /* flying start control use flag */
+    uint8_t       u1_flag_flying_start_use;     /* flying start control use flag */    
+    uint8_t       u1_flag_less_switch_use;      /* Soft switching between open-loop and vector control use flag */
+    uint8_t       u1_flag_openloop_damping_use; /* Open-loop damping control use flag */
+    uint8_t       u1_flag_down_to_ol;           /* The open-loop drive flag */
+    uint8_t       u1_state_id_ref;              /* The d-axis current command status */
+    uint8_t       u1_state_iq_ref;              /* The q-axis current command status */
     uint8_t       u1_state_speed_ref;           /* The speed command status */
-    uint8_t       u1_state_estmode;             /* The estimation mode status */
-    uint16_t      u2_estmode_state_chg_cnt;     /* State changing counter */
     uint8_t       u1_direction;                 /* Reference rotation direction */
     uint8_t       u1_ctrl_loop_mode;            /* control loop select */
     uint16_t      u2_error_status;              /* FOC error flags */
@@ -104,8 +99,12 @@ typedef struct
     float         f4_overvoltage_limit;         /* Over-voltage limit [V] */
     float         f4_undervoltage_limit;        /* Under voltage limit [V]*/
     float         f4_overspeed_limit_rad;       /* motor speed limit [rad/s] */
-    uint16_t      u2_est_timeout_cnt;           /* est timeout value (counter) */
     float         f4_phase_err_rad_lpf;         /* LPF value of phase error [rad] */
+    float         f4_switch_phase_err_rad;      /* Phase error to decide sensor-less switch timing [rad] */
+    float         f4_id_down_speed_rad;         /* The speed threshold[rad/s] to ramp down the d-axis current */
+    float         f4_id_up_speed_rad;           /* The speed threshold[rad/s] to ramp up the d-axis current */
+    float         f4_damp_comp_speed;           /* Feedback value for reference speed [rad/s] */
+    float         f4_ol_speed_rad;              /* Speed value in open loop mode [rad/s] */
     uint8_t       u1_relay_first_on;            /* PFC Relay ON flag at boot */
 
     st_1st_order_lpf_t      st_phase_err_lpf;   /* Phase error LPF structure */
@@ -126,9 +125,14 @@ typedef struct
 typedef struct
 {
     uint8_t                 u1_flag_flying_start_use;
+    uint8_t                 u1_flag_less_switch_use;
+    uint8_t                 u1_flag_openloop_damping_use;
     uint16_t                u2_off_time_cnt;
     float                   f4_overspeed_limit_rpm;
+    float                   f4_switch_phase_err_deg;
     float                   f4_phase_err_lpf_cut_freq;
+    float                   f4_id_down_speed_rpm;
+    float                   f4_id_up_speed_rpm;
     float                   f4_ctrl_period;
     float                   f4_restart_speed;
     float                   f4_off_time;
@@ -154,7 +158,7 @@ void R_MOTOR_SENSORLESS_VECTOR_ParameterUpdate(st_sensorless_vector_control_t * 
 void R_MOTOR_SENSORLESS_VECTOR_MotorStart(st_sensorless_vector_control_t * p_st_sensorless_vector);
 void R_MOTOR_SENSORLESS_VECTOR_MotorStop(st_sensorless_vector_control_t * p_st_sensorless_vector);
 void R_MOTOR_SENSORLESS_VECTOR_MotorReset(st_sensorless_vector_control_t * p_st_sensorless_vector);
-void R_MOTOR_SENSORLESS_VECTOR_ErrorSet(st_sensorless_vector_control_t * p_st_sensorless_vector);
+void R_MOTOR_SENSORLESS_VECTOR_ErrorSet(st_sensorless_vector_control_t * p_st_sensorless_vector, uint16_t u2_error_flags);
 void R_MOTOR_SENSORLESS_VECTOR_SpeedSet(st_sensorless_vector_control_t * p_st_sensorless_vector, float f4_ref_speed);
 float R_MOTOR_SENSORLESS_VECTOR_SpeedGet(st_sensorless_vector_control_t * p_st_sensorless_vector);
 uint8_t R_MOTOR_SENSORLESS_VECTOR_StatusGet(st_sensorless_vector_control_t * p_st_sensorless_vector);

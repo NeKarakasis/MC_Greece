@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2024 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -15,13 +15,18 @@
  **********************************************************************************************************************/
 
 /* "POEG" in ASCII, used to determine if channel is open. */
-#define POEG_OPEN                (0x00475054ULL)
+#define POEG_OPEN                 (0x00475054ULL)
 
-#define POEG_PRV_STATUS_FLAGS    (R_GPT_POEG0_POEGG_ST_Msk | R_GPT_POEG0_POEGG_SSF_Msk | R_GPT_POEG0_POEGG_OSTPF_Msk | \
-                                  R_GPT_POEG0_POEGG_IOCF_Msk | R_GPT_POEG0_POEGG_PIDF_Msk)
-
-#define POEG_PRV_FLAG_CLEAR      (R_GPT_POEG0_POEGG_SSF_Msk | R_GPT_POEG0_POEGG_OSTPF_Msk | R_GPT_POEG0_POEGG_IOCF_Msk | \
-                                  R_GPT_POEG0_POEGG_PIDF_Msk)
+#if BSP_FEATURE_POEG_HAS_POEGG_DERRST
+ #define POEG_PRV_STATUS_FLAGS    (R_GPT_POEG0_POEGG_ST_Msk | R_GPT_POEG0_POEGG_SSF_Msk |       \
+                                   R_GPT_POEG0_POEGG_OSTPF_Msk | R_GPT_POEG0_POEGG_IOCF_Msk |   \
+                                   R_GPT_POEG0_POEGG_PIDF_Msk | R_GPT_POEG0_POEGG_DERR0ST_Msk | \
+                                   R_GPT_POEG0_POEGG_DERR1ST_Msk)
+#else
+ #define POEG_PRV_STATUS_FLAGS    (R_GPT_POEG0_POEGG_ST_Msk | R_GPT_POEG0_POEGG_SSF_Msk |     \
+                                   R_GPT_POEG0_POEGG_OSTPF_Msk | R_GPT_POEG0_POEGG_IOCF_Msk | \
+                                   R_GPT_POEG0_POEGG_PIDF_Msk)
+#endif
 
 /***********************************************************************************************************************
  * Typedef definitions
@@ -220,7 +225,7 @@ fsp_err_t R_POEG_StatusGet (poeg_ctrl_t * const p_ctrl, poeg_status_t * const p_
  **********************************************************************************************************************/
 fsp_err_t R_POEG_CallbackSet (poeg_ctrl_t * const          p_ctrl,
                               void (                     * p_callback)(poeg_callback_args_t *),
-                              void const * const           p_context,
+                              void * const                 p_context,
                               poeg_callback_args_t * const p_callback_memory)
 {
     poeg_instance_ctrl_t * p_instance_ctrl = (poeg_instance_ctrl_t *) p_ctrl;

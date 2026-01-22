@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_pi_control.h
 * Description : Definitions of general purpose PI control modules
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 30.06.2021 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /* Guard against multiple inclusion */
@@ -55,7 +55,7 @@ typedef struct
 float motor_pi_ctrl(st_pi_ctrl_t *p_st_pi_ctrl);
 void motor_pi_ctrl_reset(st_pi_ctrl_t *p_st_pi_ctrl);
 void motor_pi_ctrl_kp_set(st_pi_ctrl_t *p_st_pi_ctrl, float f4_kp);
-void motor_pi_ctrl_ki_set(st_pi_ctrl_t *p_st_pi_ctrl, float f4_ki);
+void motor_pi_ctrl_set_ki(st_pi_ctrl_t *p_st_pi_ctrl, float f4_ki);
 void motor_pi_ctrl_integrator_set(st_pi_ctrl_t *p_st_pi_ctrl, float f4_integrator);
 void motor_pi_ctrl_integral_limit_set(st_pi_ctrl_t *p_st_pi_ctrl, float f4_ilimit);
 

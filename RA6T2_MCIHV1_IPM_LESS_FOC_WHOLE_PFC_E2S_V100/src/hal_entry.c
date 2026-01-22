@@ -26,7 +26,6 @@ void hal_entry(void)
 #endif
 }
 
-
 /*******************************************************************************************************************//**
  * This function is called at various points during the startup process.  This implementation uses the event that is
  * called right before main() to set up the pins.

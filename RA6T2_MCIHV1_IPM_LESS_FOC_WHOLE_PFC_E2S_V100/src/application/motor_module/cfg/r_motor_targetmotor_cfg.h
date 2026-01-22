@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_targetmotor_cfg.h
 * Description : Definition of the target motor parameters
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 29.02.2024 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /* Guard against multiple inclusion */
@@ -35,24 +35,23 @@
 /*
  * Hardware system configurations
  */
-#define MOTOR_COMMON_CFG_MTR_EM_AMF1K5                      /* EM-AMF 1.5KW */
+#define MOTOR_COMMON_CFG_MTR_EMAMF075KW                     /* Default motor parameters */
 
 /***********************************************************************************************************************
 * Macro definitions
 ***********************************************************************************************************************/
 /* Target motor parameter definitions */
-#if defined (MOTOR_COMMON_CFG_MTR_EM_AMF1K5)
+#ifdef MOTOR_COMMON_CFG_MTR_EMAMF075KW
 
 #define     MOTOR_CFG_POLE_PAIRS            (5)             /* Number of pole pairs */
 #define     MOTOR_CFG_MAGNETIC_FLUX         (0.136f)         /* Permanent magnetic flux [Wb] */
-#define     MOTOR_CFG_RESISTANCE            (8.8f)     /* Resistance [ohm] */
-#define     MOTOR_CFG_D_INDUCTANCE          (0.0734f)//(0.057f)     /* D-axis inductance [H] */
-#define     MOTOR_CFG_Q_INDUCTANCE          (0.0925f)//(0.0700f)     /* Q-axis inductance [H] */
+#define     MOTOR_CFG_RESISTANCE            (8.75f)     /* Resistance [ohm] */
+#define     MOTOR_CFG_D_INDUCTANCE          (0.0734f)    /* D-axis inductance [H] */
+#define     MOTOR_CFG_Q_INDUCTANCE          (0.0925f)     /* Q-axis inductance [H] */
 #define     MOTOR_CFG_ROTOR_INERTIA         (0.000497f*3.0f) //(0.000497f)    /* Rotor(0.00137) + TN(0.00149) inertia [kgm^2],  */
-#define     MOTOR_CFG_NOMINAL_CURRENT_RMS   (2.0f)          /* Nominal current [Arms] */
-#define     MOTOR_CFG_MAX_SPEED_RPM         (11000.0f)       /* maximum speed [rpm] (mechanical angle) */
-//#define     MOTOR_CFG_NOMINAL_CURRENT_PEAK  (MOTOR_CFG_NOMINAL_CURRENT_RMS * 1.414)         /* Nominal current [Apeak] */
+#define     MOTOR_CFG_NOMINAL_CURRENT_RMS   (2.5f)          /* Nominal current [Arms] */
+#define     MOTOR_CFG_MAX_SPEED_RPM         (12000.0f)       /* maximum speed [rpm] (mechanical angle) */
 
-#endif /* Target motor parameter definitions */
+#endif /* MOTOR_COMMON_CFG_MTR_EMAMF075KW */
 
 #endif /* R_MOTOR_TARGETMOTOR_CFG_H */

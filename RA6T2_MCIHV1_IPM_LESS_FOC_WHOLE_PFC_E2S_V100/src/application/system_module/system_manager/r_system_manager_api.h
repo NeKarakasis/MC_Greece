@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_system_manager_api.h
 * Description : Definitions of accessing motor and PFC modules
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 29.02.2024 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /* Guard against multiple inclusion */
@@ -34,7 +34,7 @@
 ***********************************************************************************************************************/
 #include "r_mtr_ics.h"
 #include "r_motor_sensorless_vector_api.h"
-
+#include "r_pfc_manager.h"
 
 /***********************************************************************************************************************
 * External global variables
@@ -45,13 +45,17 @@
 ***********************************************************************************************************************/
 void     R_SYSTEM_MANAGER_Open(void);
 uint8_t  R_SYSTEM_MANAGER_MotorStatusGet(void);
+uint16_t R_SYSTEM_MANAGER_PfcStatusGet(void);
+void     R_SYSTEM_MANAGER_PfcErrorCancel(void);
 void     R_SYSTEM_MANAGER_SystemMode(void);
 void     R_SYSTEM_MANAGER_ControlInterrupt(void);
-void     R_SYSTEM_MANAGER_ParameterUpdate(void);
+void     R_SYSTEM_MANAGER_UpdateParameter(void);
 void     R_SYSTEM_MANAGER_UpdateCommand (void);
 void     R_SYSTEM_MANAGER_MotorCurrentInterrupt(void);
+void     R_SYSTEM_MANAGER_PfcCurrentInterrupt(void);
 void     R_SYSTEM_MANAGER_MotorSpeedInterrupt(void);
 void     R_SYSTEM_MANAGER_ControlInterrupt(void);
+void     R_SYSTEM_MANAGER_PfcOverCurrentInterrupt(void);
 void     R_SYSTEM_MANAGER_MotorOverCurrentInterrupt(void);
 
 #endif /* R_SYSTEM_MANAGER_API_H */

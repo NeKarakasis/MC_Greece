@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_driver.h
 * Description : Definitions for motor driver module
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 29.02.2024 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /* Guard against multiple inclusion */
@@ -53,17 +53,13 @@ typedef struct
 } r_mtr_adc_tb;
 #endif
 
-
-
 typedef struct st_motor_driver
 {
     /* The function pointer for AdcGetConvVal function in motor component */
     void (*ADCDataGet)(r_mtr_adc_tb * mtr_ad_data);
 
-
-
     /* The function pointer for UpdDuty function in motor component */
-    void (*BLDCDutySet)(uint16_t f4_duty_u, uint16_t f4_duty_v, uint16_t f4_duty_w);
+    void (*BLDCDutySet)(uint16_t u2_duty_u, uint16_t u2_duty_v, uint16_t u2_duty_w);
 
     /* The function pointer for UpdZeroDuty function in motor component */
     void (*BLDCZeroDutySet)(void);
@@ -77,23 +73,19 @@ typedef struct st_motor_driver
     /* The function pointer for StartTimerCtrl function in motor component */
     void (*PWMOutputStart)(void);
 
-    float f4_ad_crnt_per_digit;                         /* The current[A] per ADC digit */
-    float f4_ad_vdc_per_digit;                          /* The voltage[V] per ADC digit */
-    float f4_pwm_period_cnt;                            /* The number of counts per PWM period  */
-    float f4_pwm_dead_time_cnt;                         /* The number of counts of PWM deadtime */
+    float   f4_ad_crnt_per_digit;                   /* The current[A] per ADC digit */
+    float   f4_ad_vdc_per_digit;                    /* The voltage[V] per ADC digit */
+    float   f4_pwm_period_cnt;                      /* The number of counts per PWM period  */
+    float   f4_pwm_dead_time_cnt;                   /* The number of counts of PWM deadtime */
 } st_motor_driver_t;
-
-
 
 typedef struct
 {
     /* The function pointer for AdcGetConvVal function in motor component */
     void (*ADCDataGet)(r_mtr_adc_tb * mtr_ad_data);
 
-
-
     /* The function pointer for UpdDuty function in motor component */
-    void (*BLDCDutySet)(uint16_t f4_duty_u, uint16_t f4_duty_v, uint16_t f4_duty_w);
+    void (*BLDCDutySet)(uint16_t u2_duty_u, uint16_t u2_duty_v, uint16_t u2_duty_w);
 
     /* The function pointer for UpdZeroDuty function in motor component */
     void (*BLDCZeroDutySet)(void);
@@ -132,4 +124,12 @@ void R_MOTOR_DRIVER_BldcCompareDutySet(st_motor_driver_t * p_st_driver);
 void R_MOTOR_DRIVER_PWMControlStop(st_motor_driver_t * p_st_driver);
 void R_MOTOR_DRIVER_PWMControlStart(st_motor_driver_t * p_st_driver);
 
+
+void R_Config_MC_PWM_PFC_DUTY_StartTimerCtrl(void);
+void R_Config_MC_PWM_PFC_DUTY_StopTimerCtrl(void);
+void R_Config_MC_PWM_PFC_DUTY_UpdDuty(void);
+
+void R_Config_MC_DIO_BLDC_STOP(void);
+void R_Config_MC_DIO_BLDC_BRAKE(void);
+uint8_t  R_Config_SC_MC_DIO_BLDC_FAULT(void);
 #endif /* R_MOTOR_DRIVER_H */

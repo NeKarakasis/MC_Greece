@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name    : r_motor_module_cfg.h
 * Description  : Compile-time configurations
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 29.02.2024 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /* Guard against multiple inclusion */
@@ -39,6 +39,7 @@
 /**
  * Middle ware Layer Configurations
  */
+
 /*
  * Software system configurations
  */
@@ -46,14 +47,14 @@
  * for MCU
  */
 #define     MOTOR_MCU_CFG_PWM_TIMER_FREQ        (120.0f)                        /* PWM timer frequency [MHz] */
-#define     MOTOR_MCU_CFG_CARRIER_FREQ          (10.0f)                          /* Carrier wave frequency [kHz] */
+#define     MOTOR_MCU_CFG_CARRIER_FREQ          (16.0f)                          /* Carrier wave frequency [kHz] */
 #define     MOTOR_MCU_CFG_INTR_DECIMATION       (0)                             /* Interrupt skipping number */
 #define     MOTOR_MCU_CFG_AD_FREQ               (60.0f)                         /* A/D frequency [MHz] */
-#define     MOTOR_MCU_CFG_AD_SAMPLING_CYCLE     (2.0f * (7.25f + 120.0f))        /* twice the (Scan start processing time(tD) + sample-and-hold processing time(tSPLSH)) [cycle] */
+#define     MOTOR_MCU_CFG_AD_SAMPLING_CYCLE     (2.0f * (7.25f + 63.0f))        /* twice the (Scan start processing time(tD) + sample-and-hold processing time(tSPLSH)) [cycle] */
 #define     MOTOR_MCU_CFG_AD12BIT_DATA          (4095.0f)                       /* A/D 12Bit data */
-#define     MOTOR_MCU_CFG_ADC_OFFSET            (0x7FF)                         /* A/D offset */
+#define     MOTOR_MCU_CFG_ADC_OFFSET            (1890.0f)                         /* A/D offset */
 
-#if defined(BSP_FEATURE_TFU_SUPPORTED)
+#if (defined(__TFU) || defined(BSP_FEATURE_TFU_SUPPORTED))
 #define     MOTOR_MCU_CFG_TFU_OPTIMIZE          (MTR_ENABLE)                    /* TFU Optimization */
 #else
 #define     MOTOR_MCU_CFG_TFU_OPTIMIZE          (MTR_DISABLE)
@@ -70,13 +71,13 @@
 */
 #define     MOTOR_COMMON_CFG_LOOP_MODE                  (MOTOR_LOOP_SPEED)
 
-#define     MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT    (1.5f)
+#define     MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT    (1.75f)
 
 #define     MOTOR_COMMON_CFG_IA_MAX_CALC_MULT           (MTR_SQRT_3)
 
 
 /*
- * for Current Module(current_rx)
+ * for Current Module(current)
  */
 /* Defines whether use voltage error compensation in FOC */
 #define     CURRENT_CFG_VOLT_ERR_COMP           (MTR_DISABLE)
@@ -94,93 +95,95 @@
 #define     CURRENT_CFG_MODULATION_METHOD       (MOD_METHOD_SVPWM)
 
 #define     CURRENT_CFG_OFFSET_CALC_TIME        (512.0f)                             /* Current offset calculation time */
+#define     CURRENT_CFG_CHARGE_BOOTSTRAP_TIME   (144.0f)                             /* Charge time for bootstrap circuit */
 #define     CURRENT_CFG_PERIOD_MAG_VALUE        (0.5f)                               /* Period magnification value for coordinate transformation */
 #define     CURRENT_CFG_PI_INTEGRAL_LIMIT_VD    (INVERTER_CFG_INPUT_V * 0.5f)        /* Current PI integral term limit for vd */
 #define     CURRENT_CFG_PI_INTEGRAL_LIMIT_VQ    (INVERTER_CFG_INPUT_V * 0.5f)        /* Current PI integral term limit for vq */
-
-#define     CURRENT_CFG_OMEGA                   (75.0f)//(150.0f)                             /* natural frequency for current loop */
+#define     CURRENT_CFG_OMEGA                   (100.0f)                             /* natural frequency for current loop */
 #define     CURRENT_CFG_ZETA                    (1.0f)                               /* damping ratio for current loop */
-
-#define     CURRENT_CFG_E_OBS_OMEGA             (600.0f)                             /* Natural frequency of BEMF observer */
+#define     CURRENT_CFG_REF_ID_OPENLOOP         (2.5f)                               /* id reference when low speed [A] */
+#define     CURRENT_CFG_ID_UP_STEP_TIME         (2560.0f)                            /* Time to increase id */
+#define     CURRENT_CFG_ID_DOWN_STEP_TIME       (500.0f)                             /* Time to decrease id */
+#define     CURRENT_CFG_IQ_DOWN_STEP_TIME_INV   (1.0f / CURRENT_CFG_ID_UP_STEP_TIME) /* Inverse number of time to decrease iq */
+#define     CURRENT_CFG_E_OBS_OMEGA             (500.0f)                             /* Natural frequency of BEMF observer */
 #define     CURRENT_CFG_E_OBS_ZETA              (1.0f)                               /* Damping ratio of BEMF observer */
-
-#define     CURRENT_CFG_ESTLOW_PULSEVOLT         (260.0)                            /* Natural frequency of PLL Speed estimate loop */
-#define     CURRENT_CFG_ESTLOW_PULSEVOLT_RUNNING (150.0f)                            /* Natural frequency of PLL Speed estimate loop */
-#define     CURRENT_CFG_ESTLOW_ESTTIME           (0.3f/MOTOR_COMMON_CTRL_PERIOD)     /* Position convergence period time counter [200ms] */
-#define     CURRENT_CFG_ESTLOW_ESTTIME_OVER      (0.4f/MOTOR_COMMON_CTRL_PERIOD)     /* Position convergence period+judgment period */
-
-/* judgment time counter [300ms] */
-#define     CURRENT_CFG_PLL_ESTLOW_OMEGA         (15.0f)                             /* Natural frequency of PLL Speed estimate loop */
-#define     CURRENT_CFG_PLL_ESTLOW_ZETA          (1.0f)                              /* Damping ratio of PLL Speed estimate loop */
-
-/* Carrier frequency :8kHz,4kHz,2kHz <abzenc debug> */
-#define     CURRENT_CFG_PLL_EST_OMEGA            (15.0f)                             /* Natural frequency of PLL Speed estimate loop */
-#define     CURRENT_CFG_PLL_EST_ZETA             (1.0f)                              /* Damping ratio of PLL Speed estimate loop */
-
-#define     CURRENT_CFG_ESTLOW_PULSEFREQ_BOOT    (8)                                 /* Pulse injection frequency 1/f at the boot mode */
-#define     CURRENT_CFG_ESTLOW_PULSEFREQ_DRIVE   (6)                                 /* Pulse injection frequency 1/f at the drive */
-
-#define     CURRENT_CFG_ESTLOW_PF_THRESHOLD                  (2.5f)                  /* Threshold of polarity */
-#define     CURRENT_CFG_ESTLOW_CONVERGENCE_COUNT             (10)                    /* Magnetic pole position estimation convergence judgment counter*/
-#define     CURRENT_CFG_ESTLOW_STATE_TRANS_WAIT_SLOW_TO_HIGH (100)                   /* Slow to high speed command value judgment counter */
-#define     CURRENT_CFG_ESTLOW_STATE_TRANS_WAIT_HIGH_TO_SLOW (100)                   /* High to slow speed command value judgment counter*/
-
-#define     CURRENT_CFG_TRQVIB_OUTPUT_GAIN      (0.001f)                             /* Output gain of Torque vibration compensation */
-#define     CURRENT_CFG_TRQVIB_TIMELEAP         (0.0f)                               /* Time Leap[rad] of Torque vibration compensation */
-#define     CURRENT_CFG_TRQVIB_LPF_GAIN         (0.0005f)                            /* LPF gain of Torque vibration compensation */
+#define     CURRENT_CFG_PLL_EST_OMEGA           (20.0f)                              /* Natural frequency of PLL Speed estimate loop */
+#define     CURRENT_CFG_PLL_EST_ZETA            (1.0f)                               /* Damping ratio of PLL Speed estimate loop */
+#define     CURRENT_CFG_TRQVIB_TARGET_2F        (MTR_FLG_SET)                        /* Wheter to include 2F for Target Vibration Component */
+#define     CURRENT_CFG_TRQVIB_COMP_MODE        (TRQCOMP_MODE_PAT)                   /* Generation method of Compensation signal, LUT: 0, PAT: 1 */
+#define     CURRENT_CFG_TRQVIB_OUTPUT_GAIN_1F   (0.005f)                             /* Output gain of Torque vibration compensation for 1f */
+#define     CURRENT_CFG_TRQVIB_OUTPUT_GAIN_2F   (0.005f)                             /* Output gain of Torque vibration compensation for 2f */
+#define     CURRENT_CFG_TRQVIB_TIMELEAP_1F      (0.0f)                               /* Time Leap[rad] of Torque vibration compensation for 1f */
+#define     CURRENT_CFG_TRQVIB_TIMELEAP_2F      (4.0f)                               /* Time Leap[rad] of Torque vibration compensation for 2f*/
+#define     CURRENT_CFG_TRQVIB_TF_LPF_OMEGA     (0.6f)                               /* Cutt-off frequency for LPF in TF [Hz] */
 #define     CURRENT_CFG_TRQVIB_INPUT_WEIGHT_2   (1.0f)                               /* Input weight 2 of Repetitive table */
 #define     CURRENT_CFG_TRQVIB_INPUT_WEIGHT_1   (0.0f)                               /* Input weight 1 of Repetitive table */
 #define     CURRENT_CFG_TRQVIB_INPUT_WEIGHT_0   (0.0f)                               /* Input weight 0 of Repetitive table */
-#define     CURRENT_CFG_STALL_D_HPF_GAIN        (0.00025f)                           /* LPF gain of Torque vibration compensation for d-axis */
-#define     CURRENT_CFG_STALL_Q_HPF_GAIN        (0.00025f)                           /* LPF gain of Torque vibration compensation for q-axis */
-#define     CURRENT_CFG_STALL_THRESHOLD_LEVEL   (5.0f)                               /* LPF gain of Torque vibration compensation */
-#define     CURRENT_CFG_STALL_THRESHOLD_TIME    (0.1f)                               /* LPF gain of Torque vibration compensation */
+#define     CURRENT_CFG_TRQVIB_SUPP_TH_1F       (0.05f)                              /* The threshold of learning off for 1f : The ratio of amplitude before and after suppression */
+#define     CURRENT_CFG_TRQVIB_SUPP_TH_2F       (0.1f)                               /* The threshold of learning off for 2f : The ratio of amplitude before and after suppression */
+#define     CURRENT_CFG_TRQVIB_ABNORMAL_TH_1F   (0.9f)                               /* The threshold of learning off for 1f : The output abnormality of Tracking filter */
+#define     CURRENT_CFG_TRQVIB_ABNORMAL_TH_2F   (0.9f)                               /* The threshold of learning off for 2f : The output abnormality of Tracking filter */
+#define     CURRENT_CFG_STALL_D_HPF_GAIN        (0.00025f)                           /* HPF gain of Stall detection for d-axis */
+#define     CURRENT_CFG_STALL_Q_HPF_GAIN        (0.00025f)                           /* HPF gain of Stall detection for q-axis */
+#define     CURRENT_CFG_STALL_THRESHOLD_LEVEL   (5.0f)                               /* Threshold of stall detection level */
+#define     CURRENT_CFG_STALL_THRESHOLD_TIME    (0.1f)                               /* Time of stall detection */
 
 
 /*
- * for Speed Module(speed_rx)
+ * for Speed Module(speed)
  */
 /* Defines whether use flux-weakening in FOC */
 #define     SPEED_CFG_FLUX_WEAKENING            (MTR_ENABLE)
 
-/* Defines whether use Speed observer in FOC */
-#define     SPEED_CFG_OBSERVER                  (MTR_ENABLE)
-
 /* Defines whether use MTPA in FOC */
 #define     SPEED_CFG_MTPA                      (MTR_DISABLE)
 
+
+/* Defines whether perform soft switching between open-loop and vector control */
+#define     SPEED_CFG_LESS_SWITCH               (MTR_ENABLE)
+
+/* Defines whether use the open-loop damping control */
+#define     SPEED_CFG_OPENLOOP_DAMPING          (MTR_ENABLE)
+
 #define     SPEED_CFG_CTRL_PERIOD               (0.0005f)       /* control period for speed loop */
-#define     SPEED_CFG_OMEGA                     (2.0f)//(3.0f)//(15.0f)          /* natural frequency for speed loop */
+#define     SPEED_CFG_OMEGA                     (2.0)//(0.5f)          /* natural frequency for speed loop */
 #define     SPEED_CFG_ZETA                      (1.0f)          /* damping ratio for speed loop */
 #define     SPEED_CFG_LPF_OMEGA                 (25.0f)         /* natural frequency for speed LPF */
 #define     SPEED_CFG_SPEED_LIMIT_RPM           (13000.0f)       /* over speed limit [rpm] (mechanical angle) */
+#define     SPEED_CFG_RATE_LIMIT_RPM            (400.0f)        /* Rate limit of speed change [rpm/s] */
+#define     SPEED_OPL2LESS_SWITCH_TIME          (0.08f)//(0.0625f)       /* Time[s] to switch open-loop to sensor-less */
+#define     SPEED_OPL_DAMP_ED_HPF_OMEGA         (2.5f)          /* HPF cutoff frequency for ed [Hz] */
+#define     SPEED_OPL_DAMP_ZETA                 (1.0f)          /* Damping ratio of open-loop damping control */
+#define     SPEED_OPL_DAMP_FB_SPEED_LIMIT_RATE  (0.5f)          /* Rate of reference speed for feedback speed limiter */
 
-#define     SPEED_CFG_SPEED_LIMIT_MARGIN        (1.1f)            /* over speed limit margin (+10%) */
-#define     SPEED_CFG_SPEED_LIMIT_RAD           (SPEED_CFG_SPEED_LIMIT_RPM * SPEED_CFG_SPEED_LIMIT_MARGIN * MOTOR_CFG_POLE_PAIRS * MTR_RPM2RAD)
-                                                                  /* over speed limit [rad] (electrical angle) */
-#define     SPEED_CFG_RATE_LIMIT_RPM            (1000.0f)        /* Rate limit of speed change [rpm/s] */
-
-#define     SPEED_CFG_SOB_OMEGA                 (25.5f)           /* natural frequency for speed observer */
-#define     SPEED_CFG_SOB_OUTLIM_START_RPM      (30.0f)           /* limit start speed for speed observer */
-#define     SPEED_CFG_SOB_OUTLIM_END_RPM        (60.0f)           /* limit end speed for speed observer */
 
 /*
- * for sensorless vector Manager(sensorless_vector_rx)
+ * for sensorless vector Manager(sensorless_vector)
  */
+#define     SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM                         (500.0f)
+                                                            /* Speed to start decreasing id [rpm] */
+#define     SENSORLESS_VECTOR_ID_UP_SPEED_RPM                           (400.0f)
+                                                            /* Speed to start increasing id [rpm] */
+#define     SENSORLESS_VECTOR_OPL2LESS_SWITCH_PHASE_ERR_DEG             (10.0f)
+                                                            /* Phase error[deg] to decide sensor-less switch timing */
+#define     SENSORLESS_VECTOR_OPL2LESS_SWITCH_PHASE_ERR_RAD             ((SENSORLESS_VECTOR_OPL2LESS_SWITCH_PHASE_ERR_DEG * 3.14159265f) / 180.0f)
+                                                            /* Phase error[rad] to decide sensor-less switch timing */
+#define     SENSORLESS_VECTOR_OPL2LESS_SWITCH_PHASE_ERR_LPF_CUT_FREQ    (10.0f)
+                                                            /* Cut off frequency[Hz] of phase error LPF */
 #define     SENSORLESS_VECTOR_FLY_START_CURRENT_TH                      (2.0f)
                                                             /* Current threshold of Short-circuit ON [A] */
-#define     SENSORLESS_VECTOR_FLY_START_OVER_TIME_SEC                   (0.005f)
-                                                            /* Detection excess time [s]  (Temporarily change it from 0.0005 to 0.005) */
-#define     SENSORLESS_VECTOR_FLY_START_OFF_TIME_SEC                    (0.0005f)
+#define     SENSORLESS_VECTOR_FLY_START_OVER_TIME_SEC                   (0.0025f)
+                                                            /* Detection excess time [s] */
+#define     SENSORLESS_VECTOR_FLY_START_OFF_TIME_SEC                    (0.001f)
                                                             /* Short-circuit OFF time [s] */
 #define     SENSORLESS_VECTOR_FLY_START_ACTIVE_BRAKE_TIME_SEC           (1.0f)
                                                             /* Active braking time [s] */
-#define     SENSORLESS_VECTOR_FLY_START_RESTART_SPEED_LIMIT             (600.0f)
+#define     SENSORLESS_VECTOR_FLY_START_RESTART_SPEED_LIMIT             (660.0f)
                                                             /* Restart judgment speed reference value [r/min] */
 
 
 /*
- * for Driver Module(driver_rx)
+ * for Driver Module(driver)
  */
 #define     DRIVER_CFG_FUNC_PWM_OUTPUT_START        (R_Config_MOTOR_StartTimerCtrl)
                                                         /* The StartTimerCtrl function of motor component */
@@ -194,6 +197,8 @@
                                                         /* The UpdZeroDuty function of motor component */
 #define     DRIVER_CFG_FUNC_COMPARE_DUTY_SET        (R_Config_MOTOR_UpdCompareDuty)
                                                         /* The UpdCompareDuty function of motor component */
+
+
 /*
  * other
  */
@@ -205,7 +210,11 @@
 #define     MOTOR_COMMON_CTRL_PERIOD            ((MOTOR_MCU_CFG_INTR_DECIMATION + 1) / (MOTOR_MCU_CFG_CARRIER_FREQ * 1000))
                                                         /* Control period */
 /****** Macro of current control*****/
-#define     MOTOR_COMMON_PI_INTEGRAL_LIMIT_IQ   (MOTOR_CFG_NOMINAL_CURRENT_RMS *  MTR_SQRT_3)
+#define     MOTOR_COMMON_ID_UP_STEP_RATE        (CURRENT_CFG_REF_ID_OPENLOOP / CURRENT_CFG_ID_UP_STEP_TIME)
+                                                        /* addition value of id */
+#define     MOTOR_COMMON_ID_DOWN_STEP_RATE      (CURRENT_CFG_REF_ID_OPENLOOP / CURRENT_CFG_ID_DOWN_STEP_TIME)
+                                                        /* subtraction value of id */
+#define     MOTOR_COMMON_PI_INTEGRAL_LIMIT_IQ   (MOTOR_CFG_NOMINAL_CURRENT_RMS * MTR_SQRT_3)
                                                         /* speed PI integral term limit for iq */
 #define     MOTOR_COMMON_LIMIT_IQ               (MOTOR_CFG_NOMINAL_CURRENT_RMS * MTR_SQRT_3)
                                                         /* speed PI limit for iq */
@@ -213,8 +222,5 @@
                                                         /* Integration limit value of voltage disturbance estimate */
 #define     MOTOR_COMMON_OVERCURRENT_LIMIT      (MOTOR_CFG_NOMINAL_CURRENT_RMS * MTR_SQRT_2 * MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT)
                                                         /* Over current limit [A] */
-#define     MOTOR_ANGEST_THRESHOLD              (0.5f * (MTR_TWOPI / 2.0f) / 180.0f)
-                                                        /* Threshold of angle estimation [rad] */
-#define     MOTOR_PF_THRESHOLD                  (10.0f) /* Threshold of polarity */
 
 #endif /* R_MOTOR_MODULE_CFG_H */

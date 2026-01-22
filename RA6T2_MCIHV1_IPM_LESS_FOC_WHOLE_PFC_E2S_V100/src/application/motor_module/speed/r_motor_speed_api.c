@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_speed_api.c
 * Description : Speed control API
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 19.12.2023 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -33,15 +33,12 @@
 /* Main associated header file */
 #include "r_motor_speed_api.h"
 #include "r_motor_speed.h"
-/* low speed sensorless */
-#include "r_motor_current_api.h"
-
 
 /***********************************************************************************************************************
 * Exported global variables
 ***********************************************************************************************************************/
 st_speed_control_t      g_st_sc;          /* Speed control structure */
-extern st_current_control_t    g_st_cc;
+
 /***********************************************************************************************************************
 * Static variables
 ***********************************************************************************************************************/
@@ -57,7 +54,6 @@ void R_MOTOR_SPEED_Open(void)
     st_speed_control_t * p_st_sc;
     p_st_sc = &g_st_sc;
 
-    p_st_sc->u1_flag_extobserver_use         = SPEED_CFG_OBSERVER; /* low speed sensorless */
     p_st_sc->u1_flag_fluxwkn_use             = SPEED_CFG_FLUX_WEAKENING;
     p_st_sc->u1_flag_mtpa_use                = SPEED_CFG_MTPA;
     p_st_sc->f4_speed_ctrl_period            = SPEED_CFG_CTRL_PERIOD;
@@ -65,6 +61,7 @@ void R_MOTOR_SPEED_Open(void)
     p_st_sc->f4_ref_speed_rad_manual         = 0.0f;
     p_st_sc->f4_max_speed_rad                = (MOTOR_CFG_MAX_SPEED_RPM * MTR_RPM2RAD);
     p_st_sc->f4_speed_rate_limit_rad         = (SPEED_CFG_CTRL_PERIOD * SPEED_CFG_RATE_LIMIT_RPM * MTR_RPM2RAD);
+    p_st_sc->f4_opl2less_sw_time             = SPEED_OPL2LESS_SWITCH_TIME;
     p_st_sc->st_motor.u2_mtr_pp              = MOTOR_CFG_POLE_PAIRS;
     p_st_sc->st_motor.f4_mtr_r               = MOTOR_CFG_RESISTANCE;
     p_st_sc->st_motor.f4_mtr_ld              = MOTOR_CFG_D_INDUCTANCE;
@@ -77,19 +74,21 @@ void R_MOTOR_SPEED_Open(void)
     motor_pi_ctrl_integral_limit_set(&p_st_sc->st_pi_speed, MOTOR_COMMON_PI_INTEGRAL_LIMIT_IQ);
     motor_speed_pi_gain_calc(p_st_sc, SPEED_CFG_OMEGA, SPEED_CFG_ZETA);
 
-    /* Initialize speed observer structure */
-    /* low speed sensorless*/
-    motor_speed_extobserver_init(&p_st_sc->st_extobs,
-                                 SPEED_CFG_SOB_OMEGA,
-                                 p_st_sc->f4_speed_ctrl_period,
-                                 p_st_sc->st_motor.f4_mtr_j,
-                                 SPEED_CFG_SOB_OUTLIM_START_RPM,
-                                 SPEED_CFG_SOB_OUTLIM_END_RPM,
-                                 MOTOR_CFG_NOMINAL_CURRENT_RMS );
-
     /* Initialize Flux-weakening module */
     motor_speed_flux_weakn_init(&p_st_sc->st_fluxwkn, MOTOR_COMMON_LIMIT_IQ,
             INVERTER_CFG_INPUT_V, FLUXWKN_DEF_VFWRATIO, &p_st_sc->st_motor);
+
+    /* Initialize open-loop damping control module */
+    motor_speed_opl_damp_init(&p_st_sc->st_opl_damp, SPEED_OPL_DAMP_FB_SPEED_LIMIT_RATE);
+    motor_speed_opl_damp_r_gain_set(&p_st_sc->st_opl_damp,
+                                    p_st_sc->st_motor.u2_mtr_pp,
+                                    p_st_sc->st_motor.f4_mtr_m,
+                                    p_st_sc->st_motor.f4_mtr_j,
+                                    SPEED_OPL_DAMP_ZETA,
+                                    SPEED_OPL_DAMP_ED_HPF_OMEGA,
+                                    CURRENT_CFG_REF_ID_OPENLOOP,
+                                    SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM * MTR_RPM2RAD * MOTOR_CFG_POLE_PAIRS,
+                                    SPEED_CFG_CTRL_PERIOD);
 
     /* Initialize speed LPF */
     motor_filter_first_order_lpff_init(&p_st_sc->st_slpf);
@@ -126,8 +125,7 @@ void R_MOTOR_SPEED_Reset(st_speed_control_t * p_st_sc)
 {
     p_st_sc->u1_active                = MTR_FLG_CLR;
     p_st_sc->u1_state_speed_ref       = SPEED_STATE_ZERO_CONST;
-    p_st_sc->u1_state_estmode         = CURRENT_STATE_ESTMODE_POWEROFF;/* low speed sensorless*/
-    p_st_sc->f4_speed_obsrv_rad       = 0.0f; /* low speed sensorless */
+    p_st_sc->u1_flag_switching        = MTR_FLG_CLR;
     p_st_sc->f4_ref_speed_rad_ctrl    = 0.0f;
     p_st_sc->f4_speed_rad_ctrl        = 0.0f;
     p_st_sc->f4_speed_rad             = 0.0f;
@@ -137,20 +135,16 @@ void R_MOTOR_SPEED_Reset(st_speed_control_t * p_st_sc)
     p_st_sc->f4_id_ad                 = 0.0f;
     p_st_sc->f4_iq_ad                 = 0.0f;
     p_st_sc->f4_torque_current        = 0.0f;
-    /* low speed sensorless*/
-    p_st_sc->f4_max_ta                = (MOTOR_CFG_MAGNETIC_FLUX * 0.5f /
-                                        (MOTOR_CFG_Q_INDUCTANCE - MOTOR_CFG_D_INDUCTANCE));
-    p_st_sc->f4_id_limit              = 0.0f;
 
     /* PI control structure */
     motor_pi_ctrl_reset(&p_st_sc->st_pi_speed);
 
-    /* speed observer structure */
-    /* low speed sensorless */
-    motor_speed_extobserver_reset(&p_st_sc->st_extobs);
-
     /* Flux-weakening structure */
     motor_speed_flux_weakn_reset(&p_st_sc->st_fluxwkn);
+
+    /* Open loop damping control structure */
+    motor_speed_opl_damp_reset(&p_st_sc->st_opl_damp);
+
     /* speed LPF */
     motor_filter_first_order_lpff_reset(&p_st_sc->st_slpf);
 } /* End of function R_MOTOR_SPEED_Reset */
@@ -178,6 +172,8 @@ void R_MOTOR_SPEED_ParameterSet(st_speed_control_t * p_st_sc, const st_speed_inp
     p_st_sc->u1_state_speed_ref = p_st_speed_input->u1_state_speed_ref;
     p_st_sc->f4_speed_rad       = p_st_speed_input->f4_speed_rad;
     p_st_sc->f4_va_max          = p_st_speed_input->f4_va_max;
+    p_st_sc->u1_state_id_ref    = p_st_speed_input->u1_state_id_ref;
+    p_st_sc->u1_state_iq_ref    = p_st_speed_input->u1_state_iq_ref;
 } /* End of function R_MOTOR_SPEED_ParameterSet */
 
 /***********************************************************************************************************************
@@ -204,12 +200,13 @@ void R_MOTOR_SPEED_ParameterGet(st_speed_control_t * p_st_sc, st_speed_output_t 
 ***********************************************************************************************************************/
 void R_MOTOR_SPEED_ParameterUpdate(st_speed_control_t * p_st_sc, const st_speed_cfg_t * p_st_speed_cfg)
 {
+    float f4_id_down_speed_rad;
     float f4_ia_max;
 
     p_st_sc->u1_flag_fluxwkn_use     = p_st_speed_cfg->u1_flag_fluxwkn_use;
-    p_st_sc->u1_flag_extobserver_use = p_st_speed_cfg->u1_flag_extobserver_use; /* low speed sensorless */
     p_st_sc->u1_flag_mtpa_use        = p_st_speed_cfg->u1_flag_mtpa_use;
     p_st_sc->f4_speed_ctrl_period    = p_st_speed_cfg->f4_speed_ctrl_period;
+    p_st_sc->f4_opl2less_sw_time     = p_st_speed_cfg->f4_opl2less_sw_time;
     p_st_sc->st_motor                = p_st_speed_cfg->st_motor;
 
     /* Update speed PI gain */
@@ -231,8 +228,23 @@ void R_MOTOR_SPEED_ParameterUpdate(st_speed_control_t * p_st_sc, const st_speed_
 
     f4_ia_max = p_st_sc->st_motor.f4_nominal_current_rms * MOTOR_COMMON_CFG_IA_MAX_CALC_MULT;
     p_st_sc->st_pi_speed.f4_ilimit = f4_ia_max;
-
     motor_speed_flux_weakn_iamax_set(&p_st_sc->st_fluxwkn, f4_ia_max);
+
+    /* Open-loop damping control gain */
+    f4_id_down_speed_rad = p_st_speed_cfg->f4_id_down_speed_rpm * MTR_RPM2RAD;
+    motor_speed_opl_damp_r_gain_set(&p_st_sc->st_opl_damp,
+                                    p_st_sc->st_motor.u2_mtr_pp,
+                                    p_st_sc->st_motor.f4_mtr_m,
+                                    p_st_sc->st_motor.f4_mtr_j,
+                                    p_st_speed_cfg->f4_ol_damping_zeta,
+                                    p_st_speed_cfg->f4_ed_hpf_omega,
+                                    p_st_speed_cfg->f4_ol_ref_id,
+                                    f4_id_down_speed_rad * p_st_sc->st_motor.u2_mtr_pp,
+                                    p_st_sc->f4_speed_ctrl_period);
+
+    /* Rate[krpm/s] of reference speed for open-loop damping control feedback speed limiter */
+    motor_speed_opl_damp_limit_set(&p_st_sc->st_opl_damp, p_st_speed_cfg->f4_ol_damping_fb_limit_rate);
+
     /* Setup the motor parameter to MTPA structure */
     motor_speed_mtpa_motor_param_set(&p_st_sc->st_mtpa, &p_st_sc->st_motor);
 } /* End of function R_MOTOR_SPEED_ParameterUpdate */
@@ -258,26 +270,7 @@ void R_MOTOR_SPEED_SpdRefSet(st_speed_control_t * p_st_sc, float f4_ref_speed_rp
 ***********************************************************************************************************************/
 void R_MOTOR_SPEED_SpeedCyclic(st_speed_control_t * p_st_sc)
 {
-    /* extobserver disturbance */
-    float f4_torque_nm;
-    float f4_ditrub_current = 0.0f;
-    if (MTR_FLG_SET == p_st_sc->u1_flag_extobserver_use)
-    {
-        /* Calculate torque */
-        f4_torque_nm = ((float)p_st_sc->st_motor.u2_mtr_pp * p_st_sc->st_motor.f4_mtr_m) * p_st_sc->f4_iq_ref_output;
-        /* Extended observer */
-        motor_speed_extobserver_start(&p_st_sc->st_extobs, f4_torque_nm, p_st_sc->f4_speed_rad);
-        p_st_sc->f4_speed_obsrv_rad = motor_speed_extobserver_mech_speed_get(&p_st_sc->st_extobs);
-        p_st_sc->f4_speed_rad_ctrl  = p_st_sc->f4_speed_obsrv_rad;
-
-        /* Torque command for ASR FF */
-        f4_ditrub_current = motor_speed_extobserver_disturbance_get(&p_st_sc->st_extobs) /
-                            ((float)p_st_sc->st_motor.u2_mtr_pp * p_st_sc->st_motor.f4_mtr_m);
-    }
-    else
-    {
-        p_st_sc->f4_speed_rad_ctrl = motor_filter_first_order_lpff(&p_st_sc->st_slpf, p_st_sc->f4_speed_rad);
-    }
+    p_st_sc->f4_speed_rad_ctrl = motor_filter_first_order_lpff(&p_st_sc->st_slpf, p_st_sc->f4_speed_rad);
 
     if (MTR_FLG_SET == p_st_sc->u1_active)
     {
@@ -286,51 +279,47 @@ void R_MOTOR_SPEED_SpeedCyclic(st_speed_control_t * p_st_sc)
         /*====================================*/
         p_st_sc->f4_ref_speed_rad_ctrl = motor_speed_ref_speed_set(p_st_sc);
 
-        /* Limited by speed command. Set to 0 on the slope from 25rpm to 30rpm. */
-        /* extobserver disturbance */
-        f4_ditrub_current = motor_speed_extobserver_disturbance_current_limit(&p_st_sc->st_extobs,
-                                                                              p_st_sc->f4_ref_speed_rad_ctrl,
-                                                                              f4_ditrub_current);
-
         /*==============================================*/
         /*   Setting of dq-axis current command value   */
         /*==============================================*/
-        /* low speed sensorless (case文に変更する) */
-        if ((p_st_sc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_SLOW) ||
-            (p_st_sc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_HIGH) ||
-            (p_st_sc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_MID) ||
-            (p_st_sc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_MID_M))
-        {
-            p_st_sc->f4_iq_ref_output =
-                motor_speed_pi_control(p_st_sc, p_st_sc->f4_speed_rad_ctrl) + f4_ditrub_current;
-        }
-        else
-        {
-            p_st_sc->f4_iq_ref_output =  0;
-        }
 
-        p_st_sc->st_motor.f4_mtr_ld = g_st_cc.st_motor.f4_mtr_ld;
-        p_st_sc->st_motor.f4_mtr_lq = g_st_cc.st_motor.f4_mtr_lq;
-        /*=================================*/
-        /*   Executes the Flux-weakening   */
-        /*=================================*/
-        if (MTR_FLG_SET == p_st_sc->u1_flag_fluxwkn_use)
+        switch (p_st_sc->u1_state_iq_ref)
         {
-            motor_speed_flux_weakening(p_st_sc);
-        }
-        else
-        {
+        case CURRENT_SPD_STATE_IQ_ZERO_CONST:
+        case CURRENT_SPD_STATE_IQ_AUTO_ADJ:
+        case CURRENT_SPD_STATE_IQ_DOWN:
             /* Do Nothing */
-        }
+        break;
 
-        if (MTR_FLG_SET == p_st_sc->u1_flag_mtpa_use)
-        {
-            /* This function will over-write the dq-axis current command */
-            motor_speed_mtpa(p_st_sc);
-        }
-        else
-        {
-            /* Do nothing */
+        case CURRENT_SPD_STATE_IQ_SPEED_PI_OUTPUT:
+            p_st_sc->f4_iq_ref_output = motor_speed_pi_control(p_st_sc, p_st_sc->f4_speed_rad_ctrl);
+
+            /*=================================*/
+            /*   Executes the Flux-weakening   */
+            /*=================================*/
+            if (MTR_FLG_SET == p_st_sc->u1_flag_fluxwkn_use)
+            {
+                motor_speed_flux_weakening(p_st_sc);
+            }
+            else
+            {
+                /* Do Nothing */
+            }
+
+            if (MTR_FLG_SET == p_st_sc->u1_flag_mtpa_use)
+            {
+                /* This function will over-write the dq-axis current command */
+                motor_speed_mtpa(p_st_sc);
+            }
+            else
+            {
+                /* Do nothing */
+            }
+        break;
+
+        default:
+            /* Do Nothing */
+        break;
         }
     }
     else
@@ -338,6 +327,106 @@ void R_MOTOR_SPEED_SpeedCyclic(st_speed_control_t * p_st_sc)
         /* Do Nothing */
     }
 } /* End of function R_MOTOR_SPEED_SpeedCyclic */
+
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_SPEED_Opl2lessReferenceIqCalc
+* Description   : Set Iq reference when sensor-less switch control
+* Arguments     : p_st_sc - The pointer to speed control structure
+*                 f4_ed - d-axis BEMF
+*                 f4_eq - q-axis BEMF
+*                 f4_id_ref - d-axis current reference
+*                 f4_phase_err - phase error between the real motor axis and the controlled axis
+* Return Value  : Iq reference
+***********************************************************************************************************************/
+float R_MOTOR_SPEED_Opl2lessReferenceIqCalc(st_speed_control_t * p_st_sc,
+                                            float f4_ed,
+                                            float f4_eq,
+                                            float f4_id_ref,
+                                            float f4_phase_err)
+{
+    float f4_temp_iq_ref;
+
+    f4_temp_iq_ref = motor_speed_opl2less_iq_calc(f4_ed,
+                                                  f4_eq,
+                                                  f4_id_ref,
+                                                  p_st_sc->f4_torque_current,
+                                                  f4_phase_err);
+
+    return (f4_temp_iq_ref);
+} /* End of function R_MOTOR_SPEED_Opl2lessReferenceIqCalc */
+
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_SPEED_Opl2lessPreprocess
+* Description   : Preparations before switching from open-loop to normal FOC
+* Arguments     : p_st_sc - The pointer to speed control structure
+*                 f4_id_ref - The Id reference in open-loop drive mode
+*                 f4_phase_err_rad_lpf - The phase error [rad] processed by an LPF
+* Return Value  : None
+***********************************************************************************************************************/
+void R_MOTOR_SPEED_Opl2lessPreprocess(st_speed_control_t * p_st_sc,
+                                      float f4_id_ref,
+                                      float f4_phase_err_rad_lpf)
+{
+    p_st_sc->f4_torque_current = motor_speed_opl2less_torque_current_calc(&p_st_sc->st_motor,
+                                                                          p_st_sc->f4_opl2less_sw_time,
+                                                                          f4_id_ref,
+                                                                          f4_phase_err_rad_lpf);
+} /* End of function R_MOTOR_SPEED_Opl2lessPreprocess */
+
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_SPEED_OplDampCtrl
+* Description   : Open-loop damping control
+* Arguments     : p_st_sc - The pointer to speed control structure
+*                 f4_ed - d-axis BEMF
+* Return Value  : Feedback value for reference speed
+***********************************************************************************************************************/
+float R_MOTOR_SPEED_OplDampCtrl(st_speed_control_t * p_st_sc, float f4_ed)
+{
+    float f4_damp_comp_speed;
+    float f4_ref_speed_elec;
+
+    f4_ref_speed_elec = p_st_sc->f4_ref_speed_rad_ctrl * p_st_sc->st_motor.u2_mtr_pp;
+    f4_damp_comp_speed = motor_speed_opl_damp_ctrl(&p_st_sc->st_opl_damp,
+                                                   f4_ed,
+                                                   f4_ref_speed_elec);
+    f4_damp_comp_speed /= p_st_sc->st_motor.u2_mtr_pp;
+
+    return (f4_damp_comp_speed);
+} /* End of function R_MOTOR_SPEED_OplDampCtrl */
+
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_SPEED_OplDampReset
+* Description   : Resets open-loop damping control (except for gains and limiters)
+* Arguments     : p_st_sc - The pointer to speed control structure
+* Return Value  : None
+***********************************************************************************************************************/
+void R_MOTOR_SPEED_OplDampReset(st_speed_control_t * p_st_sc)
+{
+    motor_speed_opl_damp_reset(&p_st_sc->st_opl_damp);
+} /* End of function R_MOTOR_SPEED_OplDampReset */
+
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_SPEED_HuntingSuppress
+* Description   : Preset for suppress speed hunting
+* Arguments     : p_st_sc - The pointer to speed control structure
+*                 f4_iq_ref - The reference q-axis current value [A]
+* Return Value  : None
+***********************************************************************************************************************/
+void R_MOTOR_SPEED_HuntingSuppress(st_speed_control_t * p_st_sc, float f4_iq_ref)
+{
+    p_st_sc->st_pi_speed.f4_refi = f4_iq_ref;
+} /* End of function R_MOTOR_SPEED_HuntingSuppress */
+
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_SPEED_SwitchingFlagSet
+* Description   : Set the flag to set the estimated speed
+* Arguments     : p_st_sc - The pointer to speed control structure
+* Return Value  : None
+***********************************************************************************************************************/
+void R_MOTOR_SPEED_SwitchingFlagSet(st_speed_control_t * p_st_sc)
+{
+    p_st_sc->u1_flag_switching = MTR_FLG_SET;
+} /* End of function R_MOTOR_SPEED_SwitchingFlagSet */
 
 /***********************************************************************************************************************
 * Function Name : R_MOTOR_SPEED_ControlParamSet
@@ -369,26 +458,11 @@ void R_MOTOR_SPEED_ControlParamSet(st_speed_control_t * p_st_sc, float f4_speed_
 * Return Value  : None
 ***********************************************************************************************************************/
 void R_MOTOR_SPEED_RefstateSet(st_speed_control_t * p_st_sc,
-                               uint8_t u1_state_speed_ref
-                              )
+                               uint8_t u1_state_speed_ref,
+                               uint8_t u1_state_id_ref,
+                               uint8_t u1_state_iq_ref)
 {
+    p_st_sc->u1_state_id_ref    = u1_state_id_ref;
+    p_st_sc->u1_state_iq_ref    = u1_state_iq_ref;
     p_st_sc->u1_state_speed_ref = u1_state_speed_ref;
 } /* End of function R_MOTOR_SPEED_RefstateSet */
-
-
-/***********************************************************************************************************************
-* Function Name : R_MOTOR_SPEED_ExtObserverParameterUpdate
-* Description   : Update the extended observer parameter
-* Arguments     : p_st_sc                 - The pointer to speed observer structure
-*                 p_st_ext_obs_cfg        - The pointer to Extended observer configuration parameter structure
-* Return Value  : None
-***********************************************************************************************************************/
-void R_MOTOR_SPEED_ExtObserverParameterUpdate(st_speed_control_t * p_st_sc, st_ext_observer_cfg_t * p_st_ext_obs_cfg)
-{
-    motor_speed_extobserver_inertia_set(&p_st_sc->st_extobs, p_st_sc->st_motor.f4_mtr_j);
-    motor_speed_extobserver_natural_freq_set(&p_st_sc->st_extobs,
-                                             p_st_ext_obs_cfg->f4_extobs_omega,
-                                             p_st_sc->f4_speed_ctrl_period);
-    motor_speed_extobserver_current_limit_set(&p_st_sc->st_extobs, p_st_sc->st_motor.f4_nominal_current_rms);
-} /* End of function R_MOTOR_SPEED_ExtObserverParameterUpdate */
-

@@ -14,7 +14,7 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_current_api.c
@@ -22,7 +22,7 @@
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
-*           30.10.2021 1.00     First Release
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -31,14 +31,11 @@
 #include "r_motor_current.h"
 #include "r_motor_current_api.h"
 
-
 /***********************************************************************************************************************
 * Exported global variables
 ***********************************************************************************************************************/
 st_current_control_t      g_st_cc;           /* Current control structure */
 uint8_t g_u1_trq_vibration_comp_update_flag;
-
-
 
 /***********************************************************************************************************************
 * Function Name : R_MOTOR_CURRENT_Open
@@ -60,15 +57,26 @@ void R_MOTOR_CURRENT_Open(void)
     p_st_cc->u1_flag_volt_err_comp_use       = CURRENT_CFG_VOLT_ERR_COMP;
     p_st_cc->u1_flag_stall_detection_use     = CURRENT_CFG_STALL_DETECTION;
     p_st_cc->u1_flag_trq_vibration_comp_use  = MTR_FLG_CLR;
+    p_st_cc->u1_flag_trq_vibration_comp_mode = CURRENT_CFG_TRQVIB_COMP_MODE;
+    p_st_cc->u1_state_id_ref                 = CURRENT_STATE_ID_ZERO_CONST;
+    p_st_cc->u1_state_iq_ref                 = CURRENT_STATE_IQ_ZERO_CONST;
     p_st_cc->u1_flag_offset_calc             = MTR_FLG_CLR;
     p_st_cc->u2_offset_calc_time             = CURRENT_CFG_OFFSET_CALC_TIME;
     p_st_cc->u2_crnt_offset_cnt              = 0;
+    p_st_cc->u1_flag_charge_bootstrap        = MTR_FLG_CLR;
+    p_st_cc->u2_charge_bootstrap_time        = CURRENT_CFG_CHARGE_BOOTSTRAP_TIME;
+    p_st_cc->u2_charge_bootstrap_cnt         = 0;
     p_st_cc->f4_ctrl_period                  = MOTOR_COMMON_CTRL_PERIOD;
     p_st_cc->f4_lim_iq                       = MOTOR_COMMON_LIMIT_IQ;
     p_st_cc->f4_offset_iu                    = 0.0f;
     p_st_cc->f4_offset_iw                    = 0.0f;
     p_st_cc->f4_sum_iu_ad                    = 0.0f;
     p_st_cc->f4_sum_iw_ad                    = 0.0f;
+    p_st_cc->f4_id_up_step                   = MOTOR_COMMON_ID_UP_STEP_RATE;
+    p_st_cc->f4_id_down_step                 = MOTOR_COMMON_ID_DOWN_STEP_RATE;
+    p_st_cc->f4_iq_down_step                 = 0.0f;
+    p_st_cc->f4_iq_down_step_time_inv        = CURRENT_CFG_IQ_DOWN_STEP_TIME_INV;
+    p_st_cc->f4_ol_ref_id                    = CURRENT_CFG_REF_ID_OPENLOOP;
     p_st_cc->f4_va_max                       = 0.0f;
     p_st_cc->st_pi_id.f4_ilimit              = CURRENT_CFG_PI_INTEGRAL_LIMIT_VD;
     p_st_cc->st_pi_iq.f4_ilimit              = CURRENT_CFG_PI_INTEGRAL_LIMIT_VQ;
@@ -79,18 +87,6 @@ void R_MOTOR_CURRENT_Open(void)
     p_st_cc->st_motor.f4_mtr_m               = MOTOR_CFG_MAGNETIC_FLUX;
     p_st_cc->st_motor.f4_mtr_j               = MOTOR_CFG_ROTOR_INERTIA;
     p_st_cc->st_motor.f4_nominal_current_rms = MOTOR_CFG_NOMINAL_CURRENT_RMS;
-
-
-
-
-    /* low speed sensorless */
-    p_st_cc->u1_state_estmode = CURRENT_STATE_ESTMODE_POWEROFF;
-    motor_current_lowspdsensorless_init(&(p_st_cc->st_lowspd),
-                                        MOTOR_CFG_D_INDUCTANCE,
-                                        MOTOR_CFG_Q_INDUCTANCE,
-                                        CURRENT_CFG_ESTLOW_PULSEVOLT,
-                                        MOTOR_COMMON_CTRL_PERIOD,
-                                        CURRENT_CFG_ESTLOW_PULSEFREQ_BOOT);
 
     /* Current pi control gain */
     motor_current_pi_gain_calc(p_st_cc, CURRENT_CFG_OMEGA, CURRENT_CFG_ZETA);
@@ -117,16 +113,9 @@ void R_MOTOR_CURRENT_Open(void)
                                         CURRENT_CFG_PLL_EST_OMEGA,
                                         CURRENT_CFG_PLL_EST_ZETA,
                                         MOTOR_COMMON_CTRL_PERIOD);
-    /* low speed sensorless */
-    motor_current_angle_speed_gain_calc(&(p_st_cc->st_pll_est_low),
-                                        CURRENT_CFG_PLL_ESTLOW_OMEGA,
-                                        CURRENT_CFG_PLL_ESTLOW_ZETA,
-                                        MOTOR_COMMON_CTRL_PERIOD);
 
     /* Rotor angle parameter set */
     motor_current_rotor_angle_init(&(p_st_cc->st_rotor_angle));
-    /* low speed sensorless */
-    motor_current_rotor_angle_init(&(p_st_cc->st_rotor_angle_phasecomp));
 
     f4_pwm_period_us        = (1000.0f / MOTOR_MCU_CFG_CARRIER_FREQ);
     f4_duty_cycle_deadtime  = INVERTER_CFG_DEADTIME / f4_pwm_period_us;
@@ -145,11 +134,25 @@ void R_MOTOR_CURRENT_Open(void)
     motor_current_stall_detection_init(&p_st_cc->st_stalldet, &st_stall_det_cfg);
 
     /* Torque vibration compensation */
-    st_trqvib_comp_cfg.u1_flag_trqvib_comp_learning = MTR_FLG_CLR;
-    st_trqvib_comp_cfg.f4_tf_lpf_time               = CURRENT_CFG_TRQVIB_LPF_GAIN;
-    st_trqvib_comp_cfg.f4_output_gain               = CURRENT_CFG_TRQVIB_OUTPUT_GAIN;
-    st_trqvib_comp_cfg.u2_k2_timelead               = (uint16_t)(CURRENT_CFG_TRQVIB_TIMELEAP
+    st_trqvib_comp_cfg.u1_target_2f                     = CURRENT_CFG_TRQVIB_TARGET_2F;
+    st_trqvib_comp_cfg.f4_tf_lpf_time                   = CURRENT_CFG_TRQVIB_TF_LPF_OMEGA * MTR_TWOPI * MOTOR_COMMON_CTRL_PERIOD;
+    st_trqvib_comp_cfg.f4_output_gain_1f                = CURRENT_CFG_TRQVIB_OUTPUT_GAIN_1F;
+    st_trqvib_comp_cfg.f4_output_gain_2f                = CURRENT_CFG_TRQVIB_OUTPUT_GAIN_2F;
+    st_trqvib_comp_cfg.f4_suppression_th_1f             = CURRENT_CFG_TRQVIB_SUPP_TH_1F;
+    st_trqvib_comp_cfg.f4_suppression_th_2f             = CURRENT_CFG_TRQVIB_SUPP_TH_2F;
+    st_trqvib_comp_cfg.f4_abnormal_output_th_1f         = CURRENT_CFG_TRQVIB_ABNORMAL_TH_1F;
+    st_trqvib_comp_cfg.f4_abnormal_output_th_2f         = CURRENT_CFG_TRQVIB_ABNORMAL_TH_2F;
+
+    st_trqvib_comp_cfg.f4_k2_timelead_1f            = (float)(CURRENT_CFG_TRQVIB_TIMELEAP_1F
+                                                                        * (N_DIM) / MTR_TWOPI);
+    st_trqvib_comp_cfg.f4_k2_timelead_2f            = (float)(CURRENT_CFG_TRQVIB_TIMELEAP_2F
+                                                                        * (N_DIM) / MTR_TWOPI);
+
+    st_trqvib_comp_cfg.u2_k2_timelead_1f            = (uint16_t)(CURRENT_CFG_TRQVIB_TIMELEAP_1F
                                                             * TRQVIB_COMP_ARY_SIZE / MTR_TWOPI);
+    st_trqvib_comp_cfg.u2_k2_timelead_2f            = (uint16_t)(CURRENT_CFG_TRQVIB_TIMELEAP_2F
+                                                            * TRQVIB_COMP_ARY_SIZE / MTR_TWOPI);
+
     st_trqvib_comp_cfg.f4_input_weight2             = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_2;
     st_trqvib_comp_cfg.f4_input_weight1             = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_1;
     st_trqvib_comp_cfg.f4_input_weight0             = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_0;
@@ -187,21 +190,15 @@ void R_MOTOR_CURRENT_Reset(st_current_control_t *p_st_cc)
     p_st_cc->f4_refv             = 0.0f;
     p_st_cc->f4_refw             = 0.0f;
     p_st_cc->f4_vd_ref           = 0.0f;
-    p_st_cc->f4_vd_ref2          = 0.0f; /* low speed sennsorless*/
     p_st_cc->f4_vq_ref           = 0.0f;
     p_st_cc->f4_id_ref           = 0.0f;
     p_st_cc->f4_iq_ref           = 0.0f;
     p_st_cc->f4_id_ad            = 0.0f;
     p_st_cc->f4_iq_ad            = 0.0f;
-    p_st_cc->f4_id_ad2           = 0.0f; /* low speed sennsorless*/
-    p_st_cc->f4_iq_ad2           = 0.0f; /* low speed sennsorless*/
     p_st_cc->f4_vdc_ad           = 0.0f;
     p_st_cc->f4_iu_ad            = 0.0f;
     p_st_cc->f4_iv_ad            = 0.0f;
     p_st_cc->f4_iw_ad            = 0.0f;
-    p_st_cc->f4_iu_ref_ad        = 0.0f;
-    p_st_cc->f4_iv_ref_ad        = 0.0f;
-    p_st_cc->f4_iw_ref_ad        = 0.0f;
     p_st_cc->f4_modu             = 0.0f;
     p_st_cc->f4_modv             = 0.0f;
     p_st_cc->f4_modw             = 0.0f;
@@ -211,18 +208,11 @@ void R_MOTOR_CURRENT_Reset(st_current_control_t *p_st_cc)
     p_st_cc->f4_ed               = 0.0f;
     p_st_cc->f4_eq               = 0.0f;
     p_st_cc->f4_phase_err_rad    = 0.0f;
+    p_st_cc->f4_ol_speed_rad     = 0.0f;
     p_st_cc->st_pi_id.f4_err     = 0.0f;
     p_st_cc->st_pi_iq.f4_err     = 0.0f;
     p_st_cc->st_pi_id.f4_refi    = 0.0f;
     p_st_cc->st_pi_iq.f4_refi    = 0.0f;
-
-    /* low speed sensorless */
-    motor_current_lowspdsensorless_init(&(p_st_cc->st_lowspd),
-                                        MOTOR_CFG_D_INDUCTANCE,
-                                        MOTOR_CFG_Q_INDUCTANCE,
-                                        CURRENT_CFG_ESTLOW_PULSEVOLT,
-                                        MOTOR_COMMON_CTRL_PERIOD,
-                                        CURRENT_CFG_ESTLOW_PULSEFREQ_BOOT);
 
     motor_current_rotor_angle_reset(&(p_st_cc->st_rotor_angle));
     motor_current_rotor_angle_reset(&(p_st_cc->st_rotor_angle_phasecomp));
@@ -230,12 +220,13 @@ void R_MOTOR_CURRENT_Reset(st_current_control_t *p_st_cc)
     /* Reset BEMF observer and PLL */
     motor_current_bemf_observer_reset(&(p_st_cc->st_bemf_observer));
     motor_current_angle_speed_reset(&(p_st_cc->st_pll_est));
-    motor_current_angle_speed_reset(&(p_st_cc->st_pll_est_low));/* low speed sennsorless*/
+
     /* Reset Stall detection */
     motor_current_stall_detection_reset(&(p_st_cc->st_stalldet));
 
     /* Reset Torque vibration compensation */
     motor_current_trq_vibration_compensation_reset(&(p_st_cc->st_trqvib_comp));
+    p_st_cc->u1_flag_trq_vibration_comp_use = MTR_FLG_CLR;
 } /* End of function R_MOTOR_CURRENT_Reset */
 
 /***********************************************************************************************************************
@@ -258,15 +249,16 @@ void R_MOTOR_CURRENT_Run(st_current_control_t *p_st_cc)
 ***********************************************************************************************************************/
 void R_MOTOR_CURRENT_ParameterSet(st_current_control_t *p_st_cc, const st_current_input_t * p_st_current_input)
 {
+    p_st_cc->u1_state_id_ref        = p_st_current_input->u1_state_id_ref;
+    p_st_cc->u1_state_iq_ref        = p_st_current_input->u1_state_iq_ref;
     p_st_cc->f4_iu_ad               = p_st_current_input->f4_iu_ad;
     p_st_cc->f4_iv_ad               = p_st_current_input->f4_iv_ad;
     p_st_cc->f4_iw_ad               = p_st_current_input->f4_iw_ad;
     p_st_cc->f4_vdc_ad              = p_st_current_input->f4_vdc_ad;
-    p_st_cc->f4_iu_ref_ad           = p_st_current_input->f4_iu_ref_ad;
-    p_st_cc->f4_iv_ref_ad           = p_st_current_input->f4_iv_ref_ad;
-    p_st_cc->f4_iw_ref_ad           = p_st_current_input->f4_iw_ref_ad;
     p_st_cc->f4_iq_ref              = p_st_current_input->f4_iq_ref;
     p_st_cc->f4_id_ref              = p_st_current_input->f4_id_ref;
+    p_st_cc->f4_ol_speed_rad        = p_st_current_input->f4_ol_speed_rad;
+    p_st_cc->f4_speed_rad           = p_st_current_input->f4_ol_speed_rad;
     p_st_cc->f4_ref_speed_rad_ctrl  = p_st_current_input->f4_ref_speed_rad_ctrl;
 } /* End of function R_MOTOR_CURRENT_ParameterSet */
 
@@ -279,17 +271,18 @@ void R_MOTOR_CURRENT_ParameterSet(st_current_control_t *p_st_cc, const st_curren
 ***********************************************************************************************************************/
 void R_MOTOR_CURRENT_ParameterGet(st_current_control_t *p_st_cc, st_current_output_t *p_st_current_output)
 {
-    p_st_current_output->u1_flag_offset_calc = p_st_cc->u1_flag_offset_calc;
-    p_st_current_output->f4_modu             = p_st_cc->f4_modu;
-    p_st_current_output->f4_modv             = p_st_cc->f4_modv;
-    p_st_current_output->f4_modw             = p_st_cc->f4_modw;
-    p_st_current_output->f4_neutral_duty     = p_st_cc->st_mod.f4_neutral_duty;
-    p_st_current_output->f4_va_max           = p_st_cc->f4_va_max;
-    p_st_current_output->f4_ref_id_ctrl      = p_st_cc->f4_ref_id_ctrl;
-    p_st_current_output->f4_speed_rad        = p_st_cc->f4_speed_rad / p_st_cc->st_motor.u2_mtr_pp;
-    p_st_current_output->f4_ed               = p_st_cc->f4_ed;
-    p_st_current_output->f4_eq               = p_st_cc->f4_eq;
-    p_st_current_output->f4_phase_err_rad    = p_st_cc->f4_phase_err_rad;
+    p_st_current_output->u1_flag_offset_calc      = p_st_cc->u1_flag_offset_calc;
+    p_st_current_output->u1_flag_charge_bootstrap = p_st_cc->u1_flag_charge_bootstrap;
+    p_st_current_output->f4_modu                  = p_st_cc->f4_modu;
+    p_st_current_output->f4_modv                  = p_st_cc->f4_modv;
+    p_st_current_output->f4_modw                  = p_st_cc->f4_modw;
+    p_st_current_output->f4_neutral_duty          = p_st_cc->st_mod.f4_neutral_duty;
+    p_st_current_output->f4_va_max                = p_st_cc->f4_va_max;
+    p_st_current_output->f4_ref_id_ctrl           = p_st_cc->f4_ref_id_ctrl;
+    p_st_current_output->f4_speed_rad             = p_st_cc->f4_speed_rad / p_st_cc->st_motor.u2_mtr_pp;
+    p_st_current_output->f4_ed                    = p_st_cc->f4_ed;
+    p_st_current_output->f4_eq                    = p_st_cc->f4_eq;
+    p_st_current_output->f4_phase_err_rad         = p_st_cc->f4_phase_err_rad;
 } /* End of function R_MOTOR_CURRENT_ParameterGet */
 
 /***********************************************************************************************************************
@@ -306,21 +299,21 @@ void R_MOTOR_CURRENT_ParameterUpdate(st_current_control_t *p_st_cc, const st_cur
     st_trqvib_comp_cfg_t st_trqvib_comp_cfg;
 
     float f4_ia_max;
-    p_st_cc->u1_flag_volt_err_comp_use      = p_st_current_cfg->u1_flag_volt_err_comp_use;
-    p_st_cc->u1_flag_stall_detection_use    = p_st_current_cfg->u1_flag_stall_detection_use;
-    p_st_cc->u1_flag_trq_vibration_comp_use = p_st_current_cfg->u1_flag_trq_vibration_comp_use;
-    p_st_cc->u2_offset_calc_time            = p_st_current_cfg->u2_offset_calc_time;
-    p_st_cc->f4_ctrl_period                 = p_st_current_cfg->f4_ctrl_period;
-    p_st_cc->st_motor                       = p_st_current_cfg->st_motor;
-    f4_ia_max                               = p_st_cc->st_motor.f4_nominal_current_rms
-                                                    * MOTOR_COMMON_CFG_IA_MAX_CALC_MULT;
-    p_st_cc->f4_lim_iq                      = f4_ia_max;
-
-    /* low speed sensorless */
-    p_st_cc->st_lowspd.f4_ld_pulse     = p_st_current_cfg->st_motor.f4_mtr_ld;
-    p_st_cc->st_lowspd.f4_lq_pulse     = p_st_current_cfg->st_motor.f4_mtr_lq;
-    p_st_cc->st_lowspd.f4_highspd_threshold = p_st_current_cfg->f4_highspd_threshold * MTR_RPM2RAD;
-    p_st_cc->st_lowspd.f4_lowspd_threshold  = p_st_current_cfg->f4_lowspd_threshold * MTR_RPM2RAD;
+    p_st_cc->u1_flag_volt_err_comp_use          = p_st_current_cfg->u1_flag_volt_err_comp_use;
+    p_st_cc->u1_flag_stall_detection_use        = p_st_current_cfg->u1_flag_stall_detection_use;
+    p_st_cc->u1_flag_trq_vibration_comp_use     = p_st_current_cfg->u1_flag_trq_vibration_comp_use;
+    p_st_cc->u1_flag_trq_vibration_comp_mode    = p_st_current_cfg->u1_flag_trq_vibration_comp_mode;
+    p_st_cc->u2_offset_calc_time                = p_st_current_cfg->u2_offset_calc_time;
+    p_st_cc->u2_charge_bootstrap_time           = p_st_current_cfg->u2_charge_bootstrap_time;
+    p_st_cc->f4_ctrl_period                     = p_st_current_cfg->f4_ctrl_period;
+    p_st_cc->f4_id_up_step                      = p_st_current_cfg->f4_id_up_step;
+    p_st_cc->f4_id_down_step                    = p_st_current_cfg->f4_id_down_step;
+    p_st_cc->f4_iq_down_step_time_inv           = p_st_current_cfg->f4_iq_down_step_time_inv;
+    p_st_cc->f4_ol_ref_id                       = p_st_current_cfg->f4_ol_ref_id;
+    p_st_cc->st_motor                           = p_st_current_cfg->st_motor;
+    f4_ia_max                                   = p_st_cc->st_motor.f4_nominal_current_rms
+                                                        * MOTOR_COMMON_CFG_IA_MAX_CALC_MULT;
+    p_st_cc->f4_lim_iq                          = f4_ia_max;
 
     /* The dq-axis current PI gains */
     motor_current_pi_gain_calc(p_st_cc, p_st_current_cfg->f4_current_omega_hz, p_st_current_cfg->f4_current_zeta);
@@ -331,11 +324,25 @@ void R_MOTOR_CURRENT_ParameterUpdate(st_current_control_t *p_st_cc, const st_cur
     st_stall_det_cfg.f4_threshold_time  = p_st_current_cfg->f4_threshold_time;
     motor_current_stall_detection_parameter_set(&p_st_cc->st_stalldet, &st_stall_det_cfg);
 
-    st_trqvib_comp_cfg.u1_flag_trqvib_comp_learning = p_st_current_cfg->u1_flag_trqvib_comp_learning;
-    st_trqvib_comp_cfg.f4_tf_lpf_time               = p_st_current_cfg->f4_tf_lpf_time;
-    st_trqvib_comp_cfg.f4_output_gain               = p_st_current_cfg->f4_output_gain;
-    st_trqvib_comp_cfg.u2_k2_timelead               = (uint16_t)(p_st_current_cfg->f4_timelead
+    st_trqvib_comp_cfg.u1_target_2f                     = p_st_current_cfg->u1_target_2f;
+    st_trqvib_comp_cfg.f4_tf_lpf_time                   = p_st_current_cfg->f4_tf_lpf_omega * MTR_TWOPI * p_st_cc->f4_ctrl_period;
+    st_trqvib_comp_cfg.f4_output_gain_1f                = p_st_current_cfg->f4_output_gain_1f;
+    st_trqvib_comp_cfg.f4_output_gain_2f                = p_st_current_cfg->f4_output_gain_2f;
+    st_trqvib_comp_cfg.f4_suppression_th_1f             = p_st_current_cfg->f4_suppression_th_1f;
+    st_trqvib_comp_cfg.f4_suppression_th_2f             = p_st_current_cfg->f4_suppression_th_2f;
+    st_trqvib_comp_cfg.f4_abnormal_output_th_1f         = p_st_current_cfg->f4_abnormal_output_th_1f;
+    st_trqvib_comp_cfg.f4_abnormal_output_th_2f         = p_st_current_cfg->f4_abnormal_output_th_2f;
+
+    st_trqvib_comp_cfg.f4_k2_timelead_1f            = (float)(p_st_current_cfg->f4_timelead_1f
+                                                                * (N_DIM) / MTR_TWOPI);
+    st_trqvib_comp_cfg.f4_k2_timelead_2f            = (float)(p_st_current_cfg->f4_timelead_2f
+                                                                * (N_DIM) / MTR_TWOPI);
+
+    st_trqvib_comp_cfg.u2_k2_timelead_1f            = (uint16_t)(p_st_current_cfg->f4_timelead_1f
                                                             * TRQVIB_COMP_ARY_SIZE / MTR_TWOPI);
+    st_trqvib_comp_cfg.u2_k2_timelead_2f            = (uint16_t)(p_st_current_cfg->f4_timelead_2f
+                                                            * TRQVIB_COMP_ARY_SIZE / MTR_TWOPI);
+
     st_trqvib_comp_cfg.f4_input_weight2             = p_st_current_cfg->f4_input_weight2;
     st_trqvib_comp_cfg.f4_input_weight1             = p_st_current_cfg->f4_input_weight1;
     st_trqvib_comp_cfg.f4_input_weight0             = p_st_current_cfg->f4_input_weight0;
@@ -352,13 +359,8 @@ void R_MOTOR_CURRENT_ParameterUpdate(st_current_control_t *p_st_cc, const st_cur
 void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc)
 {
     float f4_angle_rad;
-
-
     if (MTR_FLG_SET == p_st_cc->u1_active)
     {
-
-
-
         motor_current_mod_vdc_set(&p_st_cc->st_mod, p_st_cc->f4_vdc_ad);
 
         p_st_cc->f4_ref_iq_ctrl = motor_current_reference_iq_set(p_st_cc);
@@ -368,9 +370,6 @@ void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc)
         /*     Coordinate transformation (UVW->dq)     */
         /*=============================================*/
         motor_current_transform_uvw_dq_abs(&p_st_cc->st_rotor_angle, &(p_st_cc->f4_iu_ad), &(p_st_cc->f4_id_ad));
-
-
-        p_st_cc->f4_ia_max  = sqrt(p_st_cc->f4_id_ad*p_st_cc->f4_id_ad + p_st_cc->f4_iq_ad*p_st_cc->f4_iq_ad);
 
         /*==============================*/
         /*     Angle & speed setting    */
@@ -388,31 +387,76 @@ void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc)
         /*=============================================*/
         /*     Torque Vibration Compensation           */
         /*=============================================*/
-        if (MTR_FLG_SET == p_st_cc->u1_flag_trq_vibration_comp_use)
-        {
+        if ((MTR_FLG_SET == p_st_cc->u1_flag_trq_vibration_comp_use) && (p_st_cc->u1_state_iq_ref == CURRENT_STATE_IQ_SPEED_PI_OUTPUT))
+        {   
+            /* Changed the switching state of the torque vibration compensation  function : OFF -> ON */
             g_u1_trq_vibration_comp_update_flag = MTR_FLG_SET;
+            motor_current_trq_vibration_compensation_status_transision(&(p_st_cc->st_trqvib_comp), TRQCOMP_ACTION_START);
 
+            /* Pre-processing for Torque vibration compensation */
             motor_current_trq_vibration_compensation_preproc(&(p_st_cc->st_trqvib_comp),
                                                              p_st_cc->st_rotor_angle.f4_rotor_angle_rad,
                                                              p_st_cc->f4_ref_speed_rad_ctrl,
                                                              p_st_cc->f4_speed_rad / p_st_cc->st_motor.u2_mtr_pp);
 
-            /* low speed sensorles:u1_state_estmodeのモータ駆動時のステータスに変更する */
-            if((p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_SLOW) ||
-                (p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_MID) ||
-                (p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_MID_M) ||
-                (p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_HIGH) )
-
+            if (TRQCOMP_MODE_LUT == p_st_cc->u1_flag_trq_vibration_comp_mode)
             {
-                motor_current_trq_vibration_compensation_main(&(p_st_cc->st_trqvib_comp),
-                                                              p_st_cc->f4_ref_speed_rad_ctrl,
-                                                              p_st_cc->f4_speed_rad / p_st_cc->st_motor.u2_mtr_pp);
+                /* Learning and output of Compensational signal 1F by LUT */
+                motor_current_trq_vibration_compensation_main_LUT(&(p_st_cc->st_trqvib_comp),
+                                                                &(p_st_cc->st_trqvib_comp.st_trqvib_comp_1f),
+                                                                p_st_cc->f4_ref_speed_rad_ctrl,
+                                                                p_st_cc->f4_speed_rad / p_st_cc->st_motor.u2_mtr_pp);
+
+                if (MTR_FLG_SET == p_st_cc->st_trqvib_comp.u1_target_2f)
+                {
+                    /* Learning and output of Compensational signal 2F by LUT */
+                    motor_current_trq_vibration_compensation_main_LUT(&(p_st_cc->st_trqvib_comp),
+                                                                    &(p_st_cc->st_trqvib_comp.st_trqvib_comp_2f),
+                                                                    p_st_cc->f4_ref_speed_rad_ctrl,
+                                                                    p_st_cc->f4_speed_rad / p_st_cc->st_motor.u2_mtr_pp);
+                }
+                else
+                {
+                    /* Do nothing */
+                }
+            }
+            else if (TRQCOMP_MODE_PAT ==  p_st_cc->u1_flag_trq_vibration_comp_mode)
+            {
+
+                /* Learning and output of Compensational signal 1F by PAT */
+                motor_current_trq_vibration_compensation_main_PAT(&(p_st_cc->st_trqvib_comp), &(p_st_cc->st_trqvib_comp.st_trqvib_comp_1f));
+                if (MTR_FLG_SET == p_st_cc->st_trqvib_comp.u1_target_2f)
+                {
+                    /* Learning and output of Compensational signal 2F by PAT */
+                    motor_current_trq_vibration_compensation_main_PAT(&(p_st_cc->st_trqvib_comp), &(p_st_cc->st_trqvib_comp.st_trqvib_comp_2f));
+                }
+                else
+                {
+                    /* Do nothing */
+                }
+            }
+            else
+            {
+                p_st_cc->st_trqvib_comp.st_trqvib_comp_1f.f4_last_spd_comp = 0.0f;
+                p_st_cc->st_trqvib_comp.st_trqvib_comp_2f.f4_last_spd_comp = 0.0f;
             }
 
-            p_st_cc->f4_ref_iq_ctrl += p_st_cc->st_trqvib_comp.f4_last_spd_comp;
+            /* Compensate reference q-axis current for Compensation signal 1F */
+            p_st_cc->f4_ref_iq_ctrl += p_st_cc->st_trqvib_comp.st_trqvib_comp_1f.f4_last_spd_comp;
+            if (MTR_FLG_SET == p_st_cc->st_trqvib_comp.u1_target_2f)
+            {   
+                /* Compensate reference q-axis current for Compensation signal 2F */
+                p_st_cc->f4_ref_iq_ctrl += p_st_cc->st_trqvib_comp.st_trqvib_comp_2f.f4_last_spd_comp;
+            }
+            else
+            {
+                /* Do nothing */
+            }
+            
         }
         else
-        {
+        {   
+            /* Detect Change of switching state of the torque vibration compensation  function : ON -> OFF */
             if (MTR_FLG_SET == g_u1_trq_vibration_comp_update_flag)
             {
                 motor_current_trq_vibration_compensation_reset(&(p_st_cc->st_trqvib_comp));
@@ -420,11 +464,6 @@ void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc)
             }
         }
 
-        /*update PI gains based on new inductances*/
-
-
-                      //  motor_current_pi_gain_calc(p_st_cc, CURRENT_CFG_OMEGA, CURRENT_CFG_ZETA);
-                       // R_MOTOR_CURRENT_BEMFObserverParameterUpdate(p_st_cc, &st_bemf_obs_cfg);
         /*====================================*/
         /*     Feedback control (Current)     */
         /*====================================*/
@@ -434,69 +473,6 @@ void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc)
         /*     Decoupling control     */
         /*============================*/
         motor_current_decoupling(p_st_cc, p_st_cc->f4_speed_rad, &(p_st_cc->st_motor));
-
-        /*============================*/
-        /*     Pule Injection     */
-        /*============================*/
-        switch( p_st_cc->u1_state_estmode)
-        {
-            case CURRENT_STATE_ESTMODE_POSEST:
-                p_st_cc->f4_vd_ref = p_st_cc->st_lowspd.f4_vd_ref_pulse_inj;
-                p_st_cc->f4_vd_ref2 = 0.0f;
-                p_st_cc->f4_vq_ref = 0.0f;
-                break;
-
-            case CURRENT_STATE_ESTMODE_DRIVE_SLOW:
-                p_st_cc->f4_vd_ref2 = p_st_cc->f4_vd_ref;
-                p_st_cc->f4_vd_ref += p_st_cc->st_lowspd.f4_vd_ref_pulse_inj;
-                break;
-
-            case CURRENT_STATE_ESTMODE_DRIVE_MID:
-                p_st_cc->f4_vd_ref2 = p_st_cc->f4_vd_ref;
-
-                if( p_st_cc->st_lowspd.u1_cur_chg_cnt <= 1)
-                {
-                    /* first time of this state, add 1/2 injection pulse */
-                    p_st_cc->f4_vd_ref += p_st_cc->st_lowspd.f4_vd_ref_pulse_inj / 2.0f;
-                }
-                else
-                {
-                    /* No injection (changing to BEMF observer, suppress ripple current.) */
-
-                }
-
-                break;
-
-            case CURRENT_STATE_ESTMODE_DRIVE_MID_M:
-                p_st_cc->f4_vd_ref2 = p_st_cc->f4_vd_ref;
-                p_st_cc->f4_vd_ref += p_st_cc->st_lowspd.f4_vd_ref_pulse_inj / 2.0f;
-                break;
-
-            case CURRENT_STATE_ESTMODE_DRIVE_HIGH:
-                p_st_cc->f4_vd_ref2 = p_st_cc->f4_vd_ref;
-
-                break;
-
-            case CURRENT_STATE_ESTMODE_POWEROFF:
-            case CURRENT_STATE_ESTMODE_INIT:
-                p_st_cc->f4_vd_ref2 = 0.0f;
-                p_st_cc->f4_vd_ref = 0.0f;
-                p_st_cc->f4_vq_ref = 0.0f;
-                break;
-
-        }
-
-
-      /*   p_st_cc->st_motor.f4_mtr_ld =  interpolate_ld(p_st_cc->f4_id_ad,p_st_cc->f4_iq_ad);
-         p_st_cc->st_motor.f4_mtr_lq =  interpolate_lq(p_st_cc->f4_id_ad,p_st_cc->f4_iq_ad);
-         if ( fabsf(p_st_cc->f4_id_ad) < 0.35f &&  p_st_cc->f4_iq_ad < 0.3536f)  p_st_cc->st_motor.f4_mtr_m  = MOTOR_CFG_MAGNETIC_FLUX;
-
-         else
-             {
-               fluxq = interpolate_fluxq(g_st_cc.f4_id_ad,g_st_cc.f4_iq_ad);
-               fluxd = interpolate_fluxd(g_st_cc.f4_id_ad,g_st_cc.f4_iq_ad);
-               p_st_cc->st_motor.f4_mtr_m  = sqrt(fluxq*fluxq + fluxd*fluxd);
-               }*/
 
         /*==============================*/
         /*     Limit voltage vector     */
@@ -615,8 +591,6 @@ void R_MOTOR_CURRENT_VoltErrCompParamSet(st_current_control_t *p_st_cc,
 void R_MOTOR_CURRENT_BEMFObserverParameterUpdate(st_current_control_t * p_st_cc,
                                                  st_bemf_observer_cfg_t * p_st_bemf_obs_cfg)
 {
-    float f4_est_limit = (float)(p_st_cc->st_motor.f4_nominal_current_rms * MTR_SQRT_3 * 3.0);
-
     motor_current_bemf_observer_gain_calc(&p_st_cc->st_bemf_observer,
                                           &p_st_cc->st_motor,
                                           p_st_bemf_obs_cfg->f4_e_obs_omega_hz,
@@ -627,56 +601,19 @@ void R_MOTOR_CURRENT_BEMFObserverParameterUpdate(st_current_control_t * p_st_cc,
                                         p_st_bemf_obs_cfg->f4_pll_est_omega_hz,
                                         p_st_bemf_obs_cfg->f4_pll_est_zeta,
                                         p_st_cc->f4_ctrl_period);
-    /* low speed sensorless */
-    motor_current_angle_speed_gain_calc(&p_st_cc->st_pll_est_low,
-                                        p_st_bemf_obs_cfg->f4_pll_estlow_omega_hz,
-                                        p_st_bemf_obs_cfg->f4_pll_estlow_zeta,
-                                        p_st_cc->f4_ctrl_period);
-
-    p_st_cc->st_bemf_observer.st_d_axis.f4_d_est_limit = f4_est_limit;
-    p_st_cc->st_bemf_observer.st_q_axis.f4_d_est_limit = f4_est_limit;
-
 } /* End of function R_MOTOR_CURRENT_BEMFObserverParameterUpdate */
 
 /***********************************************************************************************************************
-* Function Name : R_MOTOR_CURRENT_UpdateAngleNSpole
-* Description   : Update the rotor angle by NS poles detection(PF)
-* Arguments     : p_st_cc - The pointer to the current control structure
-*                 f4_pf - PF value generated by NS pole detection
+* Function Name : R_MOTOR_CURRENT_HuntingSuppress
+* Description   : Preset for suppress speed hunting
+* Arguments     : p_st_cc - The pointer to current control structure
+*                 f4_ref_speed_rad_ctrl - Command speed value
 * Return Value  : None
 ***********************************************************************************************************************/
-void R_MOTOR_CURRENT_UpdateAngleNSpole(st_current_control_t *p_st_cc, float f4_pf)
+void R_MOTOR_CURRENT_HuntingSuppress(st_current_control_t * p_st_cc, float f4_ref_speed_rad_ctrl)
 {
-    float f4_angle_rad = motor_current_angle_get(&p_st_cc->st_rotor_angle);
-
-    /* PF angle update */
-    if( f4_pf > 0.0f )
-    {
-        /* PF > 0 */
-        /* Add 180deg (3.14 rad) */
-        f4_angle_rad = f4_angle_rad + (MTR_TWOPI/2.0f);
-    }
-    else
-    {
-        /* PF < 0 */
-    }
-
-    /* 0-2pi Limit */
-    if( f4_angle_rad > MTR_TWOPI)
-    {
-        f4_angle_rad = f4_angle_rad - MTR_TWOPI;
-    }
-    else if( f4_angle_rad < 0.0f)
-    {
-        f4_angle_rad = f4_angle_rad + MTR_TWOPI;
-    }
-    else
-    {
-        /* Do nothing */
-    }
-
-    motor_current_rotor_angle_update(&p_st_cc->st_rotor_angle, f4_angle_rad);
-} /* End of function R_MOTOR_CURRENT_UpdateAngleNSpole */
+    p_st_cc->st_pll_est.f4_i_est_speed = f4_ref_speed_rad_ctrl * p_st_cc->st_motor.u2_mtr_pp;
+} /* End of function R_MOTOR_CURRENT_HuntingSuppress */
 
 /***********************************************************************************************************************
 * Function Name : R_MOTOR_CURRENT_PLLSpeedSet
@@ -689,7 +626,6 @@ void R_MOTOR_CURRENT_PLLSpeedSet(st_current_control_t * p_st_cc, float f4_speed_
 {
     p_st_cc->f4_speed_rad               = f4_speed_ini_est;
     p_st_cc->st_pll_est.f4_i_est_speed  = f4_speed_ini_est;
-    p_st_cc->st_pll_est_low.f4_i_est_speed  = f4_speed_ini_est;
 } /* End of function R_MOTOR_CURRENT_PLLSpeedSet */
 
 /***********************************************************************************************************************
@@ -705,6 +641,20 @@ void R_MOTOR_CURRENT_RotorAngleSet(st_current_control_t * p_st_cc, float f4_angl
 } /* End of function R_MOTOR_CURRENT_RotorAngleSet */
 
 /***********************************************************************************************************************
+* Function Name : R_MOTOR_CURRENT_RefstateSet
+* Description   : Preset the current control command state
+* Arguments     : p_st_cc         - The pointer to the current control structure
+*               : u1_state_id_ref - The d-axis current command state
+*               : u1_state_iq_ref - The q-axis current command state
+* Return Value  : None
+***********************************************************************************************************************/
+void R_MOTOR_CURRENT_RefstateSet(st_current_control_t *p_st_cc, uint8_t u1_state_id_ref, uint8_t u1_state_iq_ref)
+{
+    p_st_cc->u1_state_id_ref = u1_state_id_ref;
+    p_st_cc->u1_state_iq_ref = u1_state_iq_ref;
+} /* End of function R_MOTOR_CURRENT_RefstateSet */
+
+/***********************************************************************************************************************
 * Function Name : R_MOTOR_CURRENT_BEMFObserverParameterSet
 * Description   : Preset Q-axis estimated voltage disturbance
 * Arguments     : p_st_cc - The pointer to current control structure
@@ -716,3 +666,26 @@ void R_MOTOR_CURRENT_BEMFObserverParameterSet(st_current_control_t * p_st_cc, fl
     p_st_cc->st_bemf_observer.st_q_axis.f4_d_est        = -f4_d_est;
     p_st_cc->st_bemf_observer.st_q_axis.f4_d_est_pre    = -f4_d_est;
 } /* End of function R_MOTOR_CURRENT_BEMFObserverParameterSet */
+
+/***********************************************************************************************************************
+* Function Name : R_MOTOR_CURRENT_ChargeBootstrap
+* Description   : Charge the Bootstrap circuit
+* Arguments     : p_st_cc - The pointer to the current control structure
+* Return Value  : None
+***********************************************************************************************************************/
+void R_MOTOR_CURRENT_ChargeBootstrap(st_current_control_t *p_st_cc)
+{
+    /*========================*/
+    /*    Charge Bootstrap    */
+    /*========================*/
+    p_st_cc->u2_charge_bootstrap_cnt++;
+    if (p_st_cc->u2_charge_bootstrap_time <= p_st_cc->u2_charge_bootstrap_cnt)
+    {
+        p_st_cc->u1_flag_charge_bootstrap    = MTR_FLG_SET;
+        p_st_cc->u2_charge_bootstrap_cnt     = p_st_cc->u2_charge_bootstrap_time;
+    }
+    else
+    {
+        /* Do nothing */
+    }
+} /* End of function R_MOTOR_CURRENT_ChargeBootstrap */

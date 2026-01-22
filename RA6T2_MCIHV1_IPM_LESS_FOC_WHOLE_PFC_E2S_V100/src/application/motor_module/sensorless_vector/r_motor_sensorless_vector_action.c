@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_sensorless_vector_action.c
 * Description : The implementations of action functions required by FOC state machine (r_motor_sensorless_vector_statemachine)
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 30.10.2021 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -44,19 +44,19 @@
 uint8_t motor_sensorless_vector_act_active(st_statemachine_t *p_st_stm, void *p_param)
 {
     st_sensorless_vector_control_t *p_st_sensorless_vector = p_param;
-    (void)p_st_stm; /* This line is to avoid Warning due to unused parameter  */
-    motor_sensorless_vector_reset(p_st_sensorless_vector);          /* Initialize variables when motor control start */
-    R_MOTOR_DRIVER_BldcCompareDutySet(p_st_sensorless_vector->p_st_driver); /* PWM Mode reset */
+    (void)p_st_stm;                                                     /* This line is to avoid Warning due to unused parameter  */
+    motor_sensorless_vector_reset(p_st_sensorless_vector);              /* Initialize variables when motor control start */
+    R_MOTOR_DRIVER_BldcCompareDutySet(p_st_sensorless_vector->p_st_driver);
+
     R_MOTOR_DRIVER_BldcDutySet(p_st_sensorless_vector->p_st_driver, 0.5f, 0.5f, 0.5f);
     if (MTR_DISABLE == p_st_sensorless_vector->u1_flag_flying_start_use)
     {
-    	/* For Read offset flag */
-    	R_MOTOR_CURRENT_ParameterGet(p_st_sensorless_vector->p_st_cc,&p_st_sensorless_vector->st_current_output);
-    	if(MTR_FLG_SET == p_st_sensorless_vector->st_current_output.u1_flag_offset_calc)
-    	{
+        R_MOTOR_CURRENT_ParameterGet(p_st_sensorless_vector->p_st_cc, &p_st_sensorless_vector->st_current_output);
+        if (MTR_FLG_SET == p_st_sensorless_vector->st_current_output.u1_flag_offset_calc)
+        {
             R_MOTOR_DRIVER_PWMControlStart(p_st_sensorless_vector->p_st_driver); /* PWM output enable */
             motor_sensorless_vector_module_activate(p_st_sensorless_vector);
-    	}
+        }
     }
     return (0);
 } /* End of function motor_sensorless_vector_act_active */
@@ -71,10 +71,12 @@ uint8_t motor_sensorless_vector_act_active(st_statemachine_t *p_st_stm, void *p_
 uint8_t motor_sensorless_vector_act_inactive(st_statemachine_t *p_st_stm, void *p_param)
 {
     st_sensorless_vector_control_t *p_st_sensorless_vector = p_param;
-    (void)p_st_stm; /* This line is to avoid Warning due to unused parameter  */
+    (void)p_st_stm;                                                       /* This line is to avoid Warning due to unused parameter  */
     R_MOTOR_DRIVER_PWMControlStop(p_st_sensorless_vector->p_st_driver);
+
     R_MOTOR_DRIVER_BldcDutySet(p_st_sensorless_vector->p_st_driver, 0.5f, 0.5f, 0.5f);
-    motor_sensorless_vector_reset(p_st_sensorless_vector);          /* Initialize variables when motor control start */
+
+    motor_sensorless_vector_reset(p_st_sensorless_vector);                /* Initialize variables when motor control start */
     return (0);
 } /* End of function motor_sensorless_vector_act_inactive */
 

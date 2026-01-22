@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_mtr_ics.c
 * Description : Processes of a user interface (tool)
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 29.02.2024 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -30,10 +30,8 @@
 ***********************************************************************************************************************/
 
 #include <stdint.h>
-#include "mtr_main.h"
 #include "r_mtr_ics.h"
-#include "ics2_RA6T2.h"
-#include "hal_data.h"
+#include "r_app_mcu.h"
 #include "r_motor_common.h"
 #include "r_motor_module_cfg.h"
 #include "r_motor_sensorless_vector_api.h"
@@ -69,6 +67,9 @@ uint8_t     g_u1_enable_write;                  /* ICS write enable flag */
 /* Offset parameters */
 uint16_t    com_u2_offset_calc_time;            /* current offset calculation time */
 
+/* Charge Bootstrap parameters */
+uint16_t    com_u2_charge_bootstrap_time;       /* Charge time for bootstrap circuit */
+
 /* Motor parameters */
 uint16_t    com_u2_mtr_pp;                      /* pole pairs */
 float       com_f4_mtr_r;                       /* resistance [ohm] */
@@ -81,6 +82,13 @@ float       com_f4_max_speed_rpm;               /* maximum speed [rpm] (mechanic
 
 /* Sensorless parameter */
 uint8_t     com_u1_ctrl_loop_mode;              /* loop mode select */
+float       com_f4_ol_ref_id;                   /* id reference when open loop [A] */
+float       com_f4_id_up_time;                  /* time to increase id */
+float       com_f4_id_down_time;                /* time to decrease id */
+float       com_f4_id_down_speed_rpm;           /* The speed threshold[rpm] to ramp down the d-axis current */
+float       com_f4_id_up_speed_rpm;             /* The speed threshold[rpm] to ramp up the d-axis current */
+
+/* Control parameters */
 /* Current control */
 float       com_f4_current_omega_hz;            /* natural frequency for current loop [Hz] */
 float       com_f4_current_zeta;                /* damping ratio for current loop */
@@ -92,7 +100,6 @@ float       com_f4_speed_lpf_hz;                /* Natural frequency for speed L
 float       com_f4_ref_speed_rpm;               /* motor speed reference [rpm] (mechanical) */
 float       com_f4_speed_rate_limit_rpm;        /* limit of speed change [rpm/s] */
 float       com_f4_overspeed_limit_rpm;         /* over speed limit [rpm] (mechanical) */
-
 
 /* Optional functions */
 /* Voltage error compensation */
@@ -111,7 +118,8 @@ uint8_t     com_u1_flag_flying_start_use;       /* Flags whether use flying star
 uint8_t     com_u1_flag_stall_detection_use;    /* Flags whether use stall Detection */
 
 /* Torque Vibration Compensation control */
-uint8_t     com_u1_flag_trq_vibration_comp_use; /* Flags whether use torque vibration compensation */
+uint8_t     com_u1_flag_trq_vibration_comp_use;  /* Flags whether use torque vibration compensation */
+uint8_t     com_u1_flag_trq_vibration_comp_mode; /* Generation method of Compensation signal, LUT: 0, PAT: 1 */
 
 /* BEMF observer */
 float       com_f4_e_obs_omega_hz;              /* Natural frequency for BEMF observer [Hz] */
@@ -119,14 +127,17 @@ float       com_f4_e_obs_zeta;                  /* Damping ratio for BEMF observ
 float       com_f4_pll_est_omega_hz;            /* Natural frequency for rotor position Phase-Locked Loop [Hz] */
 float       com_f4_pll_est_zeta;                /* Damping ratio for rotor position Phase-Locked Loop */
 
-float       com_f4_pll_estlow_omega_hz;     /* Natural frequency for rotor position Phase-Locked Loop [Hz] (lowspd) */
-float       com_f4_pll_estlow_zeta;         /* Damping ratio for rotor position Phase-Locked Loop (lowspd) */
-/* Extended observe */
-uint8_t     com_u1_flag_extobserver_use;    /* Flags whether use ext observer*/
-float       com_f4_extobs_omega;            /* natural frequency for ext observer [Hz] */
-/* low speed */
-float       com_f4_spd_low_to_high_threshold; /* Slow-to-fast switching speed threshold [r/min] */
-float       com_f4_spd_high_to_low_threshold; /* Fast to slow switching speed threshold [r/min] */
+/* Sensor-less switch control */
+uint8_t     com_u1_flag_less_switch_use;        /* Flags whether use sensor-less switch control */
+float       com_f4_switch_phase_err_deg;        /* Phase error to decide sensor-less switch timing [deg] */
+float       com_f4_opl2less_sw_time;            /* Time to switch open-loop to sensor-less [s] */
+float       com_f4_phase_err_lpf_cut_freq;      /* Cut off frequency[Hz] of phase error LPF */
+
+/* Open-loop damping control */
+uint8_t     com_u1_flag_openloop_damping_use;   /* Flags whether use open-loop damping control */
+float       com_f4_ed_hpf_omega;                /* HPF cutoff frequency for ed [Hz] */
+float       com_f4_ol_damping_zeta;             /* Damping ratio of open-loop damping control */
+float       com_f4_ol_damping_fb_limit_rate;    /* Rate of reference speed for feedback speed limiter */
 
 /* Stall detection */
 float       com_f4_id_hpf_time;                 /* d-axis HPF time constant [s] */
@@ -135,13 +146,19 @@ float       com_f4_threshold_level;             /* stall detection threshold [A]
 float       com_f4_threshold_time;              /* detection time [s] */
 
 /* Torque vibration suppression */
-uint8_t     com_u1_flag_trqvib_comp_learning;   /* Flags whether learning of Torque Vibration Compensation */
-float       com_f4_timelead;                    /* Output phase index of Torque Vibration Compensation */
-float       com_f4_tf_lpf_time;                 /* Tracking filter internal LPF constant */
-float       com_f4_output_gain;                 /* Output gain (speed deviation/vibration torque conversion factor) */
+uint8_t     com_u1_target_2f;                   /* Wheter to include 2F for Target Vibration Component */
+float       com_f4_timelead_1f;                 /* Output phase index of Torque Vibration Compensation for 1f */
+float       com_f4_timelead_2f;                 /* Output phase index of Torque Vibration Compensation for 2f */
+float       com_f4_tf_lpf_omega;                /* natural frequency for LPF in TF [Hz] */
+float       com_f4_output_gain_1f;              /* Output gain (speed deviation/vibration torque conversion factor) for 1f */
+float       com_f4_output_gain_2f;              /* Output gain (speed deviation/vibration torque conversion factor) for 2f */
 float       com_f4_input_weight2;               /* coefficient for moving average filter */
 float       com_f4_input_weight1;               /* coefficient for moving average filter */
 float       com_f4_input_weight0;               /* coefficient for moving average filter */
+float       com_f4_suppression_th_1f;           /* The threshold of learning off for 1f : The ratio of amplitude before and after suppression */
+float       com_f4_suppression_th_2f;           /* The threshold of learning off for 2f : The ratio of amplitude before and after suppression */
+float       com_f4_abnormal_output_th_1f;       /* The threshold of learning off for 1f : The output abnormality of Tracking filter */
+float       com_f4_abnormal_output_th_2f;       /* The threshold of learning off for 2f : The output abnormality of Tracking filter */
 
 /* Flying start */
 float       com_f4_restart_speed;               /* Restart judgment speed reference value */
@@ -153,7 +170,6 @@ float       com_f4_on_current_th;               /* Current threshold of Short-ci
 /***********************************************************************************************************************
  Private global variables and functions
  **********************************************************************************************************************/
-static uint8_t  s_u1_cnt_ics = 0;               /* Counter for period of calling "scope_watchpoint" */
 static void r_app_rmw_system_mode(void);
 static void r_app_rmw_check_com_input(void);
 static void r_app_rmw_update_params(void);
@@ -200,6 +216,9 @@ void r_app_rmw_ui_init(void)
     /* Offset parameters */
     com_u2_offset_calc_time = CURRENT_CFG_OFFSET_CALC_TIME;
 
+    /* Charge Bootstrap parameters */
+    com_u2_charge_bootstrap_time = CURRENT_CFG_CHARGE_BOOTSTRAP_TIME;
+
     /* Motor parameters */
     com_u2_mtr_pp              = MOTOR_CFG_POLE_PAIRS;
     com_f4_mtr_r               = MOTOR_CFG_RESISTANCE;
@@ -212,6 +231,11 @@ void r_app_rmw_ui_init(void)
 
     /* Sensorless parameter */
     com_u1_ctrl_loop_mode    = MOTOR_COMMON_CFG_LOOP_MODE;
+    com_f4_ol_ref_id         = CURRENT_CFG_REF_ID_OPENLOOP;
+    com_f4_id_up_time        = CURRENT_CFG_ID_UP_STEP_TIME;
+    com_f4_id_down_time      = CURRENT_CFG_ID_DOWN_STEP_TIME;
+    com_f4_id_down_speed_rpm = SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM;
+    com_f4_id_up_speed_rpm   = SENSORLESS_VECTOR_ID_UP_SPEED_RPM;
 
     /* Control parameters */
     /* Current control */
@@ -243,23 +267,26 @@ void r_app_rmw_ui_init(void)
     com_u1_flag_stall_detection_use = CURRENT_CFG_STALL_DETECTION;
 
     /* Torque Vibration Compensation control */
-    com_u1_flag_trq_vibration_comp_use = MTR_FLG_CLR;
+    com_u1_flag_trq_vibration_comp_use  = MTR_FLG_CLR;
+    com_u1_flag_trq_vibration_comp_mode = CURRENT_CFG_TRQVIB_COMP_MODE;
 
     /* BEMF observer */
     com_f4_e_obs_omega_hz   = CURRENT_CFG_E_OBS_OMEGA;
     com_f4_e_obs_zeta       = CURRENT_CFG_E_OBS_ZETA;
     com_f4_pll_est_omega_hz = CURRENT_CFG_PLL_EST_OMEGA;
     com_f4_pll_est_zeta     = CURRENT_CFG_PLL_EST_ZETA;
-    com_f4_pll_estlow_omega_hz = CURRENT_CFG_PLL_ESTLOW_OMEGA; /* low speed sensorless */
-    com_f4_pll_estlow_zeta     = CURRENT_CFG_PLL_ESTLOW_ZETA; /* low speed sensorless */
 
-    /* Speed observer */
-    com_u1_flag_extobserver_use = SPEED_CFG_OBSERVER;
-    com_f4_extobs_omega         = SPEED_CFG_SOB_OMEGA;
+    /* Sensor-less switch control */
+    com_u1_flag_less_switch_use   = SPEED_CFG_LESS_SWITCH;
+    com_f4_switch_phase_err_deg   = SENSORLESS_VECTOR_OPL2LESS_SWITCH_PHASE_ERR_DEG;
+    com_f4_opl2less_sw_time       = SPEED_OPL2LESS_SWITCH_TIME;
+    com_f4_phase_err_lpf_cut_freq = SENSORLESS_VECTOR_OPL2LESS_SWITCH_PHASE_ERR_LPF_CUT_FREQ;
 
-    /* low speed */
-    com_f4_spd_low_to_high_threshold = MOTOR_SENSORLESS_VECTOR_THRESHOLD_HIGHSPEED * MTR_RAD2RPM; /* Slow-to-fast switching speed threshold [r/min] */
-    com_f4_spd_high_to_low_threshold = MOTOR_SENSORLESS_VECTOR_THRESHOLD_LOWSPEED * MTR_RAD2RPM;  /* Fast to slow switching speed threshold [r/min] */
+    /* Open-loop damping control */
+    com_u1_flag_openloop_damping_use = SPEED_CFG_OPENLOOP_DAMPING;
+    com_f4_ed_hpf_omega              = SPEED_OPL_DAMP_ED_HPF_OMEGA;
+    com_f4_ol_damping_zeta           = SPEED_OPL_DAMP_ZETA;
+    com_f4_ol_damping_fb_limit_rate  = SPEED_OPL_DAMP_FB_SPEED_LIMIT_RATE;
 
     /* Stall detection */
     com_f4_id_hpf_time     = CURRENT_CFG_STALL_D_HPF_GAIN;
@@ -268,13 +295,19 @@ void r_app_rmw_ui_init(void)
     com_f4_threshold_time  = CURRENT_CFG_STALL_THRESHOLD_TIME;
 
     /* Torque vibration suppression */
-    com_u1_flag_trqvib_comp_learning = MTR_FLG_CLR;
-    com_f4_timelead                  = CURRENT_CFG_TRQVIB_TIMELEAP;
-    com_f4_tf_lpf_time               = CURRENT_CFG_TRQVIB_LPF_GAIN;
-    com_f4_output_gain               = CURRENT_CFG_TRQVIB_OUTPUT_GAIN;
-    com_f4_input_weight2             = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_2;
-    com_f4_input_weight1             = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_1;
-    com_f4_input_weight0             = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_0;
+    com_u1_target_2f                     = CURRENT_CFG_TRQVIB_TARGET_2F;
+    com_f4_timelead_1f                   = CURRENT_CFG_TRQVIB_TIMELEAP_1F;
+    com_f4_timelead_2f                   = CURRENT_CFG_TRQVIB_TIMELEAP_2F;
+    com_f4_tf_lpf_omega                  = CURRENT_CFG_TRQVIB_TF_LPF_OMEGA;
+    com_f4_output_gain_1f                = CURRENT_CFG_TRQVIB_OUTPUT_GAIN_1F;
+    com_f4_output_gain_2f                = CURRENT_CFG_TRQVIB_OUTPUT_GAIN_2F;
+    com_f4_input_weight2                 = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_2;
+    com_f4_input_weight1                 = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_1;
+    com_f4_input_weight0                 = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_0;
+    com_f4_suppression_th_1f             = CURRENT_CFG_TRQVIB_SUPP_TH_1F;
+    com_f4_suppression_th_2f             = CURRENT_CFG_TRQVIB_SUPP_TH_2F;
+    com_f4_abnormal_output_th_1f         = CURRENT_CFG_TRQVIB_ABNORMAL_TH_1F;
+    com_f4_abnormal_output_th_2f         = CURRENT_CFG_TRQVIB_ABNORMAL_TH_2F;
 
     /* Flying start */
     com_f4_restart_speed     = SENSORLESS_VECTOR_FLY_START_RESTART_SPEED_LIMIT;
@@ -311,6 +344,9 @@ void r_app_rmw_copy_com_to_buffer(void)
         /* Offset parameters */
         g_st_rmw_input_buffer.u2_offset_calc_time = com_u2_offset_calc_time;
 
+        /* Charge Bootstrap parameters */
+        g_st_rmw_input_buffer.u2_charge_bootstrap_time = com_u2_charge_bootstrap_time;
+
         /* Motor parameters */
         g_st_rmw_input_buffer.st_motor.u2_mtr_pp              = com_u2_mtr_pp;
         g_st_rmw_input_buffer.st_motor.f4_mtr_r               = com_f4_mtr_r;
@@ -323,6 +359,12 @@ void r_app_rmw_copy_com_to_buffer(void)
 
         /* Sensorless parameter */
         g_st_rmw_input_buffer.u1_ctrl_loop_mode    = com_u1_ctrl_loop_mode;
+        g_st_rmw_input_buffer.f4_ol_ref_id         = com_f4_ol_ref_id;
+        g_st_rmw_input_buffer.f4_id_up_time        = com_f4_id_up_time;
+        g_st_rmw_input_buffer.f4_id_down_time      = com_f4_id_down_time;
+        g_st_rmw_input_buffer.f4_id_down_speed_rpm = com_f4_id_down_speed_rpm;
+        g_st_rmw_input_buffer.f4_id_up_speed_rpm   = com_f4_id_up_speed_rpm;
+
         /* Control parameters */
         /* Current control */
         g_st_rmw_input_buffer.f4_current_omega_hz = com_f4_current_omega_hz;
@@ -347,12 +389,27 @@ void r_app_rmw_copy_com_to_buffer(void)
         g_st_rmw_input_buffer.u1_flag_mtpa_use = com_u1_flag_mtpa_use;
 
         /* Flying Start control */
-        g_st_rmw_input_buffer.u1_flag_flying_start_use = com_u1_flag_flying_start_use;
-
+        if (MTR_FLG_CLR == g_st_sensorless_vector.p_st_cc->u1_flag_offset_calc)
+        {
+            g_st_rmw_input_buffer.u1_flag_flying_start_use = MTR_DISABLE;
+            com_u1_flag_flying_start_use                   = MTR_DISABLE;
+        }
+        else
+        {
+            g_st_rmw_input_buffer.u1_flag_flying_start_use = com_u1_flag_flying_start_use;
+        }
         /* Stall Detection control */
         g_st_rmw_input_buffer.u1_flag_stall_detection_use = com_u1_flag_stall_detection_use;
 
         /* Torque Vibration Compensation control */
+        if (MTR_FLG_CLR == g_st_sensorless_vector.p_st_cc->u1_flag_trq_vibration_comp_use)
+        {
+            g_st_rmw_input_buffer.u1_flag_trq_vibration_comp_mode = com_u1_flag_trq_vibration_comp_mode;
+        }
+        else
+        {
+            com_u1_flag_trq_vibration_comp_mode = g_st_rmw_input_buffer.u1_flag_trq_vibration_comp_mode;
+        }
         g_st_rmw_input_buffer.u1_flag_trq_vibration_comp_use = com_u1_flag_trq_vibration_comp_use;
 
         /* BEMF observer */
@@ -360,16 +417,18 @@ void r_app_rmw_copy_com_to_buffer(void)
         g_st_rmw_input_buffer.f4_e_obs_zeta       = com_f4_e_obs_zeta;
         g_st_rmw_input_buffer.f4_pll_est_omega_hz = com_f4_pll_est_omega_hz;
         g_st_rmw_input_buffer.f4_pll_est_zeta     = com_f4_pll_est_zeta;
-        g_st_rmw_input_buffer.f4_pll_estlow_omega_hz = com_f4_pll_estlow_omega_hz; /* low speed sensorless */
-        g_st_rmw_input_buffer.f4_pll_estlow_zeta     = com_f4_pll_estlow_zeta; /* low speed sensorless */
 
-        /* Speed observer */
-        g_st_rmw_input_buffer.u1_flag_extobserver_use = com_u1_flag_extobserver_use;
-        g_st_rmw_input_buffer.f4_extobs_omega         = com_f4_extobs_omega;
+        /* Sensor-less switch control */
+        g_st_rmw_input_buffer.u1_flag_less_switch_use   = com_u1_flag_less_switch_use;
+        g_st_rmw_input_buffer.f4_switch_phase_err_deg   = com_f4_switch_phase_err_deg;
+        g_st_rmw_input_buffer.f4_opl2less_sw_time       = com_f4_opl2less_sw_time;
+        g_st_rmw_input_buffer.f4_phase_err_lpf_cut_freq = com_f4_phase_err_lpf_cut_freq;
 
-        /* High/low speed switching speed threshold */
-        g_st_rmw_input_buffer.f4_highspd_threshold    = com_f4_spd_low_to_high_threshold;
-        g_st_rmw_input_buffer.f4_lowspd_threshold     = com_f4_spd_high_to_low_threshold;
+        /* Open-loop damping control */
+        g_st_rmw_input_buffer.u1_flag_openloop_damping_use = com_u1_flag_openloop_damping_use;
+        g_st_rmw_input_buffer.f4_ed_hpf_omega              = com_f4_ed_hpf_omega;
+        g_st_rmw_input_buffer.f4_ol_damping_zeta           = com_f4_ol_damping_zeta;
+        g_st_rmw_input_buffer.f4_ol_damping_fb_limit_rate  = com_f4_ol_damping_fb_limit_rate;
 
         /* Stall detection */
         g_st_rmw_input_buffer.f4_id_hpf_time     = com_f4_id_hpf_time;
@@ -378,13 +437,19 @@ void r_app_rmw_copy_com_to_buffer(void)
         g_st_rmw_input_buffer.f4_threshold_time  = com_f4_threshold_time;
 
         /* Torque vibration suppression */
-        g_st_rmw_input_buffer.u1_flag_trqvib_comp_learning = com_u1_flag_trqvib_comp_learning;
-        g_st_rmw_input_buffer.f4_timelead                  = com_f4_timelead;
-        g_st_rmw_input_buffer.f4_tf_lpf_time               = com_f4_tf_lpf_time;
-        g_st_rmw_input_buffer.f4_output_gain               = com_f4_output_gain;
-        g_st_rmw_input_buffer.f4_input_weight2             = com_f4_input_weight2;
-        g_st_rmw_input_buffer.f4_input_weight1             = com_f4_input_weight1;
-        g_st_rmw_input_buffer.f4_input_weight0             = com_f4_input_weight0;
+        g_st_rmw_input_buffer.u1_target_2f                      = com_u1_target_2f;
+        g_st_rmw_input_buffer.f4_timelead_1f                    = com_f4_timelead_1f;
+        g_st_rmw_input_buffer.f4_timelead_2f                    = com_f4_timelead_2f;
+        g_st_rmw_input_buffer.f4_tf_lpf_omega                   = com_f4_tf_lpf_omega;
+        g_st_rmw_input_buffer.f4_output_gain_1f                 = com_f4_output_gain_1f;
+        g_st_rmw_input_buffer.f4_output_gain_2f                 = com_f4_output_gain_2f;
+        g_st_rmw_input_buffer.f4_input_weight2                  = com_f4_input_weight2;
+        g_st_rmw_input_buffer.f4_input_weight1                  = com_f4_input_weight1;
+        g_st_rmw_input_buffer.f4_input_weight0                  = com_f4_input_weight0;
+        g_st_rmw_input_buffer.f4_suppression_th_1f              = com_f4_suppression_th_1f;
+        g_st_rmw_input_buffer.f4_suppression_th_2f               = com_f4_suppression_th_2f;
+        g_st_rmw_input_buffer.f4_abnormal_output_th_1f               = com_f4_abnormal_output_th_1f;
+        g_st_rmw_input_buffer.f4_abnormal_output_th_2f               = com_f4_abnormal_output_th_2f;
 
         /* Flying start */
         g_st_rmw_input_buffer.f4_restart_speed     = com_f4_restart_speed;
@@ -407,16 +472,9 @@ void r_app_rmw_copy_com_to_buffer(void)
 ***********************************************************************************************************************/
 void r_app_rmw_interrupt_handler(void)
 {
-    s_u1_cnt_ics++;
 
-    /* Decimation of ICS call */
-    if (ICS_DECIMATION < s_u1_cnt_ics)
-    {
-        s_u1_cnt_ics = 0;
-
-        /* Call ICS */
-        ics2_watchpoint();
-    }
+    /* ICS call */
+    r_app_rmw_watchpoint();
 
     /* Update commands and configurations when trigger flag is set */
     if (1 == g_u1_update_param_flag)
@@ -440,10 +498,6 @@ static void r_app_rmw_system_mode(void)
 {
     uint8_t  u1_motor_status;
 
-
-
-
-        /*============================*/
         /*        Execute event       */
         /*============================*/
         R_SYSTEM_MANAGER_SystemMode();
@@ -469,10 +523,10 @@ static void r_app_rmw_system_mode(void)
                 /* Do nothing */
             }
 
-        }
-
 
 } /* End of function r_app_rmw_system_mode */
+
+}
 
 /***********************************************************************************************************************
 * Function Name : r_app_rmw_check_com_input
@@ -513,7 +567,7 @@ static void r_app_rmw_check_com_input(void)
  *********************************************************************************************************************/
 static void r_app_rmw_update_params(void)
 {
-    R_SYSTEM_MANAGER_ParameterUpdate();
+    R_SYSTEM_MANAGER_UpdateParameter();
 } /* End of function r_app_rmw_update_params */
 
 /***********************************************************************************************************************

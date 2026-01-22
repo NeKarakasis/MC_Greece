@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <cHelpSettings>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    
+    
+    
+    
+    
+    
     
     
     
@@ -164,9 +170,17 @@
             <book enabled="false" title="RX RX64M FIT ja"/>
             <book enabled="false" title="RX RX71M FIT en"/>
             <book enabled="false" title="RX RX71M FIT ja"/>
+            <book enabled="false" title="RZ/T1 CG en"/>
+            <book enabled="false" title="RZ/T1 CG ja"/>
         </provider>
     </project>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
+
+
+
+
+
 
 
 

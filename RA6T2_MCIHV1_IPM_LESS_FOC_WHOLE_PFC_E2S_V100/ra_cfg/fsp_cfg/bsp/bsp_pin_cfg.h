@@ -9,6 +9,7 @@ FSP_HEADER
 #define SC_MC_DIO_BLDC_FAULT (BSP_IO_PORT_11_PIN_01)
 #define MC_DIO_BLDC_BRAKE (BSP_IO_PORT_11_PIN_10)
 #define MC_DIO_BLDC_STOP (BSP_IO_PORT_14_PIN_15)
+
 extern const ioport_cfg_t g_bsp_pin_cfg; /* R7FA6T2BD3CFP.pincfg */
 
 void BSP_PinConfigSecurityInit();

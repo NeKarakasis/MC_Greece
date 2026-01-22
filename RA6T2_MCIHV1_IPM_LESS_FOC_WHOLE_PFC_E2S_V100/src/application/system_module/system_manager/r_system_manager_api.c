@@ -14,22 +14,22 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_system_manager_api.c
 * Description : The processes of accessing motor and PFC modules
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 29.02.2024 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * Includes <System Includes> , "Project Includes"
 ***********************************************************************************************************************/
 #include "r_system_manager_api.h"
-
+#include "r_system_manager.h"
 
 /***********************************************************************************************************************
 * Global variables
@@ -48,13 +48,13 @@
 void R_SYSTEM_MANAGER_Open(void)
 {
     /* PFC status initialize */
-//    g_u2_pfc_status_pre = PFC_MODE_IDLE;
+   // g_u2_pfc_status_pre = PFC_MODE_IDLE;
 
     /* Create motor manager */
     R_MOTOR_SENSORLESS_VECTOR_Open();
 
     /* Create PFC manager */
-  //  R_PFC_MANAGER_Open();
+ //   R_PFC_MANAGER_Open();
 } /* End of function R_SYSTEM_MANAGER_Open */
 
 /***********************************************************************************************************************
@@ -73,7 +73,32 @@ uint8_t R_SYSTEM_MANAGER_MotorStatusGet(void)
     return (u1_motor_status);
 } /* End of function R_SYSTEM_MANAGER_MotorStatusGet */
 
+/***********************************************************************************************************************
+* Function Name : R_SYSTEM_MANAGER_PfcStatusGet
+* Description   : Get PFC manager state
+* Arguments     : None
+* Return Value  : PFC status
+***********************************************************************************************************************/
+uint16_t R_SYSTEM_MANAGER_PfcStatusGet(void)
+{
+    uint16_t u2_pfc_status;
 
+    /* Get PFC manager state */
+    u2_pfc_status = R_PFC_MANAGER_StatusGet(&g_st_pfc_manager);
+
+    return (u2_pfc_status);
+} /* End of function R_SYSTEM_MANAGER_PfcStatusGet */
+
+/***********************************************************************************************************************
+* Function Name : R_SYSTEM_MANAGER_PfcErrorCancel
+* Description   : Cancel PFC module error
+* Arguments     : None
+* Return Value  : None
+***********************************************************************************************************************/
+void R_SYSTEM_MANAGER_PfcErrorCancel(void)
+{
+    R_PFC_MANAGER_ErrorCancel(&g_st_pfc_manager);
+} /* End of function R_SYSTEM_MANAGER_PfcErrorCancel */
 
 /***********************************************************************************************************************
 * Function Name : R_SYSTEM_MANAGER_SystemMode
@@ -122,24 +147,29 @@ void R_SYSTEM_MANAGER_SystemMode(void)
 } /* End of function R_SYSTEM_MANAGER_SystemMode */
 
 /***********************************************************************************************************************
-* Function Name : R_SYSTEM_MANAGER_ParameterUpdate
+* Function Name : R_SYSTEM_MANAGER_UpdateParameter
 * Description   : Apply parameters in buffer through API
 * Arguments     : None
 * Return Value  : None
 ***********************************************************************************************************************/
-void R_SYSTEM_MANAGER_ParameterUpdate(void)
+void R_SYSTEM_MANAGER_UpdateParameter(void)
 {
      st_rmw_param_buffer_t *p_st_rmw_input = &g_st_rmw_input_buffer;
 
      st_current_cfg_t           st_cur_cfg;
      st_bemf_observer_cfg_t     st_bemf_obs_cfg;
-     st_ext_observer_cfg_t      st_ext_obs_cfg;
      st_speed_cfg_t             st_spd_cfg;
      st_sensorless_vector_cfg_t st_sensorless_vector_cfg;
 
      /* FOC configuration set */
+     st_sensorless_vector_cfg.u1_flag_less_switch_use      = p_st_rmw_input->u1_flag_less_switch_use;
+     st_sensorless_vector_cfg.u1_flag_openloop_damping_use = p_st_rmw_input->u1_flag_openloop_damping_use;
      st_sensorless_vector_cfg.u1_flag_flying_start_use     = p_st_rmw_input->u1_flag_flying_start_use;
      st_sensorless_vector_cfg.f4_overspeed_limit_rpm       = p_st_rmw_input->f4_overspeed_limit_rpm;
+     st_sensorless_vector_cfg.f4_switch_phase_err_deg      = p_st_rmw_input->f4_switch_phase_err_deg;
+     st_sensorless_vector_cfg.f4_phase_err_lpf_cut_freq    = p_st_rmw_input->f4_phase_err_lpf_cut_freq;
+     st_sensorless_vector_cfg.f4_id_down_speed_rpm         = p_st_rmw_input->f4_id_down_speed_rpm;
+     st_sensorless_vector_cfg.f4_id_up_speed_rpm           = p_st_rmw_input->f4_id_up_speed_rpm;
      st_sensorless_vector_cfg.f4_ctrl_period               = SPEED_CFG_CTRL_PERIOD;
      st_sensorless_vector_cfg.st_motor                     = p_st_rmw_input->st_motor;
      st_sensorless_vector_cfg.f4_restart_speed             = p_st_rmw_input->f4_restart_speed;
@@ -154,29 +184,37 @@ void R_SYSTEM_MANAGER_ParameterUpdate(void)
      R_MOTOR_SENSORLESS_VECTOR_SpeedSet(&g_st_sensorless_vector, p_st_rmw_input->f4_ref_speed_rpm);
 
      /* Current configuration set */
-     st_cur_cfg.u1_flag_volt_err_comp_use      = p_st_rmw_input->u1_flag_volt_err_comp_use;
-     st_cur_cfg.u2_offset_calc_time            = p_st_rmw_input->u2_offset_calc_time;
-     st_cur_cfg.u1_flag_stall_detection_use    = p_st_rmw_input->u1_flag_stall_detection_use;
-     st_cur_cfg.u1_flag_trq_vibration_comp_use = p_st_rmw_input->u1_flag_trq_vibration_comp_use;
-     st_cur_cfg.f4_ctrl_period                 = MOTOR_COMMON_CTRL_PERIOD;
-     st_cur_cfg.f4_current_omega_hz            = p_st_rmw_input->f4_current_omega_hz;
-     st_cur_cfg.f4_current_zeta                = p_st_rmw_input->f4_current_zeta;
-     st_cur_cfg.st_motor                       = p_st_rmw_input->st_motor;
-     st_cur_cfg.f4_timelead                    = p_st_rmw_input->f4_timelead;
-     st_cur_cfg.f4_id_hpf_time                 = p_st_rmw_input->f4_id_hpf_time;
-     st_cur_cfg.f4_iq_hpf_time                 = p_st_rmw_input->f4_iq_hpf_time;
-     st_cur_cfg.f4_threshold_level             = p_st_rmw_input->f4_threshold_level;
-     st_cur_cfg.f4_threshold_time              = p_st_rmw_input->f4_threshold_time;
-     st_cur_cfg.u1_flag_trqvib_comp_learning   = p_st_rmw_input->u1_flag_trqvib_comp_learning;
-     st_cur_cfg.f4_tf_lpf_time                 = p_st_rmw_input->f4_tf_lpf_time;
-     st_cur_cfg.f4_output_gain                 = p_st_rmw_input->f4_output_gain;
-     st_cur_cfg.f4_input_weight2               = p_st_rmw_input->f4_input_weight2;
-     st_cur_cfg.f4_input_weight1               = p_st_rmw_input->f4_input_weight1;
-     st_cur_cfg.f4_input_weight0               = p_st_rmw_input->f4_input_weight0;
-     /* High/low speed switching speed threshold */
-     /* low speed sensorless */
-     st_cur_cfg.f4_highspd_threshold           = p_st_rmw_input->f4_highspd_threshold;
-     st_cur_cfg.f4_lowspd_threshold            = p_st_rmw_input->f4_lowspd_threshold;
+     st_cur_cfg.u1_flag_volt_err_comp_use           = p_st_rmw_input->u1_flag_volt_err_comp_use;
+     st_cur_cfg.u2_offset_calc_time                 = p_st_rmw_input->u2_offset_calc_time;
+     st_cur_cfg.u2_charge_bootstrap_time            = p_st_rmw_input->u2_charge_bootstrap_time;
+     st_cur_cfg.u1_flag_stall_detection_use         = p_st_rmw_input->u1_flag_stall_detection_use;
+     st_cur_cfg.u1_flag_trq_vibration_comp_use      = p_st_rmw_input->u1_flag_trq_vibration_comp_use;
+     st_cur_cfg.u1_flag_trq_vibration_comp_mode     = p_st_rmw_input->u1_flag_trq_vibration_comp_mode;
+     st_cur_cfg.f4_ctrl_period                      = MOTOR_COMMON_CTRL_PERIOD;
+     st_cur_cfg.f4_current_omega_hz                 = p_st_rmw_input->f4_current_omega_hz;
+     st_cur_cfg.f4_current_zeta                     = p_st_rmw_input->f4_current_zeta;
+     st_cur_cfg.f4_id_up_step                       = p_st_rmw_input->f4_ol_ref_id / p_st_rmw_input->f4_id_up_time;
+     st_cur_cfg.f4_id_down_step                     = p_st_rmw_input->f4_ol_ref_id / p_st_rmw_input->f4_id_down_time;
+     st_cur_cfg.f4_iq_down_step_time_inv            = 1.0f / p_st_rmw_input->f4_id_up_time;
+     st_cur_cfg.f4_ol_ref_id                        = p_st_rmw_input->f4_ol_ref_id;
+     st_cur_cfg.st_motor                            = p_st_rmw_input->st_motor;
+     st_cur_cfg.f4_timelead_1f                      = p_st_rmw_input->f4_timelead_1f;
+     st_cur_cfg.f4_timelead_2f                      = p_st_rmw_input->f4_timelead_2f;
+     st_cur_cfg.f4_id_hpf_time                      = p_st_rmw_input->f4_id_hpf_time;
+     st_cur_cfg.f4_iq_hpf_time                      = p_st_rmw_input->f4_iq_hpf_time;
+     st_cur_cfg.f4_threshold_level                  = p_st_rmw_input->f4_threshold_level;
+     st_cur_cfg.f4_threshold_time                   = p_st_rmw_input->f4_threshold_time;
+     st_cur_cfg.u1_target_2f                        = p_st_rmw_input->u1_target_2f;
+     st_cur_cfg.f4_tf_lpf_omega                     = p_st_rmw_input->f4_tf_lpf_omega;
+     st_cur_cfg.f4_output_gain_1f                   = p_st_rmw_input->f4_output_gain_1f;
+     st_cur_cfg.f4_output_gain_2f                   = p_st_rmw_input->f4_output_gain_2f;
+     st_cur_cfg.f4_input_weight2                    = p_st_rmw_input->f4_input_weight2;
+     st_cur_cfg.f4_input_weight1                    = p_st_rmw_input->f4_input_weight1;
+     st_cur_cfg.f4_input_weight0                    = p_st_rmw_input->f4_input_weight0;
+     st_cur_cfg.f4_suppression_th_1f                = p_st_rmw_input->f4_suppression_th_1f ;
+     st_cur_cfg.f4_suppression_th_2f                = p_st_rmw_input->f4_suppression_th_2f;
+     st_cur_cfg.f4_abnormal_output_th_1f            = p_st_rmw_input->f4_abnormal_output_th_1f;
+     st_cur_cfg.f4_abnormal_output_th_2f            = p_st_rmw_input->f4_abnormal_output_th_2f;
      R_MOTOR_CURRENT_ParameterUpdate(&g_st_cc, &st_cur_cfg);
 
      /* BEMF observer */
@@ -184,12 +222,9 @@ void R_SYSTEM_MANAGER_ParameterUpdate(void)
      st_bemf_obs_cfg.f4_e_obs_zeta             = p_st_rmw_input->f4_e_obs_zeta;
      st_bemf_obs_cfg.f4_pll_est_omega_hz       = p_st_rmw_input->f4_pll_est_omega_hz;
      st_bemf_obs_cfg.f4_pll_est_zeta           = p_st_rmw_input->f4_pll_est_zeta;
-     st_bemf_obs_cfg.f4_pll_estlow_omega_hz    = p_st_rmw_input->f4_pll_estlow_omega_hz;/* low speed sensorless */
-     st_bemf_obs_cfg.f4_pll_estlow_zeta        = p_st_rmw_input->f4_pll_estlow_zeta;/* low speed sensorless */
      R_MOTOR_CURRENT_BEMFObserverParameterUpdate(&g_st_cc, &st_bemf_obs_cfg);
 
      /* Speed configuration set */
-     st_spd_cfg.u1_flag_extobserver_use = p_st_rmw_input->u1_flag_extobserver_use;/* low speed sensorless */
      st_spd_cfg.u1_flag_fluxwkn_use            = p_st_rmw_input->u1_flag_fluxwkn_use;
      st_spd_cfg.u1_flag_mtpa_use               = p_st_rmw_input->u1_flag_mtpa_use;
      st_spd_cfg.f4_max_speed_rpm               = p_st_rmw_input->f4_max_speed_rpm;
@@ -198,13 +233,14 @@ void R_SYSTEM_MANAGER_ParameterUpdate(void)
      st_spd_cfg.f4_speed_omega_hz              = p_st_rmw_input->f4_speed_omega_hz;
      st_spd_cfg.f4_speed_zeta                  = p_st_rmw_input->f4_speed_zeta;
      st_spd_cfg.f4_speed_lpf_hz                = p_st_rmw_input->f4_speed_lpf_hz;
+     st_spd_cfg.f4_opl2less_sw_time            = p_st_rmw_input->f4_opl2less_sw_time;
+     st_spd_cfg.f4_ed_hpf_omega                = p_st_rmw_input->f4_ed_hpf_omega;
+     st_spd_cfg.f4_ol_damping_zeta             = p_st_rmw_input->f4_ol_damping_zeta;
+     st_spd_cfg.f4_ol_damping_fb_limit_rate    = p_st_rmw_input->f4_ol_damping_fb_limit_rate;
+     st_spd_cfg.f4_ol_ref_id                   = p_st_rmw_input->f4_ol_ref_id;
+     st_spd_cfg.f4_id_down_speed_rpm           = p_st_rmw_input->f4_id_down_speed_rpm;
      st_spd_cfg.st_motor                       = p_st_rmw_input->st_motor;
      R_MOTOR_SPEED_ParameterUpdate(&g_st_sc, &st_spd_cfg);
-
-     /* extended observer */
-     st_ext_obs_cfg.f4_extobs_omega = p_st_rmw_input->f4_extobs_omega;
-     R_MOTOR_SPEED_ExtObserverParameterUpdate(&g_st_sc, &st_ext_obs_cfg);
-
 } /* End of function R_SYSTEM_MANAGER_UpdateParameter */
 
 /***********************************************************************************************************************
@@ -236,7 +272,19 @@ void R_SYSTEM_MANAGER_MotorCurrentInterrupt(void)
     R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(&g_st_sensorless_vector);
 } /* End of function R_SYSTEM_MANAGER_MotorCurrentInterrupt */
 
+/***********************************************************************************************************************
+* Function Name : R_SYSTEM_MANAGER_PfcCurrentInterrupt
+* Description   : The carrier interrupt handler of PFC control (PFC manager : 32kHz)
+* Arguments     : None
+* Return Value  : None
+***********************************************************************************************************************/
+void R_SYSTEM_MANAGER_PfcCurrentInterrupt(void)
+{
+  //  R_PFC_MANAGER_Main(&g_st_pfc_manager);
 
+    /* Pass the VDC value from the PFC module to the motor module */
+    //g_st_sensorless_vector.f4_pfc_vdc_ad = g_st_pfc_manager.f4_vdc_ad;
+} /* End of function R_SYSTEM_MANAGER_MotorCurrentInterrupt */
 
 /***********************************************************************************************************************
 * Function Name : R_SYSTEM_MANAGER_MotorSpeedInterrupt
@@ -261,9 +309,19 @@ void R_SYSTEM_MANAGER_ControlInterrupt(void)
   //  system_manager_pfc_error_process();
 
     /* PFC Relay check */
-  //  system_manager_pfc_relay_status_judgment();
+   // system_manager_pfc_relay_status_judgment();
 } /* End of function R_SYSTEM_MANAGER_ControlInterrupt */
 
+/***********************************************************************************************************************
+* Function Name : R_SYSTEM_MANAGER_PfcOverCurrentInterrupt
+* Description   : PFC over current interrupt
+* Arguments     : None
+* Return Value  : None
+***********************************************************************************************************************/
+void R_SYSTEM_MANAGER_PfcOverCurrentInterrupt(void)
+{
+   // R_PFC_MANAGER_OverCurrentInterrupt(&g_st_pfc_manager);
+} /* End of function R_SYSTEM_MANAGER_PfcOverCurrentInterrupt */
 
 /***********************************************************************************************************************
 * Function Name : R_SYSTEM_MANAGER_MotorOverCurrentInterrupt

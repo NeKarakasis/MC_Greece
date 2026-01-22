@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_speed.h
 * Description : Definitions of speed control processes
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 10.06.2021 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /* guard against multiple inclusion */
@@ -47,7 +47,6 @@ void motor_speed_max_speed_set(st_speed_control_t * p_st_sc, float f4_max_speed_
 void motor_speed_rate_limit_set(st_speed_control_t * p_st_sc, float f4_speed_rate_limit_rpm);
 float motor_speed_rate_limit_apply(st_speed_control_t * p_st_sc);
 float motor_speed_pi_control(st_speed_control_t * p_st_sc, float f4_speed_rad);
-float dynamic_motor_speed_limit(st_speed_control_t * p_st_sc);
 float motor_speed_ref_speed_set(st_speed_control_t * p_st_sc);
 void motor_speed_flux_weakening(st_speed_control_t * p_st_sc);
 void motor_speed_mtpa(st_speed_control_t * p_st_sc);

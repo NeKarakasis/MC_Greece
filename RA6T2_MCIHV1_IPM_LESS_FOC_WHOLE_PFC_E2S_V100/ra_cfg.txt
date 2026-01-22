@@ -7,7 +7,9 @@ FSP Configuration
     data_flash_size_bytes: 16384
     package_style: LQFP
     package_pins: 100
+    number of cores: 1
     
+  R7FA6T2BD3CFP
   RA6T2
     series: 6
     
@@ -26,46 +28,67 @@ FSP Configuration
     Security: BUS Accessibility: Bus Security Attribution Register B: Both Secure and Non-Secure State
     Security: Uninitialized Non-Secure Application Fallback: Enable Uninitialized Non-Secure Application Fallback
     Startup C-Cache Line Size: 32 Bytes
-    OFS0 register settings: Independent WDT: Start Mode: IWDT is stopped after a reset
-    OFS0 register settings: Independent WDT: Timeout Period: 2048 cycles
-    OFS0 register settings: Independent WDT: Dedicated Clock Frequency Divisor: 128
-    OFS0 register settings: Independent WDT: Window End Position:  0% (no window end position)
-    OFS0 register settings: Independent WDT: Window Start Position: 100% (no window start position)
-    OFS0 register settings: Independent WDT: Reset Interrupt Request Select: Reset is enabled
-    OFS0 register settings: Independent WDT: Stop Control: Stop counting when in Sleep, Snooze mode, or Software Standby
-    OFS0 register settings: WDT: Start Mode Select: Stop WDT after a reset (register-start mode)
-    OFS0 register settings: WDT: Timeout Period: 16384 cycles
-    OFS0 register settings: WDT: Clock Frequency Division Ratio: 128
-    OFS0 register settings: WDT: Window End Position:  0% (no window end position)
-    OFS0 register settings: WDT: Window Start Position: 100% (no window start position)
-    OFS0 register settings: WDT: Reset Interrupt Request: Reset
-    OFS0 register settings: WDT: Stop Control: Stop counting when entering Sleep mode
-    OFS1_SEL register settings: Voltage Detection 0 Level Security Attribution: VDSEL setting loads from OFS1_SEC
-    OFS1_SEL register settings: Voltage Detection 0 Circuit Start Security Attribution: LVDAS setting loads from OFS1_SEC
-    OFS1_SEL register settings: PGA0 Pseudo-Differential Input Enable Security Attribution: PGADEN.PGA0 setting loads from OFS1_SEC
-    OFS1_SEL register settings: PGA1 Pseudo-Differential Input Enable Security Attribution: PGADEN.PGA1 setting loads from OFS1_SEC
-    OFS1_SEL register settings: PGA2 Pseudo-Differential Input Enable Security Attribution: PGADEN.PGA2 setting loads from OFS1_SEC
-    OFS1_SEL register settings: PGA3 Pseudo-Differential Input Enable Security Attribution: PGADEN.PGA3 setting loads from OFS1_SEC
-    OFS1 register settings: Voltage Detection 0 Circuit Start: Voltage monitor 0 reset is disabled after reset
-    OFS1 register settings: Voltage Detection 0 Level: 2.80 V
-    OFS1 register settings: HOCO Oscillation Enable: HOCO oscillation is disabled after reset
-    OFS1 register settings: PGA0 Pseudo-Differential Input Enable: Disabled (single-ended input) after reset
-    OFS1 register settings: PGA1 Pseudo-Differential Input Enable: Disabled (single-ended input) after reset
-    OFS1 register settings: PGA2 Pseudo-Differential Input Enable: Disabled (single-ended input) after reset
-    OFS1 register settings: PGA3 Pseudo-Differential Input Enable: Disabled (single-ended input) after reset
-    Block Protection Settings (BPS): BPS0: 
-    Permanent Block Protection Settings (PBPS): PBPS0: 
     TFU Mathlib: Enabled
     Main Oscillator Wait Time: 8163 cycles
     
+  RA6T2 Device Options
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Enabled
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Start Mode: IWDT is stopped after a reset
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Timeout Period: 2048 cycles
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Dedicated Clock Frequency Divisor: 128
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Window End Position:  0% (no window end position)
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Window Start Position: 100% (no window start position)
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Reset Interrupt Request Select: Reset is enabled
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Stop Control: Stop counting when in Sleep,Snooze modec, or Software Standby
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: WDT: Start Mode Select: Stop WDT after a reset (register-start mode)
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: WDT: Timeout Period: 16384 cycles
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: WDT: Clock Frequency Division Ratio: 128
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: WDT: Window End Position:  0% (no window end position)
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: WDT: Window Start Position: 100% (no window start position)
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: WDT: Reset Interrupt Request: Reset
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: WDT: Stop Control: Stop counting when entering Sleep mode
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: Disabled
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: Voltage Detection 0 Circuit Start: Voltage monitor 0 reset is disabled after reset
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: Voltage Detection 0 Level: 2.80 V
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: HOCO Oscillation Enable: HOCO oscillation is disabled after reset
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: PGA0 Pseudo-Differential Input Enable: Disabled (single-ended input) after reset
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: PGA1 Pseudo-Differential Input Enable: Disabled (single-ended input) after reset
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: PGA2 Pseudo-Differential Input Enable: Disabled (single-ended input) after reset
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: PGA3 Pseudo-Differential Input Enable: Disabled (single-ended input) after reset
+    OFS Registers: BPS (Block Protect Setting Register) Settings: Disabled
+    OFS Registers: BPS (Block Protect Setting Register) Settings: BPS0: 
+    OFS Registers: PBPS (Permanent Block Protect Setting Register) Settings: Disabled
+    OFS Registers: PBPS (Permanent Block Protect Setting Register) Settings: PBPS0: 
+    OFS Registers: OFS1_SEC (Option Function Select Register 1 Secure) Settings: Enabled
+    OFS Registers: OFS1_SEC (Option Function Select Register 1 Secure) Settings: Voltage Detection 0 Circuit Start: Voltage monitor 0 reset is disabled after reset
+    OFS Registers: OFS1_SEC (Option Function Select Register 1 Secure) Settings: Voltage Detection 0 Level: 2.80 V
+    OFS Registers: OFS1_SEC (Option Function Select Register 1 Secure) Settings: HOCO Oscillation Enable: HOCO oscillation is disabled after reset
+    OFS Registers: OFS1_SEC (Option Function Select Register 1 Secure) Settings: PGA0 Pseudo-Differential Input Enable: Disabled (single-ended input) after reset
+    OFS Registers: OFS1_SEC (Option Function Select Register 1 Secure) Settings: PGA1 Pseudo-Differential Input Enable: Disabled (single-ended input) after reset
+    OFS Registers: OFS1_SEC (Option Function Select Register 1 Secure) Settings: PGA2 Pseudo-Differential Input Enable: Disabled (single-ended input) after reset
+    OFS Registers: OFS1_SEC (Option Function Select Register 1 Secure) Settings: PGA3 Pseudo-Differential Input Enable: Disabled (single-ended input) after reset
+    OFS Registers: BPS_SEC (Block Protect Setting Register Secure) Settings: Disabled
+    OFS Registers: BPS_SEC (Block Protect Setting Register Secure) Settings: BPS_SEC0: 
+    OFS Registers: PBPS_SEC (Permanent Block Protect Setting Register Secure) Settings: Disabled
+    OFS Registers: PBPS_SEC (Permanent Block Protect Setting Register Secure) Settings: PBPS_SEC0: 
+    OFS Registers: OFS1_SEL (OFS1 Security Attribution) Settings: Enabled
+    OFS Registers: OFS1_SEL (OFS1 Security Attribution) Settings: Voltage Detection 0 Level Security Attribution: VDSEL setting loads from OFS1_SEC
+    OFS Registers: OFS1_SEL (OFS1 Security Attribution) Settings: Voltage Detection 0 Circuit Start Security Attribution: LVDAS setting loads from OFS1_SEC
+    OFS Registers: OFS1_SEL (OFS1 Security Attribution) Settings: PGA0 Pseudo-Differential Input Enable Security Attribution: PGADEN.PGA0 setting loads from OFS1_SEC
+    OFS Registers: OFS1_SEL (OFS1 Security Attribution) Settings: PGA1 Pseudo-Differential Input Enable Security Attribution: PGADEN.PGA1 setting loads from OFS1_SEC
+    OFS Registers: OFS1_SEL (OFS1 Security Attribution) Settings: PGA2 Pseudo-Differential Input Enable Security Attribution: PGADEN.PGA2 setting loads from OFS1_SEC
+    OFS Registers: OFS1_SEL (OFS1 Security Attribution) Settings: PGA3 Pseudo-Differential Input Enable Security Attribution: PGADEN.PGA3 setting loads from OFS1_SEC
+    OFS Registers: BPS_SEL (BPS Security Attribution) Settings: Disabled
+    OFS Registers: BPS_SEL (BPS Security Attribution) Settings: BPS_SEL0: 
+    
   RA6T2 event data
   RA Common
-    Main stack size (bytes): 0x1000
+    Main stack size (bytes): 0x400
     Heap size (bytes): 0
+    Bootloader Secondary XIP: Disabled
     MCU Vcc (mV): 3300
     Parameter checking: Disabled
     Assert Failures: Return FSP_ERR_ASSERTION
-    Error Log: No Error Log
     Clock Registers not Reset Values during Startup: Disabled
     Main Oscillator Populated: Populated
     PFS Protect: Enabled
@@ -140,7 +163,7 @@ FSP Configuration
       PB07 93 GPT5_GTIOC5B - L None "Peripheral mode" - - "AGT1: AGTOB1; GPT: GTETRGC; GPT1: GTIOC1B; GPT5: GTIOC5B; GPT_OPS: GTIW; ICU5: IRQ5-DS; IIC0: SDA0; KINT: KR07; SCI0: RXD0; SCI1: DE1; SCI1: SS_CTS_RTS1" - IO - - 
       PB08 95 GPT6_GTIOC6A - L None "Peripheral mode" - - "AGT0: AGTIO0; CANFD0: CRX0; GPT2: GTIOC2A; GPT5: GTIOC5B; GPT6: GTIOC6A; ICU1: IRQ1-DS; IIC1: SCL1; KINT: KR00; SCI1: RXD1; SCI4: RXD4" - IO - - 
       PB09 96 GPT6_GTIOC6B - L None "Peripheral mode" - - "AGT1: AGTIO1; CANFD0: CTX0; GPT2: GTIOC2B; GPT6: GTIOC6B; ICU2: IRQ2-DS; IIC1: SDA1; KINT: KR01; SCI1: TXD1; SCI4: TXD4" - IO - - 
-      PB10 47 GPIO MC_DIO_BLDC_BRAKE L None "Output mode (Initial High)" - - "ADC_B: AN028; CAC: CACREF; CGC: VCOUT; GPT: GTCPPO4; GPT: GTCPPO7; GPT: GTETRGA; GPT: GTETRGB; GPT_OPS: GTIU; ICU10: IRQ10-DS; SCI3: CTS3; SCI4: TXD4" - IO - - 
+      PB10 47 GPIO MC_DIO_BLDC_BRAKE L - "Output mode (Initial High)" - - "ADC_B: AN028; CAC: CACREF; CGC: VCOUT; GPT: GTCPPO4; GPT: GTCPPO7; GPT: GTETRGA; GPT: GTETRGB; GPT_OPS: GTIU; ICU10: IRQ10-DS; SCI3: CTS3; SCI4: TXD4" - IO - - 
       PB12 51 - - - - Disabled - - "ADC_B: ADTRG0; CANFD0: CRX0; GPT0: GTIOC0A; GPT4: GTIOC4A; GPT_POEGA: GTETRGA; ICU2: IRQ2; SCI3: RXD3; SCI4: DE4; SCI4: SCK4; SPI1: SSLB0" - None - - 
       PB13 52 - - - - Disabled - - "CANFD0: CTX0; GPT0: GTIOC0B; GPT5: GTIOC5A; GPT7: GTIOC7A; GPT_OPS: GTOULO; ICU3: IRQ3; SCI3: TXD3; SCI4: CTS4; SPI1: RSPCK1" - None - - 
       PB14 53 GPT1_GTIOC1A - L None "Peripheral mode" - - "GPT1: GTIOC1A; GPT6: GTIOC6A; GPT8: GTIOC8A; GPT_OPS: GTOVLO; ICU4: IRQ4; IIC0: SDA0; SCI3: DE3; SCI3: SCK3; SCI4: DE4; SCI4: SS_CTS_RTS4; SPI1: MISO1" - IO - - 
@@ -151,7 +174,7 @@ FSP Configuration
       PC03 18 - - - - Disabled - - "ACMPHS3: IVCMP30; ADC_B: AN015; ADC_B(PGAOUT3): PGAOUT3; ICU14: IRQ14-DS" - None - - 
       PC04 33 - - - - Disabled - - "ADC_B: AN010; DAC122: DA2; ICU10: IRQ10" - None - - 
       PC05 34 - - - - Disabled - - "ADC_B: AN011; DAC123: DA3; ICU11: IRQ11" - None - - 
-      PC06 63 GPIO - L None "Output mode (Initial Low)" - - "AGT0: AGTO0; GPT5: GTIOC5B; GPT6: GTIOC6A; GPT_POEGD: GTETRGD; ICU6: IRQ6; IIC1: SCL1; SCI2: TXD2; SCI9: DE9; SCI9: SS_CTS_RTS9" - IO - - 
+      PC06 63 GPIO - L - "Output mode (Initial Low)" - - "AGT0: AGTO0; GPT5: GTIOC5B; GPT6: GTIOC6A; GPT_POEGD: GTETRGD; ICU6: IRQ6; IIC1: SCL1; SCI2: TXD2; SCI9: DE9; SCI9: SS_CTS_RTS9" - IO - - 
       PC07 64 - - - - Disabled - - "AGT0: AGTEE0; GPT6: GTIOC6B; GPT_POEGA: GTETRGA; ICU7: IRQ7; IIC1: SDA1; SCI2: RXD2; SCI9: CTS9" - None - - 
       PC08 65 - - - - Disabled - - "AGT0: AGTOA0; CAC: CACREF; GPT7: GTIOC7A; GPT_OPS: GTIV; ICU8: IRQ8; IIC0: SCL0_D; SCI2: DE2; SCI2: SCK2; SCI3: DE3; SCI3: SS_CTS_RTS3; SPI0: SSLA3" - None - - 
       PC09 66 - - - - Disabled - - "AGT0: AGTOB0; CGC: CLKOUT; GPT7: GTIOC7B; GPT8: GTIOC8A; GPT_OPS: GTIW; ICU9: IRQ9; IIC0: SDA0; SCI2: DE2; SCI2: SS_CTS_RTS2; SCI3: CTS3; SPI0: SSLA2" - None - - 
@@ -163,7 +186,7 @@ FSP Configuration
       PC15 9 - - - - Disabled - - "ACMPHS (CMPOUT3): CMPOUT3; ADC_B: ADTRG1; AGT1: AGTIO1; GPT: GTADSM1; GPT: GTCPPO1; GPT: GTCPPO7; GPT3: GTIOC3B; GPT_POEGB: GTETRGB; ICU15: IRQ15" - None - - 
       PD00 81 - - - - Disabled - - "CANFD0: CRX0; GPT: GTADSM0; GPT: GTCPPO4; KINT: KR00; SCI2: CTS2; SCI3: RXD3; SPI1: SSLB0" - None - - 
       PD01 82 GPIO - L - "Output mode (Initial High)" - - "CANFD0: CTX0; GPT: GTADSM1; GPT: GTCPPO7; KINT: KR01; SCI2: DE2; SCI2: SS_CTS_RTS2; SCI3: TXD3; SPI1: SSLB1" - IO - - 
-      PD02 83 GPIO - L None "Output mode (Initial High)" - - "ACMPHS (CMPOUT3): CMPOUT3; AGT1: AGTEE1; CGC: CLKOUT; GPT: GTCPPO0; GPT: GTCPPO2; ICU9: IRQ9-DS; KINT: KR02; SCI3: DE3; SCI3: SCK3; SCI4: RXD4" - IO - - 
+      PD02 83 GPIO - L - "Output mode (Initial High)" - - "ACMPHS (CMPOUT3): CMPOUT3; AGT1: AGTEE1; CGC: CLKOUT; GPT: GTCPPO0; GPT: GTCPPO2; ICU9: IRQ9-DS; KINT: KR02; SCI3: DE3; SCI3: SCK3; SCI4: RXD4" - IO - - 
       PD03 84 GPIO - L - "Output mode (Initial High)" - - "ACMPHS (CMPOUT0): CMPOUT0; GPT: GTCPPO0; KINT: KR03; SCI4: DE4; SCI4: SCK4; SCI9: CTS9; SPI1: SSLB2" - IO - - 
       PD04 85 GPIO - - - "Input mode" - - "ACMPHS (CMPOUT1): CMPOUT1; GPT: GTCPPO1; KINT: KR04; SCI4: DE4; SCI4: SS_CTS_RTS4; SCI9: DE9; SCI9: SS_CTS_RTS9; SPI1: SSLB3" - IO - - 
       PD05 86 - - - - Disabled - - "GPT: GTADSM0; GPT: GTCPPO3; IIC1: SDA1; KINT: KR05; SCI9: TXD9; SPI0: SSLA3" - None - - 
@@ -241,7 +264,7 @@ FSP Configuration
       PB07 93 GPT5_GTIOC5B - L None "Peripheral mode" - - "AGT1: AGTOB1; GPT: GTETRGC; GPT1: GTIOC1B; GPT5: GTIOC5B; GPT_OPS: GTIW; ICU5: IRQ5-DS; IIC0: SDA0; KINT: KR07; SCI0: RXD0; SCI1: DE1; SCI1: SS_CTS_RTS1" - IO - - 
       PB08 95 GPT6_GTIOC6A - L None "Peripheral mode" - - "AGT0: AGTIO0; CANFD0: CRX0; GPT2: GTIOC2A; GPT5: GTIOC5B; GPT6: GTIOC6A; ICU1: IRQ1-DS; IIC1: SCL1; KINT: KR00; SCI1: RXD1; SCI4: RXD4" - IO - - 
       PB09 96 GPT6_GTIOC6B - L None "Peripheral mode" - - "AGT1: AGTIO1; CANFD0: CTX0; GPT2: GTIOC2B; GPT6: GTIOC6B; ICU2: IRQ2-DS; IIC1: SDA1; KINT: KR01; SCI1: TXD1; SCI4: TXD4" - IO - - 
-      PB10 47 - MC_DIO_BLDC_BRAKE L None Disabled - - "ADC_B: AN028; CAC: CACREF; CGC: VCOUT; GPT: GTCPPO4; GPT: GTCPPO7; GPT: GTETRGA; GPT: GTETRGB; GPT_OPS: GTIU; ICU10: IRQ10-DS; SCI3: CTS3; SCI4: TXD4" - IO - - 
+      PB10 47 - MC_DIO_BLDC_BRAKE L - Disabled - - "ADC_B: AN028; CAC: CACREF; CGC: VCOUT; GPT: GTCPPO4; GPT: GTCPPO7; GPT: GTETRGA; GPT: GTETRGB; GPT_OPS: GTIU; ICU10: IRQ10-DS; SCI3: CTS3; SCI4: TXD4" - IO - - 
       PB12 51 - - - - Disabled - - "ADC_B: ADTRG0; CANFD0: CRX0; GPT0: GTIOC0A; GPT4: GTIOC4A; GPT_POEGA: GTETRGA; ICU2: IRQ2; SCI3: RXD3; SCI4: DE4; SCI4: SCK4; SPI1: SSLB0" - None - - 
       PB13 52 - - - - Disabled - - "CANFD0: CTX0; GPT0: GTIOC0B; GPT5: GTIOC5A; GPT7: GTIOC7A; GPT_OPS: GTOULO; ICU3: IRQ3; SCI3: TXD3; SCI4: CTS4; SPI1: RSPCK1" - None - - 
       PB14 53 - - L None Disabled - - "GPT1: GTIOC1A; GPT6: GTIOC6A; GPT8: GTIOC8A; GPT_OPS: GTOVLO; ICU4: IRQ4; IIC0: SDA0; SCI3: DE3; SCI3: SCK3; SCI4: DE4; SCI4: SS_CTS_RTS4; SPI1: MISO1" - IO - - 
@@ -252,7 +275,7 @@ FSP Configuration
       PC03 18 - - - - Disabled - - "ACMPHS3: IVCMP30; ADC_B: AN015; ADC_B(PGAOUT3): PGAOUT3; ICU14: IRQ14-DS" - None - - 
       PC04 33 GPIO - - - "Input mode" - - "ADC_B: AN010; DAC122: DA2; ICU10: IRQ10" - None - - 
       PC05 34 GPIO - - - "Input mode" - - "ADC_B: AN011; DAC123: DA3; ICU11: IRQ11" - None - - 
-      PC06 63 GPIO - L None "Output mode (Initial High)" - - "AGT0: AGTO0; GPT5: GTIOC5B; GPT6: GTIOC6A; GPT_POEGD: GTETRGD; ICU6: IRQ6; IIC1: SCL1; SCI2: TXD2; SCI9: DE9; SCI9: SS_CTS_RTS9" - IO - - 
+      PC06 63 GPIO - L - "Output mode (Initial High)" - - "AGT0: AGTO0; GPT5: GTIOC5B; GPT6: GTIOC6A; GPT_POEGD: GTETRGD; ICU6: IRQ6; IIC1: SCL1; SCI2: TXD2; SCI9: DE9; SCI9: SS_CTS_RTS9" - IO - - 
       PC07 64 GPIO - - - "Output mode (Initial High)" - - "AGT0: AGTEE0; GPT6: GTIOC6B; GPT_POEGA: GTETRGA; ICU7: IRQ7; IIC1: SDA1; SCI2: RXD2; SCI9: CTS9" - None - - 
       PC08 65 GPT7_GTIOC7A - - - "Peripheral mode" - - "AGT0: AGTOA0; CAC: CACREF; GPT7: GTIOC7A; GPT_OPS: GTIV; ICU8: IRQ8; IIC0: SCL0_D; SCI2: DE2; SCI2: SCK2; SCI3: DE3; SCI3: SS_CTS_RTS3; SPI0: SSLA3" - None - - 
       PC09 66 GPT7_GTIOC7B - - - "Peripheral mode" - - "AGT0: AGTOB0; CGC: CLKOUT; GPT7: GTIOC7B; GPT8: GTIOC8A; GPT_OPS: GTIW; ICU9: IRQ9; IIC0: SDA0; SCI2: DE2; SCI2: SS_CTS_RTS2; SCI3: CTS3; SPI0: SSLA2" - None - - 
@@ -264,7 +287,7 @@ FSP Configuration
       PC15 9 GPT3_GTIOC3B - - - "Peripheral mode" - - "ACMPHS (CMPOUT3): CMPOUT3; ADC_B: ADTRG1; AGT1: AGTIO1; GPT: GTADSM1; GPT: GTCPPO1; GPT: GTCPPO7; GPT3: GTIOC3B; GPT_POEGB: GTETRGB; ICU15: IRQ15" - None - - 
       PD00 81 - - - - Disabled - - "CANFD0: CRX0; GPT: GTADSM0; GPT: GTCPPO4; KINT: KR00; SCI2: CTS2; SCI3: RXD3; SPI1: SSLB0" - None - - 
       PD01 82 GPIO - L - "Output mode (Initial High)" - - "CANFD0: CTX0; GPT: GTADSM1; GPT: GTCPPO7; KINT: KR01; SCI2: DE2; SCI2: SS_CTS_RTS2; SCI3: TXD3; SPI1: SSLB1" - IO - - 
-      PD02 83 GPIO - L None "Output mode (Initial High)" - - "ACMPHS (CMPOUT3): CMPOUT3; AGT1: AGTEE1; CGC: CLKOUT; GPT: GTCPPO0; GPT: GTCPPO2; ICU9: IRQ9-DS; KINT: KR02; SCI3: DE3; SCI3: SCK3; SCI4: RXD4" - IO - - 
+      PD02 83 GPIO - L - "Output mode (Initial High)" - - "ACMPHS (CMPOUT3): CMPOUT3; AGT1: AGTEE1; CGC: CLKOUT; GPT: GTCPPO0; GPT: GTCPPO2; ICU9: IRQ9-DS; KINT: KR02; SCI3: DE3; SCI3: SCK3; SCI4: RXD4" - IO - - 
       PD03 84 GPIO - L - "Output mode (Initial High)" - - "ACMPHS (CMPOUT0): CMPOUT0; GPT: GTCPPO0; KINT: KR03; SCI4: DE4; SCI4: SCK4; SCI9: CTS9; SPI1: SSLB2" - IO - - 
       PD04 85 GPIO - - - "Input mode" - - "ACMPHS (CMPOUT1): CMPOUT1; GPT: GTCPPO1; KINT: KR04; SCI4: DE4; SCI4: SS_CTS_RTS4; SCI9: DE9; SCI9: SS_CTS_RTS9; SPI1: SSLB3" - IO - - 
       PD05 86 - - - - Disabled - - "GPT: GTADSM0; GPT: GTCPPO3; IIC1: SDA1; KINT: KR05; SCI9: TXD9; SPI0: SSLA3" - None - - 
@@ -312,8 +335,13 @@ FSP Configuration
     
   User Event Links
     
+  Linker Section Mappings
+    *(.bss.g_heap): RAM Uninitialized
+    *(.bss.g_main_stack): RAM Uninitialized
+    
   Module "I/O Port (r_ioport)"
     Parameter Checking: Default (BSP)
+    CCD Support: Not Supported
     
   Module "ADC Driver on r_adc_b"
     Parameter Checking: Default (BSP)
@@ -333,6 +361,10 @@ FSP Configuration
     Parameter Checking: Default (BSP)
     Pin Output Support: Disabled
     Pin Input Support: Disabled
+    
+  Module "Independent Watchdog (r_iwdt)"
+    Parameter Checking: Default (BSP)
+    Register Start NMI Support: Disabled
     
   HAL
     Instance "g_ioport I/O Port (r_ioport)"
@@ -356,8 +388,8 @@ FSP Configuration
       General: Synchronous Operation: Synchronous Operation Period Cycle: 100
       General: Calibration: A/D Calibration: Sampling Time: 10
       General: Calibration: A/D Calibration: Conversion Time: 6
-      General: Calibration: Sample and Hold Calibration: Sampling Time: 25
-      General: Calibration: Sample and Hold Calibration: Hold Time: 3
+      General: Calibration: Sample-and-Hold Calibration: Sampling Time: 25
+      General: Calibration: Sample-and-Hold Calibration: Hold Time: 3
       Clock Configuration: Divider: Div /1
       Clock Configuration: Source: PCLKC
       Interrupts: Callback: callback_gpt_adc_cyclic
@@ -372,6 +404,10 @@ FSP Configuration
       Interrupts: Scan End Priority: Group 2: Disabled
       Interrupts: Scan End Priority: Group 3: Disabled
       Interrupts: Scan End Priority: Group 4: Disabled
+      Interrupts: Scan End Priority: Group 5: Disabled
+      Interrupts: Scan End Priority: Group 6: Disabled
+      Interrupts: Scan End Priority: Group 7: Disabled
+      Interrupts: Scan End Priority: Group 8: Disabled
       Interrupts: Scan End Priority: Group 5 to 8: Disabled
       Interrupts: FIFO Priorities: Overflow: Disabled
       Interrupts: FIFO Priorities: Group 0: Disabled
@@ -379,6 +415,10 @@ FSP Configuration
       Interrupts: FIFO Priorities: Group 2: Disabled
       Interrupts: FIFO Priorities: Group 3: Disabled
       Interrupts: FIFO Priorities: Group 4: Disabled
+      Interrupts: FIFO Priorities: Group 5: Disabled
+      Interrupts: FIFO Priorities: Group 6: Disabled
+      Interrupts: FIFO Priorities: Group 7: Disabled
+      Interrupts: FIFO Priorities: Group 8: Disabled
       Interrupts: FIFO Priorities: Group 5 to 8: Disabled
       Digital Filter: ADC 0: Table Entry 1: Sinc Filter (Oversampling Rate = 8)
       Digital Filter: ADC 1: Table Entry 1: Sinc Filter (Oversampling Rate = 8)
@@ -405,7 +445,7 @@ FSP Configuration
       General: Sampling State Table: Entry 14: 95
       General: Sampling State Table: Entry 15: 95
       Sample and Hold: Enable Unit: Unit 0, Unit 1, Unit 2
-      Sample and Hold: Analog Channels 0-5: Sampling Time: 120
+      Sample and Hold: Analog Channels 0-5: Sampling Time: 60
       Sample and Hold: Analog Channels 0-5: Hold Time: 3
       Sample and Hold: Analog Channels 6-11: Sampling Time: 95
       Sample and Hold: Analog Channels 6-11: Hold Time: 5
@@ -455,7 +495,7 @@ FSP Configuration
       Limiter Clipping: Table Entry 7: Lower Limit Value: 0
       Limiter Clipping: Table Entry 7: Upper Limit Value: 0
       Virtual Channels: Virtual Channel 0: Scan Group: Scan Group 0
-      Virtual Channels: Virtual Channel 0: Channel Select: AN000
+      Virtual Channels: Virtual Channel 0: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 0: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 0: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 0: Channel Offset Table: Disabled
@@ -464,8 +504,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 0: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 0: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 0: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 0: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 0: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 1: Scan Group: Scan Group 0
-      Virtual Channels: Virtual Channel 1: Channel Select: AN002
+      Virtual Channels: Virtual Channel 1: Channel Select: ADC Channel 2
       Virtual Channels: Virtual Channel 1: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 1: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 1: Channel Offset Table: Disabled
@@ -474,8 +518,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 1: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 1: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 1: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 1: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 1: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 2: Scan Group: Scan Group 0
-      Virtual Channels: Virtual Channel 2: Channel Select: AN004
+      Virtual Channels: Virtual Channel 2: Channel Select: ADC Channel 4
       Virtual Channels: Virtual Channel 2: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 2: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 2: Channel Offset Table: Disabled
@@ -484,8 +532,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 2: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 2: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 2: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 2: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 2: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 3: Scan Group: Scan Group 1
-      Virtual Channels: Virtual Channel 3: Channel Select: AN007
+      Virtual Channels: Virtual Channel 3: Channel Select: ADC Channel 7
       Virtual Channels: Virtual Channel 3: Sampling State Table ID: Sampling State Entry 2
       Virtual Channels: Virtual Channel 3: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 3: Channel Offset Table: Disabled
@@ -494,8 +546,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 3: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 3: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 3: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 3: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 3: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 4: Scan Group: Scan Group 2
-      Virtual Channels: Virtual Channel 4: Channel Select: AN003
+      Virtual Channels: Virtual Channel 4: Channel Select: ADC Channel 3
       Virtual Channels: Virtual Channel 4: Sampling State Table ID: Sampling State Entry 2
       Virtual Channels: Virtual Channel 4: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 4: Channel Offset Table: Disabled
@@ -504,8 +560,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 4: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 4: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 4: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 4: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 4: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 5: Scan Group: Scan Group 1
-      Virtual Channels: Virtual Channel 5: Channel Select: AN006
+      Virtual Channels: Virtual Channel 5: Channel Select: ADC Channel 6
       Virtual Channels: Virtual Channel 5: Sampling State Table ID: Sampling State Entry 1
       Virtual Channels: Virtual Channel 5: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 5: Channel Offset Table: Disabled
@@ -514,8 +574,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 5: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 5: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 5: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 5: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 5: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 6: Scan Group: Scan Group 2
-      Virtual Channels: Virtual Channel 6: Channel Select: AN001
+      Virtual Channels: Virtual Channel 6: Channel Select: ADC Channel 1
       Virtual Channels: Virtual Channel 6: Sampling State Table ID: Sampling State Entry 2
       Virtual Channels: Virtual Channel 6: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 6: Channel Offset Table: Disabled
@@ -524,8 +588,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 6: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 6: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 6: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 6: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 6: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 7: Scan Group: None
-      Virtual Channels: Virtual Channel 7: Channel Select: AN000
+      Virtual Channels: Virtual Channel 7: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 7: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 7: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 7: Channel Offset Table: Disabled
@@ -534,8 +602,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 7: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 7: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 7: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 7: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 7: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 8: Scan Group: None
-      Virtual Channels: Virtual Channel 8: Channel Select: AN000
+      Virtual Channels: Virtual Channel 8: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 8: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 8: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 8: Channel Offset Table: Disabled
@@ -544,8 +616,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 8: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 8: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 8: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 8: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 8: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 9: Scan Group: None
-      Virtual Channels: Virtual Channel 9: Channel Select: AN000
+      Virtual Channels: Virtual Channel 9: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 9: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 9: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 9: Channel Offset Table: Disabled
@@ -554,8 +630,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 9: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 9: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 9: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 9: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 9: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 10: Scan Group: None
-      Virtual Channels: Virtual Channel 10: Channel Select: AN000
+      Virtual Channels: Virtual Channel 10: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 10: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 10: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 10: Channel Offset Table: Disabled
@@ -564,8 +644,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 10: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 10: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 10: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 10: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 10: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 11: Scan Group: None
-      Virtual Channels: Virtual Channel 11: Channel Select: AN000
+      Virtual Channels: Virtual Channel 11: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 11: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 11: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 11: Channel Offset Table: Disabled
@@ -574,8 +658,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 11: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 11: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 11: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 11: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 11: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 12: Scan Group: None
-      Virtual Channels: Virtual Channel 12: Channel Select: AN000
+      Virtual Channels: Virtual Channel 12: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 12: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 12: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 12: Channel Offset Table: Disabled
@@ -584,8 +672,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 12: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 12: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 12: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 12: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 12: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 13: Scan Group: None
-      Virtual Channels: Virtual Channel 13: Channel Select: AN000
+      Virtual Channels: Virtual Channel 13: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 13: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 13: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 13: Channel Offset Table: Disabled
@@ -594,8 +686,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 13: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 13: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 13: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 13: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 13: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 14: Scan Group: None
-      Virtual Channels: Virtual Channel 14: Channel Select: AN000
+      Virtual Channels: Virtual Channel 14: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 14: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 14: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 14: Channel Offset Table: Disabled
@@ -604,8 +700,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 14: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 14: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 14: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 14: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 14: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 15: Scan Group: None
-      Virtual Channels: Virtual Channel 15: Channel Select: AN000
+      Virtual Channels: Virtual Channel 15: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 15: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 15: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 15: Channel Offset Table: Disabled
@@ -614,8 +714,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 15: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 15: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 15: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 15: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 15: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 16: Scan Group: None
-      Virtual Channels: Virtual Channel 16: Channel Select: AN000
+      Virtual Channels: Virtual Channel 16: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 16: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 16: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 16: Channel Offset Table: Disabled
@@ -624,8 +728,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 16: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 16: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 16: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 16: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 16: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 17: Scan Group: None
-      Virtual Channels: Virtual Channel 17: Channel Select: AN000
+      Virtual Channels: Virtual Channel 17: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 17: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 17: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 17: Channel Offset Table: Disabled
@@ -634,8 +742,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 17: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 17: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 17: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 17: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 17: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 18: Scan Group: None
-      Virtual Channels: Virtual Channel 18: Channel Select: AN000
+      Virtual Channels: Virtual Channel 18: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 18: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 18: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 18: Channel Offset Table: Disabled
@@ -644,8 +756,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 18: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 18: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 18: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 18: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 18: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 19: Scan Group: None
-      Virtual Channels: Virtual Channel 19: Channel Select: AN000
+      Virtual Channels: Virtual Channel 19: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 19: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 19: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 19: Channel Offset Table: Disabled
@@ -654,8 +770,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 19: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 19: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 19: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 19: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 19: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 20: Scan Group: None
-      Virtual Channels: Virtual Channel 20: Channel Select: AN000
+      Virtual Channels: Virtual Channel 20: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 20: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 20: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 20: Channel Offset Table: Disabled
@@ -664,8 +784,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 20: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 20: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 20: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 20: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 20: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 21: Scan Group: None
-      Virtual Channels: Virtual Channel 21: Channel Select: AN000
+      Virtual Channels: Virtual Channel 21: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 21: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 21: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 21: Channel Offset Table: Disabled
@@ -674,8 +798,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 21: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 21: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 21: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 21: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 21: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 22: Scan Group: None
-      Virtual Channels: Virtual Channel 22: Channel Select: AN000
+      Virtual Channels: Virtual Channel 22: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 22: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 22: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 22: Channel Offset Table: Disabled
@@ -684,8 +812,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 22: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 22: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 22: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 22: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 22: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 23: Scan Group: None
-      Virtual Channels: Virtual Channel 23: Channel Select: AN000
+      Virtual Channels: Virtual Channel 23: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 23: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 23: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 23: Channel Offset Table: Disabled
@@ -694,8 +826,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 23: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 23: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 23: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 23: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 23: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 24: Scan Group: None
-      Virtual Channels: Virtual Channel 24: Channel Select: AN000
+      Virtual Channels: Virtual Channel 24: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 24: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 24: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 24: Channel Offset Table: Disabled
@@ -704,8 +840,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 24: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 24: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 24: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 24: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 24: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 25: Scan Group: None
-      Virtual Channels: Virtual Channel 25: Channel Select: AN000
+      Virtual Channels: Virtual Channel 25: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 25: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 25: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 25: Channel Offset Table: Disabled
@@ -714,8 +854,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 25: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 25: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 25: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 25: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 25: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 26: Scan Group: None
-      Virtual Channels: Virtual Channel 26: Channel Select: AN000
+      Virtual Channels: Virtual Channel 26: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 26: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 26: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 26: Channel Offset Table: Disabled
@@ -724,8 +868,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 26: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 26: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 26: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 26: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 26: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 27: Scan Group: None
-      Virtual Channels: Virtual Channel 27: Channel Select: AN000
+      Virtual Channels: Virtual Channel 27: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 27: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 27: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 27: Channel Offset Table: Disabled
@@ -734,8 +882,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 27: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 27: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 27: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 27: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 27: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 28: Scan Group: None
-      Virtual Channels: Virtual Channel 28: Channel Select: AN000
+      Virtual Channels: Virtual Channel 28: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 28: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 28: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 28: Channel Offset Table: Disabled
@@ -744,8 +896,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 28: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 28: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 28: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 28: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 28: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 29: Scan Group: None
-      Virtual Channels: Virtual Channel 29: Channel Select: AN000
+      Virtual Channels: Virtual Channel 29: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 29: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 29: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 29: Channel Offset Table: Disabled
@@ -754,8 +910,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 29: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 29: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 29: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 29: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 29: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 30: Scan Group: None
-      Virtual Channels: Virtual Channel 30: Channel Select: AN000
+      Virtual Channels: Virtual Channel 30: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 30: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 30: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 30: Channel Offset Table: Disabled
@@ -764,8 +924,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 30: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 30: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 30: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 30: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 30: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 31: Scan Group: None
-      Virtual Channels: Virtual Channel 31: Channel Select: AN000
+      Virtual Channels: Virtual Channel 31: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 31: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 31: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 31: Channel Offset Table: Disabled
@@ -774,8 +938,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 31: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 31: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 31: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 31: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 31: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 32: Scan Group: None
-      Virtual Channels: Virtual Channel 32: Channel Select: AN000
+      Virtual Channels: Virtual Channel 32: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 32: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 32: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 32: Channel Offset Table: Disabled
@@ -784,8 +952,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 32: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 32: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 32: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 32: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 32: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 33: Scan Group: None
-      Virtual Channels: Virtual Channel 33: Channel Select: AN000
+      Virtual Channels: Virtual Channel 33: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 33: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 33: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 33: Channel Offset Table: Disabled
@@ -794,8 +966,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 33: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 33: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 33: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 33: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 33: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 34: Scan Group: None
-      Virtual Channels: Virtual Channel 34: Channel Select: AN000
+      Virtual Channels: Virtual Channel 34: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 34: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 34: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 34: Channel Offset Table: Disabled
@@ -804,8 +980,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 34: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 34: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 34: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 34: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 34: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 35: Scan Group: None
-      Virtual Channels: Virtual Channel 35: Channel Select: AN000
+      Virtual Channels: Virtual Channel 35: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 35: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 35: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 35: Channel Offset Table: Disabled
@@ -814,8 +994,12 @@ FSP Configuration
       Virtual Channels: Virtual Channel 35: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 35: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 35: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 35: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 35: Data Sign Selection: Signed
+      : 
       Virtual Channels: Virtual Channel 36: Scan Group: None
-      Virtual Channels: Virtual Channel 36: Channel Select: AN000
+      Virtual Channels: Virtual Channel 36: Channel Select: ADC Channel 0
       Virtual Channels: Virtual Channel 36: Sampling State Table ID: Sampling State Entry 0
       Virtual Channels: Virtual Channel 36: Channel Gain Table: Disabled
       Virtual Channels: Virtual Channel 36: Channel Offset Table: Disabled
@@ -824,6 +1008,10 @@ FSP Configuration
       Virtual Channels: Virtual Channel 36: Limit Clip Table Id: Disabled
       Virtual Channels: Virtual Channel 36: Conversion Data Format Select: 12-bit Data Format
       Virtual Channels: Virtual Channel 36: Digital Filter Selection: Disabled
+      Virtual Channels: Virtual Channel 36: Input Mode Selection: Single-ended Input
+      : 
+      Virtual Channels: Virtual Channel 36: Data Sign Selection: Signed
+      : 
       Scan Groups: Scan Group 0: Enable: Enable
       Scan Groups: Scan Group 0: Converter Selection: ADC 0
       Scan Groups: Scan Group 0: Start Trigger Delay: 0
@@ -856,7 +1044,7 @@ FSP Configuration
       Scan Groups: Scan Group 2: External Trigger Enable: 
       Scan Groups: Scan Group 2: ELC Trigger Enable: 
       Scan Groups: Scan Group 2: GPT Trigger Enable: GPT Channel 1 Request A
-      Scan Groups: Scan Group 2: Limit Clip Interrupt Enable: Disable
+      Scan Groups: Scan Group 2: Limit Clip Interrupt Enable: Enable
       Scan Groups: Scan Group 2: FIFO Enable: Disable
       Scan Groups: Scan Group 2: FIFO Interrupt Enable: Disable
       Scan Groups: Scan Group 2: FIFO Interrupt Generation Level : 0
@@ -936,7 +1124,7 @@ FSP Configuration
     Instance "Three-Phase PWM (r_gpt_three_phase)"
       General: Name: g_three_phase0
       General: Mode: Triangle-Wave Symmetric PWM
-      General: Period: 10
+      General: Period: 16
       General: Period Unit: Kilohertz
       General: GPT U-Channel: 4
       General: GPT V-Channel: 5
@@ -952,7 +1140,7 @@ FSP Configuration
         General: Name: g_timer_gpt4
         General: Channel: 4
         General: Mode: Triangle-wave PWM (symmetric, Mode 1)
-        General: Period: 10
+        General: Period: 16
         General: Compare Match: Compare Match A: Status: Disabled
         General: Compare Match: Compare Match A: Compare match value: 0
         General: Compare Match: Compare Match B: Status: Disabled
@@ -981,6 +1169,8 @@ FSP Configuration
         Input: Capture B Source: 
         Input: Noise Filter A Sampling Clock Select: No Filter
         Input: Noise Filter B Sampling Clock Select: No Filter
+        Pin Polarity: GTIOCnA Polarity: Normal
+        Pin Polarity: GTIOCnB Polarity: Normal
         Interrupts: Callback: NULL
         Interrupts: Overflow/Crest Interrupt Priority: Disabled
         Interrupts: Capture/Compare match A Interrupt Priority: Disabled
@@ -1004,7 +1194,7 @@ FSP Configuration
         General: Name: g_timer_gpt5
         General: Channel: 5
         General: Mode: Triangle-wave PWM (symmetric, Mode 1)
-        General: Period: 10
+        General: Period: 16
         General: Compare Match: Compare Match A: Status: Disabled
         General: Compare Match: Compare Match A: Compare match value: 0
         General: Compare Match: Compare Match B: Status: Disabled
@@ -1033,6 +1223,8 @@ FSP Configuration
         Input: Capture B Source: 
         Input: Noise Filter A Sampling Clock Select: No Filter
         Input: Noise Filter B Sampling Clock Select: No Filter
+        Pin Polarity: GTIOCnA Polarity: Normal
+        Pin Polarity: GTIOCnB Polarity: Normal
         Interrupts: Callback: NULL
         Interrupts: Overflow/Crest Interrupt Priority: Disabled
         Interrupts: Capture/Compare match A Interrupt Priority: Disabled
@@ -1056,7 +1248,7 @@ FSP Configuration
         General: Name: g_timer_gpt6
         General: Channel: 6
         General: Mode: Triangle-wave PWM (symmetric, Mode 1)
-        General: Period: 10
+        General: Period: 16
         General: Compare Match: Compare Match A: Status: Disabled
         General: Compare Match: Compare Match A: Compare match value: 0
         General: Compare Match: Compare Match B: Status: Disabled
@@ -1085,6 +1277,8 @@ FSP Configuration
         Input: Capture B Source: 
         Input: Noise Filter A Sampling Clock Select: No Filter
         Input: Noise Filter B Sampling Clock Select: No Filter
+        Pin Polarity: GTIOCnA Polarity: Normal
+        Pin Polarity: GTIOCnB Polarity: Normal
         Interrupts: Callback: NULL
         Interrupts: Overflow/Crest Interrupt Priority: Disabled
         Interrupts: Capture/Compare match A Interrupt Priority: Disabled
@@ -1165,6 +1359,8 @@ FSP Configuration
       Input: Capture B Source: 
       Input: Noise Filter A Sampling Clock Select: No Filter
       Input: Noise Filter B Sampling Clock Select: No Filter
+      Pin Polarity: GTIOCnA Polarity: Normal
+      Pin Polarity: GTIOCnB Polarity: Normal
       Interrupts: Callback: pfc_pwm_cyclic
       Interrupts: Overflow/Crest Interrupt Priority: Priority 5
       Interrupts: Capture/Compare match A Interrupt Priority: Disabled
@@ -1202,4 +1398,14 @@ FSP Configuration
       Input: Trigger Edge: Trigger Edge Rising
       Interrupts: Callback: callback_agt_system_manager_cyclic
       Interrupts: Underflow Interrupt Priority: Priority 10
+      
+    Instance "g_wdt0 Independent Watchdog (r_iwdt)"
+      Name: g_wdt0
+      Timeout: Not available for selected MCU
+      Clock Division Ratio: Not available for selected MCU
+      Window Start Position: Not available for selected MCU
+      Window End Position: Not available for selected MCU
+      Reset Control: Not available for selected MCU
+      Stop Control: Not available for selected MCU
+      NMI callback: NULL
       

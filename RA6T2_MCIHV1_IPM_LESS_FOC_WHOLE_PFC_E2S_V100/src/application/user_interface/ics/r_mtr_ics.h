@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_mtr_ics.h
 * Description : Definitions of user interface using ICS
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 29.02.2024 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /* Guard against multiple inclusion */
@@ -38,22 +38,6 @@
 /***********************************************************************************************************************
 * Macro definitions
 ***********************************************************************************************************************/
-#define     ICS_DECIMATION               (3)                  /* ICS watch skipping number */
-
-/* For ICS */
-#define     ICS_BRR                      (1)                 /* Baudrate select */
-#define     ICS_INT_MODE                 (1)                  /* Mode select */
-#define     CONF_MOTOR_TYPE              ("Brushless DC Motor")
-#define     CONF_CONTROL                 ("Sensorless vector control (Speed control)")
-#define     CONF_INVERTER                ("MCI-HV-1")
-#define     CONF_MOTOR_TYPE_LEN          (18)
-#define     CONF_CONTROL_LEN             (41)
-#define     CONF_INVERTER_LEN            (8)
-
-/* design parameter */
-#define     APP_CFG_FREQ_BAND_LIMIT      (3.0f)               /* Motor control natural frequency limit */
-#define     APP_CFG_MAX_CURRENT_OMEGA    (1000.0f)            /* Max natural frequency of current loop [Hz] */
-#define     APP_CFG_MIN_OMEGA            (1.0f)               /* Min natural frequency of control loop [Hz] */
 
 /***********************************************************************************************************************
 * Global structure
@@ -62,6 +46,8 @@ typedef struct
 {
     /* Offset parameters */
     uint16_t    u2_offset_calc_time;        /* calculation time for current offset */
+    /* Charge Bootstrap parameters */
+    uint16_t    u2_charge_bootstrap_time;   /* Charge time for bootstrap circuit */
 
     /* Motor parameters */
     st_motor_parameter_t   st_motor;        /* motor parameters */
@@ -69,6 +55,11 @@ typedef struct
 
     /* Sensorless parameter */
     uint8_t     u1_ctrl_loop_mode;          /* loop mode select */
+    float       f4_ol_ref_id;               /* id reference when open loop [A] */
+    float       f4_id_up_time;              /* time to increase id */
+    float       f4_id_down_time;            /* time to decrease id */
+    float       f4_id_down_speed_rpm;       /* The speed threshold[rpm] to ramp down the d-axis current */
+    float       f4_id_up_speed_rpm;         /* The speed threshold[rpm] to ramp up the d-axis current */
 
     /* Control parameters */
     /* Current control */
@@ -84,28 +75,31 @@ typedef struct
     float       f4_overspeed_limit_rpm;     /* over speed limit [rpm] (mechanical) */
 
     /* Optional functions */
-    uint8_t     u1_flag_volt_err_comp_use;      /* voltage error compensation */
-    uint8_t     u1_flag_fluxwkn_use;            /* Flux-weakening control */
-
-    /* Speed observer */
-    uint8_t     u1_flag_extobserver_use;    /* Flags whether use ext observer*/
-    float       f4_extobs_omega;            /* natural frequency for ext observer [Hz] */
-
-    uint8_t     u1_flag_mtpa_use;               /* MTPA control */
-    uint8_t     u1_flag_flying_start_use;       /* Flying Start control */
-    uint8_t     u1_flag_stall_detection_use;    /* Stall Detection control */
-    uint8_t     u1_flag_trq_vibration_comp_use; /* Torque Vibration Compensation control */
+    uint8_t     u1_flag_volt_err_comp_use;       /* voltage error compensation */
+    uint8_t     u1_flag_fluxwkn_use;             /* Flux-weakening control */
+    uint8_t     u1_flag_mtpa_use;                /* MTPA control */
+    uint8_t     u1_flag_flying_start_use;        /* Flying Start control */
+    uint8_t     u1_flag_stall_detection_use;     /* Stall Detection control */
+    uint8_t     u1_flag_trq_vibration_comp_use;  /* Torque Vibration Compensation control */
+    uint8_t     u1_flag_trq_vibration_comp_mode; /* Generation method of Compensation signal, LUT: 0, PAT: 1 */
 
     /* BEMF observer */
     float       f4_e_obs_omega_hz;          /* Natural frequency for BEMF observer [Hz] */
     float       f4_e_obs_zeta;              /* Damping ratio for BEMF observer */
     float       f4_pll_est_omega_hz;        /* Natural frequency for rotor position Phase-Locked Loop [Hz] */
     float       f4_pll_est_zeta;            /* Damping ratio for rotor position Phase-Locked Loop */
-    float       f4_pll_estlow_omega_hz;     /* Natural frequency for rotor position Phase-Locked Loop [Hz] */
-    float       f4_pll_estlow_zeta;         /* Damping ratio for rotor position Phase-Locked Loop */
-    /* High/low speed switching speed threshold */
-    float       f4_highspd_threshold;       /* Slow-to-fast switching speed threshold [r/min] */
-    float       f4_lowspd_threshold;        /* Fast to slow switching speed threshold [r/min] */
+
+    /* Sensor-less switch control */
+    uint8_t     u1_flag_less_switch_use;    /* Flags whether use sensor-less switch control */
+    float       f4_switch_phase_err_deg;    /* Phase error to decide sensor-less switch timing [deg] */
+    float       f4_opl2less_sw_time;        /* Time to switch open-loop to sensor-less [s] */
+    float       f4_phase_err_lpf_cut_freq;  /* Cut off frequency[Hz] of phase error LPF */
+
+    /* Open-loop damping control */
+    uint8_t     u1_flag_openloop_damping_use;   /* Flags whether use open-loop damping control */
+    float       f4_ed_hpf_omega;                /* HPF cutoff frequency for ed [Hz] */
+    float       f4_ol_damping_zeta;             /* Damping ratio of open-loop damping control */
+    float       f4_ol_damping_fb_limit_rate;    /* Rate of reference speed for feedback speed limiter */
 
     /* Stall detection */
     float       f4_id_hpf_time;             /* d-axis HPF time constant [s] */
@@ -114,13 +108,19 @@ typedef struct
     float       f4_threshold_time;          /* detection time [s] */
 
     /* Torque vibration suppression */
-    uint8_t     u1_flag_trqvib_comp_learning;   /* Flags whether learning of Torque Vibration Compensation */
-    float       f4_timelead;                    /* Output phase index of Torque Vibration Compensation */
-    float       f4_tf_lpf_time;                 /* Tracking filter internal LPF constant */
-    float       f4_output_gain;                 /* Output gain (speed deviation/vibration torque conversion factor) */
+    uint8_t     u1_target_2f;                   /* Wheter to include 2F for Target Vibration Component */
+    float       f4_timelead_1f;                 /* Output phase index of Torque Vibration Compensation for 1f */
+    float       f4_timelead_2f;                 /* Output phase index of Torque Vibration Compensation for 2f */
+    float       f4_tf_lpf_omega;                /* natural frequency for LPF in TF [Hz] */
+    float       f4_output_gain_1f;              /* Output gain (speed deviation/vibration torque conversion factor) for 1f */
+    float       f4_output_gain_2f;              /* Output gain (speed deviation/vibration torque conversion factor) fpr 2f */
     float       f4_input_weight2;               /* coefficient for moving average filter */
     float       f4_input_weight1;               /* coefficient for moving average filter */
     float       f4_input_weight0;               /* coefficient for moving average filter */
+    float       f4_suppression_th_1f;           /* The threshold of learning off for 1f : The ratio of amplitude before and after suppression */
+    float       f4_suppression_th_2f;           /* The threshold of learning off for 2f : The ratio of amplitude before and after suppression */
+    float       f4_abnormal_output_th_1f;       /* The threshold of learning off for 1f : The output abnormality of Tracking filter */
+    float       f4_abnormal_output_th_2f;       /* The threshold of learning off for 2f : The output abnormality of Tracking filter */
 
     /* Flying start */
     float       f4_restart_speed;           /* Restart judgment speed reference value */
@@ -144,6 +144,9 @@ extern uint8_t      g_u1_enable_write;              /* ICS write enable flag */
 /* Offset parameters */
 extern uint16_t     com_u2_offset_calc_time;        /* current offset calculation time */
 
+/* Charge Bootstrap parameters */
+extern uint16_t     com_u2_charge_bootstrap_time;   /* Charge time for bootstrap circuit */
+
 /* Motor parameters */
 extern uint16_t     com_u2_mtr_pp;                  /* pole pairs */
 extern float        com_f4_mtr_r;                   /* resistance [ohm] */
@@ -156,6 +159,11 @@ extern float        com_f4_max_speed_rpm;           /* maximum speed [rpm] (mech
 
 /* Sensorless parameter */
 extern uint8_t      com_u1_ctrl_loop_mode;          /* loop mode select */
+extern float        com_f4_ol_ref_id;               /* id reference when open loop [A] */
+extern float        com_f4_id_up_time;              /* time to increase id */
+extern float        com_f4_id_down_time;            /* time to decrease id */
+extern float        com_f4_id_down_speed_rpm;       /* The speed threshold[rpm] to ramp down the d-axis current */
+extern float        com_f4_id_up_speed_rpm;         /* The speed threshold[rpm] to ramp up the d-axis current */
 
 /* Control parameters */
 /* Current control */
@@ -178,16 +186,17 @@ extern uint8_t      com_u1_flag_volt_err_comp_use;  /* Flags whether use voltage
 extern uint8_t      com_u1_flag_fluxwkn_use;        /* Flags whether use flux-weakening */
 
 /* MTPA control */
-extern uint8_t     com_u1_flag_mtpa_use;               /* Flags whether use MTPA */
+extern uint8_t      com_u1_flag_mtpa_use;               /* Flags whether use MTPA */
 
 /* Flying Start control */
-extern uint8_t     com_u1_flag_flying_start_use;       /* Flags whether use flying start */
+extern uint8_t      com_u1_flag_flying_start_use;       /* Flags whether use flying start */
 
 /* Stall Detection control */
-extern uint8_t     com_u1_flag_stall_detection_use;    /* Flags whether use stall Detection */
+extern uint8_t      com_u1_flag_stall_detection_use;    /* Flags whether use stall Detection */
 
 /* Torque Vibration Compensation control */
-extern uint8_t     com_u1_flag_trq_vibration_comp_use; /* Flags whether use torque vibration compensation */
+extern uint8_t      com_u1_flag_trq_vibration_comp_use;  /* Flags whether use torque vibration compensation */
+extern uint8_t      com_u1_flag_trq_vibration_comp_mode; /* Generation method of Compensation signal, LUT: 0, PAT: 1 */
 
 /* BEMF observer */
 extern float        com_f4_e_obs_omega_hz;          /* Natural frequency for BEMF observer [Hz] */
@@ -195,14 +204,17 @@ extern float        com_f4_e_obs_zeta;              /* Damping ratio for BEMF ob
 extern float        com_f4_pll_est_omega_hz;        /* Natural frequency for rotor position Phase-Locked Loop [Hz] */
 extern float        com_f4_pll_est_zeta;            /* Damping ratio for rotor position Phase-Locked Loop */
 
-extern float       com_f4_pll_estlow_omega_hz;     /* Natural frequency for rotor position Phase-Locked Loop [Hz] (lowspd) */
-extern float       com_f4_pll_estlow_zeta;         /* Damping ratio for rotor position Phase-Locked Loop (lowspd) */
-/* Extended observe */
-extern uint8_t     com_u1_flag_extobserver_use;    /* Flags whether use ext observer*/
-extern float       com_f4_extobs_omega;            /* natural frequency for ext observer [Hz] */
-/* low speed */
-extern float       com_f4_spd_low_to_high_threshold; /* Slow-to-fast switching speed threshold [r/min] */
-extern float       com_f4_spd_high_to_low_threshold; /* Fast to slow switching speed threshold [r/min] */
+/* Sensor-less switch control */
+extern uint8_t      com_u1_flag_less_switch_use;    /* Flags whether use sensor-less switch control */
+extern float        com_f4_switch_phase_err_deg;    /* Phase error to decide sensor-less switch timing [deg] */
+extern float        com_f4_opl2less_sw_time;        /* Time to switch open-loop to sensor-less [s] */
+extern float        com_f4_phase_err_lpf_cut_freq;  /* Cut off frequency[Hz] of phase error LPF */
+
+/* Open-loop damping control */
+extern uint8_t      com_u1_flag_openloop_damping_use;   /* Flags whether use open-loop damping control */
+extern float        com_f4_ed_hpf_omega;                /* HPF cutoff frequency for ed [Hz] */
+extern float        com_f4_ol_damping_zeta;             /* Damping ratio of open-loop damping control */
+extern float        com_f4_ol_damping_fb_limit_rate;    /* Rate of reference speed for feedback speed limiter */
 
 /* Stall detection */
 extern float       com_f4_id_hpf_time;              /* d-axis HPF time constant [s] */
@@ -211,12 +223,18 @@ extern float       com_f4_threshold_level;          /* stall detection threshold
 extern float       com_f4_threshold_time;           /* detection time [s] */
 
 /* Torque vibration suppression */
-extern uint8_t     com_u1_flag_trqvib_comp_learning;    /* Flags whether learning of Torque Vibration Compensation */
-extern float       com_f4_tf_lpf_time;                  /* Tracking filter internal LPF constant */
-extern float       com_f4_output_gain;                  /* Output gain (speed deviation/vibration torque conversion factor) */
+extern float       com_f4_tf_lpf_omega;                 /* natural frequency for LPF in TF [Hz] */
+extern float       com_f4_output_gain_1f;               /* Output gain (speed deviation/vibration torque conversion factor) for 1f */
+extern float       com_f4_output_gain_2f;               /* Output gain (speed deviation/vibration torque conversion factor) for 2f */
+extern float       com_f4_timelead_1f;                  /* Output phase index of Torque Vibration Compensation for 1f */
+extern float       com_f4_timelead_2f;                  /* Output phase index of Torque Vibration Compensation for 1f */
 extern float       com_f4_input_weight2;                /* coefficient for moving average filter */
 extern float       com_f4_input_weight1;                /* coefficient for moving average filter */
 extern float       com_f4_input_weight0;                /* coefficient for moving average filter */
+extern float       com_f4_suppression_th_1f;            /* The threshold of learning off for 1f : The ratio of amplitude before and after suppression */
+extern float       com_f4_suppression_th_2f;            /* The threshold of learning off for 2f : The ratio of amplitude before and after suppression */
+extern float       com_f4_abnormal_output_th_1f;        /* The threshold of learning off for 1f : The output abnormality of Tracking filter */
+extern float       com_f4_abnormal_output_th_2f;        /* The threshold of learning off for 2f : The output abnormality of Tracking filter */
 
 /* Flying start */
 extern float       com_f4_restart_speed;            /* Restart judgment speed reference value */

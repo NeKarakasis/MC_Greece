@@ -14,7 +14,7 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_current.c
@@ -22,7 +22,7 @@
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
-*           30.10.2021 1.00     First Release
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -63,13 +63,13 @@ void motor_current_decoupling(st_current_control_t *p_st_cc,
     f4_temp0 = (- f4_speed_rad) * f4_temp0;               /* Speed * Lq * Iq */
     f4_temp0 = f4_temp0 + (p_st_motor->f4_mtr_r * f4_id); /* + R * Id */
 
-    f4_temp1 = p_st_motor->f4_mtr_ld * f4_id;             /* Ld * id */
+    f4_temp1 = p_st_motor->f4_mtr_ld * f4_id;             /* Ld * Id */
     f4_temp1 = f4_temp1 + p_st_motor->f4_mtr_m;           /* Ld * Id + Flux */
-    f4_temp1 = f4_speed_rad * f4_temp1;                   /* Speed * (Ld * id + Flux) */
+    f4_temp1 = f4_speed_rad * f4_temp1;                   /* Speed * (Ld * Id + Flux) */
     f4_temp1 = f4_temp1 + (p_st_motor->f4_mtr_r * f4_iq); /* + R * Iq */
 
-    p_st_cc->f4_vd_ref += f4_temp0;                       /* Vd + Speed * Lq * Iq + R * Iq */
-    p_st_cc->f4_vq_ref += f4_temp1;                       /* Vq + Speed * (Ld * id + Flux) + R * Iq */
+    p_st_cc->f4_vd_ref += f4_temp0;                       /* Vd + Speed * Lq * Iq + R * Id */
+    p_st_cc->f4_vq_ref += f4_temp1;                       /* Vq + Speed * (Ld * Id + Flux) + R * Iq */
 } /* End of function motor_current_decoupling */
 
 /***********************************************************************************************************************
@@ -82,15 +82,11 @@ void motor_current_decoupling(st_current_control_t *p_st_cc,
 void motor_current_pi_control(st_current_control_t *p_st_cc)
 {
     /* The d-axis */
-    /* low speed sensorless */
-    p_st_cc->st_pi_id.f4_err = p_st_cc->f4_ref_id_ctrl - p_st_cc->f4_id_ad2;
-
+    p_st_cc->st_pi_id.f4_err = p_st_cc->f4_ref_id_ctrl - p_st_cc->f4_id_ad;
     p_st_cc->f4_vd_ref       = motor_pi_ctrl(&(p_st_cc->st_pi_id));
 
     /* The q-axis */
-    /* low speed sensorless */
-    p_st_cc->st_pi_iq.f4_err = p_st_cc->f4_ref_iq_ctrl - p_st_cc->f4_iq_ad2;
-
+    p_st_cc->st_pi_iq.f4_err = p_st_cc->f4_ref_iq_ctrl - p_st_cc->f4_iq_ad;
     p_st_cc->f4_vq_ref       = motor_pi_ctrl(&(p_st_cc->st_pi_iq));
 } /* End of function motor_current_pi_control */
 
@@ -241,24 +237,35 @@ void motor_current_volt_limit(st_current_control_t *p_st_cc)
 float motor_current_reference_iq_set(st_current_control_t *p_st_cc)
 {
     float f4_iq_ref_calc;
-    /* low speed sensorless */
-    switch( p_st_cc->u1_state_estmode)
-    {
-        case CURRENT_STATE_ESTMODE_DRIVE_SLOW:
-        case CURRENT_STATE_ESTMODE_DRIVE_MID:
-        case CURRENT_STATE_ESTMODE_DRIVE_MID_M:
-        case CURRENT_STATE_ESTMODE_DRIVE_HIGH:
-            f4_iq_ref_calc = p_st_cc->f4_iq_ref;
-            break;
 
-        case CURRENT_STATE_ESTMODE_POWEROFF:
-        case CURRENT_STATE_ESTMODE_INIT:
-        case CURRENT_STATE_ESTMODE_POSEST:
+    switch (p_st_cc->u1_state_iq_ref)
+    {
+        case CURRENT_STATE_IQ_ZERO_CONST:
+            /*** constant zero set ***/
+            f4_iq_ref_calc = 0.0f;
+        break;
+
+        case CURRENT_STATE_IQ_SPEED_PI_OUTPUT:
+            f4_iq_ref_calc              = p_st_cc->f4_iq_ref;
+            p_st_cc->f4_iq_down_step     = p_st_cc->f4_iq_down_step_time_inv * f4_iq_ref_calc;
+        break;
+
+        case CURRENT_STATE_IQ_AUTO_ADJ:
+            f4_iq_ref_calc = p_st_cc->f4_iq_ref;
+        break;
+
+        case CURRENT_STATE_IQ_DOWN:
+            f4_iq_ref_calc = p_st_cc->f4_ref_iq_ctrl - p_st_cc->f4_iq_down_step;
+            if (f4_iq_ref_calc <= 0.0f)
+            {
+                f4_iq_ref_calc = 0.0f;
+            }
+        break;
+
         default:
             f4_iq_ref_calc = 0.0f;
-            break;
+        break;
     }
-
     /*** iq reference limit ***/
     f4_iq_ref_calc = motor_filter_limitf_abs(f4_iq_ref_calc, p_st_cc->f4_lim_iq);
     /* return iq reference */
@@ -274,24 +281,43 @@ float motor_current_reference_iq_set(st_current_control_t *p_st_cc)
 float motor_current_reference_id_set(st_current_control_t *p_st_cc)
 {
     float f4_id_ref_calc;
-    /* low speed sensorless */
-    switch( p_st_cc->u1_state_estmode)
-    {
-        case CURRENT_STATE_ESTMODE_DRIVE_SLOW:
-        case CURRENT_STATE_ESTMODE_DRIVE_MID:
-        case CURRENT_STATE_ESTMODE_DRIVE_MID_M:
-        case CURRENT_STATE_ESTMODE_DRIVE_HIGH:
-            f4_id_ref_calc = p_st_cc->f4_id_ref;
-            break;
 
-        case CURRENT_STATE_ESTMODE_POWEROFF:
-        case CURRENT_STATE_ESTMODE_INIT:
-        case CURRENT_STATE_ESTMODE_POSEST:
+    switch (p_st_cc->u1_state_id_ref)
+    {
+        case CURRENT_STATE_ID_ZERO_CONST:
+            f4_id_ref_calc = 0.0f;
+        break;
+
+        case CURRENT_STATE_ID_UP:
+            /* d axis current ramping */
+            f4_id_ref_calc = p_st_cc->f4_ref_id_ctrl + p_st_cc->f4_id_up_step;
+            if(f4_id_ref_calc >= p_st_cc->f4_ol_ref_id)
+            {
+                f4_id_ref_calc = p_st_cc->f4_ol_ref_id;
+            }
+        break;
+
+        case CURRENT_STATE_ID_MANUAL:
+            f4_id_ref_calc = p_st_cc->f4_ol_ref_id;
+        break;
+
+        case CURRENT_STATE_ID_DOWN:
+            /* d axis current ramping */
+            f4_id_ref_calc = p_st_cc->f4_ref_id_ctrl - p_st_cc->f4_id_down_step;
+            if (f4_id_ref_calc <= 0.0f)
+            {
+                f4_id_ref_calc = 0.0f;
+            }
+        break;
+
+        case CURRENT_STATE_ID_INPUT:
+            f4_id_ref_calc = p_st_cc->f4_id_ref;
+        break;
+
         default:
             f4_id_ref_calc = 0.0f;
-            break;
+        break;
     }
-
     /* return id reference */
     return (f4_id_ref_calc);
 } /* End of function motor_current_reference_id_set */
@@ -304,132 +330,48 @@ float motor_current_reference_id_set(st_current_control_t *p_st_cc)
 ***********************************************************************************************************************/
 void motor_current_angle_speed_detect(st_current_control_t *p_st_cc)
 {
+    float f4_angle_rad;
 
-    float f4_angle_rad = 0.0f;
+    /* Estimate voltage disturbance */
+    motor_current_bemf_observer_start(&p_st_cc->st_bemf_observer,
+                                      p_st_cc->f4_vd_ref,
+                                      p_st_cc->f4_vq_ref,
+                                      p_st_cc->f4_id_ad,
+                                      p_st_cc->f4_iq_ad);
 
-    /* low speed sensorless */
-    float f4_speed_rad_limit = SPEED_CFG_SPEED_LIMIT_RAD;
+    /* Calculate BEMF */
+    p_st_cc->f4_ed = motor_current_bemf_observer_d_calc(&p_st_cc->st_bemf_observer,
+                                                        p_st_cc->f4_speed_rad,
+                                                        p_st_cc->f4_iq_ad);
+    p_st_cc->f4_eq = motor_current_bemf_observer_q_calc(&p_st_cc->st_bemf_observer,
+                                                        p_st_cc->f4_speed_rad,
+                                                        p_st_cc->f4_id_ad);
 
-    /* Low Speed Sensorless (Ripple Current Estimation) */
-    if(( p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_POSEST) ||
-        (p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_SLOW)
-        )
+    /* Calculate phase error */
+#if MOTOR_MCU_CFG_TFU_OPTIMIZE
+    p_st_cc->f4_phase_err_rad = atan2f((p_st_cc->f4_ed / p_st_cc->f4_eq), 1);
+#else
+    p_st_cc->f4_phase_err_rad = atanf(p_st_cc->f4_ed / p_st_cc->f4_eq);
+#endif
+
+    /* Prevent phase error becoming NAN when eq is 0 */
+    if (isnan(p_st_cc->f4_phase_err_rad))
     {
-        /* Estimate lowspeed sensorless */
-        /* Save current */
-        motor_current_lowspdsensorless_save_current(&p_st_cc->st_lowspd, p_st_cc->f4_id_ad, p_st_cc->f4_iq_ad);
-
-        /* pulse injection */
-        motor_current_lowspdsensorless_vd_pulse_injection(&p_st_cc->st_lowspd, p_st_cc->f4_vd_ref);
-
-        /* ripple removed id/iq */
-        p_st_cc->f4_id_ad2 = p_st_cc->st_lowspd.f4_id_ad_ave;
-        p_st_cc->f4_iq_ad2 = p_st_cc->st_lowspd.f4_iq_ad_ave;
-
-        /* Calculate delta theta */
-        motor_current_lowspdsensorless_calc_dtheta(&p_st_cc->st_lowspd);
-
-        /* PLL (lowspeed mode) */
-        /* Angle */
-        f4_angle_rad = motor_current_angle_get(&p_st_cc->st_rotor_angle);
-
-        /* Apply phase err of low speed sensorless */
-        p_st_cc->f4_phase_err_rad = p_st_cc->st_lowspd.f4_delta_ang;
-
-        /* Estimate angle and speed */
-         motor_current_angle_speed_pll(&p_st_cc->st_pll_est_low, p_st_cc->f4_phase_err_rad, &p_st_cc->f4_speed_rad);
-
-        if( p_st_cc->f4_speed_rad > f4_speed_rad_limit)
-        {
-            p_st_cc->f4_speed_rad = f4_speed_rad_limit;
-        }
-        else if( p_st_cc->f4_speed_rad < -f4_speed_rad_limit)
-        {
-            p_st_cc->f4_speed_rad = -f4_speed_rad_limit;
-        }
-
-        f4_angle_rad += (p_st_cc->f4_speed_rad * p_st_cc->f4_ctrl_period);
-
-        /* Estimate Speed should be use PLL I part output but not use P part. */
-        p_st_cc->f4_speed_rad = p_st_cc->st_pll_est_low.f4_i_est_speed;
+        p_st_cc->f4_phase_err_rad = 0.0f;
     }
-    else if ((p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_MID) ||
-            (p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_MID_M))
+
+    if (CURRENT_STATE_IQ_SPEED_PI_OUTPUT == p_st_cc->u1_state_iq_ref)
     {
-        /* Save current */
-        motor_current_lowspdsensorless_save_current(&p_st_cc->st_lowspd, p_st_cc->f4_id_ad, p_st_cc->f4_iq_ad);
-
-        /* pulse injection */
-        motor_current_lowspdsensorless_vd_pulse_injection(&p_st_cc->st_lowspd, p_st_cc->f4_vd_ref);
-
-        /* ripple removed id/iq */
-        p_st_cc->f4_id_ad2 = p_st_cc->st_lowspd.f4_id_ad_ave;
-        p_st_cc->f4_iq_ad2 = p_st_cc->st_lowspd.f4_iq_ad_ave;
-
-        /* state change counter */
-        p_st_cc->st_lowspd.u1_cur_chg_cnt++;
+        /* Estimate angle and speed */
+        motor_current_angle_speed_pll(&p_st_cc->st_pll_est, p_st_cc->f4_phase_err_rad, &p_st_cc->f4_speed_rad);
     }
     else
     {
-        p_st_cc->f4_id_ad2 = p_st_cc->f4_id_ad;
-        p_st_cc->f4_iq_ad2 = p_st_cc->f4_iq_ad;
+        p_st_cc->f4_speed_rad = p_st_cc->f4_ol_speed_rad;
     }
 
-    /* BEMF Observer */
-    if((p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_SLOW) ||
-        (p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_MID) ||
-        (p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_MID_M) ||
-        (p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_HIGH) )
-    {
-            /* Estimate voltage disturbance */
-            motor_current_bemf_observer_start(&p_st_cc->st_bemf_observer,
-                                            p_st_cc->f4_vd_ref2,
-                                            p_st_cc->f4_vq_ref,
-                                            p_st_cc->f4_id_ad2,
-                                            p_st_cc->f4_iq_ad2);
-    }
-
-    if((p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_MID)
-    || (p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_MID_M)
-    || (p_st_cc->u1_state_estmode == CURRENT_STATE_ESTMODE_DRIVE_HIGH))
-    {
-        /* Calculate BEMF */
-        p_st_cc->f4_ed = motor_current_bemf_observer_d_calc(&p_st_cc->st_bemf_observer,
-                                                            p_st_cc->f4_speed_rad,
-                                                            p_st_cc->f4_iq_ad2);
-        p_st_cc->f4_eq = motor_current_bemf_observer_q_calc(&p_st_cc->st_bemf_observer,
-                                                            p_st_cc->f4_speed_rad,
-                                                            p_st_cc->f4_id_ad2);
-        /* Calculate phase error */
-#if MOTOR_MCU_CFG_TFU_OPTIMIZE
-        p_st_cc->f4_phase_err_rad = atan2f((p_st_cc->f4_ed / p_st_cc->f4_eq), 1);
-#else
-        p_st_cc->f4_phase_err_rad = atanf(p_st_cc->f4_ed / p_st_cc->f4_eq);
-#endif
-
-        /* Prevent phase error becoming NAN when eq is 0 */
-        if( isnan(p_st_cc->f4_phase_err_rad))
-        {
-            p_st_cc->f4_phase_err_rad = 0.0f;
-        }
-
-        /* Estimate angle and speed */
-        motor_current_angle_speed_pll(&p_st_cc->st_pll_est, p_st_cc->f4_phase_err_rad, &p_st_cc->f4_speed_rad);
-
-        if( p_st_cc->f4_speed_rad > f4_speed_rad_limit)
-        {
-            p_st_cc->f4_speed_rad = f4_speed_rad_limit;
-        }
-        else if( p_st_cc->f4_speed_rad < -f4_speed_rad_limit)
-        {
-            p_st_cc->f4_speed_rad = -f4_speed_rad_limit;
-        }
-
-        f4_angle_rad = motor_current_angle_get(&p_st_cc->st_rotor_angle);
-        f4_angle_rad += (p_st_cc->f4_speed_rad * p_st_cc->f4_ctrl_period);
-
-    }
-
+    f4_angle_rad = motor_current_angle_get(&p_st_cc->st_rotor_angle);
+    f4_angle_rad += (p_st_cc->f4_speed_rad * p_st_cc->f4_ctrl_period);
     if (f4_angle_rad >= MTR_TWOPI)
     {
         f4_angle_rad = f4_angle_rad - MTR_TWOPI;
@@ -443,7 +385,6 @@ void motor_current_angle_speed_detect(st_current_control_t *p_st_cc)
         /* Do nothing */
     }
     motor_current_rotor_angle_update(&p_st_cc->st_rotor_angle, f4_angle_rad);
-
 } /* End of function motor_current_angle_speed_detect */
 
 /***********************************************************************************************************************

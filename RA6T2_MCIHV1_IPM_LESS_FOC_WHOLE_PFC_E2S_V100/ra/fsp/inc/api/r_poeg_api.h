@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2024 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -105,7 +105,7 @@ typedef struct st_poeg_status
 /** Callback function parameter data. */
 typedef struct st_poeg_callback_args
 {
-    void const * p_context;            ///< Placeholder for user data, set in @ref poeg_cfg_t.
+    void * p_context;                  ///< Placeholder for user data, set in @ref poeg_cfg_t.
 } poeg_callback_args_t;
 
 /** POEG control block.  Allocate an instance specific control block to pass into the POEG API calls.
@@ -123,11 +123,12 @@ typedef struct st_poeg_cfg
     void (* p_callback)(poeg_callback_args_t * p_args);
 
     /** Placeholder for user data. Passed to the user callback in @ref poeg_callback_args_t. */
-    void const * p_context;
+    void       * p_context;
     uint32_t     unit;                 ///< POEG unit to be used
     uint32_t     channel;              ///< Channel 0 corresponds to GTETRGA, 1 to GTETRGB, etc.
     IRQn_Type    irq;                  ///< Interrupt number assigned to this instance
     uint8_t      ipl;                  ///< POEG interrupt priority
+    void const * p_extend;             ///< Extension parameter for hardware specific settings
 } poeg_cfg_t;
 
 /** Port Output Enable for GPT (POEG) API structure. POEG functions implemented at the HAL layer will follow this API. */
@@ -156,7 +157,7 @@ typedef struct st_poeg_api
      *                                       Callback arguments allocated here are only valid during the callback.
      */
     fsp_err_t (* callbackSet)(poeg_ctrl_t * const p_ctrl, void (* p_callback)(poeg_callback_args_t *),
-                              void const * const p_context, poeg_callback_args_t * const p_callback_memory);
+                              void * const p_context, poeg_callback_args_t * const p_callback_memory);
 
     /** Disables GPT output pins by software request.
      *

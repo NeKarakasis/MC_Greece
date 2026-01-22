@@ -55,19 +55,26 @@ MAP :=
 SUBDIRS := \
 ra/fsp/src/bsp/cmsis/Device/RENESAS/Source \
 ra/fsp/src/bsp/mcu/all \
+ra/fsp/src/bsp/mcu/ra6t2 \
 ra/fsp/src/r_adc_b \
 ra/fsp/src/r_agt \
 ra/fsp/src/r_gpt \
 ra/fsp/src/r_gpt_three_phase \
 ra/fsp/src/r_ioport \
+ra/fsp/src/r_iwdt \
 ra/fsp/src/r_poeg \
 ra_gen \
 src/application/main \
+src/application/mcu/ra6t2 \
 src/application/motor_module/current \
 src/application/motor_module/driver \
 src/application/motor_module/general \
 src/application/motor_module/sensorless_vector \
 src/application/motor_module/speed \
+src/application/pfc_module/pfc_ctrl \
+src/application/pfc_module/pfc_driver \
+src/application/pfc_module/pfc_general \
+src/application/pfc_module/pfc_systask \
 src/application/system_module/system_manager \
 src/application/user_interface/ics \
 src \

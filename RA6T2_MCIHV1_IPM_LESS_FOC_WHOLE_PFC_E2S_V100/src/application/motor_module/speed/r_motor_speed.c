@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_speed.c
 * Description : Processes of speed control
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 10.06.2021 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -30,12 +30,9 @@
 ***********************************************************************************************************************/
 /* Standard library headers */
 #include <math.h>
-#include <stdbool.h>
+
 /* Main associated header file */
 #include "r_motor_speed.h"
-#include "r_mtr_ics.h"
-
-#define RPM_TO_RAD_PER_SEC(rpm) ((rpm) * (2.0f * 3.14159265f / 60.0f))
 
 /***********************************************************************************************************************
 * Function Name : motor_speed_max_speed_set
@@ -88,35 +85,6 @@ float motor_speed_rate_limit_apply(st_speed_control_t * p_st_sc)
     return (f4_speed_ref_calc_rad);
 } /* End of function motor_speed_rate_limit_apply */
 
-
-float dynamic_motor_speed_limit(st_speed_control_t * p_st_sc)
-{
-    float current_speed_rad = p_st_sc->f4_speed_rad;
-    float speed_rad_ctrl = p_st_sc->f4_ref_speed_rad_ctrl;
-
-    bool is_decelarating = speed_rad_ctrl < current_speed_rad;
-
-    if(is_decelarating){
-        p_st_sc->f4_speed_rate_limit_rad = RPM_TO_RAD_PER_SEC(2500.0f);
-    }
-    else{
-             if (current_speed_rad < RPM_TO_RAD_PER_SEC(1000.0f))
-           {
-              p_st_sc->f4_speed_rate_limit_rad = RPM_TO_RAD_PER_SEC(3000.0f); // low acceleration
-               }
-             else if(current_speed_rad < RPM_TO_RAD_PER_SEC(5000.0f) && current_speed_rad > RPM_TO_RAD_PER_SEC(1000.0f)){
-              p_st_sc->f4_speed_rate_limit_rad = RPM_TO_RAD_PER_SEC(3000.0f/*10000.0f*/); // High acceleration
-             }
-             else
-             {
-              p_st_sc->f4_speed_rate_limit_rad = RPM_TO_RAD_PER_SEC(3000.0f/*5000.0f*/); // medium acceleration
-               }
-    }
-    return motor_speed_rate_limit_apply(p_st_sc);
-}
-
-
-
 /***********************************************************************************************************************
 * Function Name : motor_speed_pi_control
 * Description   : Speed PI control
@@ -157,13 +125,21 @@ float motor_speed_ref_speed_set(st_speed_control_t * p_st_sc)
 
         case SPEED_STATE_MANUAL:
             /* Limits the rate of change of speed reference */
-        	f4_speed_ref_calc_rad = motor_speed_rate_limit_apply(p_st_sc);
+            f4_speed_ref_calc_rad = motor_speed_rate_limit_apply(p_st_sc);
         break;
 
         default:
             f4_speed_ref_calc_rad = 0.0f;
         break;
     }
+
+    if (MTR_FLG_SET == p_st_sc->u1_flag_switching)
+    {
+        /* Preset for suppress speed hunting */
+        f4_speed_ref_calc_rad = p_st_sc->f4_speed_rad_ctrl;
+        p_st_sc->u1_flag_switching = MTR_FLG_CLR;
+    }
+
     /* Speed reference limit */
     f4_speed_ref_calc_rad = motor_filter_limitf_abs(f4_speed_ref_calc_rad, p_st_sc->f4_max_speed_rad);
 

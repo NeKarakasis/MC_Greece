@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_sensorless_vector_protection.c
 * Description : The protection function
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 30.10.2021 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -174,52 +174,6 @@ static inline uint16_t motor_sensorless_vector_stall_detection_error_check(uint8
 } /* End of function motor_sensorless_vector_stall_detection_check */
 
 /***********************************************************************************************************************
-* Function Name : motor_sensorless_vector_posest_error_check
-* Description   : Checks posest error
-* Arguments     : u1_timer_cnt                - Timer counter
-*                 u1_posest_calculated        - Processing completion flag
-*                 u2_est_timeout_cnt          - Timeout counter value
-* Return Value  : The flag of posest error
-***********************************************************************************************************************/
-static inline uint16_t motor_sensorless_vector_posest_error_check(uint16_t u1_timer_cnt,
-                                                                  uint8_t u1_posest_calculated,
-                                                                  uint16_t u2_est_timeout_cnt)
-{
-    uint16_t u2_temp0;
-
-    u2_temp0 = MOTOR_SENSORLESS_VECTOR_ERROR_NONE;                      /* Initialize */
-
-    if((u2_est_timeout_cnt <= u1_timer_cnt) && (MTR_FLG_CLR == u1_posest_calculated))
-    {
-         u2_temp0 = MOTOR_SENSORLESS_VECTOR_ERROR_FAIL_POSITION;        /* Magnetic pole position estimation error */
-    }
-    return(u2_temp0);
-}
-
-/***********************************************************************************************************************
-* Function Name : motor_sensorless_vector_pf_error_check
-* Description   : Checks pole error
-* Arguments     : u1_timer_cnt                - Timer counter
-*                 u1_pf_calculated            - Processing completion flag
-*                 u2_est_timeout_cnt          - Timeout counter value
-* Return Value  : The flag of pf error
-***********************************************************************************************************************/
-static inline uint16_t motor_sensorless_vector_pf_error_check(uint16_t u1_timer_cnt,
-                                                              uint8_t u1_pf_calculated,
-                                                              uint16_t u2_est_timeout_cnt)
-{
-    uint16_t u2_temp0;
-
-    u2_temp0 = MOTOR_SENSORLESS_VECTOR_ERROR_NONE;                      /* Initialize */
-
-    if((u2_est_timeout_cnt<= u1_timer_cnt) && (MTR_FLG_CLR == u1_pf_calculated))
-    {
-         u2_temp0 = MOTOR_SENSORLESS_VECTOR_ERROR_FAIL_POLES;           /* Polarity judgment error */
-    }
-    return(u2_temp0);
-}
-
-/***********************************************************************************************************************
 * Function Name : motor_sensorless_vector_error_check
 * Description   : Checks the errors
 * Arguments     : p_st_sensorless_vector - The pointer to the motor control management data structure
@@ -261,21 +215,6 @@ void motor_sensorless_vector_error_check(st_sensorless_vector_control_t *p_st_se
     /*===================================*/
     u2_error_flags |= 
             motor_sensorless_vector_stall_detection_error_check(p_st_sensorless_vector->p_st_cc->st_stalldet.u1_stall_detected);
-
-
-    /*==================================*/
-    /* position est error check         */
-    /*==================================*/
-    u2_error_flags |= motor_sensorless_vector_posest_error_check(p_st_sensorless_vector->p_st_cc->st_lowspd.u2_ang_est_count,
-                                                                 p_st_sensorless_vector->p_st_cc->st_lowspd.u1_posest_calculated,
-                                                                 p_st_sensorless_vector->u2_est_timeout_cnt);
-
-    /*==================================*/
-    /* Pf error check                   */
-    /*==================================*/
-    u2_error_flags |= motor_sensorless_vector_pf_error_check(p_st_sensorless_vector->p_st_cc->st_lowspd.u2_ang_est_count,
-                                                             p_st_sensorless_vector->p_st_cc->st_lowspd.u1_pf_calculated,
-                                                             p_st_sensorless_vector->u2_est_timeout_cnt);
 
     if (MOTOR_SENSORLESS_VECTOR_ERROR_NONE != u2_error_flags)
     {

@@ -14,15 +14,15 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2025 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name   : r_motor_sensorless_vector_manager.c
 * Description : The processes of motor control
 ***********************************************************************************************************************/
 /**********************************************************************************************************************
-* History : DD.MM.YYYY Version
-*         : 30.10.2021 1.00
+* History : DD.MM.YYYY Version  Description
+*         : 31.01.2025 1.00     First Release
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -45,7 +45,7 @@
 #include "r_motor_speed_api.h"
 #include "r_motor_driver.h"
 
-#include "r_motor_driver_fsp.h"
+#include "r_motor_driver_hal.h"
 
 /***********************************************************************************************************************
 * Exported global variables
@@ -92,43 +92,64 @@ void motor_sensorless_vector_default_init(st_sensorless_vector_control_t *p_st_s
     p_st_sensorless_vector->st_motor.f4_mtr_j  = MOTOR_CFG_ROTOR_INERTIA;
     p_st_sensorless_vector->st_motor.f4_nominal_current_rms = MOTOR_CFG_NOMINAL_CURRENT_RMS;
 
-    p_st_sensorless_vector->u1_flag_flying_start_use     = CURRENT_CFG_FLYING_START;
+    if (MTR_FLG_CLR == p_st_sensorless_vector->p_st_cc->u1_flag_offset_calc)
+    {
+        p_st_sensorless_vector->u1_flag_flying_start_use = MTR_DISABLE;
+    }
+    else
+    {
+        p_st_sensorless_vector->u1_flag_flying_start_use = CURRENT_CFG_FLYING_START;
+    }
+    p_st_sensorless_vector->u1_flag_less_switch_use      = SPEED_CFG_LESS_SWITCH;
+    p_st_sensorless_vector->u1_flag_openloop_damping_use = SPEED_CFG_OPENLOOP_DAMPING;
     p_st_sensorless_vector->u1_direction                 = MTR_CW;
     p_st_sensorless_vector->u1_ctrl_loop_mode            = MOTOR_COMMON_CFG_LOOP_MODE;
-    p_st_sensorless_vector->u1_state_estmode             = CURRENT_STATE_ESTMODE_POWEROFF; /* low speed sensorless */
     p_st_sensorless_vector->f4_overcurrent_limit         = MOTOR_COMMON_OVERCURRENT_LIMIT;
     p_st_sensorless_vector->f4_overvoltage_limit         = INVERTER_CFG_OVERVOLTAGE_LIMIT;
     p_st_sensorless_vector->f4_undervoltage_limit        = INVERTER_CFG_UNDERVOLTAGE_LIMIT;
     p_st_sensorless_vector->f4_overspeed_limit_rad       = (SPEED_CFG_SPEED_LIMIT_RPM * MTR_RPM2RAD);
-    p_st_sensorless_vector->u2_est_timeout_cnt           = CURRENT_CFG_ESTLOW_ESTTIME_OVER; /* low speed sensorless */
+    p_st_sensorless_vector->f4_switch_phase_err_rad      = SENSORLESS_VECTOR_OPL2LESS_SWITCH_PHASE_ERR_RAD;
+    p_st_sensorless_vector->f4_id_down_speed_rad         = (SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM * MTR_RPM2RAD);
+    p_st_sensorless_vector->f4_id_up_speed_rad           = (SENSORLESS_VECTOR_ID_UP_SPEED_RPM * MTR_RPM2RAD);
 
     /* Initialize phase error LPF */
     motor_filter_first_order_lpff_init(&p_st_sensorless_vector->st_phase_err_lpf);
+    motor_sensorless_phase_err_lpf_setup(p_st_sensorless_vector,
+                                         SENSORLESS_VECTOR_OPL2LESS_SWITCH_PHASE_ERR_LPF_CUT_FREQ,
+                                         SPEED_CFG_CTRL_PERIOD);
 
-    /* low speed sensorless */
     /* Current configuration set */
-    st_cur_cfg.u1_flag_volt_err_comp_use      = CURRENT_CFG_VOLT_ERR_COMP;
-    st_cur_cfg.u2_offset_calc_time            = CURRENT_CFG_OFFSET_CALC_TIME;
-    st_cur_cfg.f4_ctrl_period                 = MOTOR_COMMON_CTRL_PERIOD;
-    st_cur_cfg.f4_current_omega_hz            = CURRENT_CFG_OMEGA;
-    st_cur_cfg.f4_current_zeta                = CURRENT_CFG_ZETA;
-    st_cur_cfg.st_motor                       = p_st_sensorless_vector->st_motor;
-    st_cur_cfg.u1_flag_stall_detection_use    = CURRENT_CFG_STALL_DETECTION;
-    st_cur_cfg.u1_flag_trq_vibration_comp_use = MTR_FLG_CLR;
-    st_cur_cfg.f4_id_hpf_time                 = CURRENT_CFG_STALL_D_HPF_GAIN;
-    st_cur_cfg.f4_iq_hpf_time                 = CURRENT_CFG_STALL_Q_HPF_GAIN;
-    st_cur_cfg.f4_threshold_level             = CURRENT_CFG_STALL_THRESHOLD_LEVEL;
-    st_cur_cfg.f4_threshold_time              = CURRENT_CFG_STALL_THRESHOLD_TIME;
-    st_cur_cfg.f4_tf_lpf_time                 = CURRENT_CFG_TRQVIB_LPF_GAIN;
-    st_cur_cfg.f4_output_gain                 = CURRENT_CFG_TRQVIB_OUTPUT_GAIN;
-    st_cur_cfg.f4_timelead                    = CURRENT_CFG_TRQVIB_TIMELEAP;
-    st_cur_cfg.u1_flag_trqvib_comp_learning   = MTR_FLG_CLR;
-    st_cur_cfg.f4_input_weight2               = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_2;
-    st_cur_cfg.f4_input_weight1               = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_1;
-    st_cur_cfg.f4_input_weight0               = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_0;
-    /* low speed sensorless */
-    st_cur_cfg.f4_highspd_threshold           = MOTOR_SENSORLESS_VECTOR_THRESHOLD_HIGHSPEED * MTR_RAD2RPM;
-    st_cur_cfg.f4_lowspd_threshold            = MOTOR_SENSORLESS_VECTOR_THRESHOLD_LOWSPEED * MTR_RAD2RPM;
+    st_cur_cfg.u1_flag_volt_err_comp_use       = CURRENT_CFG_VOLT_ERR_COMP;
+    st_cur_cfg.u2_offset_calc_time             = CURRENT_CFG_OFFSET_CALC_TIME;
+    st_cur_cfg.u2_charge_bootstrap_time        = CURRENT_CFG_CHARGE_BOOTSTRAP_TIME;
+    st_cur_cfg.f4_ctrl_period                  = MOTOR_COMMON_CTRL_PERIOD;
+    st_cur_cfg.f4_current_omega_hz             = CURRENT_CFG_OMEGA;
+    st_cur_cfg.f4_current_zeta                 = CURRENT_CFG_ZETA;
+    st_cur_cfg.f4_id_up_step                   = MOTOR_COMMON_ID_UP_STEP_RATE;
+    st_cur_cfg.f4_id_down_step                 = MOTOR_COMMON_ID_DOWN_STEP_RATE;
+    st_cur_cfg.f4_iq_down_step_time_inv        = CURRENT_CFG_IQ_DOWN_STEP_TIME_INV;
+    st_cur_cfg.f4_ol_ref_id                    = CURRENT_CFG_REF_ID_OPENLOOP;
+    st_cur_cfg.st_motor                        = p_st_sensorless_vector->st_motor;
+    st_cur_cfg.u1_flag_stall_detection_use     = CURRENT_CFG_STALL_DETECTION;
+    st_cur_cfg.u1_flag_trq_vibration_comp_use  = MTR_FLG_CLR;
+    st_cur_cfg.u1_flag_trq_vibration_comp_mode = CURRENT_CFG_TRQVIB_COMP_MODE;
+    st_cur_cfg.f4_id_hpf_time                  = CURRENT_CFG_STALL_D_HPF_GAIN;
+    st_cur_cfg.f4_iq_hpf_time                  = CURRENT_CFG_STALL_Q_HPF_GAIN;
+    st_cur_cfg.f4_threshold_level              = CURRENT_CFG_STALL_THRESHOLD_LEVEL;
+    st_cur_cfg.f4_threshold_time               = CURRENT_CFG_STALL_THRESHOLD_TIME;
+    st_cur_cfg.f4_tf_lpf_omega                 = CURRENT_CFG_TRQVIB_TF_LPF_OMEGA;
+    st_cur_cfg.u1_target_2f                    = CURRENT_CFG_TRQVIB_TARGET_2F;
+    st_cur_cfg.f4_output_gain_1f               = CURRENT_CFG_TRQVIB_OUTPUT_GAIN_1F;
+    st_cur_cfg.f4_output_gain_2f               = CURRENT_CFG_TRQVIB_OUTPUT_GAIN_2F;
+    st_cur_cfg.f4_timelead_1f                  = CURRENT_CFG_TRQVIB_TIMELEAP_1F;
+    st_cur_cfg.f4_timelead_2f                  = CURRENT_CFG_TRQVIB_TIMELEAP_2F;
+    st_cur_cfg.f4_input_weight2                = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_2;
+    st_cur_cfg.f4_input_weight1                = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_1;
+    st_cur_cfg.f4_input_weight0                = CURRENT_CFG_TRQVIB_INPUT_WEIGHT_0;
+    st_cur_cfg.f4_suppression_th_1f            = CURRENT_CFG_TRQVIB_SUPP_TH_1F;
+    st_cur_cfg.f4_suppression_th_2f            = CURRENT_CFG_TRQVIB_SUPP_TH_2F;
+    st_cur_cfg.f4_abnormal_output_th_1f        = CURRENT_CFG_TRQVIB_ABNORMAL_TH_1F;
+    st_cur_cfg.f4_abnormal_output_th_2f        = CURRENT_CFG_TRQVIB_ABNORMAL_TH_2F;
     R_MOTOR_CURRENT_ParameterUpdate(p_st_sensorless_vector->p_st_cc, &st_cur_cfg);
 
     /* BEMF observer */
@@ -136,8 +157,6 @@ void motor_sensorless_vector_default_init(st_sensorless_vector_control_t *p_st_s
     st_bemf_obs_cfg.f4_e_obs_zeta       = CURRENT_CFG_E_OBS_ZETA;
     st_bemf_obs_cfg.f4_pll_est_omega_hz = CURRENT_CFG_PLL_EST_OMEGA;
     st_bemf_obs_cfg.f4_pll_est_zeta     = CURRENT_CFG_PLL_EST_ZETA;
-    st_bemf_obs_cfg.f4_pll_estlow_omega_hz = CURRENT_CFG_PLL_ESTLOW_OMEGA;    /* low speed sensorless */
-    st_bemf_obs_cfg.f4_pll_estlow_zeta     = CURRENT_CFG_PLL_ESTLOW_ZETA;    /* low speed sensorless */
     R_MOTOR_CURRENT_BEMFObserverParameterUpdate(p_st_sensorless_vector->p_st_cc, &st_bemf_obs_cfg);
 
     /* Voltage error compensation*/
@@ -146,8 +165,6 @@ void motor_sensorless_vector_default_init(st_sensorless_vector_control_t *p_st_s
                                         crnt_array,
                                         volterr_array,
                                         ref_voltage);
-    /* Speed configuration set */
-    st_spd_cfg.u1_flag_extobserver_use     = SPEED_CFG_OBSERVER;/* extobserver */
 
     /* Speed configuration set */
     st_spd_cfg.u1_flag_fluxwkn_use         = SPEED_CFG_FLUX_WEAKENING;
@@ -158,13 +175,14 @@ void motor_sensorless_vector_default_init(st_sensorless_vector_control_t *p_st_s
     st_spd_cfg.f4_speed_omega_hz           = SPEED_CFG_OMEGA;
     st_spd_cfg.f4_speed_zeta               = SPEED_CFG_ZETA;
     st_spd_cfg.f4_speed_lpf_hz             = SPEED_CFG_LPF_OMEGA;
+    st_spd_cfg.f4_opl2less_sw_time         = SPEED_OPL2LESS_SWITCH_TIME;
+    st_spd_cfg.f4_ed_hpf_omega             = SPEED_OPL_DAMP_ED_HPF_OMEGA;
+    st_spd_cfg.f4_ol_damping_zeta          = SPEED_OPL_DAMP_ZETA;
+    st_spd_cfg.f4_ol_damping_fb_limit_rate = SPEED_OPL_DAMP_FB_SPEED_LIMIT_RATE;
+    st_spd_cfg.f4_ol_ref_id                = CURRENT_CFG_REF_ID_OPENLOOP;
+    st_spd_cfg.f4_id_down_speed_rpm        = SENSORLESS_VECTOR_ID_DOWN_SPEED_RPM;
     st_spd_cfg.st_motor                    = p_st_sensorless_vector->st_motor;
     R_MOTOR_SPEED_ParameterUpdate(p_st_sensorless_vector->p_st_sc, &st_spd_cfg);
-
-    /* low speed sensorless */
-    st_ext_observer_cfg_t st_ext_observer_cfg;
-    st_ext_observer_cfg.f4_extobs_omega = SPEED_CFG_SOB_OMEGA;
-    R_MOTOR_SPEED_ExtObserverParameterUpdate(&g_st_sc, &st_ext_observer_cfg);
 
     /* Setup current limits by nominal current of motor */
     motor_sensorless_vector_nominal_current_set(p_st_sensorless_vector, MOTOR_CFG_NOMINAL_CURRENT_RMS);
@@ -209,18 +227,19 @@ void motor_sensorless_vector_default_init(st_sensorless_vector_control_t *p_st_s
 void motor_sensorless_vector_reset(st_sensorless_vector_control_t *p_st_sensorless_vector)
 {
     /* Reset status structure members */
+    p_st_sensorless_vector->u1_flag_down_to_ol   = MTR_FLG_CLR;
+    p_st_sensorless_vector->u1_state_id_ref      = CURRENT_STATE_ID_ZERO_CONST;
+    p_st_sensorless_vector->u1_state_iq_ref      = CURRENT_STATE_IQ_ZERO_CONST;
     p_st_sensorless_vector->u1_state_speed_ref   = SPEED_STATE_ZERO_CONST;
-    p_st_sensorless_vector->u1_state_estmode     = CURRENT_STATE_ESTMODE_POWEROFF; /* low speed sensorless */
     p_st_sensorless_vector->u2_error_status      = MOTOR_SENSORLESS_VECTOR_ERROR_NONE;
     p_st_sensorless_vector->u2_run_mode          = MOTOR_MODE_INIT;
     p_st_sensorless_vector->f4_vdc_ad            = 0.0f;
     p_st_sensorless_vector->f4_iu_ad             = 0.0f;
     p_st_sensorless_vector->f4_iv_ad             = 0.0f;
     p_st_sensorless_vector->f4_iw_ad             = 0.0f;
-    p_st_sensorless_vector->f4_iu_ref_ad         = 0.0f;
-    p_st_sensorless_vector->f4_iv_ref_ad         = 0.0f;
-    p_st_sensorless_vector->f4_iw_ref_ad         = 0.0f;
     p_st_sensorless_vector->f4_phase_err_rad_lpf = 0.0f;
+    p_st_sensorless_vector->f4_damp_comp_speed   = 0.0f;
+    p_st_sensorless_vector->f4_ol_speed_rad      = 0.0f;
 
     /* Reset phase error LPF */
     motor_filter_first_order_lpff_reset(&p_st_sensorless_vector->st_phase_err_lpf);
@@ -228,8 +247,21 @@ void motor_sensorless_vector_reset(st_sensorless_vector_control_t *p_st_sensorle
     /* Current output reset */
     if (MTR_DISABLE == p_st_sensorless_vector->u1_flag_flying_start_use)
     {
-        p_st_sensorless_vector->st_current_output.u1_flag_offset_calc = MTR_FLG_CLR;
+        p_st_sensorless_vector->st_current_output.u1_flag_offset_calc       = MTR_FLG_CLR;
+        p_st_sensorless_vector->st_current_output.u1_flag_charge_bootstrap  = MTR_FLG_CLR;
+        p_st_sensorless_vector->p_st_cc->u1_flag_charge_bootstrap           = MTR_FLG_CLR;
+        p_st_sensorless_vector->p_st_cc->u2_charge_bootstrap_cnt            = 0;
     }
+    else if (MTR_ENABLE == p_st_sensorless_vector->u1_flag_flying_start_use)
+    {
+        p_st_sensorless_vector->st_current_output.u1_flag_charge_bootstrap  = MTR_FLG_SET;
+        p_st_sensorless_vector->p_st_cc->u1_flag_charge_bootstrap           = MTR_FLG_SET;
+    }
+    else
+    {
+        /* Do nothing */
+    }
+
     p_st_sensorless_vector->st_current_output.f4_modu             = 0.5f;
     p_st_sensorless_vector->st_current_output.f4_modv             = 0.5f;
     p_st_sensorless_vector->st_current_output.f4_modw             = 0.5f;
@@ -307,21 +339,165 @@ void motor_sensorless_vector_error_process(st_sensorless_vector_control_t *p_st_
 ***********************************************************************************************************************/
 void motor_sensorless_vector_speed_status_select(st_sensorless_vector_control_t *p_st_sensorless_vector)
 {
-    /* low speed sensorless */
     if ((SPEED_STATE_ZERO_CONST == p_st_sensorless_vector->u1_state_speed_ref) &&
-        (MOTOR_MODE_DRIVE == p_st_sensorless_vector->u2_run_mode) &&
-        (
-            (CURRENT_STATE_ESTMODE_DRIVE_SLOW == p_st_sensorless_vector->u1_state_estmode) ||
-            (CURRENT_STATE_ESTMODE_DRIVE_MID == p_st_sensorless_vector->u1_state_estmode) ||
-            (CURRENT_STATE_ESTMODE_DRIVE_MID_M == p_st_sensorless_vector->u1_state_estmode) ||
-            (CURRENT_STATE_ESTMODE_DRIVE_HIGH == p_st_sensorless_vector->u1_state_estmode)
-        )
-       )
+        (MOTOR_MODE_DRIVE == p_st_sensorless_vector->u2_run_mode))
     {
         p_st_sensorless_vector->u1_state_speed_ref = SPEED_STATE_MANUAL;
     }
-
 } /* End of function motor_sensorless_vector_speed_status_select */
+
+/***********************************************************************************************************************
+* Function Name : motor_sensorless_vector_iq_status_select
+* Description   : Performs state transition related to q-axis current reference
+* Arguments     : p_st_sensorless_vector - The pointer to the motor control management data structure
+* Return Value  : None
+***********************************************************************************************************************/
+void motor_sensorless_vector_iq_status_select(st_sensorless_vector_control_t *p_st_sensorless_vector)
+{
+    uint8_t u1_temp0;
+    float   f4_temp0;
+
+    if (MTR_FLG_SET == p_st_sensorless_vector->u1_flag_down_to_ol)
+    {
+        p_st_sensorless_vector->u1_state_iq_ref = CURRENT_STATE_IQ_DOWN;
+    }
+
+    switch (p_st_sensorless_vector->u1_state_iq_ref)
+    {
+        case CURRENT_STATE_IQ_ZERO_CONST:
+            f4_temp0 = fabsf(p_st_sensorless_vector->st_speed_output.f4_ref_speed_rad_ctrl);
+
+            if (MTR_FLG_SET == p_st_sensorless_vector->u1_flag_openloop_damping_use)
+            {
+                /* Open loop damping control*/
+                p_st_sensorless_vector->f4_damp_comp_speed =
+                    R_MOTOR_SPEED_OplDampCtrl(p_st_sensorless_vector->p_st_sc,
+                                              p_st_sensorless_vector->st_current_output.f4_ed);
+            }
+
+            if (f4_temp0 >= p_st_sensorless_vector->f4_id_down_speed_rad)
+            {
+                if (MTR_FLG_SET == p_st_sensorless_vector->u1_flag_less_switch_use)
+                {
+                    p_st_sensorless_vector->u1_state_iq_ref = CURRENT_STATE_IQ_AUTO_ADJ;
+                    R_MOTOR_SPEED_Opl2lessPreprocess(p_st_sensorless_vector->p_st_sc,
+                                                     p_st_sensorless_vector->st_current_output.f4_ref_id_ctrl,
+                                                     p_st_sensorless_vector->f4_phase_err_rad_lpf);
+                }
+                else
+                {
+                    p_st_sensorless_vector->u1_state_iq_ref = CURRENT_STATE_IQ_SPEED_PI_OUTPUT;
+                    R_MOTOR_CURRENT_HuntingSuppress(p_st_sensorless_vector->p_st_cc,
+                                                    p_st_sensorless_vector->st_speed_output.f4_ref_speed_rad_ctrl);
+                }
+                if (MTR_FLG_SET == p_st_sensorless_vector->u1_flag_openloop_damping_use)
+                {
+                    R_MOTOR_SPEED_OplDampReset(p_st_sensorless_vector->p_st_sc);
+                    p_st_sensorless_vector->f4_damp_comp_speed = 0.0f;
+                }
+            }
+        break;
+
+        case CURRENT_STATE_IQ_AUTO_ADJ:
+            p_st_sensorless_vector->st_speed_output.f4_iq_ref =
+                    R_MOTOR_SPEED_Opl2lessReferenceIqCalc(p_st_sensorless_vector->p_st_sc,
+                                                          p_st_sensorless_vector->st_current_output.f4_ed,
+                                                          p_st_sensorless_vector->st_current_output.f4_eq,
+                                                          p_st_sensorless_vector->st_current_output.f4_ref_id_ctrl,
+                                                          p_st_sensorless_vector->st_current_output.f4_phase_err_rad);
+
+            if (MTR_CW == p_st_sensorless_vector->u1_direction)
+            {
+                u1_temp0 = (p_st_sensorless_vector->st_current_output.f4_phase_err_rad <=
+                                p_st_sensorless_vector->f4_switch_phase_err_rad);
+            }
+            else if (MTR_CCW == p_st_sensorless_vector->u1_direction)
+            {
+                u1_temp0 = (p_st_sensorless_vector->st_current_output.f4_phase_err_rad >=
+                                (-p_st_sensorless_vector->f4_switch_phase_err_rad));
+            }
+            else
+            {
+                u1_temp0 = MTR_FLG_CLR;
+            }
+
+            if (MTR_FLG_SET == u1_temp0)
+            {
+                p_st_sensorless_vector->u1_state_iq_ref = CURRENT_STATE_IQ_SPEED_PI_OUTPUT;
+
+                /* Preset for suppress speed hunting */
+                R_MOTOR_SPEED_SwitchingFlagSet(p_st_sensorless_vector->p_st_sc);
+                R_MOTOR_CURRENT_HuntingSuppress(p_st_sensorless_vector->p_st_cc,
+                                                p_st_sensorless_vector->st_speed_output.f4_ref_speed_rad_ctrl);
+                R_MOTOR_SPEED_HuntingSuppress(p_st_sensorless_vector->p_st_sc,
+                                              p_st_sensorless_vector->st_speed_output.f4_iq_ref);
+            }
+        break;
+
+        case CURRENT_STATE_IQ_DOWN:
+            if (p_st_sensorless_vector->p_st_cc->f4_ref_iq_ctrl <= 0.0f)
+            {
+                p_st_sensorless_vector->u1_state_iq_ref = CURRENT_STATE_IQ_ZERO_CONST;
+            }
+        break;
+
+        default:
+            /* Do Nothing */
+        break;
+    }
+} /* End of function motor_sensorless_vector_iq_status_select */
+
+/***********************************************************************************************************************
+* Function Name : motor_sensorless_vector_id_status_select
+* Description   : Performs state transition related to d-axis current reference
+* Arguments     : p_st_sensorless_vector - The pointer to the motor control management data structure
+* Return Value  : None
+***********************************************************************************************************************/
+void motor_sensorless_vector_id_status_select(st_sensorless_vector_control_t *p_st_sensorless_vector)
+{
+    float f4_temp0;
+
+    if (MTR_FLG_SET == p_st_sensorless_vector->u1_flag_down_to_ol)
+    {
+        p_st_sensorless_vector->u1_state_id_ref = CURRENT_STATE_ID_UP;
+    }
+
+    switch (p_st_sensorless_vector->u1_state_id_ref)
+    {
+        case CURRENT_STATE_ID_ZERO_CONST:
+            if (p_st_sensorless_vector->u2_run_mode == MOTOR_MODE_BOOT)
+            {
+                p_st_sensorless_vector->u1_state_id_ref = CURRENT_STATE_ID_UP;
+            }
+        break;
+
+        case CURRENT_STATE_ID_UP:
+            if (p_st_sensorless_vector->p_st_cc->f4_ref_id_ctrl >= p_st_sensorless_vector->p_st_cc->f4_ol_ref_id)
+            {
+                p_st_sensorless_vector->u1_state_id_ref = CURRENT_STATE_ID_MANUAL;
+            }
+        break;
+
+        case CURRENT_STATE_ID_MANUAL:
+            f4_temp0 = fabsf(p_st_sensorless_vector->st_speed_output.f4_ref_speed_rad_ctrl);
+            if (f4_temp0 >= p_st_sensorless_vector->f4_id_down_speed_rad)
+            {
+                p_st_sensorless_vector->u1_state_id_ref = CURRENT_STATE_ID_DOWN;
+            }
+        break;
+
+        case CURRENT_STATE_ID_DOWN:
+            if (0.0f >= p_st_sensorless_vector->p_st_cc->f4_ref_id_ctrl)
+            {
+                p_st_sensorless_vector->u1_state_id_ref = CURRENT_STATE_ID_INPUT;
+            }
+        break;
+
+        default:
+            /* Do Nothing */
+        break;
+    }
+} /* End of function motor_sensorless_vector_id_status_select */
 
 /***********************************************************************************************************************
 * Function Name : motor_sensorless_vector_nominal_current_set
@@ -383,227 +559,3 @@ void motor_sensorless_phase_err_lpf_setup(st_sensorless_vector_control_t *p_st_s
                                             f4_phase_err_lpf_cut_freq,
                                             f4_ctrl_period);
 } /* End of function motor_sensorless_phase_err_lpf_setup */
-
-
-/***********************************************************************************************************************
-* Function Name : motor_sensorless_vector_estmode_status_select
-* Description   : Performs state transition related to d-axis current reference
-* Arguments     : p_st_sensorless_vector - The pointer to the motor control management data structure
-* Return Value  : None
-***********************************************************************************************************************/
-void motor_sensorless_vector_estmode_status_select(st_sensorless_vector_control_t *p_st_sensorless_vector)
-{
-
-    switch (p_st_sensorless_vector->u1_state_estmode)
-    {
-        case CURRENT_STATE_ESTMODE_POWEROFF:
-            /* When boot up, go to init. */
-            p_st_sensorless_vector->u1_state_estmode = CURRENT_STATE_ESTMODE_INIT;
-            p_st_sensorless_vector->p_st_cc->u1_state_estmode = CURRENT_STATE_ESTMODE_INIT;
-            p_st_sensorless_vector->p_st_sc->u1_state_estmode = CURRENT_STATE_ESTMODE_INIT;
-        break;
-
-        case CURRENT_STATE_ESTMODE_INIT:
-            if (p_st_sensorless_vector->u2_run_mode == MOTOR_MODE_BOOT)
-            {
-            	if(MTR_DISABLE == p_st_sensorless_vector->u1_flag_flying_start_use)
-            	{
-                    /* When in boot mode, go to posest */
-                    p_st_sensorless_vector->u1_state_estmode = CURRENT_STATE_ESTMODE_POSEST;
-                    p_st_sensorless_vector->p_st_cc->u1_state_estmode = CURRENT_STATE_ESTMODE_POSEST;
-                    p_st_sensorless_vector->p_st_sc->u1_state_estmode = CURRENT_STATE_ESTMODE_POSEST;
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.u2_ang_est_count = 0;
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.u1_div_ang_cnt = 0;
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.u1_pf_calculated = MTR_FLG_CLR;
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.u1_posest_calculated = MTR_FLG_CLR;
-
-                }
-            	else if(FLY_STATE_COMPLETE == p_st_sensorless_vector->st_flystart.u1_state)
-            	{
-                	/* flying start enable & FLY_STATE_ACTIVE_BRAKE  */
-                    /* When in boot mode, go to posest */
-                    p_st_sensorless_vector->u1_state_estmode = CURRENT_STATE_ESTMODE_POSEST;
-                    p_st_sensorless_vector->p_st_cc->u1_state_estmode = CURRENT_STATE_ESTMODE_POSEST;
-                    p_st_sensorless_vector->p_st_sc->u1_state_estmode = CURRENT_STATE_ESTMODE_POSEST;
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.u2_ang_est_count = 0;
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.u1_div_ang_cnt = 0;
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.u1_pf_calculated = MTR_FLG_CLR;
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.u1_posest_calculated = MTR_FLG_CLR;
-            	}
-            	else
-            	{
-                    /* Do Nothing */
-            	}
-            }
-        break;
-
-        case CURRENT_STATE_ESTMODE_POSEST:
-            /* Position Estimator */
-            p_st_sensorless_vector->p_st_cc->st_lowspd.f4_div_ang =
-                                             (p_st_sensorless_vector->p_st_cc->st_rotor_angle.f4_rotor_angle_rad -
-                                              p_st_sensorless_vector->p_st_cc->st_lowspd.f4_last_ang);
-            if( fabsf(p_st_sensorless_vector->p_st_cc->st_lowspd.f4_div_ang) > (MTR_TWOPI/2))
-            {
-                if(p_st_sensorless_vector->p_st_cc->st_lowspd.f4_div_ang > 0)
-                {
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.f4_div_ang -= MTR_TWOPI;
-                }
-                else
-                {
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.f4_div_ang += MTR_TWOPI;
-                }
-            }
-            p_st_sensorless_vector->p_st_cc->st_lowspd.f4_last_ang =
-                                              p_st_sensorless_vector->p_st_cc->st_rotor_angle.f4_rotor_angle_rad;
-
-            p_st_sensorless_vector->p_st_cc->st_lowspd.u2_ang_est_count++;
-
-            /* When the magnetic pole position estimation value converges within the desired time and */
-            /* within the desired threshold range. */
-            if (p_st_sensorless_vector->p_st_cc->st_lowspd.u2_ang_est_count >= CURRENT_CFG_ESTLOW_ESTTIME)
-            {
-                /* Polarity judgment */
-                if((CURRENT_CFG_ESTLOW_PF_THRESHOLD <= fabsf(p_st_sensorless_vector->p_st_cc->st_lowspd.f4_PF)) &&
-                   (MTR_FLG_CLR == p_st_sensorless_vector->p_st_cc->st_lowspd.u1_pf_calculated))
-                {
-                    R_MOTOR_CURRENT_UpdateAngleNSpole(p_st_sensorless_vector->p_st_cc, p_st_sensorless_vector->p_st_cc->st_lowspd.f4_PF);
-                    /* End of PF calculation */
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.u1_pf_calculated = MTR_FLG_SET;
-                }
-
-                /* Magnetic pole position estimation convergence judgment */
-                if((MOTOR_ANGEST_THRESHOLD >= p_st_sensorless_vector->p_st_cc->st_lowspd.f4_div_ang) &&
-                   (MTR_FLG_CLR == p_st_sensorless_vector->p_st_cc->st_lowspd.u1_posest_calculated))
-                {
-                    /* 1 degree or less */
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.u1_div_ang_cnt++;
-                    if(CURRENT_CFG_ESTLOW_CONVERGENCE_COUNT <= p_st_sensorless_vector->p_st_cc->st_lowspd.u1_div_ang_cnt)
-                    {
-                        /* 10 consecutive successes */
-                        p_st_sensorless_vector->p_st_cc->st_lowspd.u1_posest_calculated = MTR_FLG_SET;
-                    }
-                }
-                else
-                {
-                    /* 1deg over counter reset */
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.u1_div_ang_cnt = 0;
-                }
-                if((MTR_FLG_SET == p_st_sensorless_vector->p_st_cc->st_lowspd.u1_pf_calculated) &&
-                   (MTR_FLG_SET == p_st_sensorless_vector->p_st_cc->st_lowspd.u1_posest_calculated))
-                {
-                    /* Magnetic pole position estimation and polarity determination completed successfully */
-                    /* Reset ACR and ASR */
-                    p_st_sensorless_vector->p_st_sc->st_pi_speed.f4_refi = 0.0f;
-                    p_st_sensorless_vector->p_st_cc->st_pi_id.f4_refi    = 0.0f;
-                    p_st_sensorless_vector->p_st_cc->st_pi_iq.f4_refi    = 0.0f;
-
-                    /* Decrease the pulse voltage (because the polarity determination is over) */
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.f4_volt_pulse_inj = CURRENT_CFG_ESTLOW_PULSEVOLT_RUNNING;
-
-                    /* HFI frequency changes to drive mode */
-                    if( CURRENT_CFG_ESTLOW_PULSEFREQ_DRIVE <= MOTOR_SENSORLESS_VECTOR_CURRENT_TABLE_SIZE)
-                    {
-                        /* HFI frequency sets 1/CURRENT_CFG_ESTLOW_PULSEFREQ_DRIVE */
-                        p_st_sensorless_vector->p_st_cc->st_lowspd.u1_pulse_freq = CURRENT_CFG_ESTLOW_PULSEFREQ_DRIVE;
-                    }
-                    else
-                    {
-                        /* HFI frequency sets 1/2 */
-                        p_st_sensorless_vector->p_st_cc->st_lowspd.u1_pulse_freq = 1;
-                    }
-
-                    /* Go to next status */
-                    p_st_sensorless_vector->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_SLOW;
-                    p_st_sensorless_vector->p_st_cc->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_SLOW;
-                    p_st_sensorless_vector->p_st_sc->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_SLOW;
-                }
-            }
-        break;
-
-        case CURRENT_STATE_ESTMODE_DRIVE_SLOW:
-            /* State transition wait counter counts up. */
-            p_st_sensorless_vector->u2_estmode_state_chg_cnt++;
-
-            if((fabsf(p_st_sensorless_vector->p_st_sc->f4_speed_rad_ctrl) > p_st_sensorless_vector->p_st_cc->st_lowspd.f4_highspd_threshold ) &&
-                (p_st_sensorless_vector->u2_estmode_state_chg_cnt > CURRENT_CFG_ESTLOW_STATE_TRANS_WAIT_SLOW_TO_HIGH))
-            {
-                /* Speed exceeded 525 r/min, and State transition wait counter exceeded 100. */
-
-                /*Reset BEMF Observer PLL */
-                p_st_sensorless_vector->p_st_cc->st_pll_est.f4_i_est_speed =
-                    p_st_sensorless_vector->p_st_cc->st_pll_est_low.f4_i_est_speed;
-
-                p_st_sensorless_vector->p_st_cc->st_lowspd.u1_cur_chg_cnt = 0;
-
-                /* Clear state transition wait counter */
-                p_st_sensorless_vector->u2_estmode_state_chg_cnt = 0;
-
-                p_st_sensorless_vector->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_MID;
-                p_st_sensorless_vector->p_st_cc->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_MID;
-                p_st_sensorless_vector->p_st_sc->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_MID;
-            }
-        break;
-
-        case CURRENT_STATE_ESTMODE_DRIVE_MID:
-            /* Switching speed range from low speed to high speed (near 275r/min) */
-            /* Move to high-speed mode at the end of waiting for switching */
-            if(CURRENT_SENSORLESS_CHGARGCNT_TOHIGH <= p_st_sensorless_vector->p_st_cc->st_lowspd.u1_cur_chg_cnt)
-            {
-                p_st_sensorless_vector->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_HIGH;
-                p_st_sensorless_vector->p_st_cc->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_HIGH;
-                p_st_sensorless_vector->p_st_sc->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_HIGH;
-            }
-        break;
-
-        case CURRENT_STATE_ESTMODE_DRIVE_HIGH:
-            /* State transition wait counter counts up. */
-            p_st_sensorless_vector->u2_estmode_state_chg_cnt++;
-
-            if((fabsf(p_st_sensorless_vector->p_st_sc->f4_speed_rad_ctrl) <  p_st_sensorless_vector->p_st_cc->st_lowspd.f4_lowspd_threshold) &&
-               (p_st_sensorless_vector->u2_estmode_state_chg_cnt > CURRENT_CFG_ESTLOW_STATE_TRANS_WAIT_HIGH_TO_SLOW))
-            {
-                /* The speed is less than 475r/min, and State transition wait counter exceeded 100. */
-                p_st_sensorless_vector->p_st_cc->st_pll_est_low.f4_i_est_speed =
-                                                 p_st_sensorless_vector->p_st_cc->st_pll_est.f4_i_est_speed;
-                p_st_sensorless_vector->p_st_cc->st_lowspd.u1_cur_chg_cnt = 0;
-
-                /* Set a value (current location) for preventing fluctuations during ripple calculation */
-                /* in the current ripple buffer. */
-                for( int i = 0; i < MOTOR_SENSORLESS_VECTOR_CURRENT_TABLE_SIZE; i++)
-                {
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.f4_array_iq_p[i] = p_st_sensorless_vector->p_st_cc->f4_iq_ad;
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.f4_array_iq_n[i] = p_st_sensorless_vector->p_st_cc->f4_iq_ad;
-
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.f4_array_id_p[i] = p_st_sensorless_vector->p_st_cc->f4_id_ad;
-                    p_st_sensorless_vector->p_st_cc->st_lowspd.f4_array_id_n[i] = p_st_sensorless_vector->p_st_cc->f4_id_ad;
-
-                }
-
-                p_st_sensorless_vector->p_st_cc->st_lowspd.f4_delt_id = 0.0f;
-                p_st_sensorless_vector->p_st_cc->st_lowspd.f4_delt_iq = 0.0f;
-
-                p_st_sensorless_vector->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_MID_M;
-                p_st_sensorless_vector->p_st_cc->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_MID_M;
-                p_st_sensorless_vector->p_st_sc->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_MID_M;
-
-                /* Clear state transition wait counter */
-                p_st_sensorless_vector->u2_estmode_state_chg_cnt = 0;
-            }
-        break;
-
-        case CURRENT_STATE_ESTMODE_DRIVE_MID_M:
-            /* Switching speed range from high speed to low speed tail (near 275r/min) */
-            /*  Move to low-speed mode at the end of waiting for switching */
-            if(CURRENT_SENSORLESS_CHGARGCNT_TOSLOW <= p_st_sensorless_vector->p_st_cc->st_lowspd.u1_cur_chg_cnt)
-            {
-                p_st_sensorless_vector->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_SLOW;
-                p_st_sensorless_vector->p_st_cc->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_SLOW;
-                p_st_sensorless_vector->p_st_sc->u1_state_estmode = CURRENT_STATE_ESTMODE_DRIVE_SLOW;
-            }
-        break;
-
-        default:
-            /* Do Nothing */
-        break;
-    }
-} /* End of function motor_sensorless_vector_estmode_status_select */
