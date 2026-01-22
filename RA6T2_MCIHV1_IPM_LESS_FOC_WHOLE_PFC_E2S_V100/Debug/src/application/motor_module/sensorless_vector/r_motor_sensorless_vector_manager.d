@@ -24,7 +24,8 @@ src/application/motor_module/sensorless_vector/r_motor_sensorless_vector_manager
  ../src/application/motor_module/sensorless_vector/r_motor_sensorless_vector_flyingstart.h \
  ../src/application/motor_module/sensorless_vector/r_motor_sensorless_vector_protection.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/driver/r_motor_driver_fsp.h \
- C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/driver/r_motor_driver.h
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/driver/r_motor_driver.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_driver/r_pfc_driver.h
 ../src/application/motor_module/sensorless_vector/r_motor_sensorless_vector_manager.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/cfg/r_motor_module_cfg.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/general/r_motor_common.h:
@@ -50,3 +51,4 @@ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_
 ../src/application/motor_module/sensorless_vector/r_motor_sensorless_vector_protection.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/driver/r_motor_driver_fsp.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/driver/r_motor_driver.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_driver/r_pfc_driver.h:

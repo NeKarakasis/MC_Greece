@@ -12,6 +12,10 @@ RM := rm -rf
 -include sources.mk
 -include src/application/user_interface/ics/subdir.mk
 -include src/application/system_module/system_manager/subdir.mk
+-include src/application/pfc_module/pfc_systask/subdir.mk
+-include src/application/pfc_module/pfc_general/subdir.mk
+-include src/application/pfc_module/pfc_driver/subdir.mk
+-include src/application/pfc_module/pfc_ctrl/subdir.mk
 -include src/application/motor_module/speed/subdir.mk
 -include src/application/motor_module/sensorless_vector/subdir.mk
 -include src/application/motor_module/general/subdir.mk
@@ -20,6 +24,7 @@ RM := rm -rf
 -include src/application/main/subdir.mk
 -include src/subdir.mk
 -include ra_gen/subdir.mk
+-include ra/fsp/src/r_spi_b/subdir.mk
 -include ra/fsp/src/r_poeg/subdir.mk
 -include ra/fsp/src/r_ioport/subdir.mk
 -include ra/fsp/src/r_icu/subdir.mk
@@ -27,6 +32,7 @@ RM := rm -rf
 -include ra/fsp/src/r_gpt/subdir.mk
 -include ra/fsp/src/r_agt/subdir.mk
 -include ra/fsp/src/r_adc_b/subdir.mk
+-include ra/fsp/src/bsp/mcu/ra6t2/subdir.mk
 -include ra/fsp/src/bsp/mcu/all/subdir.mk
 -include ra/fsp/src/bsp/cmsis/Device/RENESAS/Source/subdir.mk
 -include subdir.mk

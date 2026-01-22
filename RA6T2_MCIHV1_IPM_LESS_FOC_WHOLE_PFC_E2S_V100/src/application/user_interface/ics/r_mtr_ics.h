@@ -43,7 +43,7 @@
 /* For ICS */
 #define     ICS_BRR                      (1)                 /* Baudrate select */
 #define     ICS_INT_MODE                 (1)                  /* Mode select */
-#define     CONF_MOTOR_TYPE              ("Brushless DC Motor")
+#define     CONF_MOTOR_TYPE              ("Vorwerk CuRD Motor")
 #define     CONF_CONTROL                 ("Sensorless vector control (Speed control)")
 #define     CONF_INVERTER                ("MCI-HV-1")
 #define     CONF_MOTOR_TYPE_LEN          (18)

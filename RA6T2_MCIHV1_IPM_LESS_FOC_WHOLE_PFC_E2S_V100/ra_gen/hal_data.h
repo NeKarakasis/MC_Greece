@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include "bsp_api.h"
 #include "common_data.h"
+#include "r_spi_b.h"
 #include "r_agt.h"
 #include "r_timer_api.h"
 #include "r_gpt.h"
@@ -15,6 +16,30 @@
 #include "r_adc_b.h"
 #include "r_adc_api.h"
 FSP_HEADER
+/** SPI on SPI Instance. */
+extern const spi_instance_t MA600_sensor;
+
+/** Access the SPI instance using these structures when calling API functions directly (::p_api is not used). */
+extern spi_b_instance_ctrl_t MA600_sensor_ctrl;
+extern const spi_cfg_t MA600_sensor_cfg;
+
+/** Callback used by SPI Instance. */
+#ifndef spi_callback
+void spi_callback(spi_callback_args_t *p_args);
+#endif
+
+#define RA_NOT_DEFINED (1)
+#if (RA_NOT_DEFINED == RA_NOT_DEFINED)
+#define MA600_sensor_P_TRANSFER_TX (NULL)
+#else
+    #define MA600_sensor_P_TRANSFER_TX (&RA_NOT_DEFINED)
+#endif
+#if (RA_NOT_DEFINED == RA_NOT_DEFINED)
+#define MA600_sensor_P_TRANSFER_RX (NULL)
+#else
+    #define MA600_sensor_P_TRANSFER_RX (&RA_NOT_DEFINED)
+#endif
+#undef RA_NOT_DEFINED
 /** AGT Timer Instance */
 extern const timer_instance_t g_agt1;
 

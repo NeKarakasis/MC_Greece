@@ -37,14 +37,18 @@
 #include "r_motor_current_api.h"
 
 
-/***********************************************************************************************************************
-* Exported global variables
-***********************************************************************************************************************/
-st_speed_control_t      g_st_sc;          /* Speed control structure */
-extern st_current_control_t    g_st_cc;
-/***********************************************************************************************************************
-* Static variables
-***********************************************************************************************************************/
+#define RPM_TO_RAD_PER_SEC(rpm) ((rpm) * (2.0f * 3.14159265f / 60.0f))
+
+st_speed_control_t      g_st_sc;
+
+float Tm;
+float Tdisturbance;
+float Iff;
+
+/* Speed control structure */
+
+
+
 
 /***********************************************************************************************************************
 * Function Name : R_MOTOR_SPEED_Open
@@ -260,11 +264,13 @@ void R_MOTOR_SPEED_SpeedCyclic(st_speed_control_t * p_st_sc)
 {
     /* extobserver disturbance */
     float f4_torque_nm;
+
     float f4_ditrub_current = 0.0f;
     if (MTR_FLG_SET == p_st_sc->u1_flag_extobserver_use)
     {
         /* Calculate torque */
         f4_torque_nm = ((float)p_st_sc->st_motor.u2_mtr_pp * p_st_sc->st_motor.f4_mtr_m) * p_st_sc->f4_iq_ref_output;
+        Tm =f4_torque_nm;
         /* Extended observer */
         motor_speed_extobserver_start(&p_st_sc->st_extobs, f4_torque_nm, p_st_sc->f4_speed_rad);
         p_st_sc->f4_speed_obsrv_rad = motor_speed_extobserver_mech_speed_get(&p_st_sc->st_extobs);
@@ -279,6 +285,9 @@ void R_MOTOR_SPEED_SpeedCyclic(st_speed_control_t * p_st_sc)
         p_st_sc->f4_speed_rad_ctrl = motor_filter_first_order_lpff(&p_st_sc->st_slpf, p_st_sc->f4_speed_rad);
     }
 
+    Tdisturbance = p_st_sc->st_extobs.f4_estimated_distb;
+
+
     if (MTR_FLG_SET == p_st_sc->u1_active)
     {
         /*====================================*/
@@ -291,6 +300,8 @@ void R_MOTOR_SPEED_SpeedCyclic(st_speed_control_t * p_st_sc)
         f4_ditrub_current = motor_speed_extobserver_disturbance_current_limit(&p_st_sc->st_extobs,
                                                                               p_st_sc->f4_ref_speed_rad_ctrl,
                                                                               f4_ditrub_current);
+
+        Iff = f4_ditrub_current;
 
         /*==============================================*/
         /*   Setting of dq-axis current command value   */
@@ -308,30 +319,49 @@ void R_MOTOR_SPEED_SpeedCyclic(st_speed_control_t * p_st_sc)
         {
             p_st_sc->f4_iq_ref_output =  0;
         }
-
-        p_st_sc->st_motor.f4_mtr_ld = g_st_cc.st_motor.f4_mtr_ld;
-        p_st_sc->st_motor.f4_mtr_lq = g_st_cc.st_motor.f4_mtr_lq;
         /*=================================*/
         /*   Executes the Flux-weakening   */
         /*=================================*/
-        if (MTR_FLG_SET == p_st_sc->u1_flag_fluxwkn_use)
-        {
-            motor_speed_flux_weakening(p_st_sc);
-        }
-        else
-        {
-            /* Do Nothing */
-        }
+        if (MTR_FLG_SET == g_st_sc.u1_flag_fluxwkn_use)
+            {
+                motor_speed_flux_weakening(p_st_sc);
+            }
+            else
+            {
+                /* Do Nothing */
+           }
 
-        if (MTR_FLG_SET == p_st_sc->u1_flag_mtpa_use)
-        {
-            /* This function will over-write the dq-axis current command */
-            motor_speed_mtpa(p_st_sc);
-        }
-        else
-        {
-            /* Do nothing */
-        }
+        if (MTR_FLG_SET == g_st_sc.u1_flag_mtpa_use) // if(p_st_sc->f4_speed_rad<RPM_TO_RAD_PER_SEC(2200.0f))//
+          {
+                /* This function will over-write the dq-axis current command */
+             motor_speed_mtpa(p_st_sc);
+           }
+           else
+            {
+                /* Do nothing */
+            }
+
+
+       // p_st_sc->st_fluxwkn.p_motor->f4_mtr_ld =  interpolate_ld(g_st_cc.f4_id_ad,g_st_cc.f4_iq_ad);
+      //  p_st_sc->st_fluxwkn.p_motor->f4_mtr_lq =  interpolate_lq(g_st_cc.f4_id_ad,g_st_cc.f4_iq_ad);
+       // if (fabsf(g_st_cc.f4_id_ad) < 0.35f && g_st_cc.f4_iq_ad < 0.3536f)  g_st_sc.st_fluxwkn.p_motor->f4_mtr_m  = MOTOR_CFG_MAGNETIC_FLUX;
+
+      //  else
+       //     {
+         //     fluxq = interpolate_fluxq(g_st_cc.f4_id_ad,g_st_cc.f4_iq_ad);
+        //      fluxd = interpolate_fluxd(g_st_cc.f4_id_ad,g_st_cc.f4_iq_ad);
+          //   p_st_sc->st_fluxwkn.p_motor->f4_mtr_m = sqrt(fluxq*fluxq + fluxd*fluxd);
+          //    }
+
+      /*  p_st_sc->st_fluxwkn.p_motor->f4_mtr_ld = g_st_cc.st_motor.f4_mtr_ld;
+        p_st_sc->st_fluxwkn.p_motor->f4_mtr_lq = g_st_cc.st_motor.f4_mtr_lq;
+        p_st_sc->st_fluxwkn.p_motor->f4_mtr_m =  g_st_cc.st_motor.f4_mtr_m;
+
+        p_st_sc->st_mtpa.p_motor->f4_mtr_ld    = p_st_sc->st_fluxwkn.p_motor->f4_mtr_ld;
+        p_st_sc->st_mtpa.p_motor->f4_mtr_lq    = p_st_sc->st_fluxwkn.p_motor->f4_mtr_lq;
+        p_st_sc->st_mtpa.p_motor->f4_mtr_m     = p_st_sc->st_fluxwkn.p_motor->f4_mtr_m;  */
+
+
     }
     else
     {

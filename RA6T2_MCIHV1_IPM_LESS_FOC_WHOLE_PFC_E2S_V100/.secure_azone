@@ -2,58 +2,66 @@
 <azone>
     <rzone name="R7FA6T2BD3CFP.rzone"/>
     <partition>
-        <peripheral name="PORT0" group="PORT">
-            <slot name="P001" secure="true"/>
+        <peripheral name="PORT0.CM33" group="PORT">
+            <slot name="P001.CM33" secure="true"/>
         </peripheral>
-        <peripheral name="PORTA" group="PORT">
-            <slot name="PA13" secure="true"/>
-            <slot name="PA14" secure="true"/>
-            <slot name="PA15" secure="true"/>
+        <peripheral name="PORTA.CM33" group="PORT">
+            <slot name="PA13.CM33" secure="true"/>
+            <slot name="PA14.CM33" secure="true"/>
+            <slot name="PA15.CM33" secure="true"/>
         </peripheral>
-        <peripheral name="PORTB" group="PORT">
-            <slot name="PB03" secure="true"/>
-            <slot name="PB04" secure="true"/>
-            <slot name="PB05" secure="true"/>
-            <slot name="PB06" secure="true"/>
-            <slot name="PB07" secure="true"/>
-            <slot name="PB08" secure="true"/>
-            <slot name="PB09" secure="true"/>
-            <slot name="PB14" secure="true"/>
+        <peripheral name="PORTB.CM33" group="PORT">
+            <slot name="PB03.CM33" secure="true"/>
+            <slot name="PB04.CM33" secure="true"/>
+            <slot name="PB05.CM33" secure="true"/>
+            <slot name="PB06.CM33" secure="true"/>
+            <slot name="PB07.CM33" secure="true"/>
+            <slot name="PB08.CM33" secure="true"/>
+            <slot name="PB09.CM33" secure="true"/>
+            <slot name="PB14.CM33" secure="true"/>
         </peripheral>
-        <peripheral name="PORTC" group="PORT">
-            <slot name="PC06" secure="true"/>
-            <slot name="PC13" secure="true"/>
+        <peripheral name="PORTC.CM33" group="PORT">
+            <slot name="PC06.CM33" secure="true"/>
+            <slot name="PC10.CM33" secure="true"/>
+            <slot name="PC11.CM33" secure="true"/>
+            <slot name="PC12.CM33" secure="true"/>
+            <slot name="PC13.CM33" secure="true"/>
         </peripheral>
-        <peripheral name="PORTD" group="PORT">
-            <slot name="PD01" secure="true"/>
-            <slot name="PD02" secure="true"/>
-            <slot name="PD03" secure="true"/>
-            <slot name="PD04" secure="true"/>
-            <slot name="PD07" secure="true"/>
-            <slot name="PD11" secure="true"/>
+        <peripheral name="PORTD.CM33" group="PORT">
+            <slot name="PD00.CM33" secure="true"/>
+            <slot name="PD01.CM33" secure="true"/>
+            <slot name="PD02.CM33" secure="true"/>
+            <slot name="PD03.CM33" secure="true"/>
+            <slot name="PD04.CM33" secure="true"/>
+            <slot name="PD07.CM33" secure="true"/>
+            <slot name="PD11.CM33" secure="true"/>
         </peripheral>
-        <peripheral name="PORTE" group="PORT">
-            <slot name="PE01" secure="true"/>
+        <peripheral name="PORTE.CM33" group="PORT">
+            <slot name="PE01.CM33" secure="true"/>
         </peripheral>
-        <peripheral name="GPT4" group="GPT" security="s"/>
-        <peripheral name="GPT5" group="GPT" security="s"/>
-        <peripheral name="GPT6" group="GPT" security="s"/>
-        <peripheral name="GPT_POEG3" group="GPT_POEG" security="s"/>
-        <peripheral name="AGT0" group="AGT" security="s"/>
-        <peripheral name="GPT1" group="GPT" security="s"/>
-        <peripheral name="ICU_EXT_IRQ">
-            <slot name="ICU_EXT_IRQ2" secure="true"/>
+        <peripheral name="GPT4.CM33" group="GPT" security="s"/>
+        <peripheral name="GPT5.CM33" group="GPT" security="s"/>
+        <peripheral name="GPT6.CM33" group="GPT" security="s"/>
+        <peripheral name="GPT_POEG3.CM33" group="GPT_POEG" security="s"/>
+        <peripheral name="AGT0.CM33" group="AGT" security="s"/>
+        <peripheral name="GPT1.CM33" group="GPT" security="s"/>
+        <peripheral name="ICU_EXT_IRQ.CM33">
+            <slot name="ICU_EXT_IRQ2.CM33" secure="true"/>
         </peripheral>
-        <peripheral name="AGT1" group="AGT" security="s"/>
-        <peripheral name="ICU">
-            <slot name="IRQ0" secure="true"/>
-            <slot name="IRQ1" secure="true"/>
-            <slot name="IRQ2" secure="true"/>
-            <slot name="IRQ3" secure="true"/>
-            <slot name="IRQ4" secure="true"/>
-            <slot name="IRQ5" secure="true"/>
-            <slot name="IRQ6" secure="true"/>
-            <slot name="IRQ7" secure="true"/>
+        <peripheral name="AGT1.CM33" group="AGT" security="s"/>
+        <peripheral name="ICU.CM33">
+            <slot name="IRQ0.CM33" secure="true"/>
+            <slot name="IRQ1.CM33" secure="true"/>
+            <slot name="IRQ2.CM33" secure="true"/>
+            <slot name="IRQ3.CM33" secure="true"/>
+            <slot name="IRQ4.CM33" secure="true"/>
+            <slot name="IRQ5.CM33" secure="true"/>
+            <slot name="IRQ6.CM33" secure="true"/>
+            <slot name="IRQ7.CM33" secure="true"/>
+            <slot name="IRQ8.CM33" secure="true"/>
+            <slot name="IRQ9.CM33" secure="true"/>
+            <slot name="IRQ10.CM33" secure="true"/>
+            <slot name="IRQ11.CM33" secure="true"/>
         </peripheral>
     </partition>
 </azone>

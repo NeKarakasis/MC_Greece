@@ -6,6 +6,90 @@
 #define ADC_B_TRIGGER_ADC_B0_B      ADC_B_TRIGGER_SYNC_ELC
 #define ADC_B_TRIGGER_ADC_B1        ADC_B_TRIGGER_SYNC_ELC
 #define ADC_B_TRIGGER_ADC_B1_B      ADC_B_TRIGGER_SYNC_ELC
+#define RA_NOT_DEFINED (UINT32_MAX)
+#if (RA_NOT_DEFINED) != (RA_NOT_DEFINED)
+
+/* If the transfer module is DMAC, define a DMAC transfer callback. */
+#include "r_dmac.h"
+extern void spi_b_tx_dmac_callback(spi_b_instance_ctrl_t const * const p_ctrl);
+
+void MA600_sensor_tx_transfer_callback (dmac_callback_args_t * p_args)
+{
+    FSP_PARAMETER_NOT_USED(p_args);
+    spi_b_tx_dmac_callback(&MA600_sensor_ctrl);
+}
+#endif
+
+#if (RA_NOT_DEFINED) != (RA_NOT_DEFINED)
+
+/* If the transfer module is DMAC, define a DMAC transfer callback. */
+#include "r_dmac.h"
+extern void spi_b_rx_dmac_callback(spi_b_instance_ctrl_t const * const p_ctrl);
+
+void MA600_sensor_rx_transfer_callback (dmac_callback_args_t * p_args)
+{
+    FSP_PARAMETER_NOT_USED(p_args);
+    spi_b_rx_dmac_callback(&MA600_sensor_ctrl);
+}
+#endif
+#undef RA_NOT_DEFINED
+
+spi_b_instance_ctrl_t MA600_sensor_ctrl;
+
+/** SPI extended configuration for SPI HAL driver */
+const spi_b_extended_cfg_t MA600_sensor_ext_cfg = { .spi_clksyn =
+		SPI_B_SSL_MODE_SPI, .spi_comm = SPI_B_COMMUNICATION_FULL_DUPLEX,
+		.ssl_polarity = SPI_B_SSLP_LOW, .ssl_select = SPI_B_SSL_SELECT_SSL0,
+		.mosi_idle = SPI_B_MOSI_IDLE_VALUE_FIXING_DISABLE, .parity =
+				SPI_B_PARITY_MODE_DISABLE, .byte_swap = SPI_B_BYTE_SWAP_DISABLE,
+		.clock_source = SPI_B_CLOCK_SOURCE_SCISPICLK, .spck_div = {
+		/* Actual calculated bitrate: 7500000. */.spbr = 7, .brdv = 0 },
+		.spck_delay = SPI_B_DELAY_COUNT_1, .ssl_negation_delay =
+				SPI_B_DELAY_COUNT_1, .next_access_delay = SPI_B_DELAY_COUNT_1,
+
+};
+
+/** SPI configuration for SPI HAL driver */
+const spi_cfg_t MA600_sensor_cfg = { .channel = 1,
+
+#if defined(VECTOR_NUMBER_SPI1_RXI)
+    .rxi_irq             = VECTOR_NUMBER_SPI1_RXI,
+#else
+		.rxi_irq = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_SPI1_TXI)
+    .txi_irq             = VECTOR_NUMBER_SPI1_TXI,
+#else
+		.txi_irq = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_SPI1_TEI)
+    .tei_irq             = VECTOR_NUMBER_SPI1_TEI,
+#else
+		.tei_irq = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_SPI1_ERI)
+    .eri_irq             = VECTOR_NUMBER_SPI1_ERI,
+#else
+		.eri_irq = FSP_INVALID_VECTOR,
+#endif
+
+		.rxi_ipl = (2), .txi_ipl = (2), .tei_ipl = (2), .eri_ipl = (2),
+
+		.operating_mode = SPI_MODE_MASTER,
+
+		.clk_phase = SPI_CLK_PHASE_EDGE_EVEN, .clk_polarity =
+				SPI_CLK_POLARITY_HIGH,
+
+		.mode_fault = SPI_MODE_FAULT_ERROR_DISABLE, .bit_order =
+				SPI_BIT_ORDER_MSB_FIRST, .p_transfer_tx =
+				MA600_sensor_P_TRANSFER_TX, .p_transfer_rx =
+				MA600_sensor_P_TRANSFER_RX, .p_callback = spi_callback,
+
+		.p_context = NULL, .p_extend = (void*) &MA600_sensor_ext_cfg, };
+
+/* Instance structure to use this module. */
+const spi_instance_t MA600_sensor = { .p_ctrl = &MA600_sensor_ctrl, .p_cfg =
+		&MA600_sensor_cfg, .p_api = &g_spi_on_spi_b };
 agt_instance_ctrl_t g_agt1_ctrl;
 const agt_extended_cfg_t g_agt1_extend = { .count_source = AGT_CLOCK_PCLKB,
 		.agto = AGT_PIN_CFG_DISABLED, .agtoab_settings_b.agtoa =
@@ -24,7 +108,7 @@ const timer_cfg_t g_agt1_cfg = { .mode = TIMER_MODE_PERIODIC,
 #if defined(NULL)
     .p_context           = NULL,
 #else
-		.p_context = &NULL,
+		.p_context = (void*) &NULL,
 #endif
 		.p_extend = &g_agt1_extend, .cycle_end_ipl = (10),
 #if defined(VECTOR_NUMBER_AGT1_INT)
@@ -82,9 +166,9 @@ const gpt_extended_cfg_t g_timer_gpt1_extend =
 #else
 				.capture_b_irq = FSP_INVALID_VECTOR,
 #endif
-				.compare_match_value = { /* CMP_A */0x0, /* CMP_B */0x0 },
-				.compare_match_status = (0U << 1U) | 0U,
-				.capture_filter_gtioca = GPT_CAPTURE_FILTER_NONE,
+				.compare_match_value = { /* CMP_A */(uint32_t) 0x0, /* CMP_B */
+						(uint32_t) 0x0 }, .compare_match_status = (0U << 1U)
+						| 0U, .capture_filter_gtioca = GPT_CAPTURE_FILTER_NONE,
 				.capture_filter_gtiocb = GPT_CAPTURE_FILTER_NONE,
 #if 1
 				.p_pwm_cfg = &g_timer_gpt1_pwm_extend,
@@ -115,7 +199,9 @@ const gpt_extended_cfg_t g_timer_gpt1_extend =
 #else
     .gtior_setting.gtior = 0U,
 #endif
-		};
+
+				.gtioca_polarity = GPT_GTIOC_POLARITY_NORMAL, .gtiocb_polarity =
+						GPT_GTIOC_POLARITY_NORMAL, };
 
 const timer_cfg_t g_timer_gpt1_cfg =
 		{ .mode = TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
@@ -127,7 +213,7 @@ const timer_cfg_t g_timer_gpt1_cfg =
 #if defined(NULL)
     .p_context           = NULL,
 #else
-				.p_context = &NULL,
+				.p_context = (void*) &NULL,
 #endif
 				.p_extend = &g_timer_gpt1_extend, .cycle_end_ipl =
 						(BSP_IRQ_DISABLED),
@@ -158,7 +244,7 @@ const timer_cfg_t g_agt0_cfg = { .mode = TIMER_MODE_PERIODIC,
 #if defined(NULL)
     .p_context           = NULL,
 #else
-		.p_context = &NULL,
+		.p_context = (void*) &NULL,
 #endif
 		.p_extend = &g_agt0_extend, .cycle_end_ipl = (9),
 #if defined(VECTOR_NUMBER_AGT0_INT)
@@ -227,9 +313,9 @@ const gpt_extended_cfg_t g_timer_gpt6_extend =
 #else
 				.capture_b_irq = FSP_INVALID_VECTOR,
 #endif
-				.compare_match_value = { /* CMP_A */0x0, /* CMP_B */0x0 },
-				.compare_match_status = (0U << 1U) | 0U,
-				.capture_filter_gtioca = GPT_CAPTURE_FILTER_NONE,
+				.compare_match_value = { /* CMP_A */(uint32_t) 0x0, /* CMP_B */
+						(uint32_t) 0x0 }, .compare_match_status = (0U << 1U)
+						| 0U, .capture_filter_gtioca = GPT_CAPTURE_FILTER_NONE,
 				.capture_filter_gtiocb = GPT_CAPTURE_FILTER_NONE,
 #if 1
 				.p_pwm_cfg = &g_timer_gpt6_pwm_extend,
@@ -260,24 +346,28 @@ const gpt_extended_cfg_t g_timer_gpt6_extend =
 #else
     .gtior_setting.gtior = 0U,
 #endif
-		};
 
-const timer_cfg_t g_timer_gpt6_cfg = { .mode =
-		TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
-/* Actual period: 0.00005 seconds. Actual duty: 50%. */.period_counts =
-		(uint32_t) 0xbb8, .duty_cycle_counts = 0x5dc, .source_div =
-		(timer_source_div_t) 0, .channel = 6, .p_callback = NULL,
-/** If NULL then do not add & */
+				.gtioca_polarity = GPT_GTIOC_POLARITY_NORMAL, .gtiocb_polarity =
+						GPT_GTIOC_POLARITY_NORMAL, };
+
+const timer_cfg_t g_timer_gpt6_cfg =
+		{ .mode = TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
+				/* Actual period: 0.00007141666666666666 seconds. Actual duty: 49.98833138856476%. */.period_counts =
+						(uint32_t) 0x10bd, .duty_cycle_counts = 0x85e,
+				.source_div = (timer_source_div_t) 0, .channel = 6,
+				.p_callback = NULL,
+				/** If NULL then do not add & */
 #if defined(NULL)
     .p_context           = NULL,
 #else
-		.p_context = &NULL,
+				.p_context = (void*) &NULL,
 #endif
-		.p_extend = &g_timer_gpt6_extend, .cycle_end_ipl = (BSP_IRQ_DISABLED),
+				.p_extend = &g_timer_gpt6_extend, .cycle_end_ipl =
+						(BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT6_COUNTER_OVERFLOW)
     .cycle_end_irq       = VECTOR_NUMBER_GPT6_COUNTER_OVERFLOW,
 #else
-		.cycle_end_irq = FSP_INVALID_VECTOR,
+				.cycle_end_irq = FSP_INVALID_VECTOR,
 #endif
 		};
 /* Instance structure to use this module. */
@@ -325,9 +415,9 @@ const gpt_extended_cfg_t g_timer_gpt5_extend =
 #else
 				.capture_b_irq = FSP_INVALID_VECTOR,
 #endif
-				.compare_match_value = { /* CMP_A */0x0, /* CMP_B */0x0 },
-				.compare_match_status = (0U << 1U) | 0U,
-				.capture_filter_gtioca = GPT_CAPTURE_FILTER_NONE,
+				.compare_match_value = { /* CMP_A */(uint32_t) 0x0, /* CMP_B */
+						(uint32_t) 0x0 }, .compare_match_status = (0U << 1U)
+						| 0U, .capture_filter_gtioca = GPT_CAPTURE_FILTER_NONE,
 				.capture_filter_gtiocb = GPT_CAPTURE_FILTER_NONE,
 #if 1
 				.p_pwm_cfg = &g_timer_gpt5_pwm_extend,
@@ -358,24 +448,28 @@ const gpt_extended_cfg_t g_timer_gpt5_extend =
 #else
     .gtior_setting.gtior = 0U,
 #endif
-		};
 
-const timer_cfg_t g_timer_gpt5_cfg = { .mode =
-		TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
-/* Actual period: 0.00005 seconds. Actual duty: 50%. */.period_counts =
-		(uint32_t) 0xbb8, .duty_cycle_counts = 0x5dc, .source_div =
-		(timer_source_div_t) 0, .channel = 5, .p_callback = NULL,
-/** If NULL then do not add & */
+				.gtioca_polarity = GPT_GTIOC_POLARITY_NORMAL, .gtiocb_polarity =
+						GPT_GTIOC_POLARITY_NORMAL, };
+
+const timer_cfg_t g_timer_gpt5_cfg =
+		{ .mode = TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
+				/* Actual period: 0.00007141666666666666 seconds. Actual duty: 49.98833138856476%. */.period_counts =
+						(uint32_t) 0x10bd, .duty_cycle_counts = 0x85e,
+				.source_div = (timer_source_div_t) 0, .channel = 5,
+				.p_callback = NULL,
+				/** If NULL then do not add & */
 #if defined(NULL)
     .p_context           = NULL,
 #else
-		.p_context = &NULL,
+				.p_context = (void*) &NULL,
 #endif
-		.p_extend = &g_timer_gpt5_extend, .cycle_end_ipl = (BSP_IRQ_DISABLED),
+				.p_extend = &g_timer_gpt5_extend, .cycle_end_ipl =
+						(BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT5_COUNTER_OVERFLOW)
     .cycle_end_irq       = VECTOR_NUMBER_GPT5_COUNTER_OVERFLOW,
 #else
-		.cycle_end_irq = FSP_INVALID_VECTOR,
+				.cycle_end_irq = FSP_INVALID_VECTOR,
 #endif
 		};
 /* Instance structure to use this module. */
@@ -425,9 +519,9 @@ const gpt_extended_cfg_t g_timer_gpt4_extend =
 #else
 				.capture_b_irq = FSP_INVALID_VECTOR,
 #endif
-				.compare_match_value = { /* CMP_A */0x0, /* CMP_B */0x0 },
-				.compare_match_status = (0U << 1U) | 0U,
-				.capture_filter_gtioca = GPT_CAPTURE_FILTER_NONE,
+				.compare_match_value = { /* CMP_A */(uint32_t) 0x0, /* CMP_B */
+						(uint32_t) 0x0 }, .compare_match_status = (0U << 1U)
+						| 0U, .capture_filter_gtioca = GPT_CAPTURE_FILTER_NONE,
 				.capture_filter_gtiocb = GPT_CAPTURE_FILTER_NONE,
 #if 1
 				.p_pwm_cfg = &g_timer_gpt4_pwm_extend,
@@ -458,24 +552,28 @@ const gpt_extended_cfg_t g_timer_gpt4_extend =
 #else
     .gtior_setting.gtior = 0U,
 #endif
-		};
 
-const timer_cfg_t g_timer_gpt4_cfg = { .mode =
-		TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
-/* Actual period: 0.00005 seconds. Actual duty: 50%. */.period_counts =
-		(uint32_t) 0xbb8, .duty_cycle_counts = 0x5dc, .source_div =
-		(timer_source_div_t) 0, .channel = 4, .p_callback = NULL,
-/** If NULL then do not add & */
+				.gtioca_polarity = GPT_GTIOC_POLARITY_NORMAL, .gtiocb_polarity =
+						GPT_GTIOC_POLARITY_NORMAL, };
+
+const timer_cfg_t g_timer_gpt4_cfg =
+		{ .mode = TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
+				/* Actual period: 0.00007141666666666666 seconds. Actual duty: 49.98833138856476%. */.period_counts =
+						(uint32_t) 0x10bd, .duty_cycle_counts = 0x85e,
+				.source_div = (timer_source_div_t) 0, .channel = 4,
+				.p_callback = NULL,
+				/** If NULL then do not add & */
 #if defined(NULL)
     .p_context           = NULL,
 #else
-		.p_context = &NULL,
+				.p_context = (void*) &NULL,
 #endif
-		.p_extend = &g_timer_gpt4_extend, .cycle_end_ipl = (BSP_IRQ_DISABLED),
+				.p_extend = &g_timer_gpt4_extend, .cycle_end_ipl =
+						(BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT4_COUNTER_OVERFLOW)
     .cycle_end_irq       = VECTOR_NUMBER_GPT4_COUNTER_OVERFLOW,
 #else
-		.cycle_end_irq = FSP_INVALID_VECTOR,
+				.cycle_end_irq = FSP_INVALID_VECTOR,
 #endif
 		};
 /* Instance structure to use this module. */
@@ -491,15 +589,15 @@ const three_phase_cfg_t g_three_phase0_cfg = { .buffer_mode =
 const three_phase_instance_t g_three_phase0 = { .p_ctrl = &g_three_phase0_ctrl,
 		.p_cfg = &g_three_phase0_cfg, .p_api =
 				&g_gpt_three_phase_on_gpt_three_phase };
-#define RA_NOT_DEFINED (0) // TODO: Remove this after implementing all channels and groups.
+#define RA_NOT_DEFINED (0)
 
 #if (1) // Define Virtual Channel 0 if it's assigned to a scan group.
 const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_0_cfg =
 		{ .channel_id = ADC_B_VIRTUAL_CHANNEL_0,
 
-		.channel_cfg_bits.group = (1), .channel_cfg_bits.channel =
-				(ADC_CHANNEL_0), .channel_cfg_bits.self_diag_enabled =
-				((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
+		.channel_cfg_bits.group = (1),
+				.channel_cfg_bits.channel = ADC_CHANNEL_0,
+				.channel_cfg_bits.differential = 0,
 				.channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
 				.channel_control_a_bits.digital_filter_id = 0x0,
@@ -518,17 +616,16 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_0_cfg =
 						ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
 				.channel_control_c_bits.channel_data_format =
 						(ADC_B_DATA_FORMAT_12_BIT),
-				.channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0)
-						!= ADC_CHANNEL_SELF_DIAGNOSIS), };
+				.channel_control_c_bits.data_is_unsigned = true, };
 #endif
 
 #if (1) // Define Virtual Channel 1 if it's assigned to a scan group.
 const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_1_cfg =
 		{ .channel_id = ADC_B_VIRTUAL_CHANNEL_1,
 
-		.channel_cfg_bits.group = (1), .channel_cfg_bits.channel =
-				(ADC_CHANNEL_2), .channel_cfg_bits.self_diag_enabled =
-				((ADC_CHANNEL_2) == ADC_CHANNEL_SELF_DIAGNOSIS),
+		.channel_cfg_bits.group = (1),
+				.channel_cfg_bits.channel = ADC_CHANNEL_2,
+				.channel_cfg_bits.differential = 0,
 				.channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
 				.channel_control_a_bits.digital_filter_id = 0x0,
@@ -547,17 +644,16 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_1_cfg =
 						ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
 				.channel_control_c_bits.channel_data_format =
 						(ADC_B_DATA_FORMAT_12_BIT),
-				.channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_2)
-						!= ADC_CHANNEL_SELF_DIAGNOSIS), };
+				.channel_control_c_bits.data_is_unsigned = true, };
 #endif
 
 #if (1) // Define Virtual Channel 2 if it's assigned to a scan group.
 const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_2_cfg =
 		{ .channel_id = ADC_B_VIRTUAL_CHANNEL_2,
 
-		.channel_cfg_bits.group = (1), .channel_cfg_bits.channel =
-				(ADC_CHANNEL_4), .channel_cfg_bits.self_diag_enabled =
-				((ADC_CHANNEL_4) == ADC_CHANNEL_SELF_DIAGNOSIS),
+		.channel_cfg_bits.group = (1),
+				.channel_cfg_bits.channel = ADC_CHANNEL_4,
+				.channel_cfg_bits.differential = 0,
 				.channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
 				.channel_control_a_bits.digital_filter_id = 0x0,
@@ -576,8 +672,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_2_cfg =
 						ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
 				.channel_control_c_bits.channel_data_format =
 						(ADC_B_DATA_FORMAT_12_BIT),
-				.channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_4)
-						!= ADC_CHANNEL_SELF_DIAGNOSIS), };
+				.channel_control_c_bits.data_is_unsigned = true, };
 #endif
 
 #if (2) // Define Virtual Channel 3 if it's assigned to a scan group.
@@ -585,8 +680,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_3_cfg =
 		{ .channel_id = ADC_B_VIRTUAL_CHANNEL_3,
 
 		.channel_cfg_bits.group = (2), .channel_cfg_bits.channel =
-				(ADC_CHANNEL_27), .channel_cfg_bits.self_diag_enabled =
-				((ADC_CHANNEL_27) == ADC_CHANNEL_SELF_DIAGNOSIS),
+				ADC_CHANNEL_27, .channel_cfg_bits.differential = 0,
 				.channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_2,
 
 				.channel_control_a_bits.digital_filter_id = 0x0,
@@ -605,8 +699,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_3_cfg =
 						ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
 				.channel_control_c_bits.channel_data_format =
 						(ADC_B_DATA_FORMAT_12_BIT),
-				.channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_27)
-						!= ADC_CHANNEL_SELF_DIAGNOSIS), };
+				.channel_control_c_bits.data_is_unsigned = true, };
 #endif
 
 #if (2) // Define Virtual Channel 4 if it's assigned to a scan group.
@@ -614,8 +707,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_4_cfg =
 		{ .channel_id = ADC_B_VIRTUAL_CHANNEL_4,
 
 		.channel_cfg_bits.group = (2), .channel_cfg_bits.channel =
-				(ADC_CHANNEL_28), .channel_cfg_bits.self_diag_enabled =
-				((ADC_CHANNEL_28) == ADC_CHANNEL_SELF_DIAGNOSIS),
+				ADC_CHANNEL_28, .channel_cfg_bits.differential = 0,
 				.channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_2,
 
 				.channel_control_a_bits.digital_filter_id = 0x0,
@@ -634,17 +726,16 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_4_cfg =
 						ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
 				.channel_control_c_bits.channel_data_format =
 						(ADC_B_DATA_FORMAT_12_BIT),
-				.channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_28)
-						!= ADC_CHANNEL_SELF_DIAGNOSIS), };
+				.channel_control_c_bits.data_is_unsigned = true, };
 #endif
 
 #if (2) // Define Virtual Channel 5 if it's assigned to a scan group.
 const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 		{ .channel_id = ADC_B_VIRTUAL_CHANNEL_5,
 
-		.channel_cfg_bits.group = (2), .channel_cfg_bits.channel =
-				(ADC_CHANNEL_6), .channel_cfg_bits.self_diag_enabled =
-				((ADC_CHANNEL_6) == ADC_CHANNEL_SELF_DIAGNOSIS),
+		.channel_cfg_bits.group = (2),
+				.channel_cfg_bits.channel = ADC_CHANNEL_6,
+				.channel_cfg_bits.differential = 0,
 				.channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_1,
 
 				.channel_control_a_bits.digital_filter_id = 0x0,
@@ -663,8 +754,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 						ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
 				.channel_control_c_bits.channel_data_format =
 						(ADC_B_DATA_FORMAT_12_BIT),
-				.channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_6)
-						!= ADC_CHANNEL_SELF_DIAGNOSIS), };
+				.channel_control_c_bits.data_is_unsigned = true, };
 #endif
 
 #if (0) // Define Virtual Channel 6 if it's assigned to a scan group.
@@ -672,10 +762,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_6,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -687,7 +777,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -696,10 +786,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_7,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -711,7 +801,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -720,10 +810,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_8,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -735,7 +825,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -744,10 +834,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_9,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -759,7 +849,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -768,10 +858,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_10,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -783,7 +873,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -792,10 +882,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_11,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -807,7 +897,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -816,10 +906,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_12,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -831,7 +921,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -840,10 +930,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_13,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -855,7 +945,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -864,10 +954,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_14,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -879,7 +969,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -888,10 +978,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_15,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -903,7 +993,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -912,10 +1002,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_16,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -927,7 +1017,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -936,10 +1026,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_17,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -951,7 +1041,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -960,10 +1050,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_18,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -975,7 +1065,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -984,10 +1074,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_19,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -999,7 +1089,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1008,10 +1098,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_20,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1023,7 +1113,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1032,10 +1122,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_21,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1047,7 +1137,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1056,10 +1146,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_22,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1071,7 +1161,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1080,10 +1170,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_23,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1095,7 +1185,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1104,10 +1194,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_24,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1119,7 +1209,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1128,10 +1218,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_25,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1143,7 +1233,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1152,10 +1242,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_26,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1167,7 +1257,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1176,10 +1266,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_27,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1191,7 +1281,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1200,10 +1290,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_28,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1215,7 +1305,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1224,10 +1314,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_29,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1239,7 +1329,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1248,10 +1338,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_30,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1263,7 +1353,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1272,10 +1362,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_31,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1287,7 +1377,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1296,10 +1386,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_32,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1311,7 +1401,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1320,10 +1410,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_33,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1335,7 +1425,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1344,10 +1434,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_34,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1359,7 +1449,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1368,10 +1458,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_35,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1383,7 +1473,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 
@@ -1392,10 +1482,10 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
                                {
                                    .channel_id             = ADC_B_VIRTUAL_CHANNEL_36,
 
-                                   .channel_cfg_bits.group             = (0),
-                                   .channel_cfg_bits.channel           = (ADC_CHANNEL_0),
-                                   .channel_cfg_bits.self_diag_enabled = ((ADC_CHANNEL_0) == ADC_CHANNEL_SELF_DIAGNOSIS),
-                                   .channel_cfg_bits.sample_table_id   = ADC_B_SAMPLING_STATE_TABLE_0,
+                                   .channel_cfg_bits.group           = (0),
+                                   .channel_cfg_bits.channel         = ADC_CHANNEL_0,
+                                   .channel_cfg_bits.differential    = 0,
+                                   .channel_cfg_bits.sample_table_id = ADC_B_SAMPLING_STATE_TABLE_0,
 
                                    .channel_control_a_bits.digital_filter_id = 0x0,
                                    .channel_control_a_bits.offset_table_id = ADC_B_USER_OFFSET_TABLE_SELECTION_DISABLED,
@@ -1407,7 +1497,7 @@ const adc_b_virtual_channel_cfg_t g_adc0_virtual_channel_5_cfg =
 
                                    .channel_control_c_bits.limiter_clip_table_id = ADC_B_LIMIT_CLIP_TABLE_SELECTION_NONE,
                                    .channel_control_c_bits.channel_data_format = (ADC_B_DATA_FORMAT_12_BIT),
-                                   .channel_control_c_bits.data_sign_selection = ((ADC_CHANNEL_0) != ADC_CHANNEL_SELF_DIAGNOSIS),
+                                   .channel_control_c_bits.data_is_unsigned = true,
                                };
                                #endif
 #if (((1) == 1)||((1) == 1)||((1) == 1)||((2) == 1)||((2) == 1)||((2) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1)||((0) == 1))
@@ -2775,8 +2865,8 @@ const adc_b_group_cfg_t g_adc0_group_0_cfg = { .scan_group_id = ADC_GROUP_ID_0,
 		.converter_selection = (adc_b_unit_id_t)(0), .scan_group_enable = (1),
 		.scan_end_interrupt_enable = (1), .external_trigger_enable_mask =
 				(ADC_B_EXTERNAL_TRIGGER_NONE), .elc_trigger_enable_mask =
-				(elc_peripheral_t)(0x00), .gpt_trigger_enable_mask = (0x10
-				| ADC_B_GPT_TRIGGER_NONE),
+				(elc_peripheral_t)(0x00), .gpt_trigger_enable_mask =
+				(ADC_B_GPT_TRIGGER_A4 | ADC_B_GPT_TRIGGER_NONE),
 
 		.self_diagnosis_mask = (ADC_B_SELF_DIAGNOSIS_DISABLED
 				<< R_ADC_B0_ADSGDCR0_DIAGVAL_Pos),
@@ -2807,8 +2897,8 @@ const adc_b_group_cfg_t g_adc0_group_1_cfg = { .scan_group_id = ADC_GROUP_ID_1,
 		.converter_selection = (adc_b_unit_id_t)(1), .scan_group_enable = (1),
 		.scan_end_interrupt_enable = (1), .external_trigger_enable_mask =
 				(ADC_B_EXTERNAL_TRIGGER_NONE), .elc_trigger_enable_mask =
-				(elc_peripheral_t)(0x00), .gpt_trigger_enable_mask = (0x2
-				| ADC_B_GPT_TRIGGER_NONE),
+				(elc_peripheral_t)(0x00), .gpt_trigger_enable_mask =
+				(ADC_B_GPT_TRIGGER_A1 | ADC_B_GPT_TRIGGER_NONE),
 
 		.self_diagnosis_mask = (ADC_B_SELF_DIAGNOSIS_DISABLED
 				<< R_ADC_B0_ADSGDCR0_DIAGVAL_Pos),
@@ -3068,12 +3158,17 @@ const adc_b_isr_cfg_t g_adc0_isr_cfg = { .calibration_end_ipl_adc_0 = (12),
 		.scan_end_ipl_group_0 = (5), .scan_end_ipl_group_1 = (3),
 		.scan_end_ipl_group_2 = (BSP_IRQ_DISABLED), .scan_end_ipl_group_3 =
 				(BSP_IRQ_DISABLED), .scan_end_ipl_group_4 = (BSP_IRQ_DISABLED),
-		.scan_end_ipl_group_5678 = (BSP_IRQ_DISABLED), .fifo_overflow_ipl =
-				(BSP_IRQ_DISABLED), .fifo_read_ipl_group_0 = (BSP_IRQ_DISABLED),
-		.fifo_read_ipl_group_1 = (BSP_IRQ_DISABLED), .fifo_read_ipl_group_2 =
-				(BSP_IRQ_DISABLED), .fifo_read_ipl_group_3 = (BSP_IRQ_DISABLED),
-		.fifo_read_ipl_group_4 = (BSP_IRQ_DISABLED), .fifo_read_ipl_group_5678 =
-				(BSP_IRQ_DISABLED),
+		.scan_end_ipl_group_5 = (BSP_IRQ_DISABLED), .scan_end_ipl_group_6 =
+				(BSP_IRQ_DISABLED), .scan_end_ipl_group_7 = (BSP_IRQ_DISABLED),
+		.scan_end_ipl_group_8 = (BSP_IRQ_DISABLED), .scan_end_ipl_group_5678 =
+				(BSP_IRQ_DISABLED), .fifo_overflow_ipl = (BSP_IRQ_DISABLED),
+		.fifo_read_ipl_group_0 = (BSP_IRQ_DISABLED), .fifo_read_ipl_group_1 =
+				(BSP_IRQ_DISABLED), .fifo_read_ipl_group_2 = (BSP_IRQ_DISABLED),
+		.fifo_read_ipl_group_3 = (BSP_IRQ_DISABLED), .fifo_read_ipl_group_4 =
+				(BSP_IRQ_DISABLED), .fifo_read_ipl_group_5 = (BSP_IRQ_DISABLED),
+		.fifo_read_ipl_group_6 = (BSP_IRQ_DISABLED), .fifo_read_ipl_group_7 =
+				(BSP_IRQ_DISABLED), .fifo_read_ipl_group_8 = (BSP_IRQ_DISABLED),
+		.fifo_read_ipl_group_5678 = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_ADC_CALEND0) && ( (12) != BSP_IRQ_DISABLED )
     .calibration_end_irq_adc_0 = VECTOR_NUMBER_ADC_CALEND0,
 #else
@@ -3134,6 +3229,26 @@ const adc_b_isr_cfg_t g_adc0_isr_cfg = { .calibration_end_ipl_adc_0 = (12),
 #else
 		.scan_end_irq_group_4 = FSP_INVALID_VECTOR,
 #endif
+#if defined(VECTOR_NUMBER_ADC_ADI5) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .scan_end_irq_group_5 = VECTOR_NUMBER_ADC_ADI5,
+#else
+		.scan_end_irq_group_5 = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_ADC_ADI6) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .scan_end_irq_group_6 = VECTOR_NUMBER_ADC_ADI6,
+#else
+		.scan_end_irq_group_6 = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_ADC_ADI7) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .scan_end_irq_group_7 = VECTOR_NUMBER_ADC_ADI7,
+#else
+		.scan_end_irq_group_7 = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_ADC_ADI8) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .scan_end_irq_group_8 = VECTOR_NUMBER_ADC_ADI8,
+#else
+		.scan_end_irq_group_8 = FSP_INVALID_VECTOR,
+#endif
 #if defined(VECTOR_NUMBER_ADC_ADI5678) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
     .scan_end_irq_group_5678 = VECTOR_NUMBER_ADC_ADI5678,
 #else
@@ -3168,6 +3283,26 @@ const adc_b_isr_cfg_t g_adc0_isr_cfg = { .calibration_end_ipl_adc_0 = (12),
     .fifo_read_irq_group_4 = VECTOR_NUMBER_ADC_FIFOREQ4,
 #else
 		.fifo_read_irq_group_4 = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_ADC_FIFOREQ5) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .fifo_read_irq_group_5 = VECTOR_NUMBER_ADC_FIFOREQ5,
+#else
+		.fifo_read_irq_group_5 = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_ADC_FIFOREQ6) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .fifo_read_irq_group_6 = VECTOR_NUMBER_ADC_FIFOREQ6,
+#else
+		.fifo_read_irq_group_6 = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_ADC_FIFOREQ7) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .fifo_read_irq_group_7 = VECTOR_NUMBER_ADC_FIFOREQ7,
+#else
+		.fifo_read_irq_group_7 = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_ADC_FIFOREQ8) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
+    .fifo_read_irq_group_8 = VECTOR_NUMBER_ADC_FIFOREQ8,
+#else
+		.fifo_read_irq_group_8 = FSP_INVALID_VECTOR,
 #endif
 #if defined(VECTOR_NUMBER_ADC_FIFOREQ5678) && ( (BSP_IRQ_DISABLED) != BSP_IRQ_DISABLED )
     .fifo_read_irq_group_5678 = VECTOR_NUMBER_ADC_FIFOREQ5678,
@@ -3264,16 +3399,32 @@ const adc_b_extended_cfg_t g_adc0_cfg_extend = { .clock_control_data =
 				| (5 << R_ADC_B0_ADSHSTR1_SHHST_Pos)), .conversion_state = ((6
 				<< R_ADC_B0_ADCNVSTR_CST0_Pos)
 				| (6 << R_ADC_B0_ADCNVSTR_CST1_Pos)), .user_offset_tables = { 0,
-				0, 0, 0, 0, 0, 0, 0, }, .user_gain_tables = { 0, 0, 0, 0, 0, 0,
-				0, 0, }, .limiter_clip_interrupt_enable_mask = (0x00),
-		.limiter_clip_tables = { (0 | 0 << R_ADC_B0_ADLIMTR0_LIMU_Pos), (0
-				| 0 << R_ADC_B0_ADLIMTR1_LIMU_Pos), (0
-				| 0 << R_ADC_B0_ADLIMTR2_LIMU_Pos), (0
-				| 0 << R_ADC_B0_ADLIMTR3_LIMU_Pos), (0
-				| 0 << R_ADC_B0_ADLIMTR4_LIMU_Pos), (0
-				| 0 << R_ADC_B0_ADLIMTR5_LIMU_Pos), (0
-				| 0 << R_ADC_B0_ADLIMTR6_LIMU_Pos), (0
-				| 0 << R_ADC_B0_ADLIMTR7_LIMU_Pos), },
+				0, 0, 0, 0, 0, 0, 0, }, .user_gain_tables = { ((0U
+				<< R_ADC_B0_ADUGTR0_UGAINI_Pos)
+				+ (uint32_t)(0 * (R_ADC_B0_ADUGTR0_UGAINF_Msk + 1))), ((0U
+				<< R_ADC_B0_ADUGTR1_UGAINI_Pos)
+				+ (uint32_t)(0 * (R_ADC_B0_ADUGTR1_UGAINF_Msk + 1))), ((0U
+				<< R_ADC_B0_ADUGTR2_UGAINI_Pos)
+				+ (uint32_t)(0 * (R_ADC_B0_ADUGTR2_UGAINF_Msk + 1))), ((0U
+				<< R_ADC_B0_ADUGTR3_UGAINI_Pos)
+				+ (uint32_t)(0 * (R_ADC_B0_ADUGTR3_UGAINF_Msk + 1))), ((0U
+				<< R_ADC_B0_ADUGTR4_UGAINI_Pos)
+				+ (uint32_t)(0 * (R_ADC_B0_ADUGTR4_UGAINF_Msk + 1))), ((0U
+				<< R_ADC_B0_ADUGTR5_UGAINI_Pos)
+				+ (uint32_t)(0 * (R_ADC_B0_ADUGTR5_UGAINF_Msk + 1))), ((0U
+				<< R_ADC_B0_ADUGTR6_UGAINI_Pos)
+				+ (uint32_t)(0 * (R_ADC_B0_ADUGTR6_UGAINF_Msk + 1))), ((0U
+				<< R_ADC_B0_ADUGTR7_UGAINI_Pos)
+				+ (uint32_t)(0 * (R_ADC_B0_ADUGTR7_UGAINF_Msk + 1))), },
+		.limiter_clip_interrupt_enable_mask = (0x00), .limiter_clip_tables = {
+				(0 | 0 << R_ADC_B0_ADLIMTR0_LIMU_Pos), (0
+						| 0 << R_ADC_B0_ADLIMTR1_LIMU_Pos), (0
+						| 0 << R_ADC_B0_ADLIMTR2_LIMU_Pos), (0
+						| 0 << R_ADC_B0_ADLIMTR3_LIMU_Pos), (0
+						| 0 << R_ADC_B0_ADLIMTR4_LIMU_Pos), (0
+						| 0 << R_ADC_B0_ADLIMTR5_LIMU_Pos), (0
+						| 0 << R_ADC_B0_ADLIMTR6_LIMU_Pos), (0
+						| 0 << R_ADC_B0_ADLIMTR7_LIMU_Pos), },
 
 #if (1 == 0)
     .pga_gain[0] = ADC_B_PGA_GAIN_SINGLE_ENDED_2_500,
@@ -3346,7 +3497,7 @@ const adc_cfg_t g_adc0_cfg =
 #if defined(NULL)
     .p_context           = NULL,
 #else
-				.p_context = &NULL,
+				.p_context = (void*) &NULL,
 #endif
 				.p_extend = &g_adc0_cfg_extend,
 

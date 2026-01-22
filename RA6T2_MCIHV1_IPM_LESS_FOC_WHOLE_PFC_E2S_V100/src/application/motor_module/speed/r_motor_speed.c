@@ -30,10 +30,50 @@
 ***********************************************************************************************************************/
 /* Standard library headers */
 #include <math.h>
+
+/* Main associated header file */
+#include "r_motor_speed.h"
+
+#define RPM_TO_RAD_PER_SEC(rpm) ((rpm) * (2.0f * 3.14159265f / 60.0f))
+
+/***********************************************************************************************************************
+* DISCLAIMER
+* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No
+* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
+* applicable laws, including copyright laws.
+* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM
+* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES
+* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS
+* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of
+* this software. By using this software, you agree to the additional terms and conditions found by accessing the
+* following link:
+* http://www.renesas.com/disclaimer
+*
+* Copyright (C) 2021 Renesas Electronics Corporation. All rights reserved.
+***********************************************************************************************************************/
+/***********************************************************************************************************************
+* File Name   : r_motor_speed.c
+* Description : Processes of speed control
+***********************************************************************************************************************/
+/**********************************************************************************************************************
+* History : DD.MM.YYYY Version
+*         : 10.06.2021 1.00
+***********************************************************************************************************************/
+
+/***********************************************************************************************************************
+* Includes <System Includes> , "Project Includes"
+***********************************************************************************************************************/
+/* Standard library headers */
+#include <math.h>
 #include <stdbool.h>
 /* Main associated header file */
 #include "r_motor_speed.h"
 #include "r_mtr_ics.h"
+
+extern st_current_control_t      g_st_cc;
 
 #define RPM_TO_RAD_PER_SEC(rpm) ((rpm) * (2.0f * 3.14159265f / 60.0f))
 
@@ -91,25 +131,34 @@ float motor_speed_rate_limit_apply(st_speed_control_t * p_st_sc)
 
 float dynamic_motor_speed_limit(st_speed_control_t * p_st_sc)
 {
+	 float f4_temp0;
+	    float f4_temp1;
+	    float f4_speed_ref_calc_rad;
+
     float current_speed_rad = p_st_sc->f4_speed_rad;
     float speed_rad_ctrl = p_st_sc->f4_ref_speed_rad_ctrl;
 
     bool is_decelarating = speed_rad_ctrl < current_speed_rad;
 
     if(is_decelarating){
-        p_st_sc->f4_speed_rate_limit_rad = RPM_TO_RAD_PER_SEC(SPEED_CFG_RATE_LIMIT_RPM3);
+        p_st_sc->f4_speed_rate_limit_rad = SPEED_CFG_CTRL_PERIOD * 2700.0f * MTR_RPM2RAD;
     }
     else{
-             if (current_speed_rad < RPM_TO_RAD_PER_SEC(5000.0f))
+             if (current_speed_rad < RPM_TO_RAD_PER_SEC(2000.0f))//RPM_TO_RAD_PER_SEC(4000.0f)
            {
-              p_st_sc->f4_speed_rate_limit_rad = RPM_TO_RAD_PER_SEC(SPEED_CFG_RATE_LIMIT_RPM1); // High acceleration
+              p_st_sc->f4_speed_rate_limit_rad = SPEED_CFG_CTRL_PERIOD * 3500.0f * MTR_RPM2RAD;//1.045f;//SPEED_CFG_CTRL_PERIOD * 20000.0f * MTR_RPM2RAD;
                }
+
              else
              {
-        p_st_sc->f4_speed_rate_limit_rad = RPM_TO_RAD_PER_SEC(SPEED_CFG_RATE_LIMIT_RPM2); // Low acceleration
+              p_st_sc->f4_speed_rate_limit_rad = SPEED_CFG_CTRL_PERIOD * 10000.0f * MTR_RPM2RAD;//0.1831f;//SPEED_CFG_CTRL_PERIOD * 3500.0f * MTR_RPM2RAD;
                }
     }
-    return motor_speed_rate_limit_apply(p_st_sc);
+    f4_temp0 = p_st_sc->f4_ref_speed_rad_manual - p_st_sc->f4_ref_speed_rad_ctrl;
+       f4_temp1 = fminf(p_st_sc->f4_speed_rate_limit_rad, fabsf(f4_temp0));
+       f4_speed_ref_calc_rad = p_st_sc->f4_ref_speed_rad_ctrl + copysignf(f4_temp1, f4_temp0);
+
+       return (f4_speed_ref_calc_rad);
 }
 
 
@@ -153,7 +202,8 @@ float motor_speed_ref_speed_set(st_speed_control_t * p_st_sc)
 
         case SPEED_STATE_MANUAL:
             /* Limits the rate of change of speed reference */
-        	 f4_speed_ref_calc_rad = dynamic_motor_speed_limit(p_st_sc);
+           f4_speed_ref_calc_rad = motor_speed_rate_limit_apply(p_st_sc);
+          // f4_speed_ref_calc_rad = dynamic_motor_speed_limit(p_st_sc);
         break;
 
         default:
@@ -188,7 +238,8 @@ void motor_speed_flux_weakening(st_speed_control_t * p_st_sc)
         /* Use the static maximum current instead of dynamic measured dq current
          *  to determine the voltage margin in flux-weakening calculation */
         f4_idq_ad[0] = 0.0f;
-        f4_idq_ad[1] = p_st_sc->st_motor.f4_nominal_current_rms * MOTOR_COMMON_CFG_IA_MAX_CALC_MULT;
+        //f4_idq_ad[1] = p_st_sc->st_motor.f4_nominal_current_rms * MOTOR_COMMON_CFG_IA_MAX_CALC_MULT;
+        f4_idq_ad[1] = g_st_cc.f4_iq_ad;
 
         f4_speed_elec_rad = p_st_sc->f4_speed_rad_ctrl * p_st_sc->st_motor.u2_mtr_pp;
         motor_speed_flux_weakn_start(&p_st_sc->st_fluxwkn, f4_speed_elec_rad, f4_idq_ad, f4_idq_ref);
@@ -211,12 +262,7 @@ void motor_speed_flux_weakening(st_speed_control_t * p_st_sc)
     p_st_sc->f4_iq_ref_output = f4_idq_ref[1];
 } /* End of function motor_flux_speed_weakening */
 
-/***********************************************************************************************************************
-* Function Name : motor_speed_mtpa
-* Description   : Executes the MTPA
-* Arguments     : p_st_sc - The pointer to speed control structure
-* Return Value  : None
-***********************************************************************************************************************/
+
 void motor_speed_mtpa(st_speed_control_t * p_st_sc)
 {
     uint16_t u2_fw_status;

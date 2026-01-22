@@ -10,10 +10,11 @@ C_SRCS += \
 ../ra/fsp/src/bsp/mcu/all/bsp_group_irq.c \
 ../ra/fsp/src/bsp/mcu/all/bsp_guard.c \
 ../ra/fsp/src/bsp/mcu/all/bsp_io.c \
+../ra/fsp/src/bsp/mcu/all/bsp_ipc.c \
 ../ra/fsp/src/bsp/mcu/all/bsp_irq.c \
 ../ra/fsp/src/bsp/mcu/all/bsp_macl.c \
+../ra/fsp/src/bsp/mcu/all/bsp_ospi_b.c \
 ../ra/fsp/src/bsp/mcu/all/bsp_register_protection.c \
-../ra/fsp/src/bsp/mcu/all/bsp_rom_registers.c \
 ../ra/fsp/src/bsp/mcu/all/bsp_sbrk.c \
 ../ra/fsp/src/bsp/mcu/all/bsp_sdram.c \
 ../ra/fsp/src/bsp/mcu/all/bsp_security.c 
@@ -25,10 +26,11 @@ C_DEPS += \
 ./ra/fsp/src/bsp/mcu/all/bsp_group_irq.d \
 ./ra/fsp/src/bsp/mcu/all/bsp_guard.d \
 ./ra/fsp/src/bsp/mcu/all/bsp_io.d \
+./ra/fsp/src/bsp/mcu/all/bsp_ipc.d \
 ./ra/fsp/src/bsp/mcu/all/bsp_irq.d \
 ./ra/fsp/src/bsp/mcu/all/bsp_macl.d \
+./ra/fsp/src/bsp/mcu/all/bsp_ospi_b.d \
 ./ra/fsp/src/bsp/mcu/all/bsp_register_protection.d \
-./ra/fsp/src/bsp/mcu/all/bsp_rom_registers.d \
 ./ra/fsp/src/bsp/mcu/all/bsp_sbrk.d \
 ./ra/fsp/src/bsp/mcu/all/bsp_sdram.d \
 ./ra/fsp/src/bsp/mcu/all/bsp_security.d 
@@ -40,10 +42,11 @@ OBJS += \
 ./ra/fsp/src/bsp/mcu/all/bsp_group_irq.o \
 ./ra/fsp/src/bsp/mcu/all/bsp_guard.o \
 ./ra/fsp/src/bsp/mcu/all/bsp_io.o \
+./ra/fsp/src/bsp/mcu/all/bsp_ipc.o \
 ./ra/fsp/src/bsp/mcu/all/bsp_irq.o \
 ./ra/fsp/src/bsp/mcu/all/bsp_macl.o \
+./ra/fsp/src/bsp/mcu/all/bsp_ospi_b.o \
 ./ra/fsp/src/bsp/mcu/all/bsp_register_protection.o \
-./ra/fsp/src/bsp/mcu/all/bsp_rom_registers.o \
 ./ra/fsp/src/bsp/mcu/all/bsp_sbrk.o \
 ./ra/fsp/src/bsp/mcu/all/bsp_sdram.o \
 ./ra/fsp/src/bsp/mcu/all/bsp_security.o 
@@ -57,6 +60,6 @@ RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100.map
 
 # Each subdirectory must supply rules for building sources it contributes
 ra/fsp/src/bsp/mcu/all/%.o: ../ra/fsp/src/bsp/mcu/all/%.c
-	$(file > $@.in,-mcpu=cortex-m33 -mthumb -mfloat-abi=hard -mfpu=fpv5-sp-d16 -O2 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Wlogical-op -Waggregate-return -Wfloat-equal -g -gdwarf-4 -D_RA_CORE=CM33 -D_RENESAS_RA_ -D_RA_ORDINAL=1 -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/instances" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_gen" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/bsp" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/main" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/cfg" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/current" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/driver" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/general" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/sensorless_vector" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/speed" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/system_module/system_manager" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/user_interface/ics" -I"." -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/arm/CMSIS_6/CMSIS/Core/Include" -std=c99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" -x c "$<")
+	$(file > $@.in,-mcpu=cortex-m33 -mthumb -mfloat-abi=hard -mfpu=fpv5-sp-d16 -O2 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Wlogical-op -Waggregate-return -Wfloat-equal -g -gdwarf-4 -D_RA_CORE=CM33 -D_RENESAS_RA_ -D_RA_ORDINAL=1 -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/instances" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_gen" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/bsp" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/main" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/cfg" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/current" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/driver" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/general" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/sensorless_vector" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/speed" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_cfg" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_ctrl" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_driver" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_general" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_systask" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/system_module/system_manager" -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/user_interface/ics" -I"." -I"C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/arm/CMSIS_6/CMSIS/Core/Include" -std=c99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" -x c "$<")
 	@echo Building file: $< && arm-none-eabi-gcc @"$@.in"
 

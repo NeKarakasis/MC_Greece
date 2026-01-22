@@ -13,10 +13,12 @@ src/application/main/mtr_main.o: ../src/application/main/mtr_main.c \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/ra6t2/bsp_elc.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/ra6t2/bsp_mcu_info.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/ra6t2/bsp_feature.h \
- C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/ra6t2/bsp_feature_gen.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/ra6t2/bsp_peripheral.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/ra6t2/r_adc_device_types.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/bsp/bsp_mcu_ofs_cfg.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/bsp/board_cfg.h \
- C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_exceptions.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_gen/vector_data.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_exceptions.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/cmsis/Device/RENESAS/Include/renesas.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/arm/CMSIS_6/CMSIS/Core/Include/cmsis_compiler.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/arm/CMSIS_6/CMSIS/Core/Include/cmsis_gcc.h \
@@ -33,6 +35,9 @@ src/application/main/mtr_main.o: ../src/application/main/mtr_main.c \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_tfu.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_sdram.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_mmf.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_ipc.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_ospi_b.h \
+ bsp_linker_info.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_register_protection.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_irq.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_io.h \
@@ -41,16 +46,21 @@ src/application/main/mtr_main.o: ../src/application/main/mtr_main.c \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_module_stop.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_security.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/fsp_features.h \
- C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/fsp_common_api.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/fsp_common_api.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_compiler_support.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_delay.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_mcu_api.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_gen/common_data.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/instances/r_icu.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_external_irq_api.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/bsp_api.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/instances/r_ioport.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_ioport_api.h \
- C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/bsp_api.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/r_ioport_cfg.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/bsp/bsp_pin_cfg.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/instances/r_spi_b.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_spi_api.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_transfer_api.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/instances/r_agt.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/r_agt_cfg.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_timer_api.h \
@@ -63,7 +73,6 @@ src/application/main/mtr_main.o: ../src/application/main/mtr_main.c \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/instances/r_adc_b.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_adc_api.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_elc_api.h \
- C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_transfer_api.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/r_adc_b_cfg.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_transfer_api.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/user_interface/ics/ics2_RA6T2.h \
@@ -91,6 +100,14 @@ src/application/main/mtr_main.o: ../src/application/main/mtr_main.c \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/sensorless_vector/r_motor_sensorless_vector_flyingstart.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/sensorless_vector/r_motor_sensorless_vector_statemachine.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/system_module/system_manager/r_system_manager_api.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_systask/r_pfc_manager.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_systask/r_pfc_manager_api.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_cfg/r_pfc_cfg.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_general/r_pfc_filter.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_ctrl/r_pfc_ctrl_api.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_general/r_pfc_pi_control.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_driver/r_pfc_driver.h \
+ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_systask/r_pfc_manager_api.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/driver/r_motor_driver_fsp.h \
  C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/driver/r_motor_driver.h
 ../src/application/main/mtr_main.h:
@@ -107,10 +124,12 @@ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/ra6t2/bsp_elc.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/ra6t2/bsp_mcu_info.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/ra6t2/bsp_feature.h:
-C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/ra6t2/bsp_feature_gen.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/ra6t2/bsp_peripheral.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/ra6t2/r_adc_device_types.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/bsp/bsp_mcu_ofs_cfg.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/bsp/board_cfg.h:
-C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_exceptions.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_gen/vector_data.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_exceptions.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/cmsis/Device/RENESAS/Include/renesas.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/arm/CMSIS_6/CMSIS/Core/Include/cmsis_compiler.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/arm/CMSIS_6/CMSIS/Core/Include/cmsis_gcc.h:
@@ -127,6 +146,9 @@ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_tfu.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_sdram.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_mmf.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_ipc.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_ospi_b.h:
+bsp_linker_info.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_register_protection.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_irq.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_io.h:
@@ -135,16 +157,21 @@ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_module_stop.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_security.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/fsp_features.h:
-C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/fsp_common_api.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/fsp_common_api.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_compiler_support.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_delay.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/src/bsp/mcu/all/bsp_mcu_api.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_gen/common_data.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/instances/r_icu.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_external_irq_api.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/bsp_api.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/instances/r_ioport.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_ioport_api.h:
-C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/bsp_api.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/r_ioport_cfg.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/bsp/bsp_pin_cfg.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/instances/r_spi_b.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_spi_api.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_transfer_api.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/instances/r_agt.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/r_agt_cfg.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_timer_api.h:
@@ -157,7 +184,6 @@ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/instances/r_adc_b.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_adc_api.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_elc_api.h:
-C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_transfer_api.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra_cfg/fsp_cfg/r_adc_b_cfg.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/ra/fsp/inc/api/r_transfer_api.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/user_interface/ics/ics2_RA6T2.h:
@@ -185,5 +211,13 @@ C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/sensorless_vector/r_motor_sensorless_vector_flyingstart.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/sensorless_vector/r_motor_sensorless_vector_statemachine.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/system_module/system_manager/r_system_manager_api.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_systask/r_pfc_manager.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_systask/r_pfc_manager_api.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_cfg/r_pfc_cfg.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_general/r_pfc_filter.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_ctrl/r_pfc_ctrl_api.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_general/r_pfc_pi_control.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_driver/r_pfc_driver.h:
+C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/pfc_module/pfc_systask/r_pfc_manager_api.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/driver/r_motor_driver_fsp.h:
 C:/Users/a5143778/Documents/MC_Greece/MC_Greece/RA6T2_MCIHV1_IPM_LESS_FOC_WHOLE_PFC_E2S_V100/src/application/motor_module/driver/r_motor_driver.h:

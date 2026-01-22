@@ -47,6 +47,8 @@
  *********************************************************************************************************************/
 st_sensorless_vector_control_t g_st_sensorless_vector;
 
+extern st_speed_control_t      g_st_sc;
+
 /***********************************************************************************************************************
 * Function Name : R_MOTOR_SENSORLESS_VECTOR_Open
 * Description   : Open Sensorless FOC Control module
@@ -358,21 +360,22 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
 
     /* Current, Voltage detection */
     R_MOTOR_DRIVER_BldcAnalogGet(p_st_sensorless_vector->p_st_driver,
-       							 p_st_sensorless_vector->st_current_output.f4_modu,
-   							     p_st_sensorless_vector->st_current_output.f4_modv,
-   							     p_st_sensorless_vector->st_current_output.f4_modw,
-                                    &p_st_sensorless_vector->f4_iu_ad,
-   								 &p_st_sensorless_vector->f4_iv_ad,
-                                    &p_st_sensorless_vector->f4_iw_ad,
-                                    &p_st_sensorless_vector->f4_vdc_ad);
+          							 p_st_sensorless_vector->st_current_output.f4_modu,
+      							     p_st_sensorless_vector->st_current_output.f4_modv,
+      							     p_st_sensorless_vector->st_current_output.f4_modw,
+                                       &p_st_sensorless_vector->f4_iu_ad,
+      								 &p_st_sensorless_vector->f4_iv_ad,
+                                       &p_st_sensorless_vector->f4_iw_ad,
+                                       &p_st_sensorless_vector->f4_vdc_ad);
+
     /* Set the VDC value obtained by PFC */
     p_st_sensorless_vector->f4_vdc_ad = p_st_sensorless_vector->f4_pfc_vdc_ad;
 
     /* current offset adjustment */
-    R_MOTOR_CURRENT_CurrentOffsetRemove(p_st_sensorless_vector->p_st_cc,
-                                        &p_st_sensorless_vector->f4_iu_ad,
-                                        &p_st_sensorless_vector->f4_iw_ad);
-
+       R_MOTOR_CURRENT_CurrentOffsetRemove(p_st_sensorless_vector->p_st_cc,
+                                                  &p_st_sensorless_vector->f4_iu_ad,
+                                                  &p_st_sensorless_vector->f4_iv_ad,
+                                                  &p_st_sensorless_vector->f4_iw_ad);
     /* V-phase current calculation */
    // p_st_sensorless_vector->f4_iv_ad = -(p_st_sensorless_vector->f4_iu_ad + p_st_sensorless_vector->f4_iw_ad);
 
@@ -384,7 +387,7 @@ void R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(st_sensorless_vector_control_t *
     /* set current input */
     st_current_input.f4_iu_ad        = p_st_sensorless_vector->f4_iu_ad;
     st_current_input.f4_iv_ad        = p_st_sensorless_vector->f4_iv_ad;
-    st_current_input.f4_iw_ad        = p_st_sensorless_vector->f4_iw_ad;
+    st_current_input.f4_iw_ad        = p_st_sensorless_vector->f4_iw_ad;;
     st_current_input.f4_vdc_ad       = p_st_sensorless_vector->f4_vdc_ad;
     st_current_input.f4_iq_ref       = p_st_sensorless_vector->st_speed_output.f4_iq_ref;
     st_current_input.f4_id_ref       = p_st_sensorless_vector->st_speed_output.f4_id_ref;
