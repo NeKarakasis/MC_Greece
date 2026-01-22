@@ -56,8 +56,8 @@ void motor_current_decoupling(st_current_control_t *p_st_cc,
     float f4_id;
     float f4_iq;
 
-    f4_id = p_st_cc->f4_ref_id_ctrl;
-    f4_iq = p_st_cc->f4_ref_iq_ctrl;
+    f4_id = p_st_cc->f4_id_ad;
+    f4_iq = p_st_cc->f4_iq_ad;
 
     f4_temp0 = p_st_motor->f4_mtr_lq * f4_iq;             /* Lq * Iq */
     f4_temp0 = (- f4_speed_rad) * f4_temp0;               /* Speed * Lq * Iq */
@@ -215,7 +215,7 @@ void motor_current_volt_limit(st_current_control_t *p_st_cc)
 
     /* The d-axis voltage has high priority than the q-axis */
     /* If absolute value of D-axis voltage exceeds maximum voltage, limit it to the maximum voltage */
-    if (f4_vd_ref > f4_va_max)
+ /*   if (f4_vd_ref > f4_va_max)
     {
         p_st_cc->f4_vd_ref = f4_va_max;
         p_st_cc->f4_vq_ref = 0.0f;
@@ -229,7 +229,7 @@ void motor_current_volt_limit(st_current_control_t *p_st_cc)
     {
         f4_vq_lim            = sqrtf((f4_va_max * f4_va_max) - (f4_vd_ref *  f4_vd_ref));
         p_st_cc->f4_vq_ref   = motor_filter_limitf_abs(p_st_cc->f4_vq_ref, f4_vq_lim);
-    }
+    }*/
 } /* End of function motor_current_volt_limit_set */
 
 /***********************************************************************************************************************

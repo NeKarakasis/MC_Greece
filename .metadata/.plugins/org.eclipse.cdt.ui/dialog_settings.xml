@@ -9,6 +9,30 @@
 		<item key="caseSensitive" value="false"/>
 		<item key="searchFlags" value="227191"/>
 		<list key="previousPatterns">
+			<item value="MOTOR_SENSORLESS_VECTOR_CURRENT_TABLE_SIZE"/>
+			<item value="CURRENT_CFG_VOLT_ERR_COMP"/>
+			<item value="R_MOTOR_DRIVER_AdcConvert"/>
+			<item value="motor_sensorless_vector_error_check"/>
+			<item value="CURRENT_CFG_ESTLOW_STATE_TRANS_WAIT_SLOW_TO_HIGH"/>
+			<item value="CURRENT_CFG_ESTLOW_CONVERGENCE_COUNT"/>
+			<item value="CURRENT_CFG_ESTLOW_PF_THRESHOLD"/>
+			<item value="motor_current_mod_start"/>
+			<item value="motor_current_svpwm_mod_start"/>
+			<item value="R_Config_MOTOR_UpdDuty"/>
+			<item value="MOTOR_CFG_NOMINAL_CURRENT_RMS"/>
+			<item value="f4_crnt_amp_gain"/>
+			<item value="f4_ad_crnt_per_digit"/>
+			<item value="R_Config_MC_DIO_BLDC_BRAKE"/>
+			<item value="MC_DIO_BLDC_BRAKE"/>
+			<item value="motor_current_svpwm"/>
+			<item value="f4_pwm_period_cnt"/>
+			<item value="R_MOTOR_CURRENT_ParameterSet"/>
+			<item value="r_app_rmw_interrupt_handler"/>
+			<item value="void"/>
+			<item value="r_app_rmw_update_params"/>
+			<item value="R_SYSTEM_MANAGER_ParameterUpdate"/>
+			<item value="R_MOTOR_CURRENT_ParameterUpdate"/>
+			<item value="R_MOTOR_CURRENT_ParameterGet"/>
 			<item value="iu_ref_raw"/>
 			<item value="R_Config_MC_PWM_PFC_DUTY_UpdDuty"/>
 			<item value="g_st_sensorless_vectoru2_error_status"/>

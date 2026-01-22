@@ -260,24 +260,22 @@ const gpt_extended_cfg_t g_timer_gpt6_extend =
 #endif
 		};
 
-const timer_cfg_t g_timer_gpt6_cfg =
-		{ .mode = TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
-				/* Actual period: 0.00007141666666666666 seconds. Actual duty: 49.98833138856476%. */.period_counts =
-						(uint32_t) 0x10bd, .duty_cycle_counts = 0x85e,
-				.source_div = (timer_source_div_t) 0, .channel = 6,
-				.p_callback = NULL,
-				/** If NULL then do not add & */
+const timer_cfg_t g_timer_gpt6_cfg = { .mode =
+		TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
+/* Actual period: 0.0001 seconds. Actual duty: 50%. */.period_counts =
+		(uint32_t) 0x1770, .duty_cycle_counts = 0xbb8, .source_div =
+		(timer_source_div_t) 0, .channel = 6, .p_callback = NULL,
+/** If NULL then do not add & */
 #if defined(NULL)
     .p_context           = NULL,
 #else
-				.p_context = &NULL,
+		.p_context = &NULL,
 #endif
-				.p_extend = &g_timer_gpt6_extend, .cycle_end_ipl =
-						(BSP_IRQ_DISABLED),
+		.p_extend = &g_timer_gpt6_extend, .cycle_end_ipl = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT6_COUNTER_OVERFLOW)
     .cycle_end_irq       = VECTOR_NUMBER_GPT6_COUNTER_OVERFLOW,
 #else
-				.cycle_end_irq = FSP_INVALID_VECTOR,
+		.cycle_end_irq = FSP_INVALID_VECTOR,
 #endif
 		};
 /* Instance structure to use this module. */
@@ -360,24 +358,22 @@ const gpt_extended_cfg_t g_timer_gpt5_extend =
 #endif
 		};
 
-const timer_cfg_t g_timer_gpt5_cfg =
-		{ .mode = TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
-				/* Actual period: 0.00007141666666666666 seconds. Actual duty: 49.98833138856476%. */.period_counts =
-						(uint32_t) 0x10bd, .duty_cycle_counts = 0x85e,
-				.source_div = (timer_source_div_t) 0, .channel = 5,
-				.p_callback = NULL,
-				/** If NULL then do not add & */
+const timer_cfg_t g_timer_gpt5_cfg = { .mode =
+		TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
+/* Actual period: 0.0001 seconds. Actual duty: 50%. */.period_counts =
+		(uint32_t) 0x1770, .duty_cycle_counts = 0xbb8, .source_div =
+		(timer_source_div_t) 0, .channel = 5, .p_callback = NULL,
+/** If NULL then do not add & */
 #if defined(NULL)
     .p_context           = NULL,
 #else
-				.p_context = &NULL,
+		.p_context = &NULL,
 #endif
-				.p_extend = &g_timer_gpt5_extend, .cycle_end_ipl =
-						(BSP_IRQ_DISABLED),
+		.p_extend = &g_timer_gpt5_extend, .cycle_end_ipl = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT5_COUNTER_OVERFLOW)
     .cycle_end_irq       = VECTOR_NUMBER_GPT5_COUNTER_OVERFLOW,
 #else
-				.cycle_end_irq = FSP_INVALID_VECTOR,
+		.cycle_end_irq = FSP_INVALID_VECTOR,
 #endif
 		};
 /* Instance structure to use this module. */
@@ -462,24 +458,22 @@ const gpt_extended_cfg_t g_timer_gpt4_extend =
 #endif
 		};
 
-const timer_cfg_t g_timer_gpt4_cfg =
-		{ .mode = TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
-				/* Actual period: 0.00007141666666666666 seconds. Actual duty: 49.98833138856476%. */.period_counts =
-						(uint32_t) 0x10bd, .duty_cycle_counts = 0x85e,
-				.source_div = (timer_source_div_t) 0, .channel = 4,
-				.p_callback = NULL,
-				/** If NULL then do not add & */
+const timer_cfg_t g_timer_gpt4_cfg = { .mode =
+		TIMER_MODE_TRIANGLE_WAVE_SYMMETRIC_PWM,
+/* Actual period: 0.0001 seconds. Actual duty: 50%. */.period_counts =
+		(uint32_t) 0x1770, .duty_cycle_counts = 0xbb8, .source_div =
+		(timer_source_div_t) 0, .channel = 4, .p_callback = NULL,
+/** If NULL then do not add & */
 #if defined(NULL)
     .p_context           = NULL,
 #else
-				.p_context = &NULL,
+		.p_context = &NULL,
 #endif
-				.p_extend = &g_timer_gpt4_extend, .cycle_end_ipl =
-						(BSP_IRQ_DISABLED),
+		.p_extend = &g_timer_gpt4_extend, .cycle_end_ipl = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT4_COUNTER_OVERFLOW)
     .cycle_end_irq       = VECTOR_NUMBER_GPT4_COUNTER_OVERFLOW,
 #else
-				.cycle_end_irq = FSP_INVALID_VECTOR,
+		.cycle_end_irq = FSP_INVALID_VECTOR,
 #endif
 		};
 /* Instance structure to use this module. */

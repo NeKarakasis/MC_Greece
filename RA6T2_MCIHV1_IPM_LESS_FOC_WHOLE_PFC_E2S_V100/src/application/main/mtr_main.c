@@ -102,15 +102,17 @@ void mtr_main(void)
     /*        Execute event       */
     /*============================*/
 
+    R_IOPORT_PinWrite(&g_ioport_ctrl, MC_DIO_BLDC_BRAKE, BSP_IO_LEVEL_HIGH );
+
     /* Main process for ICS UI */
     r_app_rmw_ui_mainloop();
 
-    R_POEG_StatusGet(g_poeg3.p_ctrl, &st_status);
+ /*   R_POEG_StatusGet(g_poeg3.p_ctrl, &st_status);
     u4_status = st_status.state & POEG_STATE_PIN_DISABLE_REQUEST_ACTIVE;
     if (POEG_STATE_PIN_DISABLE_REQUEST_ACTIVE != u4_status)
     {
         R_BSP_IrqEnable(g_poeg3_ctrl.p_cfg->irq);
-    }
+    }*/
 } /* End of function mtr_main */
 
 /***********************************************************************************************************************
@@ -140,7 +142,7 @@ static void motor_fsp_init(void)
     uint32_t u4_port_config;
     adc_status_t status;
 
-    R_POEG_Open(g_poeg3.p_ctrl, g_poeg3.p_cfg);
+  //  R_POEG_Open(g_poeg3.p_ctrl, g_poeg3.p_cfg);
 
 
    u4_port_config = (((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT | (uint32_t) IOPORT_CFG_PORT_OUTPUT_LOW));

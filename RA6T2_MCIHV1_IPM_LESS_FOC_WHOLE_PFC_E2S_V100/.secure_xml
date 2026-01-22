@@ -74,7 +74,7 @@
       <configSetting altId="jtag_fslash_swd.tms.pa13" configurationId="jtag_fslash_swd.tms" peripheral="JTAG/SWD"/>
       <configSetting altId="p001.input" configurationId="p001"/>
       <configSetting altId="pb01.input" configurationId="pb01"/>
-      <configSetting altId="pb10.output.low" configurationId="pb10"/>
+      <configSetting altId="pb10.output.high" configurationId="pb10"/>
       <configSetting altId="pc06.output.low" configurationId="pc06"/>
       <configSetting altId="pd01.output.high" configurationId="pd01"/>
       <configSetting altId="pd02.output.high" configurationId="pd02"/>

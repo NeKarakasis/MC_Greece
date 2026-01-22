@@ -549,6 +549,7 @@ void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc)
 void R_MOTOR_CURRENT_OffsetCalibration(st_current_control_t *p_st_cc)
 {
     p_st_cc->f4_offset_iu = 0.0f;
+    p_st_cc->f4_offset_iv = 0.0f;
     p_st_cc->f4_offset_iw = 0.0f;
 
     /*==================================*/
@@ -560,11 +561,13 @@ void R_MOTOR_CURRENT_OffsetCalibration(st_current_control_t *p_st_cc)
         p_st_cc->u1_flag_offset_calc    = MTR_FLG_SET;
         p_st_cc->u2_crnt_offset_cnt     = p_st_cc->u2_offset_calc_time;
         p_st_cc->f4_offset_iu           = p_st_cc->f4_sum_iu_ad / p_st_cc->u2_offset_calc_time;
+        p_st_cc->f4_offset_iv           = p_st_cc->f4_sum_iv_ad / p_st_cc->u2_offset_calc_time;
         p_st_cc->f4_offset_iw           = p_st_cc->f4_sum_iw_ad / p_st_cc->u2_offset_calc_time;
     }
     else
     {
         p_st_cc->f4_sum_iu_ad += p_st_cc->f4_iu_ad;
+        p_st_cc->f4_sum_iv_ad += p_st_cc->f4_iv_ad;
         p_st_cc->f4_sum_iw_ad += p_st_cc->f4_iw_ad;
     }
 } /* End of function R_MOTOR_CURRENT_OffsetCalibration */
@@ -577,10 +580,11 @@ void R_MOTOR_CURRENT_OffsetCalibration(st_current_control_t *p_st_cc)
 *                 p_f4_iw - The pointer to measured phase w current
 * Return Value  : None
 ***********************************************************************************************************************/
-void R_MOTOR_CURRENT_CurrentOffsetRemove(st_current_control_t *p_st_cc, float *p_f4_iu, float *p_f4_iw)
+void R_MOTOR_CURRENT_CurrentOffsetRemove(st_current_control_t *p_st_cc, float *p_f4_iu,float *p_f4_iv, float *p_f4_iw)
 {
     /* Current offset adjustment */
     *p_f4_iu = (*p_f4_iu) - p_st_cc->f4_offset_iu;
+    *p_f4_iv = (*p_f4_iv) - p_st_cc->f4_offset_iv;
     *p_f4_iw = (*p_f4_iw) - p_st_cc->f4_offset_iw;
 } /* End of function R_MOTOR_CURRENT_CurrentOffsetRemove */
 

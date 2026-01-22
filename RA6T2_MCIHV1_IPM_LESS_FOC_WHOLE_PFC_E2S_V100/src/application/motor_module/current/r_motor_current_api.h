@@ -157,8 +157,10 @@ typedef struct
     float                 f4_lim_iq;                        /* The speed PI control output limit value [A}*/
     float                 f4_offset_iu;                     /* U-phase current offset value [A] */
     float                 f4_offset_iw;                     /* W-phase current offset value [A] */
+    float                 f4_offset_iv;
     float                 f4_sum_iu_ad;                     /* U-phase current summation value for offset calculation [A] */
     float                 f4_sum_iw_ad;                     /* W-phase current summation value for offset calculation [A] */
+    float                 f4_sum_iv_ad;
     float                 f4_vdc_ad;                        /* Bus voltage [V] */
     float                 f4_iu_ad;                         /* U-phase current value [A] */
     float                 f4_iv_ad;                         /* V-phase current value [A] */
@@ -226,7 +228,7 @@ void R_MOTOR_CURRENT_ParameterGet(st_current_control_t *p_st_cc, st_current_outp
 void R_MOTOR_CURRENT_ParameterUpdate(st_current_control_t *p_st_cc, const st_current_cfg_t *p_st_current_cfg);
 void R_MOTOR_CURRENT_CurrentCyclic(st_current_control_t *p_st_cc);
 void R_MOTOR_CURRENT_OffsetCalibration(st_current_control_t *p_st_cc);
-void R_MOTOR_CURRENT_CurrentOffsetRemove(st_current_control_t *p_st_cc, float *p_f4_iu, float *p_f4_iw);
+void R_MOTOR_CURRENT_CurrentOffsetRemove(st_current_control_t *p_st_cc, float *p_f4_iu, float *p_f4_iv, float *p_f4_iw);
 void R_MOTOR_CURRENT_VoltErrCompParamSet(st_current_control_t *p_st_cc,
                                          const float *crnt_array,
                                          const float *volterr_array,
