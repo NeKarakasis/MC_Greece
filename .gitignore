@@ -1,0 +1,16 @@
+# Eclipse / e² studio
+.metadata/
+.settings/
+*.launch
+
+# Build outputs
+Debug/
+Release/
+
+# Logs & temp files
+*.log
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
