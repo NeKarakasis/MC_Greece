@@ -85,7 +85,7 @@
 */
 #define     MOTOR_COMMON_CFG_LOOP_MODE                  (MOTOR_LOOP_SPEED)
 
-#define     MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT    (2.0f)
+#define     MOTOR_COMMON_CFG_OVERCURRENT_MARGIN_MULT    (1.2f)
 
 #if defined(MOTOR_TYPE_BLDC)
 #define     MOTOR_COMMON_CFG_IA_MAX_CALC_MULT           (MTR_SQRT_3)

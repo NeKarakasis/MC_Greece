@@ -77,7 +77,7 @@ static void r_Config_S12AD0_interrupt(void)
 	int32_t mtu_counter = MTU4.TCNT;
 	MTU_point1 = mtu_counter;
     R_MOTOR_SENSORLESS_VECTOR_CurrentInterrupt(&g_st_sensorless_vector);
-    r_app_rmw_interrupt_handler();
+    //r_app_rmw_interrupt_handler();
     if (STATEMACHINE_STATE_RUN == motor_sensorless_vector_statemachine_status_get(&g_st_sensorless_vector.st_stm))
     {
     	if (pause_counter > 1000)
@@ -92,7 +92,11 @@ static void r_Config_S12AD0_interrupt(void)
     }
     MTU.TRWERA.BIT.RWE = 0U;
     clrpsw_i();
-    FuSa_Manager_Run(&g_cfg, &g_st);
+/*    FuSa_Manager_Run(&g_cfg, &g_st);
+    if (FuSa_Manager_HasError(&g_st))
+    {
+        SelfTestHookFunction();
+    }*/
     setpsw_i();
     }
     	else

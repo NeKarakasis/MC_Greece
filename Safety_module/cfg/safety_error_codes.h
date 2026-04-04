@@ -5,7 +5,8 @@
 
 // Enum for safety error codes
 typedef enum {
-	SAFETY_CPU_ERROR = 0,   // FUSA CPU error
+	SAFETY_NO_ERROR = 0,	// No Error
+	SAFETY_CPU_ERROR ,   // FUSA CPU error
 	SAFETY_CLOCK_ERROR,     // FUSA clock error
 	SAFETY_ADC_ERROR,       // FUSA ADC error
 	SAFETY_PC_ERROR,        // FUSA PC error
@@ -15,9 +16,5 @@ typedef enum {
 	SAFETY_GENERIC_CONFIGURATION_ERROR,	// FUSA Generic configuration error
     SAFETY_UNKNOWN_ERROR    // Undefined or unknown error
 } SafetyErrorCode;
-
-// Variable to store the current safety error status
-
-extern SafetyErrorCode currentSafetyError;
 
 #endif // SAFETY_ERRORS_H

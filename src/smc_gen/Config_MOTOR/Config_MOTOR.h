@@ -237,7 +237,6 @@ Macro definitions
 #define CG_MOTOR_CFG_MAX_AD_DATA                      (4095.0f)        /* Max A/D data */
 #define CG_MOTOR_MCU_CFG_AD_FREQ                      (32.0f)          /* A/D frequency [MHz] */
 
-
 #ifndef MTR_ADC_TS
 #define MTR_ADC_TS
 typedef struct

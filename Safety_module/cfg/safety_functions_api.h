@@ -7,6 +7,8 @@
 #ifndef SAFETY_MODULE_CFG_SAFETY_FUNCTIONS_API_H_
 #define SAFETY_MODULE_CFG_SAFETY_FUNCTIONS_API_H_
 #include "stdint.h"
+#include "r_smc_entry.h"
+#include "safety_error_codes.h"
 
 
 #define CPU_DIAG_SIZE				(12)		/* Number of the size of CPU_DIAG_Table 0-9,11,12*/
@@ -51,16 +53,22 @@ that code should be modified based of the hardware.*/
 #define CHECKSUM_START_ADDRESS (0xFFFFFF10)				/* Address in flash where expected CRCs are stored */
 
 
+/* macro definition pointing to the real function */
+#define ADCREINITIALAZATION		R_Config_S12AD0_Create
+#define ADCSTART				R_Config_S12AD0_Start
+#define SYSTEMPOWEROFF			R_Config_Motor_StopTimerCtrl
+
+
 // basic configuration of FuSa manager
-#define AVAILABLE_UNITS_FOR_FUSA	(1066U)		// The available time units for FUSA
+#define AVAILABLE_UNITS_FOR_FUSA	(1066U)	// The available time units for FUSA
 #define	ADC_PERIOD_UNITS		(10U)		// The timing period of adc test
 #define	RAM_PERIOD_UNITS		(2U)		// The timing period of ram test
 #define	ROM_PERIOD_UNITS		(3U)		// The timing period of rom test
-#define	MAX_CPU_SLICES_PER_UNIT (3u) 			// The maximum single CPU tests per tick (subject to budget)
+#define	MAX_CPU_SLICES_PER_UNIT (3U) 		// The maximum single CPU tests per tick (subject to budget)
 #define	ADC_OFFSET_UNITS		(1U)		// The adc offset to avoid timing colisions
 #define	RAM_OFFSET_UNITS		(2U)		// The ram offset to avoid ram collisions
 #define	ROM_OFFSET_UNITS		(4U)		// The ROM offset to avoid rom collisions
-#define MARGIN_BUDGET			(20U)		// The persentage of the margin
+#define MARGIN_BUDGET			(20U)		// The percentage of the margin
 
 
 // Modes for CPU tests.
@@ -127,15 +135,17 @@ typedef struct
      uint16_t ram_offset_ticks;
      uint16_t rom_offset_ticks;
      uint16_t margin_budget;              // the margin of between the budget
+     uint8_t  max_cpu_slices_per_tick;     // how many single CPU tests per tick (subject to budget)
+     fusa_mgr_policy_t policy;
 
-    uint8_t  max_cpu_slices_per_tick;     // how many single CPU tests per tick (subject to budget)
-    fusa_mgr_policy_t policy;
+     // ADC configuration
+     st_adc_driver adc_driver;
 
-    // ADC configuration
-    st_adc_driver adc_driver;
+     // Time source (must be monotonic, same units as budget)
+     uint32_t (*get_time_units)(void);
+     // function for the error handing
+     void (*error_handling_fnc)(void);
 
-    // Time source (must be monotonic, same units as budget)
-    uint32_t (*get_time_units)(void);
 } fusa_mgr_cfg_t;
 
 typedef struct
@@ -159,11 +169,20 @@ typedef struct
 
     fusa_mgr_test_t last_heavy_test_ever;   /* most recent heavy test that ever ran */
     uint32_t        last_heavy_test_tick;   /* tick number when last_heavy_test_ever occurred */
+    SafetyErrorCode Fusa_mng_error;			/* This will return the result of the Self test */
 
 } fusa_mgr_state_t;
 
 extern fusa_mgr_cfg_t g_cfg;
 extern fusa_mgr_state_t g_st;
+/* opaque user context
+typedef void (*SafetyErrorHook_t)(void * context, SafetyErrorCode * info);
+
+
+
+void Safety_ErrorHookFnc(SafetyErrorHook_t hook, void * context);
+void Safety_ReportError(SafetyErrorCode * info);
+*/
 
 /* Initialize manager state (call once at boot, after basic MCU init) */
 void FuSa_Manager_Init(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st);
@@ -174,10 +193,15 @@ void FuSa_Manager_Run(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st);
 /* Initialaze the FuSa manager and run all the tests for FuSa at the StartUp */
 void FuSa_Startup_FullSelfTest_Init_manager(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st);
 
+/* Helper functions for the error result of FuSa manager. That should be run on the application */
+SafetyErrorCode FuSa_Manager_GetError(const fusa_mgr_state_t * st);
+void FuSa_Manager_ClearError(fusa_mgr_state_t * st);
+uint8_t FuSa_Manager_HasError(const fusa_mgr_state_t * st);
+
 
 
 extern void		safety_CPU_test(cpu_test_mode_t mode, uint32_t part_index);	 /* Test CPU for safety */
-extern void 	ram_test_sample(ram_test_mode_t mode, uint32_t block_index);					/* Test RAM for safety */
+extern void 	ram_test_sample(ram_test_mode_t mode, uint32_t block_index);/* Test RAM for safety */
 extern void		rom_test_sample(rom_test_mode_t mode, uint32_t manual_start, uint32_t manual_end);					/* Test RAM for safety */
 extern void 	adc_test_sample(st_adc_driver voltage);					/* The ADC for safety */
 extern void 	FuSa_clock_monitor(void);				/*Initiate and start the clock monitor*/

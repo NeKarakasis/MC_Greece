@@ -51,7 +51,9 @@
  Exported global variables
  *********************************************************************************************************************/
 st_sensorless_vector_control_t g_st_sensorless_vector;
+#pragma section B RAM_MOTOR_PROTECTION_FUSA
 motor_protection_t g_mp;
+#pragma section
 
 
 /***********************************************************************************************************************

@@ -1,6 +1,67 @@
 #include "r_motor_protection.h"
 #include <math.h>
 
+/* water itendicator is not safety related sw */
+void motor_protection_speed_update(motor_protection_t *mp, float speed, float iq_ref, float speed_ref)
+{
+	float speed_rpm;
+	float speed_ref_rpm;
+	float error_ratio;
+	float abs_iq;
+	float abs_speed;
+	float abs_speed_ref;
+	speed_rpm = speed * 60 / (2.0f * 3.14159265358979f);
+	speed_ref_rpm = speed_ref * 60 / (2.0f * 3.14159265358979f);
+	abs_iq =  fabsf(iq_ref);
+	abs_speed = fabsf(speed_rpm);
+	abs_speed_ref = fabsf(speed_ref_rpm);
+	mp->f4_filtered_iq_current = motor_filter_first_order_lpff(&mp->lpf_filtered_iq_current, abs_iq);
+	mp->f4_filtered_speed = motor_filter_first_order_lpff(&mp->lpf_filtered_speed, abs_speed);
+	mp->iq_estimated = IQ_MODEL_K * abs_speed * abs_speed;
+	// the error will be cleared only with reset
+	if (mp->water_empty == 0)
+		{
+		// Avoid division by zero
+		if (iq_ref == 0 || abs_speed_ref < SPEED_THRESHOLD)
+		{
+			mp->water_empty = 0;
+			mp->water_empty_timer_s = 0;
+		}
+		else
+		{
+			// 2. Relative deviation
+			error_ratio = fabsf((mp->iq_estimated - abs_iq)/ abs_iq);
+			mp->UserVariable[5] = error_ratio;
+			mp->UserVariable[6] = mp->iq_estimated;
+			mp->UserVariable[7] = abs_iq;
+			mp->UserVariable[8]++;
+
+
+		}
+		if (error_ratio > IQ_ERROR_THRESHOLD)
+		{
+
+			if (mp->water_empty_timer_s > WATER_EMPTY_DETECT_COUNT)
+			{
+				mp->water_empty = 1;
+			}
+			else
+			{
+				mp->water_empty_timer_s ++;
+			}
+		}
+		else
+		{
+			if (mp->water_empty_timer_s > 0)
+			{
+				mp->water_empty_timer_s --;
+			}
+		}
+	}
+}
+/* Safety related SW for ubsnormal operation detection*/
+#pragma section P ROM_MOTOR_PROTECTION_FUSA
+
 /* ===========
  * Tables (2 motors) — built from the #defines in the header
  * =========== */
@@ -162,65 +223,6 @@ void motor_protection_set_thresholds(motor_protection_t *mp,
     mp->t_locked_rotor_s        = t_locked_rotor_s;
     mp->unbalance_hold_time_s   = unbalance_hold_time_s;
 }
-
-void motor_protection_speed_update(motor_protection_t *mp, float speed, float iq_ref, float speed_ref)
-{
-	float speed_rpm;
-	float speed_ref_rpm;
-	float error_ratio;
-	float abs_iq;
-	float abs_speed;
-	float abs_speed_ref;
-	speed_rpm = speed * 60 / (2.0f * 3.14159265358979f);
-	speed_ref_rpm = speed_ref * 60 / (2.0f * 3.14159265358979f);
-	abs_iq =  fabsf(iq_ref);
-	abs_speed = fabsf(speed_rpm);
-	abs_speed_ref = fabsf(speed_ref_rpm);
-	mp->f4_filtered_iq_current = motor_filter_first_order_lpff(&mp->lpf_filtered_iq_current, abs_iq);
-	mp->f4_filtered_speed = motor_filter_first_order_lpff(&mp->lpf_filtered_speed, abs_speed);
-	mp->iq_estimated = IQ_MODEL_K * abs_speed * abs_speed;
-	// the error will be cleared only with reset
-	if (mp->water_empty == 0)
-		{
-		// Avoid division by zero
-		if (iq_ref == 0 || abs_speed_ref < SPEED_THRESHOLD)
-		{
-			mp->water_empty = 0;
-			mp->water_empty_timer_s = 0;
-		}
-		else
-		{
-			// 2. Relative deviation
-			error_ratio = fabsf((mp->iq_estimated - abs_iq)/ abs_iq);
-			mp->UserVariable[5] = error_ratio;
-			mp->UserVariable[6] = mp->iq_estimated;
-			mp->UserVariable[7] = abs_iq;
-			mp->UserVariable[8]++;
-
-
-		}
-		if (error_ratio > IQ_ERROR_THRESHOLD)
-		{
-
-			if (mp->water_empty_timer_s > WATER_EMPTY_DETECT_COUNT)
-			{
-				mp->water_empty = 1;
-			}
-			else
-			{
-				mp->water_empty_timer_s ++;
-			}
-		}
-		else
-		{
-			if (mp->water_empty_timer_s > 0)
-			{
-				mp->water_empty_timer_s --;
-			}
-		}
-	}
-}
-
 
 void motor_protection_update(motor_protection_t *mp, float u, float v, float w, float raw_u,float raw_v,float raw_w, float min_duty)
 {
@@ -388,3 +390,5 @@ void motor_protection_enter_idle(motor_protection_t *mp, bool clear_alarms)
         mp->alarm_bits = MP_ALARM_NONE;
     }
 }
+
+#pragma section

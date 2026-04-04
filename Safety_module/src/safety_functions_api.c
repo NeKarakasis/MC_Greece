@@ -1,6 +1,5 @@
 #include <cfg/safety_functions_api.h>
 #include <safety_error_codes.h>
-#include "r_smc_entry.h"
 #include "safety_functions_api.h"
 #include "r_cpu_diag.h"
 #include "r_ram_diag.h"
@@ -11,12 +10,12 @@
 #include "r_pc_mon.h"
 
 
-
 // the interrupt functions based of the RX13T interrupt vector.
 #pragma interrupt r_Config_CAC_OSCILATION_interrupt(vect = VECT_CAC_FERRF)
 #pragma interrupt r_Config_CAC_OVERFLOW_interrupt(vect = VECT_CAC_OVFF)
 #pragma interrupt r_Config_LVD_LVD1_interrupt(vect = VECT_LVD_LVD1)
 
+#define StartADCFnc
 
 // FuSa functions, those functions will be called in the code when it is necessery
 void 	safety_CPU_test(cpu_test_mode_t mode, uint32_t part_index);										/* Test CPU for safety */
@@ -36,6 +35,44 @@ static const uint32_t CPU_index_Table[CPU_DIAG_TABLE_SIZE] = {0, 1, 2, 3, 4, 5, 
 
 fusa_mgr_cfg_t g_cfg;
 fusa_mgr_state_t g_st;
+static volatile SafetyErrorCode g_last_fault = SAFETY_NO_ERROR;
+uint32_t startAddress[4];
+uint32_t endAddress[4];
+uint8_t tempMode[4];
+uint8_t count_tests = 0;
+uint16_t crc_temp[3] = {0,0,0};
+uint16_t accumulated_crc = 0U;
+uint16_t chunk_crc = 0U;
+volatile uint16_t expected_crc = 0;
+int32_t duration_cpu_sf_test[CPU_DIAG_SIZE + 1] = {0};
+int32_t duration_ram_sf_test[10] = {0};
+uint16_t calChecksum1 = 0;
+uint16_t calChecksum2 = 0;
+uint16_t calChecksum3 = 0;
+int16_t duration_rom_sf_test[6]={0};
+
+uint16_t *pExpChecksum = (uint16_t*)CHECKSUM_START_ADDRESS;
+int32_t duration_adc_sf_test[3] = {0,0,0};
+int32_t duration_adc_sf_test_cmt[3] = {0,0,0};
+
+#pragma section P ROM_SELFTEST_FUSA_API
+
+// Helper functions to handle the temporary fault
+
+static SafetyErrorCode Safety_GetLatchedFault(void)
+{
+    return g_last_fault;
+}
+
+static void Safety_ClearLatchedFault(void)
+{
+    g_last_fault = SAFETY_NO_ERROR;
+}
+
+static uint8_t Safety_HasLatchedFault(void)
+{
+    return (uint8_t)(g_last_fault != SAFETY_NO_ERROR);
+}
 
 /***********************************************************************************************************************
 * Function Name : SafetyErrorHandler
@@ -45,10 +82,12 @@ fusa_mgr_state_t g_st;
 ***********************************************************************************************************************/
 void SafetyErrorHandler(SafetyErrorCode error_code)
 {
-	SafetyErrorCode error = error_code;
-	while(1);
+    /* latch only the first error until it is consumed/cleared */
+    if (g_last_fault == SAFETY_NO_ERROR)
+    {
+        g_last_fault = error_code;
+    }
 }
-int32_t duration_cpu_sf_test[CPU_DIAG_SIZE + 1] = {0,0,0,0,0,0,0,0,0,0,0,0};
 
 /***********************************************************************************************************************
 * Function Name : safety_CPU_test
@@ -188,7 +227,6 @@ void safety_CPU_test_old(uint32_t part_index)
 * Arguments     : ram test mode= automatic or manual, block index for manual mode
 * Return Value  : None
 ***********************************************************************************************************************/
-int32_t duration_ram_sf_test[10] = {0,0,0,0,0,0,0,0};
 
 void ram_test_sample(ram_test_mode_t mode, uint32_t block_index)
 {
@@ -240,8 +278,6 @@ void ram_test_sample(ram_test_mode_t mode, uint32_t block_index)
     MTU.TRWERA.BIT.RWE = 0U;
 }
 
-int32_t duration_adc_sf_test[3] = {0,0,0};
-int32_t duration_adc_sf_test_cmt[3] = {0,0,0};
 /***********************************************************************************************************************
 * Function Name : adc_init_sample
 * Description   : Initializes the ADC self-diagnostic functionality.
@@ -308,19 +344,7 @@ void rom_test_init(void)
     R_ROM_Diag_Init();
 }
 
-uint16_t calChecksum1 = 0;
-uint16_t calChecksum2 = 0;
-uint16_t calChecksum3 = 0;
-int16_t duration_rom_sf_test[6]={0,0,0,0,0,0};
-uint16_t *pExpChecksum = (uint16_t*)CHECKSUM_START_ADDRESS;
-uint32_t startAddress[4];
-uint32_t endAddress[4];
-uint8_t tempMode[4];
-uint8_t count_tests = 0;
-uint16_t crc_temp[3] = {0,0,0};
-uint16_t accumulated_crc = 0U;
-uint16_t chunk_crc = 0U;
-volatile uint16_t expected_crc = 0;
+
 
 /***********************************************************************************************************************
 * Function Name : rom_test_sample
@@ -446,7 +470,8 @@ void rom_test_sample(rom_test_mode_t mode, uint32_t manual_start, uint32_t manua
 ***********************************************************************************************************************/
 void FuSa_clock_monitor(void)
 {
-/* Measurement target clocks: main, Frequency of measurement target clock: 12 MHz, Tolerance limit: 16 % */
+/* Measurement target clocks: main, Frequency of measurement target clock: 12 MHz,
+ *  Tolerance limit: 16 % */
 uint32_t clk_sel = 1, clock_freq = 32000, tolerance = 16;
 R_CLOCK_Mon_Init(clk_sel, clock_freq, tolerance); /* Call API */
 }
@@ -491,7 +516,7 @@ void r_Config_LVD_LVD1_interrupt()
 * Arguments     : None
 * Return Value  : None
 ***********************************************************************************************************************/
-void IWDT_Reset_out_chk(void) /* The function to check if an error has been detected by this software */
+void IWDT_Reset_out_chk(void) /* The function to check if anerror has been detected by this software */
 {
 	int32_t result = 0;
 	R_PC_Mon_Check(&result); /* Call API */
@@ -578,11 +603,12 @@ void FuSa_Manager_Init(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st)
     cfg->ram_offset_ticks = RAM_OFFSET_UNITS;
     cfg->rom_offset_ticks = ROM_OFFSET_UNITS;
     cfg->max_cpu_slices_per_tick = MAX_CPU_SLICES_PER_UNIT;
-    cfg->adc_driver.ReInitialazationADC = R_Config_S12AD0_Create;
-    cfg->adc_driver.StartADC = R_Config_S12AD0_Start;
+    cfg->adc_driver.ReInitialazationADC = ADCREINITIALAZATION;
+    cfg->adc_driver.StartADC = ADCSTART;
     cfg->get_time_units = GetTicksFun;
     cfg->margin_budget = MARGIN_BUDGET;
 
+    st->Fusa_mng_error = SAFETY_NO_ERROR;
     st->tick = 0U;
     st->next_adc_level = ADC_VOLTAGE_LEVEL_0;
     st->last_heavy_test = FUSA_MGR_TEST_NONE;
@@ -596,6 +622,8 @@ void FuSa_Manager_Init(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st)
                             cfg->ram_period_ticks, cfg->ram_offset_ticks))
     {
         SafetyErrorHandler(SAFETY_GENERIC_CONFIGURATION_ERROR);
+        st->Fusa_mng_error = Safety_GetLatchedFault();
+        return;
     }
 
     if (permanently_blocked(cfg->adc_period_ticks, cfg->adc_offset_ticks,
@@ -604,6 +632,8 @@ void FuSa_Manager_Init(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st)
                             cfg->rom_period_ticks, cfg->rom_offset_ticks))
     {
         SafetyErrorHandler(SAFETY_GENERIC_CONFIGURATION_ERROR);
+        st->Fusa_mng_error = Safety_GetLatchedFault();
+        return;
     }
 
 }
@@ -620,8 +650,21 @@ void FuSa_Manager_Run(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st)
     if ((cfg == 0) || (st == 0) || (cfg->get_time_units == 0))
     {
         SafetyErrorHandler(SAFETY_GENERIC_CONFIGURATION_ERROR);
+        if (st != 0)
+        {
+            st->Fusa_mng_error = Safety_GetLatchedFault();
+        }        return;
+    }
+
+    /* clear transient latch for this run */
+    Safety_ClearLatchedFault();
+
+    /* if application has not cleared previous manager error, skip execution */
+    if (st->Fusa_mng_error != SAFETY_NO_ERROR)
+    {
         return;
     }
+
     st->tick++;
     st->last_heavy_test = FUSA_MGR_TEST_NONE;
     st->last_cpu_slices = 0U;
@@ -638,6 +681,12 @@ void FuSa_Manager_Run(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st)
         drv.typeOfTest = st->next_adc_level;
 
         adc_test_sample(drv);
+
+        if (Safety_HasLatchedFault())
+        {
+            st->Fusa_mng_error = Safety_GetLatchedFault();
+            return;
+        }
 
         /* rotate ADC level */
         if (st->next_adc_level == ADC_VOLTAGE_LEVEL_0)
@@ -659,12 +708,22 @@ void FuSa_Manager_Run(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st)
     else if (due_with_offset(st->tick, cfg->ram_period_ticks, cfg->ram_offset_ticks))
     {
         ram_test_sample(RAM_TEST_MODE_AUTO, 0U);
+        if (Safety_HasLatchedFault())
+        {
+            st->Fusa_mng_error = Safety_GetLatchedFault();
+            return;
+        }
         did_heavy = 1U;
         st->last_heavy_test = FUSA_MGR_TEST_RAM_AUTO;
     }
     else if (due_with_offset(st->tick, cfg->rom_period_ticks, cfg->rom_offset_ticks))
     {
         rom_test_sample(ROM_TEST_MODE_AUTO, 0U, 0U);
+        if (Safety_HasLatchedFault())
+        {
+            st->Fusa_mng_error = Safety_GetLatchedFault();
+            return;
+        }
         did_heavy = 1U;
         st->last_heavy_test = FUSA_MGR_TEST_ROM_AUTO;
     }
@@ -705,6 +764,11 @@ void FuSa_Manager_Run(fusa_mgr_cfg_t* cfg, fusa_mgr_state_t* st)
             break;
         }
         safety_CPU_test(CPU_TEST_MODE_SLICE, 0U);
+        if (Safety_HasLatchedFault())
+        {
+            st->Fusa_mng_error = Safety_GetLatchedFault();
+            return;
+        }
         st->last_cpu_slices++;
     }
 
@@ -733,36 +797,116 @@ void FuSa_Startup_FullSelfTest_Init_manager(fusa_mgr_cfg_t* cfg, fusa_mgr_state_
 
     /* 1) Init manager (reads cfg, initializes st and underlying monitors) */
     FuSa_Manager_Init(cfg, st);
+
+    if (st->Fusa_mng_error != SAFETY_NO_ERROR)
+    {
+        return;
+    }
+
     /* One-time init of monitors (your existing API calls) */
     rom_test_init();
 
     /* 2) Run full tests (CPU/RAM/ROM/ADC) ... */
     for (uint32_t p = 0U; p < (uint32_t)TOTAL_CPU_TEST_PARTS; p++)
     {
+        Safety_ClearLatchedFault();
         safety_CPU_test(CPU_TEST_MODE_PART, p);
+        if (Safety_HasLatchedFault())
+        {
+            st->Fusa_mng_error = Safety_GetLatchedFault();
+            return;
+        }
     }
 
     st_adc_driver drv = cfg->adc_driver;
+
+    Safety_ClearLatchedFault();
     drv.typeOfTest = ADC_VOLTAGE_LEVEL_0;
     adc_test_sample(drv);
+    if (Safety_HasLatchedFault())
+    {
+        st->Fusa_mng_error = Safety_GetLatchedFault();
+        return;
+    }
+
+    Safety_ClearLatchedFault();
     drv.typeOfTest = ADC_VOLTAGE_LEVEL_HALF;
     adc_test_sample(drv);
+    if (Safety_HasLatchedFault())
+        {
+            st->Fusa_mng_error = Safety_GetLatchedFault();
+            return;
+        }
+
+     Safety_ClearLatchedFault();
     drv.typeOfTest = ADC_VOLTAGE_LEVEL_FULL;
     adc_test_sample(drv);
+    if (Safety_HasLatchedFault())
+    {
+        st->Fusa_mng_error = Safety_GetLatchedFault();
+        return;
+    }
 
     for (uint32_t i = 0U; i < (uint32_t)RAM_TEST_NUM_BLOCKS; i++)
     {
+        Safety_ClearLatchedFault();
         ram_test_sample(RAM_TEST_MODE_AUTO, 0U);
+        if (Safety_HasLatchedFault())
+        {
+            st->Fusa_mng_error = Safety_GetLatchedFault();
+            return;
+        }
     }
 
     for (uint32_t i = 0U; i < (uint32_t)(ROM_NUM_BLOCKS * (ROM_BLOCK_SIZE / ROM_TEST_CHUNK_SIZE)); i++)
     {
+        Safety_ClearLatchedFault();
         rom_test_sample(ROM_TEST_MODE_AUTO, 0U, 0U);
+        if (Safety_HasLatchedFault())
+        {
+            st->Fusa_mng_error = Safety_GetLatchedFault();
+            return;
+        }
     }
     /* 3) Initialaze all the rest MCU tests ... */
     FuSa_PC_init();
     FuSa_Voltage_init();
     FuSa_clock_monitor();
+
+    Safety_ClearLatchedFault();
     IWDT_Reset_out_chk();
+    if (Safety_HasLatchedFault())
+    {
+        st->Fusa_mng_error = Safety_GetLatchedFault();
+        return;
+    }
 }
 
+SafetyErrorCode FuSa_Manager_GetError(const fusa_mgr_state_t * st)
+{
+    if (st == 0)
+    {
+        return SAFETY_GENERIC_CONFIGURATION_ERROR;
+    }
+    return st->Fusa_mng_error;
+}
+
+void FuSa_Manager_ClearError(fusa_mgr_state_t * st)
+{
+    if (st != 0)
+    {
+        st->Fusa_mng_error = SAFETY_NO_ERROR;
+    }
+}
+
+uint8_t FuSa_Manager_HasError(const fusa_mgr_state_t * st)
+{
+    if (st == 0)
+    {
+        return 1U;
+    }
+    return (uint8_t)(st->Fusa_mng_error != SAFETY_NO_ERROR);
+}
+
+
+#pragma section P

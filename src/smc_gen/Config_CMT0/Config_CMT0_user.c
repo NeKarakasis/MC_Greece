@@ -36,6 +36,8 @@ static uint16_t g_watchdog_refresh_counter = 0;
 uint16_t speed_loop_ticks = 0;
 uint16_t speed_loop_ticks_max = 0;
 uint16_t CMT_point1 = 0;
+extern uint16_t motor_restart_delay_counter;
+extern uint8_t motor_restart_delay_activated;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -83,6 +85,10 @@ static void r_Config_CMT0_cmi0_interrupt(void)
 	    	speed_loop_ticks_max = speed_loop_ticks;
 	    }
 	    }
+	if(motor_restart_delay_activated)
+	{
+		motor_restart_delay_counter++;
+	}
     /* End user code. Do not edit comment generated here */
 }
 

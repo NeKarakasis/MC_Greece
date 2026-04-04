@@ -61,7 +61,7 @@
 #define     CIRC_MOTOR_CFG_D_INDUCTANCE          (0.0534f)       /* D-axis inductance [H] */
 #define     CIRC_MOTOR_CFG_Q_INDUCTANCE          (0.0624f)       /* Q-axis inductance [H] */
 #define     CIRC_MOTOR_CFG_ROTOR_INERTIA         (0.0004666f)//(0.008666f)    /* Rotor inertia [kgm^2] */ //(0.0003666f) (0.002666f)
-#define     CIRC_MOTOR_CFG_NOMINAL_CURRENT_RMS   (1.5f)         /* Nominal current [Arms] */
+#define     CIRC_MOTOR_CFG_NOMINAL_CURRENT_RMS   (1.0f)         /* Nominal current [Arms] */
 #define     CIRC_MOTOR_CFG_MAX_SPEED_RPM         (5000.0f)       /* maximum speed [rpm] (mechanical angle) */
 
 #define     DRY_MOTOR_CFG_POLE_PAIRS            (1)             /* Number of pole pairs */

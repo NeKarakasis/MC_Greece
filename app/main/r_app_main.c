@@ -37,6 +37,7 @@
 #include "r_motor_sensorless_vector_api.h"
 #include "safety_functions_api.h"
 #include "pin.h"
+#include "r_motor_protection.h"
 
 /***********************************************************************************************************************
 * Global variables
@@ -61,6 +62,8 @@ static void     r_app_main_ui_mainloop(void);           /* User interface contro
 static void     r_app_main_init_motor_ctrl(void);       /* Initialize motor control instance */
 static void     r_app_main_start_motor_ctrl(void);      /* Start motor control */
 static void 	app_set_motor_output_path(e_motor_id_t id); /* Implementation to toggle the output relay */
+static void 	SelfTestHookFunction(void);				    /* Implementation of SelfTestHookFunction */
+static void 	Alarm_Control(void);						/* Implementation of Error handling selftest and motor protection fautls */
 
 #define USE_UI 0
 #define STARTUP_MOTOR_CONTROL_DELAY		1
@@ -77,6 +80,32 @@ volatile static uint32_t d_count = 0;
 static float g_manual_speed = 0;
 static int g_manual_state_cmd = 0;
 static int temp_g_manual_state_cmd = 0;
+extern motor_protection_t g_mp;
+
+
+const uint8_t sw_version[3] = {0, 2, 1};
+uint8_t dry_run_status = 0;
+int16_t temp_alarm;
+int16_t last_alarm;
+uint16_t motor_restart_delay_counter = 0;
+uint8_t motor_restart_delay_activated = 0;
+uint8_t motor_restart_retry = 0;
+uint32_t start_point;
+uint32_t duration;
+uint8_t poe_error;
+uint8_t motor_stop_sayaci_1;
+uint8_t motor_stop_sayaci_2;
+uint8_t motor_stop_sayaci_3;
+uint8_t motor_reset_sayaci_1;
+uint8_t motor_reset_sayaci_2;
+uint8_t motor_reset_sayaci_3;
+uint8_t motor_stop_start_sayaci;
+
+
+int16_t alarm; // for buiding proccess, normally it is in Config_PORT.c file
+int16_t reference; // for buiding proccess, normally it is in Config_PORT.c file
+
+
 void main(void)
 {
 clrpsw_i();                                       /* Disable interrupt */
@@ -164,9 +193,17 @@ setpsw_i();*/
 
 
 //clrpsw_i();
-    FuSa_Startup_FullSelfTest_Init_manager(&g_cfg,&g_st);
+    //FuSa_Startup_FullSelfTest_Init_manager(&g_cfg,&g_st);
+
 /*     Start peripheral functions*/
-    r_app_main_start_motor_ctrl();
+    if(g_st.Fusa_mng_error != SAFETY_NO_ERROR)  // if there is self test error, the motor should not start and wait for reset.
+    {
+    	SelfTestHookFunction();
+    	g_st_sensorless_vector.u2_error_status |= MOTOR_SENSORLESS_VECTOR_ERROR_SELFTEST;
+        motor_sensorless_vector_statemachine_event(&g_st_sensorless_vector.st_stm,
+        											&g_st_sensorless_vector,
+                                                   STATEMACHINE_EVENT_ERROR);
+    }
     setpsw_i();                                       // Enable interrupt
 
 
@@ -286,6 +323,7 @@ static void r_app_main_ui_mainloop(void)
          //Do Nothing
     }
 
+    Alarm_Control();
 
     /*============================*/
     /*         LED control        */
@@ -335,8 +373,8 @@ static void r_app_main_start_motor_ctrl(void)
     R_Config_CMT0_Start();
 
     /* Clear POE with Create function before starting POE to avoid miss detection */
-    //R_Config_POE_Create();
-    //R_Config_POE_Start();
+    R_Config_POE_Create();
+    R_Config_POE_Start();
 } /* End of function r_app_main_start_motor_ctrl */
 
 static void app_handle_motor_selection(void)
@@ -398,3 +436,178 @@ static void app_set_motor_output_path(e_motor_id_t id)
     	   PIN_WRITE(RelayForMotors) = 1;
        }
 }
+
+void SelfTestHookFunction(void)
+{
+	R_Config_MOTOR_StopTimerCtrl();
+}
+
+
+/***********************************************************************************************************************
+* Function Name : soft_reset
+* Description   : Soft reset the system, this function is used when a self test error accour.
+* Arguments     : None
+* Return Value  : None
+***********************************************************************************************************************/
+void soft_reset(void)
+{
+    SYSTEM.PRCR.WORD = 0xA502;   // enable write to protected system registers
+    SYSTEM.SWRR = 0xA501;        // software reset
+    while (1) { }                // wait for reset
+}
+
+void Alarm_Control(void)
+{
+    uint8_t motor_status;
+
+    motor_status = R_MOTOR_SENSORLESS_VECTOR_StatusGet(&g_st_sensorless_vector);
+
+    temp_alarm = g_st_sensorless_vector.u2_error_status;
+    if(motor_status == STATEMACHINE_STATE_ERROR)
+    {
+        if(motor_restart_delay_activated == 0)
+        {
+            motor_restart_delay_counter = 0;            // if rotor is locked, wait 10 sec. to retry motor
+            motor_restart_delay_activated = 1;
+            R_MOTOR_SENSORLESS_VECTOR_MotorStop(&g_st_sensorless_vector);
+            motor_restart_retry++;
+            motor_stop_sayaci_3++;
+        }
+        else if(motor_restart_delay_counter >= 10000)   // if delay is activated and 10 sec. passed
+        {
+        	if (g_st.Fusa_mng_error != SAFETY_NO_ERROR)  // In case if there is self test error during the start up seft testing.
+        	{
+        		soft_reset();
+        		return;
+        	}
+            R_MOTOR_SENSORLESS_VECTOR_MotorReset(&g_st_sensorless_vector);
+            if(g_manual_state_cmd == 1) g_manual_state_cmd = 0;
+            motor_restart_delay_activated = 0;
+            g_mp.alarm_bits = 0;   // clear Locked Rotor alrm bit
+            motor_reset_sayaci_3++;
+        }
+
+        motor_stop_start_sayaci++;
+
+        last_alarm = temp_alarm;
+        if(last_alarm == MOTOR_SENSORLESS_VECTOR_ERROR_OVER_CURRENT_SW) last_alarm = 0x0081;      // changed to fit in 8-bit
+        else if(last_alarm == MOTOR_SENSORLESS_VECTOR_ERROR_APPLICATION) last_alarm = 0x0082;
+    }
+
+    //vbus_fil_real = g_st_sensorless_vector.f4_vdc_ad;
+    /*DC Bus voltage will be sent as average and it will be calculated in timer interrupt*/
+
+    if(g_mp.water_empty && (reference > 2000))
+    {
+        dry_run_status = 1;    // Dry-run detected
+        temp_alarm = 0x001A;    // alarm code = 26
+    }
+    else
+    {
+        dry_run_status = 0;    // Dry-run cleared
+    }
+
+    if(((g_mp.alarm_bits & 0x10) == MP_ALARM_LOCKED_ROTOR) || ((g_mp.alarm_bits & 0x04) == MP_ALARM_LOSS_OF_PHASE) || ((g_mp.alarm_bits & 0x08) == MP_ALARM_RUNNING_OVERLOAD) || ((g_mp.alarm_bits & 0x20) == MP_ALARM_CURRENT_MAX)
+    		|| (g_st.Fusa_mng_error != SAFETY_NO_ERROR))
+
+    {
+        if(motor_restart_delay_activated == 0)
+        {
+            motor_restart_delay_counter = 0;            // if rotor is locked, wait 10 sec. to retry motor
+            motor_restart_delay_activated = 1;
+            R_MOTOR_SENSORLESS_VECTOR_MotorStop(&g_st_sensorless_vector);
+            motor_restart_retry++;
+            motor_stop_sayaci_1++;
+        }
+        else if(motor_restart_delay_counter >= 10000)   // if delay is activated and 10 sec. passed
+        {
+        	// IF THERE IS SELF TEST ERROR WE NEED TO RESET THE SYSTEM AND NOT RESET THE MOTOR CONTROL
+        	if (g_st.Fusa_mng_error != SAFETY_NO_ERROR)
+        	{
+        		soft_reset();
+        		return;
+        	}
+            R_MOTOR_SENSORLESS_VECTOR_MotorReset(&g_st_sensorless_vector);
+            if(g_manual_state_cmd == 1) g_manual_state_cmd = 0;
+            motor_restart_delay_activated = 0;
+            g_mp.alarm_bits = 0;   // clear Locked Rotor alrm bit
+            motor_reset_sayaci_1++;
+        }
+
+        if((g_mp.alarm_bits & 0x10) == MP_ALARM_LOCKED_ROTOR)
+        {
+            temp_alarm = 0x000B;    // alarm code = 11
+        }
+        else if((g_mp.alarm_bits & 0x08) == MP_ALARM_RUNNING_OVERLOAD)
+        {
+            temp_alarm = 0x000C;    // alarm code = 12
+        }
+        else if((g_mp.alarm_bits & 0x04) == MP_ALARM_LOSS_OF_PHASE)
+        {
+            temp_alarm = 0x000D;    // alarm code = 13
+        }
+        else if((g_mp.alarm_bits & 0x20) == MP_ALARM_CURRENT_MAX)
+        {
+            temp_alarm = 0x000A;    // alarm code = 10
+        }
+        if (g_st.Fusa_mng_error != SAFETY_NO_ERROR) // if there is motor protection and self test, the self test will be reported
+        {
+        	temp_alarm = 0x000E;	// alarm code = 10, self test report code
+        }
+        // CASE OF SELF TEST ERROR AND UPDATE TEMP ALARM
+        if(motor_restart_retry >= 50) motor_restart_delay_counter = 0;    // do not retry after 50, keep counter at zero
+    }
+    /******Check POE error*****/
+	if (0xC0 != MTU.TOERA.BYTE)	// some PWM outputs are enabled
+	{
+		if ((0 != POE.ICSR3.BIT.POE8F)	||
+			(0 != POE.OCSR1.BIT.OSF1)	)
+		{
+            poe_error = 1;
+		}
+	}
+    else						// all PWM outputs are disabled
+	{
+		// check alarm input pin status before trying to reset the corresponding flag
+		if (0 != PORT1.PIDR.BIT.B1)			// PIN32 P11 POE8 FAULT
+		{
+			if(0 != POE.ICSR3.BIT.POE8F)
+			{
+				POE.ICSR3.BIT.POE8F = 0;	// reset flag
+			}
+		}
+		if (0 != POE.OCSR1.BIT.OSF1)
+		{
+			POE.OCSR1.BIT.OSF1 = 0;			// reset flag
+		}
+	}
+
+    if(poe_error == 1)
+    {
+        if(motor_restart_delay_activated == 0)
+        {
+            motor_restart_delay_counter = 0;            // if rotor is locked, wait 30 sec. to retry motor
+            motor_restart_delay_activated = 1;
+            R_MOTOR_SENSORLESS_VECTOR_MotorStop(&g_st_sensorless_vector);
+            motor_restart_retry++;
+            motor_stop_sayaci_2++;
+        }
+        else if(motor_restart_delay_counter >= 30000)   // if delay is activated and 30 sec. passed
+        {
+            R_MOTOR_SENSORLESS_VECTOR_MotorReset(&g_st_sensorless_vector);
+            if(g_manual_state_cmd == 1) g_manual_state_cmd = 0;
+            motor_restart_delay_activated = 0;
+            poe_error = 0;   // clear poe_error
+            motor_reset_sayaci_2++;
+        }
+
+        temp_alarm = 0x0001;    // alarm code = 1
+
+        if(motor_restart_retry >= 50) motor_restart_delay_counter = 0;    // do not retry after 50, keep counter at zero
+    }
+
+    if(motor_restart_retry < 50) alarm = (last_alarm << 8) + temp_alarm;
+    else if(motor_restart_retry >= 50) alarm = 0x06;      // after 50 trial of critical errors, send fatal error code
+
+}
+

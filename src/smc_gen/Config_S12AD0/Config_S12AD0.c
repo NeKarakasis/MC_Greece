@@ -65,18 +65,10 @@ void R_Config_S12AD0_Create(void)
 
     /* Wait for stabilization of the PGA(s) */
     /* WAIT_LOOP */
-    /* Start user code for include. Do not edit comment generated here */
-    if (init == 0)
-    {
-    /* End user code. Do not edit comment generated here */
     for (w_count = 0U; w_count < _0021_AD_PGA_STABLE_WAIT_COUNT; w_count++)
     {
         nop();
     }
-    /* Start user code for include. Do not edit comment generated here */
-    init = 1;
-    }
-    /* End user code. Do not edit comment generated here */
 
     /* Set S12AD0 control registers */
     S12AD.ADDISCR.BYTE = _00_AD_DISCONECT_UNUSED;
