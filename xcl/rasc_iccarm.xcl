@@ -1,0 +1,17 @@
+// generated extended command line file - do not edit
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR"
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/ra/fsp/inc"
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/ra/fsp/src/rm_motor_pm_foc"
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/ra/fsp/inc/api"
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/ra_cfg/fsp_cfg/bsp"
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/src"
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/ra/fsp/src/rm_motor_hal_driver"
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/ra/fsp/lib/rm_motor_ctrllib/fpu32"
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/ra_cfg/fsp_cfg"
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/ra/arm/CMSIS_6/CMSIS/Core/Include"
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/ra/fsp/lib/rm_motor_ctrllib"
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/ra/fsp/inc/instances"
+-I"C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/ra_gen"
+-D_RENESAS_RA_
+-D_RA_ORDINAL=1
+-D_RA_CORE=CM33

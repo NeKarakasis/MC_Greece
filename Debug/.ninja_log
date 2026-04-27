@@ -1,0 +1,84 @@
+# ninja log v6
+37006	38760	7989843145128977	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/board_3109224582610764880.dir/board_init.o	f8c5b7efd1603266
+31	37005	7989842775378281	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/RAMP_IAR.rasc	ed2b39ecec724f08
+40359	42094	7989843178683052	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_ospi_b.o	f06fc9b91abd30be
+38791	39625	7989843162984845	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_guard.o	9b0b010d47ed7caf
+52118	53263	7989843296222353	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/startup.o	84f019fc4327687a
+37019	38707	7989843145283838	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/board_3109224582610764880.dir/board_leds.o	26806d621886bbf8
+37045	38787	7989843145503607	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_common.o	199e5a19e7f5fd42
+38763	39599	7989843162674707	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_group_irq.o	8ecb6889502b6db0
+37031	38921	7989843145402078	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_clocks.o	e5f5995418ccad33
+40761	42695	7989843182703874	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_sdram.o	8100e3d78b6089da
+51917	52510	7989843294263756	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_volt_error_comp.o	26c238ba62c3f2ec
+74015	75706	7987312941051888	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_tuner_pm.o	b1c3f5b6d05b2d40
+38710	39552	7989843162165995	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_delay.o	f27f7a713580a7e4
+38925	39732	7989843164309466	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_io.o	88b20681af06abe
+50274	51540	7989843277836496	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_trajectory_linear.o	c30ff2836b9c9177
+47784	50099	7989843252907111	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_pm_foc_inner.o	9660cb2f3199410c
+39555	40356	7989843170596169	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_ipc.o	a49a136e0d36c5f5
+50702	52113	7989843282111231	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_tuner_function.o	ea93eadfcde84745
+39628	40568	7989843171378039	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_linker.o	3140d497b261f3a1
+39603	40390	7989843171100796	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_irq.o	b1e944c9763931f4
+50528	51913	7989843280342208	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_transform.o	49ad5d9f9fd1b45d
+47324	47617	7989843248313239	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_pi_control.o	11d2a3be48046936
+39735	40756	7989843172413124	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_macl.o	8e7ef2162c653400
+40573	41118	7989843180798125	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_sbrk.o	ac0f92db6730782a
+74889	77359	7987312949782460	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_tuner_pm_jd.o	23626704e0bbdf33
+40393	42283	7989843179022421	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_register_protection.o	2c3cc71e13ef7a3b
+46501	48199	7989843240099064	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_hal_driver.o	ec65ccbb55b7a759
+41122	42868	7989843186262055	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/bsp_security.o	16aede8f58dc13fb
+45594	46018	7989843231026158	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_decoupling.o	d5ffcc2ee3e1a3ce
+42698	43910	7989843202076275	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/r_elc.o	6960e86ccb86d91b
+48058	50270	7989843255668690	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_pm_foc_outer.o	abf3ddf96a596b06
+52329	53499	7989843298361842	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Generated Data_10512379876834115868.dir/common_data.o	f14e8d3b129db21e
+42287	44031	7989843197936168	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/r_agt.o	c0022edbaf35db6b
+46022	46493	7989843235275795	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_fluxwkn.o	e029ae82de22737f
+47619	48054	7989843251232440	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_pi_gain_calc.o	868b6e71b1ba1ef1
+42096	44289	7989843196005611	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/r_adc_b.o	eadfa0ea84b47ebb
+46632	46999	7989843241405537	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_mtpa.o	c0a777e737d4beaa
+55528	57032	7989843330355701	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Program Entry_7190525443123924260.dir/r_mtr_ics.o	67ea437869985061
+42873	44488	7989843203819263	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/r_gpt.o	4b2b2f19c5087d90
+51543	52267	7989843290491266	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_tuner_rls.o	bf45a5431d3e045a
+44491	45625	7989843220006854	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_bemfobserver.o	299c9a86efa36e27
+45463	46874	7989843229716214	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_control.o	3aafe2a41a1ddd23
+43914	45459	7989843214224375	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/r_gpt_three_phase.o	5d1203db2c2be438
+76658	78835	7987312967483741	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_tuner_pm_ldq.o	7dcfa544f7558713
+49515	51723	7989843270238403	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_sensor_bemf.o	e6e805ea98ea07e6
+44035	45589	7989843215437251	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/r_ioport.o	39637c555d35e386
+44293	45746	7989843218079980	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/r_poeg.o	ca6c5a60aeae13dd
+45749	46236	7989843232581088	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_filter.o	fca2eb3a22dcaaa4
+45628	46121	7989843231377804	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_extobserver.o	3633acdac1896cc4
+46124	46560	7989843236316286	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_fundlib.o	fea5413d49a9f44c
+46239	46629	7989843237458405	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_gain_calc.o	4870b7a4457121cb
+47003	47321	7989843245102211	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_opl_damp_ctrl.o	9ab67ec91a727dad
+76693	78533	7987312967831786	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_tuner_pm_rdiff.o	bc71e4665d1b80e0
+46877	47780	7989843243861866	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_opl2less.o	c98d047b34690a66
+46563	47664	7989843240688681	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_hal_driver_modulation.o	b35971a21d5c8b7f
+52513	53525	7989843300224365	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Generated Data_10512379876834115868.dir/elc_data.o	740a2f3946f2155a
+75711	78125	7987312958004036	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_tuner_pm_ke.o	ec13d344e0dd20da
+47668	49510	7989843251764924	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_pm_foc.o	7279a3311d0006a3
+48202	50501	7989843257109612	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_pm_foc_outer_fnc.o	74708849bbfd58ca
+50103	50697	7989843276089641	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_spdobserver.o	38096c0d5023813a
+74393	76687	7987312944829066	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_tuner_pm_internal.o	e47f5c0cc42318f
+74151	76646	7987312942414628	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_tuner_pm_core.o	394958f983c11a06
+77364	79247	7987312974542325	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_tuner_pm_volterr.o	8b0fa2262e16e57c
+53503	54400	7989843310116929	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Generated Data_10512379876834115868.dir/pin_data.o	14b0083cfc54c2
+51727	52326	7989843292355489	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/rm_motor_vlimit.o	85c711fc5061fd5e
+52271	53434	7989843297798468	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/fsp_1985855358446593410.dir/system.o	75d3b8d12a5bd8ff
+53528	54346	7989843310350781	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Generated Data_10512379876834115868.dir/vector_data.o	6aa04625785aac0c
+53438	54615	7989843309416503	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Generated Data_10512379876834115868.dir/main.o	4557167d614b09d5
+53266	54533	7989843307741107	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Generated Data_10512379876834115868.dir/hal_data.o	1791fa9c03f96656
+54540	55523	7989843320491373	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Program Entry_7190525443123924260.dir/ICS2_RA6T2.o	73392ad595657014
+54404	56157	7989843319115789	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Program Entry_7190525443123924260.dir/hal_warmstart.o	d32b6bd173203661
+54350	56091	7989843318561049	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Program Entry_7190525443123924260.dir/hal_entry.o	7690c81908661261
+54644	56636	7989843321502941	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Program Entry_7190525443123924260.dir/mtr_main.o	9fdfb41d7630aace
+56094	57147	7989843336032013	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Program Entry_7190525443123924260.dir/r_mtr_trajectory_user.o	f1c7d53d1f8b596b
+85555	87382	7987313056437940	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Obj/Program Entry_7190525443123924260.dir/tuner_gui.o	7c725bea62908e5f
+59877	61559	7984800620070855	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Exe/RAMP_IAR.out	543537d119070596
+57151	57563	7989843346596408	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/List/RAMP_IAR.map	17b7b21f714aca8b
+57151	57563	7989843346596408	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Exe/RAMP_IAR_import_lib.o	17b7b21f714aca8b
+57600	57797	7989843351071401	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Exe/RAMP_IAR.srec	70eb0d6c1e8fa3be
+57568	60172	7989843350745603	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Post-Link Action 1	e8b06692f72a054b
+57581	74052	7989843350906237	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Exe/RAMP_IAR.sbd	74c460ce0253edf8
+57151	57563	7989843346596408	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Exe/RAMP_IAR.elf	17b7b21f714aca8b
+18	1012	7989843588956448	C:/Users/a5143778/Desktop/Customers/New_MC_Platform/RAMP_IAR/RAMP_IAR/Debug/Post-Link Action 1	e8b06692f72a054b

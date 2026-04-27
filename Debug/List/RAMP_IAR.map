@@ -1,0 +1,2274 @@
+###############################################################################
+#
+# IAR ELF Linker V9.70.2.500/W64 for ARM                  27/Apr/2026  12:12:15
+# Copyright 2007-2025 IAR Systems AB.
+#
+#    Output file                  =
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Exe\RAMP_IAR.elf
+#    Map file                     =
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\List\RAMP_IAR.map
+#    Import CMSE library file out =
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Exe\RAMP_IAR_import_lib.o
+#    Command line                 =
+#        -f
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Exe\RAMP_IAR.elf.rsp
+#        (C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\board_3109224582610764880.dir\board_init.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\board_3109224582610764880.dir\board_leds.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_clocks.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_common.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_delay.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_group_irq.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_guard.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_io.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_ipc.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_irq.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_linker.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_macl.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_ospi_b.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_register_protection.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_sbrk.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_sdram.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\bsp_security.o
+#        "C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Generated
+#        Data_10512379876834115868.dir\common_data.o"
+#        "C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Generated
+#        Data_10512379876834115868.dir\elc_data.o"
+#        "C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Generated
+#        Data_10512379876834115868.dir\hal_data.o"
+#        "C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Program
+#        Entry_7190525443123924260.dir\hal_entry.o"
+#        "C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Program
+#        Entry_7190525443123924260.dir\hal_warmstart.o"
+#        "C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Program
+#        Entry_7190525443123924260.dir\ICS2_RA6T2.o"
+#        "C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Generated
+#        Data_10512379876834115868.dir\main.o"
+#        "C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Program
+#        Entry_7190525443123924260.dir\mtr_main.o"
+#        "C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Generated
+#        Data_10512379876834115868.dir\pin_data.o"
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\r_adc_b.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\r_agt.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\r_elc.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\r_gpt.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\r_gpt_three_phase.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\r_ioport.o
+#        "C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Program
+#        Entry_7190525443123924260.dir\r_mtr_ics.o"
+#        "C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Program
+#        Entry_7190525443123924260.dir\r_mtr_trajectory_user.o"
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\r_poeg.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_bemfobserver.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_control.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_decoupling.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_extobserver.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_filter.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_fluxwkn.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_fundlib.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_gain_calc.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_hal_driver.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_hal_driver_modulation.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_mtpa.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_opl2less.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_opl_damp_ctrl.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_pi_control.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_pi_gain_calc.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_pm_foc.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_pm_foc_inner.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_pm_foc_outer.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_pm_foc_outer_fnc.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_sensor_bemf.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_spdobserver.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_trajectory_linear.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_transform.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_tuner_function.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_tuner_rls.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_vlimit.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\rm_motor_volt_error_comp.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\startup.o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir\system.o
+#        "C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Generated
+#        Data_10512379876834115868.dir\vector_data.o" --cpu=Cortex-M33
+#        --fpu=VFPv5_sp --no_out_extension -o
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Exe\RAMP_IAR.elf
+#        --map
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\List\RAMP_IAR.map
+#        --config
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/script/fsp.icf
+#        -f
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR/xcl/rasc_ilinkarm
+#        (--config_search
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR)
+#        --semihosting --entry Reset_Handler --no_vfe --text_out locale
+#        --import_cmse_lib_out
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Exe\RAMP_IAR_import_lib.o)
+#        --diagnostics_format=sarif_stdout --dependencies=n
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Exe\RAMP_IAR.elf.iar_deps
+#        --dynamic_output
+#        C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Exe\RAMP_IAR.elf.iar_dynout
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+__CPP_Runtime   = 1
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because --advanced_heap
+was not specified and the application did not appear to
+be primarily optimized for speed.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+define block __ddsc_DATA_FLASH_START {  section __ddsc_DATA_FLASH_START };
+define block .data_flash.startof
+   with fixed order {  block __ddsc_DATA_FLASH_START };
+define block __data_flash_init_ram_from_data_flash
+   with fixed order {
+       section .ram_from_data_flash_init,
+       section .ram_code_from_data_flash_init };
+define block __data_flash_readonly
+   with fixed order {  section .data_flash,  section .data_flash_code };
+define block __data_flash_noinit
+   with fixed order {  section .data_flash_noinit };
+define block __ddsc_DATA_FLASH_END {  section __ddsc_DATA_FLASH_END };
+define block .data_flash.endof
+   with fixed order, alignment = 512 {  block __ddsc_DATA_FLASH_END };
+define block data_flash_BLOCK
+   with fixed order {
+       block .data_flash.startof,  block __data_flash_init_ram_from_data_flash,
+       block __data_flash_readonly,  block __data_flash_noinit,
+       block .data_flash.endof };
+"P1":  place in [from 0x800'0000 to 0x800'3fff] {  block data_flash_BLOCK };
+define block __ddsc_FLASH_START {  section __ddsc_FLASH_START };
+define block .flash.startof with fixed order {  block __ddsc_FLASH_START };
+define block _VECTORS {  section _VECTORS };
+define block __flash_vectors
+   with fixed order {
+       block _VECTORS,  section .fixed_vectors,  section .application_vectors };
+define block __flash_noinit with fixed order {  section .flash_noinit };
+define block __flash_init_ram_from_flash
+   with fixed order {
+       section .ram_from_flash_init,  section .ram_code_from_flash_init,
+       section .data*_init,  section vtable_init };
+define block __flash_readonly
+   with fixed order {
+       section .flash,  section .flash_code,  ro code,  ro data,
+       section .mcuboot_sce9_key,  section .version };
+define block __ddsc_FLASH_END {  section __ddsc_FLASH_END };
+define block .flash.endof
+   with fixed order, alignment = 1K {  block __ddsc_FLASH_END };
+define block __ddsc_FLASH_NSC {  section __ddsc_FLASH_NSC };
+define block .flash.flat_nsc
+   with fixed order, alignment = 1K {  block __ddsc_FLASH_NSC };
+define block flash_BLOCK
+   with fixed order {
+       block .flash.startof,  block __flash_vectors,  block __flash_noinit,
+       block __flash_init_ram_from_flash,  block __flash_readonly,
+       block .flash.endof,  block .flash.flat_nsc };
+"A0":  place at start of [from 0x0 to 0x7'ffff] {  block flash_BLOCK };
+define block __ddsc_RAM_START {  section __ddsc_RAM_START };
+define block .ram.startof with fixed order {  block __ddsc_RAM_START };
+define block __ram_dtc_vector
+   with fixed order {  section .fsp_dtc_vector_table };
+define block __ram_from_data_flash
+   with fixed order {
+       section .ram_from_data_flash,  section .ram_code_from_data_flash };
+define block __ram_from_flash
+   with fixed order {
+       section .ram_from_flash,  section .ram_code_from_flash,  section .data*,
+       section vtable };
+define block __ram_noinit_nocache
+   with fixed order, alignment = 32 {  section .ram_noinit_nocache };
+define block __ram_zero_nocache
+   with fixed order, end alignment = 32 {  section .ram_nocache };
+define block HEAP {  section .bss symbol g_heap };
+define block __ram_noinit
+   with fixed order {
+       block HEAP,  section .bss symbol g_main_stack,  section .ram_noinit,
+       section .noinit };
+define block __ram_zero with fixed order {  section .ram,  zi };
+define block __ram_thread_stack
+   with fixed order, alignment = 8 {  section .stack?* };
+define block __ddsc_RAM_END {  section __ddsc_RAM_END };
+define block .ram.endof
+   with fixed order, alignment = 1K {  block __ddsc_RAM_END };
+define block __ddsc_RAM_NSC {  section __ddsc_RAM_NSC };
+define block .ram.flat_nsc
+   with fixed order, alignment = 1K {  block __ddsc_RAM_NSC };
+define block ram_BLOCK
+   with fixed order {
+       block .ram.startof,  block __ram_dtc_vector,
+       block __ram_from_data_flash,  block __ram_from_flash,
+       block __ram_noinit_nocache,  block __ram_zero_nocache,
+       block __ram_noinit,  block __ram_zero,  block __ram_thread_stack,
+       block .ram.endof,  block .ram.flat_nsc };
+"A1":  place at start of [from 0x2000'0000 to 0x2000'ffff] {  block ram_BLOCK };
+define block __ddsc_OPTION_SETTING_OFS0_START {
+    section __ddsc_OPTION_SETTING_OFS0_START };
+define block .option_setting_ofs0.startof
+   with fixed order {  block __ddsc_OPTION_SETTING_OFS0_START };
+define block __option_setting_ofs0_reg
+   with fixed order {  section .option_setting_ofs0 };
+define block __ddsc_OPTION_SETTING_OFS0_END {
+    section __ddsc_OPTION_SETTING_OFS0_END };
+define block .option_setting_ofs0.endof
+   with fixed order {  block __ddsc_OPTION_SETTING_OFS0_END };
+define block option_setting_ofs0_BLOCK
+   with fixed order {
+       block .option_setting_ofs0.startof,  block __option_setting_ofs0_reg,
+       block .option_setting_ofs0.endof };
+"P2":  place in [from 0x100'a100 to 0x100'a103] {
+           block option_setting_ofs0_BLOCK };
+define block __ddsc_OPTION_SETTING_OFS1_START {
+    section __ddsc_OPTION_SETTING_OFS1_START };
+define block .option_setting_ofs1.startof
+   with fixed order {  block __ddsc_OPTION_SETTING_OFS1_START };
+define block __option_setting_ofs1_reg
+   with fixed order {  section .option_setting_ofs1 };
+define block __ddsc_OPTION_SETTING_OFS1_END {
+    section __ddsc_OPTION_SETTING_OFS1_END };
+define block .option_setting_ofs1.endof
+   with fixed order {  block __ddsc_OPTION_SETTING_OFS1_END };
+define block option_setting_ofs1_BLOCK
+   with fixed order {
+       block .option_setting_ofs1.startof,  block __option_setting_ofs1_reg,
+       block .option_setting_ofs1.endof };
+"P3":  place in [from 0x100'a180 to 0x100'a183] {
+           block option_setting_ofs1_BLOCK };
+define block __ddsc_OPTION_SETTING_BPS_START {
+    section __ddsc_OPTION_SETTING_BPS_START };
+define block .option_setting_bps.startof
+   with fixed order {  block __ddsc_OPTION_SETTING_BPS_START };
+define block __option_setting_bps_reg
+   with fixed order {  section .option_setting_bps };
+define block __ddsc_OPTION_SETTING_BPS_END {
+    section __ddsc_OPTION_SETTING_BPS_END };
+define block .option_setting_bps.endof
+   with fixed order {  block __ddsc_OPTION_SETTING_BPS_END };
+define block option_setting_bps_BLOCK
+   with fixed order {
+       block .option_setting_bps.startof,  block __option_setting_bps_reg,
+       block .option_setting_bps.endof };
+"P4":  place in [from 0x100'a1c0 to 0x100'a1c3] {
+           block option_setting_bps_BLOCK };
+define block __ddsc_OPTION_SETTING_PBPS_START {
+    section __ddsc_OPTION_SETTING_PBPS_START };
+define block .option_setting_pbps.startof
+   with fixed order {  block __ddsc_OPTION_SETTING_PBPS_START };
+define block __option_setting_pbps_reg
+   with fixed order {  section .option_setting_pbps };
+define block __ddsc_OPTION_SETTING_PBPS_END {
+    section __ddsc_OPTION_SETTING_PBPS_END };
+define block .option_setting_pbps.endof
+   with fixed order {  block __ddsc_OPTION_SETTING_PBPS_END };
+define block option_setting_pbps_BLOCK
+   with fixed order {
+       block .option_setting_pbps.startof,  block __option_setting_pbps_reg,
+       block .option_setting_pbps.endof };
+"P5":  place in [from 0x100'a1e0 to 0x100'a1e3] {
+           block option_setting_pbps_BLOCK };
+define block __ddsc_OPTION_SETTING_OFS1_SEC_START {
+    section __ddsc_OPTION_SETTING_OFS1_SEC_START };
+define block .option_setting_ofs1_sec.startof
+   with fixed order {  block __ddsc_OPTION_SETTING_OFS1_SEC_START };
+define block __option_setting_ofs1_sec_reg
+   with fixed order {  section .option_setting_ofs1_sec };
+define block __ddsc_OPTION_SETTING_OFS1_SEC_END {
+    section __ddsc_OPTION_SETTING_OFS1_SEC_END };
+define block .option_setting_ofs1_sec.endof
+   with fixed order {  block __ddsc_OPTION_SETTING_OFS1_SEC_END };
+define block option_setting_ofs1_sec_BLOCK
+   with fixed order {
+       block .option_setting_ofs1_sec.startof,
+       block __option_setting_ofs1_sec_reg,
+       block .option_setting_ofs1_sec.endof };
+"P6":  place in [from 0x100'a200 to 0x100'a203] {
+           block option_setting_ofs1_sec_BLOCK };
+define block __ddsc_OPTION_SETTING_BPS_SEC_START {
+    section __ddsc_OPTION_SETTING_BPS_SEC_START };
+define block .option_setting_bps_sec.startof
+   with fixed order {  block __ddsc_OPTION_SETTING_BPS_SEC_START };
+define block __option_setting_bps_sec_reg
+   with fixed order {  section .option_setting_bps_sec };
+define block __ddsc_OPTION_SETTING_BPS_SEC_END {
+    section __ddsc_OPTION_SETTING_BPS_SEC_END };
+define block .option_setting_bps_sec.endof
+   with fixed order {  block __ddsc_OPTION_SETTING_BPS_SEC_END };
+define block option_setting_bps_sec_BLOCK
+   with fixed order {
+       block .option_setting_bps_sec.startof,
+       block __option_setting_bps_sec_reg,
+       block .option_setting_bps_sec.endof };
+"P7":  place in [from 0x100'a240 to 0x100'a243] {
+           block option_setting_bps_sec_BLOCK };
+define block __ddsc_OPTION_SETTING_PBPS_SEC_START {
+    section __ddsc_OPTION_SETTING_PBPS_SEC_START };
+define block .option_setting_pbps_sec.startof
+   with fixed order {  block __ddsc_OPTION_SETTING_PBPS_SEC_START };
+define block __option_setting_pbps_sec_reg
+   with fixed order {  section .option_setting_pbps_sec };
+define block __ddsc_OPTION_SETTING_PBPS_SEC_END {
+    section __ddsc_OPTION_SETTING_PBPS_SEC_END };
+define block .option_setting_pbps_sec.endof
+   with fixed order {  block __ddsc_OPTION_SETTING_PBPS_SEC_END };
+define block option_setting_pbps_sec_BLOCK
+   with fixed order {
+       block .option_setting_pbps_sec.startof,
+       block __option_setting_pbps_sec_reg,
+       block .option_setting_pbps_sec.endof };
+"P8":  place in [from 0x100'a260 to 0x100'a26b] {
+           block option_setting_pbps_sec_BLOCK };
+define block __ddsc_OPTION_SETTING_OFS1_SEL_START {
+    section __ddsc_OPTION_SETTING_OFS1_SEL_START };
+define block .option_setting_ofs1_sel.startof
+   with fixed order {  block __ddsc_OPTION_SETTING_OFS1_SEL_START };
+define block __option_setting_ofs1_sel_reg
+   with fixed order {  section .option_setting_ofs1_sel };
+define block __ddsc_OPTION_SETTING_OFS1_SEL_END {
+    section __ddsc_OPTION_SETTING_OFS1_SEL_END };
+define block .option_setting_ofs1_sel.endof
+   with fixed order {  block __ddsc_OPTION_SETTING_OFS1_SEL_END };
+define block option_setting_ofs1_sel_BLOCK
+   with fixed order {
+       block .option_setting_ofs1_sel.startof,
+       block __option_setting_ofs1_sel_reg,
+       block .option_setting_ofs1_sel.endof };
+"P9":  place in [from 0x100'a280 to 0x100'a283] {
+           block option_setting_ofs1_sel_BLOCK };
+define block __ddsc_OPTION_SETTING_BPS_SEL_START {
+    section __ddsc_OPTION_SETTING_BPS_SEL_START };
+define block .option_setting_bps_sel.startof
+   with fixed order {  block __ddsc_OPTION_SETTING_BPS_SEL_START };
+define block __option_setting_bps_sel_reg
+   with fixed order {  section .option_setting_bps_sel };
+define block __ddsc_OPTION_SETTING_BPS_SEL_END {
+    section __ddsc_OPTION_SETTING_BPS_SEL_END };
+define block .option_setting_bps_sel.endof
+   with fixed order {  block __ddsc_OPTION_SETTING_BPS_SEL_END };
+define block option_setting_bps_sel_BLOCK
+   with fixed order {
+       block .option_setting_bps_sel.startof,
+       block __option_setting_bps_sel_reg,
+       block .option_setting_bps_sel.endof };
+"P10": place in [from 0x100'a2c0 to 0x100'a2c3] {
+           block option_setting_bps_sel_BLOCK };
+do not initialize {  zi };
+initialize manually with alignment preservation, packing = none {
+    section .ram_from_data_flash,  section .ram_code_from_data_flash,
+    section .ram_from_flash,  section .ram_code_from_flash,  section .data*,
+    section vtable };
+keep {  section __ddsc_DATA_FLASH_START };
+keep {  section __ddsc_DATA_FLASH_END };
+keep {  section __ddsc_FLASH_START };
+keep {  section _VECTORS };
+keep {  section __ddsc_FLASH_END };
+keep {  section __ddsc_FLASH_NSC };
+keep {  section __ddsc_RAM_START };
+keep {  section __ddsc_RAM_END };
+keep {  section __ddsc_RAM_NSC };
+keep {  section __ddsc_OPTION_SETTING_OFS0_START };
+keep {  section __ddsc_OPTION_SETTING_OFS0_END };
+keep {  section __ddsc_OPTION_SETTING_OFS1_START };
+keep {  section __ddsc_OPTION_SETTING_OFS1_END };
+keep {  section __ddsc_OPTION_SETTING_BPS_START };
+keep {  section __ddsc_OPTION_SETTING_BPS_END };
+keep {  section __ddsc_OPTION_SETTING_PBPS_START };
+keep {  section __ddsc_OPTION_SETTING_PBPS_END };
+keep {  section __ddsc_OPTION_SETTING_OFS1_SEC_START };
+keep {  section __ddsc_OPTION_SETTING_OFS1_SEC_END };
+keep {  section __ddsc_OPTION_SETTING_BPS_SEC_START };
+keep {  section __ddsc_OPTION_SETTING_BPS_SEC_END };
+keep {  section __ddsc_OPTION_SETTING_PBPS_SEC_START };
+keep {  section __ddsc_OPTION_SETTING_PBPS_SEC_END };
+keep {  section __ddsc_OPTION_SETTING_OFS1_SEL_START };
+keep {  section __ddsc_OPTION_SETTING_OFS1_SEL_END };
+keep {  section __ddsc_OPTION_SETTING_BPS_SEL_START };
+keep {  section __ddsc_OPTION_SETTING_BPS_SEL_END };
+keep {
+    section .fixed_vectors,  section .application_vectors,
+    section .mcuboot_sce9_key,  section .version,  section .stack?*,
+    section .option_setting_ofs0,  section .option_setting_ofs1,
+    section .option_setting_bps,  section .option_setting_pbps,
+    section .option_setting_ofs1_sec,  section .option_setting_bps_sec,
+    section .option_setting_pbps_sec,  section .option_setting_ofs1_sel,
+    section .option_setting_bps_sel };
+
+No sections matched the following patterns:
+
+  section .data_flash                     in block __data_flash_readonly
+  section .data_flash_code                in block __data_flash_readonly
+  section .data_flash_noinit              in block __data_flash_noinit
+  section .flash                          in block __flash_readonly
+  section .flash_code                     in block __flash_readonly
+  section .flash_noinit                   in block __flash_noinit
+  section .fsp_dtc_vector_table           in block __ram_dtc_vector
+  section .mcuboot_sce9_key               in block __flash_readonly
+  section .noinit                         in block __ram_noinit
+  section .option_setting_bps             in block __option_setting_bps_reg
+  section .option_setting_bps_sec         in block __option_setting_bps_sec_reg
+  section .option_setting_bps_sel         in block __option_setting_bps_sel_reg
+  section .option_setting_ofs1            in block __option_setting_ofs1_reg
+  section .option_setting_pbps            in block __option_setting_pbps_reg
+  section .option_setting_pbps_sec        in block __option_setting_pbps_sec_reg
+  section .ram                            in block __ram_zero
+  section .ram_code_from_data_flash       in block __ram_from_data_flash
+  section .ram_code_from_data_flash_init  in block __data_flash_init_ram_from_data_flash
+  section .ram_code_from_flash            in block __ram_from_flash
+  section .ram_code_from_flash_init       in block __flash_init_ram_from_flash
+  section .ram_from_data_flash            in block __ram_from_data_flash
+  section .ram_from_data_flash_init       in block __data_flash_init_ram_from_data_flash
+  section .ram_from_flash                 in block __ram_from_flash
+  section .ram_from_flash_init            in block __flash_init_ram_from_flash
+  section .ram_nocache                    in block __ram_zero_nocache
+  section .ram_noinit_nocache             in block __ram_noinit_nocache
+  section .stack?*                        in block __ram_thread_stack
+  section vtable                          in block __ram_from_flash
+  section vtable_init                     in block __flash_init_ram_from_flash
+
+
+  Section                 Kind         Address  Alignment    Size  Object
+  -------                 ----         -------  ---------    ----  ------
+"A0":                                                      0xa400
+  flash_BLOCK                              0x0             0xa400  <Block>
+    .flash.startof                         0x0                0x0  <Block>
+      __ddsc_FLASH_START                   0x0                0x0  <Block>
+        __ddsc_FLASH_START
+                          const            0x0                0x0  <internal module>
+    __flash_vectors                        0x0               0x80  <Block>
+      _VECTORS                             0x0                0x0  <Block>
+        _VECTORS          const            0x0                0x0  <internal module>
+      .fixed_vectors      const            0x0          4    0x40  startup.o [4]
+      .application_vectors
+                          const           0x40          4    0x40  vector_data.o [1]
+    __flash_init_ram_from_flash
+                                          0x80               0x3c  <Block>
+      Initializer bytes   const           0x80          4    0x3c  <for section .data*-1>
+    __flash_readonly                      0xbc             0xa134  <Block>
+      .text               ro code         0xbc          4   0x164  bsp_clocks.o [4]
+      .text               ro code        0x220          4    0xda  bsp_delay.o [4]
+      .text               ro code        0x2fc          4    0x68  bsp_group_irq.o [4]
+      .text               ro code        0x364          4    0xb8  bsp_irq.o [4]
+      .text               ro code        0x41c          4    0xb0  bsp_register_protection.o [4]
+      .text               ro code        0x4cc          4    0x66  ABImemset.o [7]
+      .text               ro code        0x534          4    0x20  hal_warmstart.o [2]
+      .text               ro code        0x554          4   0x1a8  r_ioport.o [4]
+      .text               ro code        0x6fc          4   0x7ec  ICS2_RA6T2.o [2]
+      .text               ro code        0xee8          4   0x5a6  mtr_main.o [2]
+      .text               ro code       0x1490          4    0x76  ABImemcpy_unaligned.o [7]
+      .text               ro code       0x1508          4   0x51c  r_mtr_ics.o [2]
+      .text               ro code       0x1a24          4   0x266  r_poeg.o [4]
+      .text               ro code       0x1c8c          4   0x3f0  rm_motor_control.o [4]
+      .text               ro code       0x207c          4  0x10c8  r_adc_b.o [4]
+      .text               ro code       0x3144          4   0x68a  r_agt.o [4]
+      .text               ro code       0x37d0          4    0xe0  r_elc.o [4]
+      .text               ro code       0x38b0          4   0xa32  r_gpt.o [4]
+      .text               ro code       0x42e4          4   0x1b0  r_gpt_three_phase.o [4]
+      .text               ro code       0x4494          4   0x2e4  rm_motor_bemfobserver.o [4]
+      .text               ro code       0x4778          4    0x88  rm_motor_fundlib.o [4]
+      .text               ro code       0x4800          4    0x14  copysignf.o [6]
+      .text               ro code       0x4814          4    0x54  rm_motor_decoupling.o [4]
+      .text               ro code       0x4868          4    0x92  rm_motor_extobserver.o [4]
+      .text               ro code       0x48fc          4   0x16a  rm_motor_filter.o [4]
+      .text               ro code       0x4a68          4   0x3b6  rm_motor_fluxwkn.o [4]
+      .text               ro code       0x4e20          4    0x1e  sqrtf.o [6]
+      .text               ro code       0x4e40          4    0x54  rm_motor_gain_calc.o [4]
+      .text               ro code       0x4e94          4  0x1074  rm_motor_hal_driver.o [4]
+      .text               ro code       0x5f08          4   0x344  rm_motor_hal_driver_modulation.o [4]
+      .text               ro code       0x624c          4    0x1c  U32ToDbl.o [6]
+      .text               ro code       0x6268          4    0x12  math_wrappers64.o [6]
+      .text               ro code       0x627c          4    0x36  DblToS32.o [6]
+      .text               ro code       0x62b4          4   0x2ea  logx64.o [6]
+      .text               ro code       0x65a0          4    0x70  frexp.o [6]
+      .text               ro code       0x6610          4    0x34  DblCmpLe.o [6]
+      .text               ro code       0x6644          4   0x1aa  DblMul.o [6]
+      .text               ro code       0x67f0          4   0x25e  DblAddSub.o [6]
+      .text               ro code       0x6a50          4   0x246  DblDiv.o [6]
+      .text               ro code       0x6c98          4    0x22  S32ToDbl.o [6]
+      .text               ro code       0x6cbc          4    0x80  rm_motor_opl2less.o [4]
+      .text               ro code       0x6d3c          4   0x148  rm_motor_opl_damp_ctrl.o [4]
+      .text               ro code       0x6e84          4    0x6c  rm_motor_pi_gain_calc.o [4]
+      .text               ro code       0x6ef0          4   0x162  rm_motor_pm_foc.o [4]
+      .text               ro code       0x7054          4   0x926  rm_motor_pm_foc_inner.o [4]
+      .text               ro code       0x797c          4   0x728  rm_motor_pm_foc_outer.o [4]
+      .text               ro code       0x80a4          4   0x4e6  rm_motor_volt_error_comp.o [4]
+      .text               ro code       0x858c          4   0x158  rm_motor_transform.o [4]
+      .text               ro code       0x86e4          4    0x80  rm_motor_vlimit.o [4]
+      .text               ro code       0x8764          2    0x50  rm_motor_pi_control.o [4]
+      .text               ro code       0x87b4          4   0x238  rm_motor_spdobserver.o [4]
+      .text               ro code       0x89ec          4    0x28  fminf.o [6]
+      .text               ro code       0x8a14          4   0x118  rm_motor_pm_foc_outer_fnc.o [4]
+      .text               ro code       0x8b2c          4   0x974  rm_motor_sensor_bemf.o [4]
+      .text               ro code       0x94a0          4    0x10  startup.o [4]
+      .text               ro code       0x94b0          4   0x1a4  system.o [4]
+      .text               ro code       0x9654          2     0xa  main.o [1]
+      .text               ro code       0x9660          4    0x18  cppinit.o [5]
+      .text               ro code       0x9678          2     0x2  board_init.o [3]
+      .text               ro code       0x967a          2     0xc  hal_entry.o [2]
+      .text               ro code       0x9688          4    0x22  fpinit_M.o [6]
+      .rodata             const         0x96ac          4    0x18  bsp_linker.o [4]
+      .rodata             const         0x96c4          4    0x20  bsp_linker.o [4]
+      .rodata             const         0x96e4          4     0x8  bsp_linker.o [4]
+      .rodata             const         0x96ec          4    0x18  bsp_linker.o [4]
+      .rodata             const         0x9704          4     0xc  bsp_register_protection.o [4]
+      .rodata             const         0x9710          4     0xc  common_data.o [1]
+      .rodata             const         0x971c          4    0x40  elc_data.o [1]
+      .rodata             const         0x975c          4    0x1c  hal_data.o [1]
+      .rodata             const         0x9778          4     0xc  hal_data.o [1]
+      .rodata             const         0x9784          4     0x8  hal_data.o [1]
+      .rodata             const         0x978c          4    0x20  hal_data.o [1]
+      .rodata             const         0x97ac          4     0xc  hal_data.o [1]
+      .rodata             const         0x97b8          4    0x58  hal_data.o [1]
+      .rodata             const         0x9810          4     0x8  hal_data.o [1]
+      .rodata             const         0x9818          4     0xc  hal_data.o [1]
+      .rodata             const         0x9824          4    0x20  hal_data.o [1]
+      .rodata             const         0x9844          4    0x58  hal_data.o [1]
+      .rodata             const         0x989c          4    0x20  hal_data.o [1]
+      .rodata             const         0x98bc          4     0xc  hal_data.o [1]
+      .rodata             const         0x98c8          4    0x20  hal_data.o [1]
+      .rodata             const         0x98e8          4    0x58  hal_data.o [1]
+      .rodata             const         0x9940          4    0x20  hal_data.o [1]
+      .rodata             const         0x9960          4     0xc  hal_data.o [1]
+      .rodata             const         0x996c          4    0x20  hal_data.o [1]
+      .rodata             const         0x998c          4    0x58  hal_data.o [1]
+      .rodata             const         0x99e4          4    0x20  hal_data.o [1]
+      .rodata             const         0x9a04          4     0xc  hal_data.o [1]
+      .rodata             const         0x9a10          4    0x20  hal_data.o [1]
+      .rodata             const         0x9a30          4     0xc  hal_data.o [1]
+      .rodata             const         0x9a3c          4    0x14  hal_data.o [1]
+      .rodata             const         0x9a50          4    0x14  hal_data.o [1]
+      .rodata             const         0x9a64          4    0x14  hal_data.o [1]
+      .rodata             const         0x9a78          4    0x14  hal_data.o [1]
+      .rodata             const         0x9a8c          4    0x14  hal_data.o [1]
+      .rodata             const         0x9aa0          4    0x10  hal_data.o [1]
+      .rodata             const         0x9ab0          4     0x4  hal_data.o [1]
+      .rodata             const         0x9ab4          4    0x1c  hal_data.o [1]
+      .rodata             const         0x9ad0          4    0x1c  hal_data.o [1]
+      .rodata             const         0x9aec          4     0x8  hal_data.o [1]
+      .rodata             const         0x9af4          4     0x8  hal_data.o [1]
+      .rodata             const         0x9afc          4    0x38  hal_data.o [1]
+      .rodata             const         0x9b34          4   0x104  hal_data.o [1]
+      .rodata             const         0x9c38          4    0x18  hal_data.o [1]
+      .rodata             const         0x9c50          4    0x10  hal_data.o [1]
+      .rodata             const         0x9c60          4    0x84  hal_data.o [1]
+      .rodata             const         0x9ce4          4    0x18  hal_data.o [1]
+      .rodata             const         0x9cfc          4     0xc  hal_data.o [1]
+      .rodata             const         0x9d08          4     0xc  hal_data.o [1]
+      .rodata             const         0x9d14          4     0x8  hal_data.o [1]
+      .rodata             const         0x9d1c          4    0x9c  hal_data.o [1]
+      .rodata             const         0x9db8          4    0x14  hal_data.o [1]
+      .rodata             const         0x9dcc          4     0xc  hal_data.o [1]
+      .rodata             const         0x9dd8          4     0x8  hal_data.o [1]
+      .rodata             const         0x9de0          4    0x10  hal_data.o [1]
+      .rodata             const         0x9df0          4     0xc  hal_data.o [1]
+      .rodata             const         0x9dfc          4    0x14  mtr_main.o [2]
+      .rodata             const         0x9e10          4    0x2c  mtr_main.o [2]
+      .rodata             const         0x9e3c          4     0xc  mtr_main.o [2]
+      .rodata             const         0x9e48          4   0x130  pin_data.o [1]
+      .rodata             const         0x9f78          4     0xc  pin_data.o [1]
+      .rodata             const         0x9f84          4    0x34  r_adc_b.o [4]
+      .rodata             const         0x9fb8          4    0x34  r_agt.o [4]
+      .rodata             const         0x9fec          4    0x1c  r_elc.o [4]
+      .rodata             const         0xa008          4     0x8  r_gpt.o [4]
+      .rodata             const         0xa010          4     0x8  r_gpt.o [4]
+      .rodata             const         0xa018          4    0x34  r_gpt.o [4]
+      .rodata             const         0xa04c          4    0x1c  r_gpt_three_phase.o [4]
+      .rodata             const         0xa068          4    0x18  r_poeg.o [4]
+      .rodata             const         0xa080          4     0xc  rm_motor_control.o [4]
+      .rodata             const         0xa08c          4    0x30  rm_motor_control.o [4]
+      .rodata             const         0xa0bc          4    0x38  rm_motor_control.o [4]
+      .rodata             const         0xa0f4          4    0x34  rm_motor_hal_driver.o [4]
+      .rodata             const         0xa128          4    0x28  rm_motor_pm_foc.o [4]
+      .rodata             const         0xa150          4    0x10  rm_motor_pm_foc_inner.o [4]
+      .rodata             const         0xa160          4    0x1c  rm_motor_sensor_bemf.o [4]
+      .rodata             const         0xa17c          4    0x20  vector_data.o [1]
+      .rodata             const         0xa19c                0x1  rm_motor_hal_driver.o [4]
+      .version            const         0xa1a0          4     0x4  bsp_common.o [4]
+      .version            const         0xa1a4          4     0x8  bsp_common.o [4]
+      .version            const         0xa1ac          4    0x44  bsp_common.o [4]
+    .flash.endof                        0xa400       1024     0x0  <Block>
+      __ddsc_FLASH_END                  0xa400                0x0  <Block>
+        __ddsc_FLASH_END  const         0xa400                0x0  <internal module>
+    .flash.flat_nsc                     0xa400       1024     0x0  <Block>
+      __ddsc_FLASH_NSC                  0xa400                0x0  <Block>
+        __ddsc_FLASH_NSC  const         0xa400                0x0  <internal module>
+                                      - 0xa400             0xa400
+
+"P2":                                                         0x4
+  option_setting_ofs0_BLOCK
+                                    0x100'a100                0x4  <Block>
+    .option_setting_ofs0.startof
+                                    0x100'a100                0x0  <Block>
+      __ddsc_OPTION_SETTING_OFS0_START
+                                    0x100'a100                0x0  <Block>
+        __ddsc_OPTION_SETTING_OFS0_START
+                          const     0x100'a100                0x0  <internal module>
+    __option_setting_ofs0_reg
+                                    0x100'a100                0x4  <Block>
+      .option_setting_ofs0
+                          const     0x100'a100          4     0x4  bsp_linker.o [4]
+    .option_setting_ofs0.endof
+                                    0x100'a104                0x0  <Block>
+      __ddsc_OPTION_SETTING_OFS0_END
+                                    0x100'a104                0x0  <Block>
+        __ddsc_OPTION_SETTING_OFS0_END
+                          const     0x100'a104                0x0  <internal module>
+                                  - 0x100'a104                0x4
+
+"P3":                                                         0x0
+  option_setting_ofs1_BLOCK
+                                    0x100'a180                0x0  <Block>
+    .option_setting_ofs1.startof
+                                    0x100'a180                0x0  <Block>
+      __ddsc_OPTION_SETTING_OFS1_START
+                                    0x100'a180                0x0  <Block>
+        __ddsc_OPTION_SETTING_OFS1_START
+                          const     0x100'a180                0x0  <internal module>
+    .option_setting_ofs1.endof
+                                    0x100'a180                0x0  <Block>
+      __ddsc_OPTION_SETTING_OFS1_END
+                                    0x100'a180                0x0  <Block>
+        __ddsc_OPTION_SETTING_OFS1_END
+                          const     0x100'a180                0x0  <internal module>
+
+"P4":                                                         0x0
+  option_setting_bps_BLOCK
+                                    0x100'a1c0                0x0  <Block>
+    .option_setting_bps.startof
+                                    0x100'a1c0                0x0  <Block>
+      __ddsc_OPTION_SETTING_BPS_START
+                                    0x100'a1c0                0x0  <Block>
+        __ddsc_OPTION_SETTING_BPS_START
+                          const     0x100'a1c0                0x0  <internal module>
+    .option_setting_bps.endof
+                                    0x100'a1c0                0x0  <Block>
+      __ddsc_OPTION_SETTING_BPS_END
+                                    0x100'a1c0                0x0  <Block>
+        __ddsc_OPTION_SETTING_BPS_END
+                          const     0x100'a1c0                0x0  <internal module>
+
+"P5":                                                         0x0
+  option_setting_pbps_BLOCK
+                                    0x100'a1e0                0x0  <Block>
+    .option_setting_pbps.startof
+                                    0x100'a1e0                0x0  <Block>
+      __ddsc_OPTION_SETTING_PBPS_START
+                                    0x100'a1e0                0x0  <Block>
+        __ddsc_OPTION_SETTING_PBPS_START
+                          const     0x100'a1e0                0x0  <internal module>
+    .option_setting_pbps.endof
+                                    0x100'a1e0                0x0  <Block>
+      __ddsc_OPTION_SETTING_PBPS_END
+                                    0x100'a1e0                0x0  <Block>
+        __ddsc_OPTION_SETTING_PBPS_END
+                          const     0x100'a1e0                0x0  <internal module>
+
+"P6":                                                         0x4
+  option_setting_ofs1_sec_BLOCK
+                                    0x100'a200                0x4  <Block>
+    .option_setting_ofs1_sec.startof
+                                    0x100'a200                0x0  <Block>
+      __ddsc_OPTION_SETTING_OFS1_SEC_START
+                                    0x100'a200                0x0  <Block>
+        __ddsc_OPTION_SETTING_OFS1_SEC_START
+                          const     0x100'a200                0x0  <internal module>
+    __option_setting_ofs1_sec_reg
+                                    0x100'a200                0x4  <Block>
+      .option_setting_ofs1_sec
+                          const     0x100'a200          4     0x4  bsp_linker.o [4]
+    .option_setting_ofs1_sec.endof
+                                    0x100'a204                0x0  <Block>
+      __ddsc_OPTION_SETTING_OFS1_SEC_END
+                                    0x100'a204                0x0  <Block>
+        __ddsc_OPTION_SETTING_OFS1_SEC_END
+                          const     0x100'a204                0x0  <internal module>
+                                  - 0x100'a204                0x4
+
+"P7":                                                         0x0
+  option_setting_bps_sec_BLOCK
+                                    0x100'a240                0x0  <Block>
+    .option_setting_bps_sec.startof
+                                    0x100'a240                0x0  <Block>
+      __ddsc_OPTION_SETTING_BPS_SEC_START
+                                    0x100'a240                0x0  <Block>
+        __ddsc_OPTION_SETTING_BPS_SEC_START
+                          const     0x100'a240                0x0  <internal module>
+    .option_setting_bps_sec.endof
+                                    0x100'a240                0x0  <Block>
+      __ddsc_OPTION_SETTING_BPS_SEC_END
+                                    0x100'a240                0x0  <Block>
+        __ddsc_OPTION_SETTING_BPS_SEC_END
+                          const     0x100'a240                0x0  <internal module>
+
+"P8":                                                         0x0
+  option_setting_pbps_sec_BLOCK
+                                    0x100'a260                0x0  <Block>
+    .option_setting_pbps_sec.startof
+                                    0x100'a260                0x0  <Block>
+      __ddsc_OPTION_SETTING_PBPS_SEC_START
+                                    0x100'a260                0x0  <Block>
+        __ddsc_OPTION_SETTING_PBPS_SEC_START
+                          const     0x100'a260                0x0  <internal module>
+    .option_setting_pbps_sec.endof
+                                    0x100'a260                0x0  <Block>
+      __ddsc_OPTION_SETTING_PBPS_SEC_END
+                                    0x100'a260                0x0  <Block>
+        __ddsc_OPTION_SETTING_PBPS_SEC_END
+                          const     0x100'a260                0x0  <internal module>
+
+"P9":                                                         0x4
+  option_setting_ofs1_sel_BLOCK
+                                    0x100'a280                0x4  <Block>
+    .option_setting_ofs1_sel.startof
+                                    0x100'a280                0x0  <Block>
+      __ddsc_OPTION_SETTING_OFS1_SEL_START
+                                    0x100'a280                0x0  <Block>
+        __ddsc_OPTION_SETTING_OFS1_SEL_START
+                          const     0x100'a280                0x0  <internal module>
+    __option_setting_ofs1_sel_reg
+                                    0x100'a280                0x4  <Block>
+      .option_setting_ofs1_sel
+                          const     0x100'a280          4     0x4  bsp_linker.o [4]
+    .option_setting_ofs1_sel.endof
+                                    0x100'a284                0x0  <Block>
+      __ddsc_OPTION_SETTING_OFS1_SEL_END
+                                    0x100'a284                0x0  <Block>
+        __ddsc_OPTION_SETTING_OFS1_SEL_END
+                          const     0x100'a284                0x0  <internal module>
+                                  - 0x100'a284                0x4
+
+"P10":                                                        0x0
+  option_setting_bps_sel_BLOCK
+                                    0x100'a2c0                0x0  <Block>
+    .option_setting_bps_sel.startof
+                                    0x100'a2c0                0x0  <Block>
+      __ddsc_OPTION_SETTING_BPS_SEL_START
+                                    0x100'a2c0                0x0  <Block>
+        __ddsc_OPTION_SETTING_BPS_SEL_START
+                          const     0x100'a2c0                0x0  <internal module>
+    .option_setting_bps_sel.endof
+                                    0x100'a2c0                0x0  <Block>
+      __ddsc_OPTION_SETTING_BPS_SEL_END
+                                    0x100'a2c0                0x0  <Block>
+        __ddsc_OPTION_SETTING_BPS_SEL_END
+                          const     0x100'a2c0                0x0  <internal module>
+
+"P1":                                                         0x0
+  data_flash_BLOCK                  0x800'0000                0x0  <Block>
+    .data_flash.startof             0x800'0000                0x0  <Block>
+      __ddsc_DATA_FLASH_START
+                                    0x800'0000                0x0  <Block>
+        __ddsc_DATA_FLASH_START
+                          const     0x800'0000                0x0  <internal module>
+    __data_flash_init_ram_from_data_flash
+                                    0x800'0000                0x0  <Block>
+    .data_flash.endof               0x800'0000        512     0x0  <Block>
+      __ddsc_DATA_FLASH_END
+                                    0x800'0000                0x0  <Block>
+        __ddsc_DATA_FLASH_END
+                          const     0x800'0000                0x0  <internal module>
+
+"A1":                                                      0x1000
+  ram_BLOCK                        0x2000'0000             0x1000  <Block>
+    .ram.startof                   0x2000'0000                0x0  <Block>
+      __ddsc_RAM_START             0x2000'0000                0x0  <Block>
+        __ddsc_RAM_START  const    0x2000'0000                0x0  <internal module>
+    __ram_from_data_flash
+                                   0x2000'0000                0x0  <Block>
+    __ram_from_flash               0x2000'0000               0x3c  <Block>
+      section .data*-1             0x2000'0000          4    0x3c  <Init block>
+        .data             inited   0x2000'0000          4     0x8  hal_data.o [1]
+        .data             inited   0x2000'0008          4    0x10  hal_data.o [1]
+        .data             inited   0x2000'0018          4    0x1c  hal_data.o [1]
+        .data             inited   0x2000'0034          4     0x4  r_mtr_ics.o [2]
+        .data             inited   0x2000'0038          4     0x4  r_mtr_ics.o [2]
+    __ram_noinit_nocache           0x2000'0040         32     0x0  <Block>
+    __ram_zero_nocache             0x2000'0040                0x0  <Block>
+    __ram_noinit                   0x2000'0040              0x424  <Block>
+      HEAP                         0x2000'0040                0x1  <Block>
+        .bss              uninit   0x2000'0040          8     0x1  startup.o [4]
+      .bss                uninit   0x2000'0048          8   0x400  startup.o [4]
+      .ram_noinit         uninit   0x2000'0448          4    0x1c  bsp_clocks.o [4]
+    __ram_zero                     0x2000'0468              0x9d4  <Block>
+      .bss                uninit   0x2000'0468          8    0xb8  hal_data.o [1]
+      .bss                uninit   0x2000'0520          4    0x40  bsp_group_irq.o [4]
+      .bss                uninit   0x2000'0560          4     0x4  bsp_io.o [4]
+      .bss                uninit   0x2000'0564          4    0x40  bsp_irq.o [4]
+      .bss                uninit   0x2000'05a4          4     0xc  bsp_register_protection.o [4]
+      .bss                uninit   0x2000'05b0          4     0x8  common_data.o [1]
+      .bss                uninit   0x2000'05b8          4     0x8  common_data.o [1]
+      .bss                uninit   0x2000'05c0          4    0x18  hal_data.o [1]
+      .bss                uninit   0x2000'05d8          4    0x20  hal_data.o [1]
+      .bss                uninit   0x2000'05f8          4   0x134  hal_data.o [1]
+      .bss                uninit   0x2000'072c          4    0x20  hal_data.o [1]
+      .bss                uninit   0x2000'074c          4    0x20  hal_data.o [1]
+      .bss                uninit   0x2000'076c          4    0x20  hal_data.o [1]
+      .bss                uninit   0x2000'078c          4    0x1c  hal_data.o [1]
+      .bss                uninit   0x2000'07a8          4    0x28  hal_data.o [1]
+      .bss                uninit   0x2000'07d0          4   0x134  hal_data.o [1]
+      .bss                uninit   0x2000'0904          4   0x110  hal_data.o [1]
+      .bss                uninit   0x2000'0a14          4    0x14  hal_data.o [1]
+      .bss                uninit   0x2000'0a28          4    0x58  hal_data.o [1]
+      .bss                uninit   0x2000'0a80          4    0x1c  hal_data.o [1]
+      .bss                uninit   0x2000'0a9c          4    0x30  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0acc          4    0x20  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0aec          4     0x4  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0af0          4     0x4  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0af4          4    0x14  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0b08          4    0x14  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0b1c          4     0x4  mtr_main.o [2]
+      .bss                uninit   0x2000'0b20          4    0x14  mtr_main.o [2]
+      .bss                uninit   0x2000'0b34          4    0x2c  mtr_main.o [2]
+      .bss                uninit   0x2000'0b60          4     0x8  mtr_main.o [2]
+      .bss                uninit   0x2000'0b68          4    0x10  mtr_main.o [2]
+      .bss                uninit   0x2000'0b78          4    0x14  mtr_main.o [2]
+      .bss                uninit   0x2000'0b8c          4    0x9c  mtr_main.o [2]
+      .bss                uninit   0x2000'0c28          4     0x8  mtr_main.o [2]
+      .bss                uninit   0x2000'0c30          4    0x58  mtr_main.o [2]
+      .bss                uninit   0x2000'0c88          4    0x18  mtr_main.o [2]
+      .bss                uninit   0x2000'0ca0          4    0x84  mtr_main.o [2]
+      .bss                uninit   0x2000'0d24          4     0x8  r_agt.o [4]
+      .bss                uninit   0x2000'0d2c          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d30          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d34          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d38          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d3c          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d40          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d44          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d48          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d4c          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d50          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d54          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d58          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d5c          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d60          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d64          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d68          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d6c          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d70          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d74          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d78          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d7c          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d80          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d84          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d88          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d8c          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d90          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d94          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d98          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0d9c          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0da0          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0da4          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0da8          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0dac          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0db0          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0db4          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0db8          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0dbc          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0dc0          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0dc4          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0dc8          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0dcc          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0dd0          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0dd4          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0dd8          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0ddc          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0de0          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0de4          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0de8          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0dec          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0df0          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0df4          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0df8          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0dfc          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0e00          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0e04          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0e08          4     0x4  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0e0c          4     0x4  system.o [4]
+      .bss                uninit   0x2000'0e10          2     0x2  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0e12          2     0x2  mtr_main.o [2]
+      .bss                uninit   0x2000'0e14          2     0x2  mtr_main.o [2]
+      .bss                uninit   0x2000'0e16          2     0x2  mtr_main.o [2]
+      .bss                uninit   0x2000'0e18          2     0x2  mtr_main.o [2]
+      .bss                uninit   0x2000'0e1a          2     0x2  mtr_main.o [2]
+      .bss                uninit   0x2000'0e1c          2     0x2  mtr_main.o [2]
+      .bss                uninit   0x2000'0e1e          2     0x2  mtr_main.o [2]
+      .bss                uninit   0x2000'0e20          2     0x2  mtr_main.o [2]
+      .bss                uninit   0x2000'0e22          2     0x2  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0e24                0x1  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0e25                0x1  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0e26                0x1  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0e27                0x1  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0e28                0x1  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0e29                0x1  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0e2a                0x1  ICS2_RA6T2.o [2]
+      .bss                uninit   0x2000'0e2b                0x1  mtr_main.o [2]
+      .bss                uninit   0x2000'0e2c                0x1  mtr_main.o [2]
+      .bss                uninit   0x2000'0e2d                0x1  mtr_main.o [2]
+      .bss                uninit   0x2000'0e2e                0x1  mtr_main.o [2]
+      .bss                uninit   0x2000'0e2f                0x1  mtr_main.o [2]
+      .bss                uninit   0x2000'0e30                0x1  mtr_main.o [2]
+      .bss                uninit   0x2000'0e31                0x1  mtr_main.o [2]
+      .bss                uninit   0x2000'0e32                0x1  mtr_main.o [2]
+      .bss                uninit   0x2000'0e33                0x1  mtr_main.o [2]
+      .bss                uninit   0x2000'0e34                0x1  mtr_main.o [2]
+      .bss                uninit   0x2000'0e35                0x1  mtr_main.o [2]
+      .bss                uninit   0x2000'0e36                0x1  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0e37                0x1  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0e38                0x1  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0e39                0x1  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0e3a                0x1  r_mtr_ics.o [2]
+      .bss                uninit   0x2000'0e3b                0x1  r_mtr_ics.o [2]
+    .ram.endof                     0x2000'1000       1024     0x0  <Block>
+      __ddsc_RAM_END               0x2000'1000                0x0  <Block>
+        __ddsc_RAM_END    const    0x2000'1000                0x0  <internal module>
+    .ram.flat_nsc                  0x2000'1000       1024     0x0  <Block>
+      __ddsc_RAM_NSC               0x2000'1000                0x0  <Block>
+        __ddsc_RAM_NSC    const    0x2000'1000                0x0  <internal module>
+                                 - 0x2000'1000             0x1000
+
+Unused ranges:
+
+        From          To    Size
+        ----          --    ----
+  0x100'a180  0x100'a183     0x4
+  0x100'a1c0  0x100'a1c3     0x4
+  0x100'a1e0  0x100'a1e3     0x4
+  0x100'a240  0x100'a243     0x4
+  0x100'a260  0x100'a26b     0xc
+  0x100'a2c0  0x100'a2c3     0x4
+  0x800'0000  0x800'3fff  0x4000
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                            ro code  ro data  rw data
+    ------                            -------  -------  -------
+command line/config:
+    <internal module>
+    -----------------------------------------------------------
+    Total:
+
+C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Generated Data_10512379876834115868.dir: [1]
+    common_data.o                                   12       16
+    elc_data.o                                      64
+    hal_data.o                                   1'748    1'480
+    main.o                                 10
+    pin_data.o                                     316
+    vector_data.o                                   96
+    -----------------------------------------------------------
+    Total:                                 10    2'236    1'496
+
+C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Program Entry_7190525443123924260.dir: [2]
+    ICS2_RA6T2.o                        2'028               137
+    hal_entry.o                            12
+    hal_warmstart.o                        32
+    mtr_main.o                          1'446       76      547
+    r_mtr_ics.o                         1'308        8      240
+    -----------------------------------------------------------
+    Total:                              4'826       84      924
+
+C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\board_3109224582610764880.dir: [3]
+    board_init.o                            2
+    -----------------------------------------------------------
+    Total:                                  2
+
+C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir: [4]
+    bsp_clocks.o                          356                28
+    bsp_common.o                                    80
+    bsp_delay.o                           218
+    bsp_group_irq.o                       104                64
+    bsp_io.o                                                  4
+    bsp_irq.o                             184                64
+    bsp_linker.o                                   100
+    bsp_register_protection.o             176       12       12
+    r_adc_b.o                           4'296       52
+    r_agt.o                             1'674       52        8
+    r_elc.o                               224       28
+    r_gpt.o                             2'610       68
+    r_gpt_three_phase.o                   432       28
+    r_ioport.o                            424
+    r_poeg.o                              614       24
+    rm_motor_bemfobserver.o               740
+    rm_motor_control.o                  1'008      116
+    rm_motor_decoupling.o                  84
+    rm_motor_extobserver.o                146
+    rm_motor_filter.o                     362
+    rm_motor_fluxwkn.o                    950
+    rm_motor_fundlib.o                    136
+    rm_motor_gain_calc.o                   84
+    rm_motor_hal_driver.o               4'212       53
+    rm_motor_hal_driver_modulation.o      836
+    rm_motor_opl2less.o                   128
+    rm_motor_opl_damp_ctrl.o              328
+    rm_motor_pi_control.o                  80
+    rm_motor_pi_gain_calc.o               108
+    rm_motor_pm_foc.o                     354       40
+    rm_motor_pm_foc_inner.o             2'342       16
+    rm_motor_pm_foc_outer.o             1'832
+    rm_motor_pm_foc_outer_fnc.o           280
+    rm_motor_sensor_bemf.o              2'420       28
+    rm_motor_spdobserver.o                568
+    rm_motor_transform.o                  344
+    rm_motor_vlimit.o                     128
+    rm_motor_volt_error_comp.o          1'254
+    startup.o                              16       64    1'025
+    system.o                              420                 4
+    -----------------------------------------------------------
+    Total:                             30'472      761    1'209
+
+dl7M_tln.a: [5]
+    cppinit.o                              24
+    -----------------------------------------------------------
+    Total:                                 24
+
+m7M_tls.a: [6]
+    DblAddSub.o                           606
+    DblCmpLe.o                             52
+    DblDiv.o                              582
+    DblMul.o                              426
+    DblToS32.o                             54
+    S32ToDbl.o                             34
+    U32ToDbl.o                             28
+    copysignf.o                            20
+    fminf.o                                40
+    fpinit_M.o                             34
+    frexp.o                               112
+    logx64.o                              746
+    math_wrappers64.o                      18
+    sqrtf.o                                30
+    -----------------------------------------------------------
+    Total:                              2'782
+
+rt7M_tl.a: [7]
+    ABImemcpy_unaligned.o                 118
+    ABImemset.o                           102
+    -----------------------------------------------------------
+    Total:                                220
+
+    Gaps                                   46        5      991
+---------------------------------------------------------------
+    Grand Total:                       38'382    3'086    4'620
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                       Address   Size  Type      Object
+-----                       -------   ----  ----      ------
+.data_flash.endof$$Base
+                         0x800'0000          --   Gb  - Linker created -
+.data_flash.endof$$Limit
+                         0x800'0000          --   Gb  - Linker created -
+.data_flash.startof$$Base
+                         0x800'0000          --   Gb  - Linker created -
+.data_flash.startof$$Limit
+                         0x800'0000          --   Gb  - Linker created -
+.flash.endof$$Base           0xa400          --   Gb  - Linker created -
+.flash.endof$$Limit          0xa400          --   Gb  - Linker created -
+.flash.flat_nsc$$Base        0xa400          --   Gb  - Linker created -
+.flash.flat_nsc$$Limit       0xa400          --   Gb  - Linker created -
+.flash.startof$$Base            0x0          --   Gb  - Linker created -
+.flash.startof$$Limit           0x0          --   Gb  - Linker created -
+.option_setting_bps.endof$$Base
+                         0x100'a1c0          --   Gb  - Linker created -
+.option_setting_bps.endof$$Limit
+                         0x100'a1c0          --   Gb  - Linker created -
+.option_setting_bps.startof$$Base
+                         0x100'a1c0          --   Gb  - Linker created -
+.option_setting_bps.startof$$Limit
+                         0x100'a1c0          --   Gb  - Linker created -
+.option_setting_bps_sec.endof$$Base
+                         0x100'a240          --   Gb  - Linker created -
+.option_setting_bps_sec.endof$$Limit
+                         0x100'a240          --   Gb  - Linker created -
+.option_setting_bps_sec.startof$$Base
+                         0x100'a240          --   Gb  - Linker created -
+.option_setting_bps_sec.startof$$Limit
+                         0x100'a240          --   Gb  - Linker created -
+.option_setting_bps_sel.endof$$Base
+                         0x100'a2c0          --   Gb  - Linker created -
+.option_setting_bps_sel.endof$$Limit
+                         0x100'a2c0          --   Gb  - Linker created -
+.option_setting_bps_sel.startof$$Base
+                         0x100'a2c0          --   Gb  - Linker created -
+.option_setting_bps_sel.startof$$Limit
+                         0x100'a2c0          --   Gb  - Linker created -
+.option_setting_ofs0.endof$$Base
+                         0x100'a104          --   Gb  - Linker created -
+.option_setting_ofs0.endof$$Limit
+                         0x100'a104          --   Gb  - Linker created -
+.option_setting_ofs0.startof$$Base
+                         0x100'a100          --   Gb  - Linker created -
+.option_setting_ofs0.startof$$Limit
+                         0x100'a100          --   Gb  - Linker created -
+.option_setting_ofs1.endof$$Base
+                         0x100'a180          --   Gb  - Linker created -
+.option_setting_ofs1.endof$$Limit
+                         0x100'a180          --   Gb  - Linker created -
+.option_setting_ofs1.startof$$Base
+                         0x100'a180          --   Gb  - Linker created -
+.option_setting_ofs1.startof$$Limit
+                         0x100'a180          --   Gb  - Linker created -
+.option_setting_ofs1_sec.endof$$Base
+                         0x100'a204          --   Gb  - Linker created -
+.option_setting_ofs1_sec.endof$$Limit
+                         0x100'a204          --   Gb  - Linker created -
+.option_setting_ofs1_sec.startof$$Base
+                         0x100'a200          --   Gb  - Linker created -
+.option_setting_ofs1_sec.startof$$Limit
+                         0x100'a200          --   Gb  - Linker created -
+.option_setting_ofs1_sel.endof$$Base
+                         0x100'a284          --   Gb  - Linker created -
+.option_setting_ofs1_sel.endof$$Limit
+                         0x100'a284          --   Gb  - Linker created -
+.option_setting_ofs1_sel.startof$$Base
+                         0x100'a280          --   Gb  - Linker created -
+.option_setting_ofs1_sel.startof$$Limit
+                         0x100'a280          --   Gb  - Linker created -
+.option_setting_pbps.endof$$Base
+                         0x100'a1e0          --   Gb  - Linker created -
+.option_setting_pbps.endof$$Limit
+                         0x100'a1e0          --   Gb  - Linker created -
+.option_setting_pbps.startof$$Base
+                         0x100'a1e0          --   Gb  - Linker created -
+.option_setting_pbps.startof$$Limit
+                         0x100'a1e0          --   Gb  - Linker created -
+.option_setting_pbps_sec.endof$$Base
+                         0x100'a260          --   Gb  - Linker created -
+.option_setting_pbps_sec.endof$$Limit
+                         0x100'a260          --   Gb  - Linker created -
+.option_setting_pbps_sec.startof$$Base
+                         0x100'a260          --   Gb  - Linker created -
+.option_setting_pbps_sec.startof$$Limit
+                         0x100'a260          --   Gb  - Linker created -
+.ram.endof$$Base        0x2000'1000          --   Gb  - Linker created -
+.ram.endof$$Limit       0x2000'1000          --   Gb  - Linker created -
+.ram.flat_nsc$$Base     0x2000'1000          --   Gb  - Linker created -
+.ram.flat_nsc$$Limit    0x2000'1000          --   Gb  - Linker created -
+.ram.startof$$Base      0x2000'0000          --   Gb  - Linker created -
+.ram.startof$$Limit     0x2000'0000          --   Gb  - Linker created -
+BusFault_Handler             0x94ad    0x4  Code  Wk  startup.o [4]
+DebugMon_Handler             0x94ad    0x4  Code  Wk  startup.o [4]
+Default_Handler              0x94ad    0x4  Code  Gb  startup.o [4]
+HEAP$$Base              0x2000'0040          --   Gb  - Linker created -
+HEAP$$Limit             0x2000'0041          --   Gb  - Linker created -
+HardFault_Handler            0x94ad    0x4  Code  Wk  startup.o [4]
+MemManage_Handler            0x94ad    0x4  Code  Wk  startup.o [4]
+NMI_Handler                   0x31f   0x34  Code  Gb  bsp_group_irq.o [4]
+PendSV_Handler               0x94ad    0x4  Code  Wk  startup.o [4]
+RM_MOTOR_CONTROL_Close       0x1d01   0x34  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_CONTROL_ErrorCheck
+                             0x1e29   0x54  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_CONTROL_ErrorSet
+                             0x1da1   0x2c  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_CONTROL_FunctionSelect
+                             0x1e89    0x6  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_CONTROL_Open        0x1c8d   0x74  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_CONTROL_PositionSet
+                             0x1e7d    0x6  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_CONTROL_Reset       0x1d35   0x2c  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_CONTROL_Run         0x1d61   0x20  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_CONTROL_SpeedGet
+                             0x1e0b   0x1e  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_CONTROL_SpeedSet
+                             0x1dcd   0x20  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_CONTROL_StatusGet
+                             0x1ded   0x1e  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_CONTROL_Stop        0x1d81   0x20  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_CONTROL_WaitStopFlagGet
+                             0x1e83    0x6  Code  Gb  rm_motor_control.o [4]
+RM_MOTOR_HAL_DRIVER_Activate
+                             0x50d1   0x26  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_HAL_DRIVER_ChargeBootstrap
+                             0x51bf   0x5e  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_HAL_DRIVER_Close
+                             0x5039   0x3e  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_HAL_DRIVER_CurrentGet
+                             0x5105   0x2c  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_HAL_DRIVER_CurrentOffsetRestart
+                             0x5153   0x1e  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_HAL_DRIVER_Deactivate
+                             0x50f7    0xe  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_HAL_DRIVER_FlagBootstrapGet
+                             0x51b1    0xe  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_HAL_DRIVER_FlagCurrentOffsetGet
+                             0x5145    0xe  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_HAL_DRIVER_Open
+                             0x4f0f  0x118  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_HAL_DRIVER_OutputVoltageGet
+                             0x5131   0x14  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_HAL_DRIVER_ParameterUpdate
+                             0x5171   0x40  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_HAL_DRIVER_PhaseVoltageSet
+                             0x50b7   0x1a  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_HAL_DRIVER_Reset
+                             0x5077   0x40  Code  Gb  rm_motor_hal_driver.o [4]
+RM_MOTOR_PM_FOC_Close        0x6f31   0x24  Code  Gb  rm_motor_pm_foc.o [4]
+RM_MOTOR_PM_FOC_ControlModeGet
+                             0x6fcf   0x12  Code  Gb  rm_motor_pm_foc.o [4]
+RM_MOTOR_PM_FOC_ControlModeSet
+                             0x6fe1   0x10  Code  Gb  rm_motor_pm_foc.o [4]
+RM_MOTOR_PM_FOC_ErrorGet
+                             0x7021   0x32  Code  Gb  rm_motor_pm_foc.o [4]
+RM_MOTOR_PM_FOC_Open         0x6ef1   0x3c  Code  Gb  rm_motor_pm_foc.o [4]
+RM_MOTOR_PM_FOC_ParameterUpdate
+                             0x7001   0x20  Code  Gb  rm_motor_pm_foc.o [4]
+RM_MOTOR_PM_FOC_Reset        0x6f55   0x18  Code  Gb  rm_motor_pm_foc.o [4]
+RM_MOTOR_PM_FOC_Run          0x6f6d   0x34  Code  Gb  rm_motor_pm_foc.o [4]
+RM_MOTOR_PM_FOC_StatusGet
+                             0x6ff1   0x10  Code  Gb  rm_motor_pm_foc.o [4]
+RM_MOTOR_PM_FOC_Stop         0x6fa1   0x2e  Code  Gb  rm_motor_pm_foc.o [4]
+RM_MOTOR_SENSOR_BEMF_AngleSpeedCalc
+                             0x8d5d  0x282  Code  Gb  rm_motor_sensor_bemf.o [4]
+RM_MOTOR_SENSOR_BEMF_AngleSpeedInit
+                             0x8d0d   0x4e  Code  Gb  rm_motor_sensor_bemf.o [4]
+RM_MOTOR_SENSOR_BEMF_Close
+                             0x8b8f   0x3c  Code  Gb  rm_motor_sensor_bemf.o [4]
+RM_MOTOR_SENSOR_BEMF_Open
+                             0x8b2d   0x62  Code  Gb  rm_motor_sensor_bemf.o [4]
+RM_MOTOR_SENSOR_BEMF_ParameterUpdate
+                             0x8c3b   0xd2  Code  Gb  rm_motor_sensor_bemf.o [4]
+RM_MOTOR_SENSOR_BEMF_PositionSpeedGet
+                             0x8fdf   0x2c  Code  Gb  rm_motor_sensor_bemf.o [4]
+RM_MOTOR_SENSOR_BEMF_Reset
+                             0x8bcb   0x70  Code  Gb  rm_motor_sensor_bemf.o [4]
+R_ADC_B_Calibrate            0x28c9   0x48  Code  Gb  r_adc_b.o [4]
+R_ADC_B_CallbackSet          0x263b   0x12  Code  Gb  r_adc_b.o [4]
+R_ADC_B_Close                0x2825   0xa4  Code  Gb  r_adc_b.o [4]
+R_ADC_B_FifoRead             0x2757   0x92  Code  Gb  r_adc_b.o [4]
+R_ADC_B_InfoGet              0x27e9   0x3c  Code  Gb  r_adc_b.o [4]
+R_ADC_B_OffsetSet            0x2911    0x6  Code  Gb  r_adc_b.o [4]
+R_ADC_B_Open                 0x2189  0x25e  Code  Gb  r_adc_b.o [4]
+R_ADC_B_Read                 0x26e3   0x48  Code  Gb  r_adc_b.o [4]
+R_ADC_B_Read32               0x272b   0x2c  Code  Gb  r_adc_b.o [4]
+R_ADC_B_ScanCfg              0x23e9  0x252  Code  Gb  r_adc_b.o [4]
+R_ADC_B_ScanGroupStart       0x2665   0x30  Code  Gb  r_adc_b.o [4]
+R_ADC_B_ScanStart            0x264d   0x18  Code  Gb  r_adc_b.o [4]
+R_ADC_B_ScanStop             0x2695   0x10  Code  Gb  r_adc_b.o [4]
+R_ADC_B_StatusGet            0x26a5   0x3e  Code  Gb  r_adc_b.o [4]
+R_AGT_CallbackSet            0x3561   0x12  Code  Gb  r_agt.o [4]
+R_AGT_Close                  0x3573   0x5e  Code  Gb  r_agt.o [4]
+R_AGT_CompareMatchSet        0x3471    0x6  Code  Gb  r_agt.o [4]
+R_AGT_Disable                0x3427   0x20  Code  Gb  r_agt.o [4]
+R_AGT_DutyCycleSet           0x346b    0x6  Code  Gb  r_agt.o [4]
+R_AGT_Enable                 0x33eb   0x3c  Code  Gb  r_agt.o [4]
+R_AGT_InfoGet                0x3477   0x9e  Code  Gb  r_agt.o [4]
+R_AGT_Open                   0x3285   0xba  Code  Gb  r_agt.o [4]
+R_AGT_PeriodSet              0x3447   0x24  Code  Gb  r_agt.o [4]
+R_AGT_Reset                  0x33b7   0x34  Code  Gb  r_agt.o [4]
+R_AGT_Start                  0x333f   0x44  Code  Gb  r_agt.o [4]
+R_AGT_StatusGet              0x3515   0x4c  Code  Gb  r_agt.o [4]
+R_AGT_Stop                   0x3383   0x34  Code  Gb  r_agt.o [4]
+R_BSP_FlashCacheEnable         0xbd   0x20  Code  Lc  bsp_clocks.o [4]
+R_BSP_IrqCfg                 0x20eb   0x20  Code  Lc  r_adc_b.o [4]
+R_BSP_IrqCfg                 0x320f   0x20  Code  Lc  r_agt.o [4]
+R_BSP_IrqCfg                 0x393b   0x20  Code  Lc  r_gpt.o [4]
+R_BSP_IrqCfg                 0x1a8b   0x1e  Code  Lc  r_poeg.o [4]
+R_BSP_IrqCfgEnable           0x2169   0x1e  Code  Lc  r_adc_b.o [4]
+R_BSP_IrqCfgEnable           0x3265   0x1e  Code  Lc  r_agt.o [4]
+R_BSP_IrqCfgEnable           0x39b9   0x1e  Code  Lc  r_gpt.o [4]
+R_BSP_IrqCfgEnable           0x1b01   0x1e  Code  Lc  r_poeg.o [4]
+R_BSP_IrqClearPending        0x20bf   0x2c  Code  Lc  r_adc_b.o [4]
+R_BSP_IrqClearPending        0x31e3   0x2c  Code  Lc  r_agt.o [4]
+R_BSP_IrqClearPending        0x390f   0x2c  Code  Lc  r_gpt.o [4]
+R_BSP_IrqClearPending        0x1a61   0x2a  Code  Lc  r_poeg.o [4]
+R_BSP_IrqDisable             0x2141   0x28  Code  Lc  r_adc_b.o [4]
+R_BSP_IrqDisable             0x3991   0x28  Code  Lc  r_gpt.o [4]
+R_BSP_IrqDisable             0x1adb   0x26  Code  Lc  r_poeg.o [4]
+R_BSP_IrqEnable              0x212b   0x16  Code  Lc  r_adc_b.o [4]
+R_BSP_IrqEnable              0x324f   0x16  Code  Lc  r_agt.o [4]
+R_BSP_IrqEnable              0x397b   0x16  Code  Lc  r_gpt.o [4]
+R_BSP_IrqEnable              0x1ac5   0x16  Code  Lc  r_poeg.o [4]
+R_BSP_IrqEnableNoClear       0x210d   0x1e  Code  Lc  r_adc_b.o [4]
+R_BSP_IrqEnableNoClear       0x3231   0x1e  Code  Lc  r_agt.o [4]
+R_BSP_IrqEnableNoClear       0x395d   0x1e  Code  Lc  r_gpt.o [4]
+R_BSP_IrqEnableNoClear       0x1aa9   0x1c  Code  Lc  r_poeg.o [4]
+R_BSP_IrqStatusClear         0x20a1   0x1e  Code  Lc  r_adc_b.o [4]
+R_BSP_IrqStatusClear         0x31c5   0x1e  Code  Lc  r_agt.o [4]
+R_BSP_IrqStatusClear         0x38f1   0x1e  Code  Lc  r_gpt.o [4]
+R_BSP_IrqStatusClear         0x1a45   0x1c  Code  Lc  r_poeg.o [4]
+R_BSP_PinAccessDisable        0x59d   0x30  Code  Lc  r_ioport.o [4]
+R_BSP_PinAccessDisable       0x4edf   0x30  Code  Lc  rm_motor_hal_driver.o [4]
+R_BSP_PinAccessEnable         0x573   0x2a  Code  Lc  r_ioport.o [4]
+R_BSP_PinAccessEnable        0x4eb5   0x2a  Code  Lc  rm_motor_hal_driver.o [4]
+R_BSP_PinCfg                 0x4e95   0x20  Code  Lc  rm_motor_hal_driver.o [4]
+R_BSP_PinRead                 0x555   0x1e  Code  Lc  r_ioport.o [4]
+R_BSP_RegisterProtectDisable
+                              0x475   0x4c  Code  Gb  bsp_register_protection.o [4]
+R_BSP_RegisterProtectEnable
+                              0x41d   0x58  Code  Gb  bsp_register_protection.o [4]
+R_BSP_SoftwareDelay           0x221   0xbc  Code  Gb  bsp_delay.o [4]
+R_BSP_WarmStart               0x535   0x20  Code  Gb  hal_warmstart.o [2]
+R_ELC_Close                  0x3827   0x12  Code  Gb  r_elc.o [4]
+R_ELC_Disable                0x388b    0xc  Code  Gb  r_elc.o [4]
+R_ELC_Enable                 0x387f    0xc  Code  Gb  r_elc.o [4]
+R_ELC_LinkBreak              0x3869   0x16  Code  Gb  r_elc.o [4]
+R_ELC_LinkSet                0x3855   0x14  Code  Gb  r_elc.o [4]
+R_ELC_Open                   0x37d1   0x56  Code  Gb  r_elc.o [4]
+R_ELC_SoftwareEventGenerate
+                             0x3839   0x1c  Code  Gb  r_elc.o [4]
+R_FSP_CurrentIrqGet          0x207d    0xa  Code  Lc  r_adc_b.o [4]
+R_FSP_CurrentIrqGet          0x316d    0xa  Code  Lc  r_agt.o [4]
+R_FSP_CurrentIrqGet          0x1a25    0xa  Code  Lc  r_poeg.o [4]
+R_FSP_IsrContextGet          0x2095    0xc  Code  Lc  r_adc_b.o [4]
+R_FSP_IsrContextGet          0x31b7    0xc  Code  Lc  r_agt.o [4]
+R_FSP_IsrContextGet          0x1a3b    0xa  Code  Lc  r_poeg.o [4]
+R_FSP_IsrContextSet          0x2087    0xe  Code  Lc  r_adc_b.o [4]
+R_FSP_IsrContextSet          0x31a9    0xe  Code  Lc  r_agt.o [4]
+R_FSP_IsrContextSet          0x38e3    0xe  Code  Lc  r_gpt.o [4]
+R_FSP_IsrContextSet          0x1a2f    0xc  Code  Lc  r_poeg.o [4]
+R_FSP_SystemClockHzGet       0x3177   0x32  Code  Lc  r_agt.o [4]
+R_FSP_SystemClockHzGet       0x38b1   0x32  Code  Lc  r_gpt.o [4]
+R_GPT_AdcTriggerSet          0x3cff   0x32  Code  Gb  r_gpt.o [4]
+R_GPT_CallbackSet            0x3d31   0x12  Code  Gb  r_gpt.o [4]
+R_GPT_Close                  0x3d43   0x82  Code  Gb  r_gpt.o [4]
+R_GPT_CompareMatchSet        0x3bdf   0x4a  Code  Gb  r_gpt.o [4]
+R_GPT_Disable                0x3a83   0x22  Code  Gb  r_gpt.o [4]
+R_GPT_DutyCycleSet           0x3b0d   0xd2  Code  Gb  r_gpt.o [4]
+R_GPT_Enable                 0x3a2b   0x58  Code  Gb  r_gpt.o [4]
+R_GPT_InfoGet                0x3c29   0x32  Code  Gb  r_gpt.o [4]
+R_GPT_Open                   0x39d7   0x2a  Code  Gb  r_gpt.o [4]
+R_GPT_OutputDisable          0x3cb9   0x46  Code  Gb  r_gpt.o [4]
+R_GPT_OutputEnable           0x3c73   0x46  Code  Gb  r_gpt.o [4]
+R_GPT_PeriodSet              0x3aa5   0x68  Code  Gb  r_gpt.o [4]
+R_GPT_Reset                  0x3a1d    0xe  Code  Gb  r_gpt.o [4]
+R_GPT_Start                  0x3a0f    0xe  Code  Gb  r_gpt.o [4]
+R_GPT_StatusGet              0x3c5b   0x18  Code  Gb  r_gpt.o [4]
+R_GPT_Stop                   0x3a01    0xe  Code  Gb  r_gpt.o [4]
+R_GPT_THREE_PHASE_CallbackSet
+                             0x4427   0x34  Code  Gb  r_gpt_three_phase.o [4]
+R_GPT_THREE_PHASE_Close
+                             0x445b   0x36  Code  Gb  r_gpt_three_phase.o [4]
+R_GPT_THREE_PHASE_DutyCycleSet
+                             0x439b   0x8c  Code  Gb  r_gpt_three_phase.o [4]
+R_GPT_THREE_PHASE_Open       0x42e5   0x88  Code  Gb  r_gpt_three_phase.o [4]
+R_GPT_THREE_PHASE_Reset
+                             0x438d    0xe  Code  Gb  r_gpt_three_phase.o [4]
+R_GPT_THREE_PHASE_Start
+                             0x437f    0xe  Code  Gb  r_gpt_three_phase.o [4]
+R_GPT_THREE_PHASE_Stop       0x4371    0xe  Code  Gb  r_gpt_three_phase.o [4]
+R_IOPORT_Open                 0x5cd   0x16  Code  Gb  r_ioport.o [4]
+R_IOPORT_PinRead              0x5e3   0x16  Code  Gb  r_ioport.o [4]
+R_IOPORT_PinWrite             0x5f9   0x52  Code  Gb  r_ioport.o [4]
+R_POEG_CallbackSet           0x1c09   0x12  Code  Gb  r_poeg.o [4]
+R_POEG_Close                 0x1c1b   0x2e  Code  Gb  r_poeg.o [4]
+R_POEG_Open                  0x1b21   0x80  Code  Gb  r_poeg.o [4]
+R_POEG_OutputDisable         0x1ba1   0x12  Code  Gb  r_poeg.o [4]
+R_POEG_Reset                 0x1bb3   0x14  Code  Gb  r_poeg.o [4]
+R_POEG_StatusGet             0x1bc7   0x16  Code  Gb  r_poeg.o [4]
+Reset_Handler                0x94a1    0xc  Code  Gb  startup.o [4]
+SHT$$INIT_ARRAY$$Limit          0x0          --   Gb  - Linker created -
+SHT$$PREINIT_ARRAY$$Base
+                                0x0          --   Gb  - Linker created -
+SVC_Handler                  0x94ad    0x4  Code  Wk  startup.o [4]
+SecureFault_Handler          0x94ad    0x4  Code  Wk  startup.o [4]
+SysTick_Handler              0x94ad    0x4  Code  Wk  startup.o [4]
+SystemCoreClock         0x2000'0e0c    0x4  Data  Gb  system.o [4]
+SystemCoreClockUpdate          0xdd   0x1c  Code  Gb  bsp_clocks.o [4]
+SystemInit                   0x9551   0xc4  Code  Gb  system.o [4]
+SystemRuntimeInit            0x94b1   0x9e  Code  Lc  system.o [4]
+UsageFault_Handler           0x94ad    0x4  Code  Wk  startup.o [4]
+_VECTORS                        0x0         Data  Gb  <internal module>
+_VECTORS$$Base                  0x0          --   Gb  - Linker created -
+_VECTORS$$Limit                 0x0          --   Gb  - Linker created -
+__DLIB_PERTHREAD$$Base          0x0          --   Gb  - Linker created -
+__DLIB_PERTHREAD_init$$Base
+                                0x0          --   Gb  - Linker created -
+__DLIB_PERTHREAD_init$$Length
+                                0x0          --   Gb  - Linker created -
+__NVIC_DisableIRQ            0x3145   0x28  Code  Lc  r_agt.o [4]
+__aeabi_cdcmple              0x6611         Code  Gb  DblCmpLe.o [6]
+__aeabi_d2iz                 0x627d         Code  Gb  DblToS32.o [6]
+__aeabi_dadd                 0x67f1         Code  Gb  DblAddSub.o [6]
+__aeabi_ddiv                 0x6a51         Code  Gb  DblDiv.o [6]
+__aeabi_dmul                 0x6645         Code  Gb  DblMul.o [6]
+__aeabi_dsub                 0x696d         Code  Gb  DblAddSub.o [6]
+__aeabi_i2d                  0x6c99         Code  Gb  S32ToDbl.o [6]
+__aeabi_memset                0x4cd         Code  Gb  ABImemset.o [7]
+__aeabi_ui2d                 0x624d         Code  Gb  U32ToDbl.o [6]
+__call_ctors                 0x9661   0x18  Code  Gb  cppinit.o [5]
+__data_flash_init_ram_from_data_flash$$Base
+                         0x800'0000          --   Gb  - Linker created -
+__data_flash_init_ram_from_data_flash$$Limit
+                         0x800'0000          --   Gb  - Linker created -
+__ddsc_DATA_FLASH_END    0x800'0000         Data  Gb  <internal module>
+__ddsc_DATA_FLASH_END$$Base
+                         0x800'0000          --   Gb  - Linker created -
+__ddsc_DATA_FLASH_END$$Limit
+                         0x800'0000          --   Gb  - Linker created -
+__ddsc_DATA_FLASH_START
+                         0x800'0000         Data  Gb  <internal module>
+__ddsc_DATA_FLASH_START$$Base
+                         0x800'0000          --   Gb  - Linker created -
+__ddsc_DATA_FLASH_START$$Limit
+                         0x800'0000          --   Gb  - Linker created -
+__ddsc_FLASH_END             0xa400         Data  Gb  <internal module>
+__ddsc_FLASH_END$$Base       0xa400          --   Gb  - Linker created -
+__ddsc_FLASH_END$$Limit
+                             0xa400          --   Gb  - Linker created -
+__ddsc_FLASH_NSC             0xa400         Data  Gb  <internal module>
+__ddsc_FLASH_NSC$$Base       0xa400          --   Gb  - Linker created -
+__ddsc_FLASH_NSC$$Limit
+                             0xa400          --   Gb  - Linker created -
+__ddsc_FLASH_START              0x0         Data  Gb  <internal module>
+__ddsc_FLASH_START$$Base
+                                0x0          --   Gb  - Linker created -
+__ddsc_FLASH_START$$Limit
+                                0x0          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_BPS_END
+                         0x100'a1c0         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_BPS_END$$Base
+                         0x100'a1c0          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_BPS_END$$Limit
+                         0x100'a1c0          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_BPS_SEC_END
+                         0x100'a240         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_BPS_SEC_END$$Base
+                         0x100'a240          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_BPS_SEC_END$$Limit
+                         0x100'a240          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_BPS_SEC_START
+                         0x100'a240         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_BPS_SEC_START$$Base
+                         0x100'a240          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_BPS_SEC_START$$Limit
+                         0x100'a240          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_BPS_SEL_END
+                         0x100'a2c0         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_BPS_SEL_END$$Base
+                         0x100'a2c0          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_BPS_SEL_END$$Limit
+                         0x100'a2c0          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_BPS_SEL_START
+                         0x100'a2c0         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_BPS_SEL_START$$Base
+                         0x100'a2c0          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_BPS_SEL_START$$Limit
+                         0x100'a2c0          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_BPS_START
+                         0x100'a1c0         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_BPS_START$$Base
+                         0x100'a1c0          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_BPS_START$$Limit
+                         0x100'a1c0          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS0_END
+                         0x100'a104         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_OFS0_END$$Base
+                         0x100'a104          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS0_END$$Limit
+                         0x100'a104          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS0_START
+                         0x100'a100         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_OFS0_START$$Base
+                         0x100'a100          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS0_START$$Limit
+                         0x100'a100          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS1_END
+                         0x100'a180         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_OFS1_END$$Base
+                         0x100'a180          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS1_END$$Limit
+                         0x100'a180          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS1_SEC_END
+                         0x100'a204         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_OFS1_SEC_END$$Base
+                         0x100'a204          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS1_SEC_END$$Limit
+                         0x100'a204          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS1_SEC_START
+                         0x100'a200         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_OFS1_SEC_START$$Base
+                         0x100'a200          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS1_SEC_START$$Limit
+                         0x100'a200          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS1_SEL_END
+                         0x100'a284         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_OFS1_SEL_END$$Base
+                         0x100'a284          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS1_SEL_END$$Limit
+                         0x100'a284          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS1_SEL_START
+                         0x100'a280         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_OFS1_SEL_START$$Base
+                         0x100'a280          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS1_SEL_START$$Limit
+                         0x100'a280          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS1_START
+                         0x100'a180         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_OFS1_START$$Base
+                         0x100'a180          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_OFS1_START$$Limit
+                         0x100'a180          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_PBPS_END
+                         0x100'a1e0         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_PBPS_END$$Base
+                         0x100'a1e0          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_PBPS_END$$Limit
+                         0x100'a1e0          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_PBPS_SEC_END
+                         0x100'a260         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_PBPS_SEC_END$$Base
+                         0x100'a260          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_PBPS_SEC_END$$Limit
+                         0x100'a260          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_PBPS_SEC_START
+                         0x100'a260         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_PBPS_SEC_START$$Base
+                         0x100'a260          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_PBPS_SEC_START$$Limit
+                         0x100'a260          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_PBPS_START
+                         0x100'a1e0         Data  Gb  <internal module>
+__ddsc_OPTION_SETTING_PBPS_START$$Base
+                         0x100'a1e0          --   Gb  - Linker created -
+__ddsc_OPTION_SETTING_PBPS_START$$Limit
+                         0x100'a1e0          --   Gb  - Linker created -
+__ddsc_RAM_END          0x2000'1000         Data  Gb  <internal module>
+__ddsc_RAM_END$$Base    0x2000'1000          --   Gb  - Linker created -
+__ddsc_RAM_END$$Limit   0x2000'1000          --   Gb  - Linker created -
+__ddsc_RAM_NSC          0x2000'1000         Data  Gb  <internal module>
+__ddsc_RAM_NSC$$Base    0x2000'1000          --   Gb  - Linker created -
+__ddsc_RAM_NSC$$Limit   0x2000'1000          --   Gb  - Linker created -
+__ddsc_RAM_START        0x2000'0000         Data  Gb  <internal module>
+__ddsc_RAM_START$$Base  0x2000'0000          --   Gb  - Linker created -
+__ddsc_RAM_START$$Limit
+                        0x2000'0000          --   Gb  - Linker created -
+__flash_init_ram_from_flash$$Base
+                               0x80          --   Gb  - Linker created -
+__flash_init_ram_from_flash$$Limit
+                               0xbc          --   Gb  - Linker created -
+__flash_readonly$$Base         0xbc          --   Gb  - Linker created -
+__flash_readonly$$Limit
+                             0xa1f0          --   Gb  - Linker created -
+__flash_vectors$$Base           0x0          --   Gb  - Linker created -
+__flash_vectors$$Limit         0x80          --   Gb  - Linker created -
+__iar_Log64                  0x62b5  0x25a  Code  Lc  logx64.o [6]
+__iar_Memset                  0x4cd         Code  Gb  ABImemset.o [7]
+__iar_Memset_word             0x4d5         Code  Gb  ABImemset.o [7]
+__iar_fmin32                 0x89ed         Code  Gb  fminf.o [6]
+__iar_frexp                  0x65ad         Code  Gb  frexp.o [6]
+__iar_frexpl                 0x65ad         Code  Gb  frexp.o [6]
+__iar_init_vfp               0x9689         Code  Gb  fpinit_M.o [6]
+__iar_log2_64                0x6599    0x6  Code  Gb  logx64.o [6]
+__iar_log2_medium            0x6599    0x6  Code  Gb  logx64.o [6]
+__iar_log2_medium64          0x6599    0x6  Code  Gb  logx64.o [6]
+__iar_log2_mediuml           0x6599    0x6  Code  Gb  logx64.o [6]
+__iar_softfp___iar_frexp64
+                             0x65a1         Code  Gb  frexp.o [6]
+__iar_softfp_frexp           0x65a1         Code  Gb  frexp.o [6]
+__iar_softfp_frexpl          0x65a1         Code  Gb  frexp.o [6]
+__iar_sqrt32                 0x4e21         Code  Gb  sqrtf.o [6]
+__iar_unaligned_memcpy       0x1491         Code  Gb  ABImemcpy_unaligned.o [7]
+__iar_unaligned_memcpy4
+                             0x14b1         Code  Gb  ABImemcpy_unaligned.o [7]
+__iar_unaligned_memcpy8
+                             0x14b1         Code  Gb  ABImemcpy_unaligned.o [7]
+__iar_vfp___iar_copysign_32
+                             0x4801         Code  Gb  copysignf.o [6]
+__iar_vfp_copysignf          0x4801         Code  Gb  copysignf.o [6]
+__iar_vfp_log2               0x626f    0xc  Code  Gb  math_wrappers64.o [6]
+__option_setting_ofs0_reg$$Base
+                         0x100'a100          --   Gb  - Linker created -
+__option_setting_ofs0_reg$$Limit
+                         0x100'a104          --   Gb  - Linker created -
+__option_setting_ofs1_sec_reg$$Base
+                         0x100'a200          --   Gb  - Linker created -
+__option_setting_ofs1_sec_reg$$Limit
+                         0x100'a204          --   Gb  - Linker created -
+__option_setting_ofs1_sel_reg$$Base
+                         0x100'a280          --   Gb  - Linker created -
+__option_setting_ofs1_sel_reg$$Limit
+                         0x100'a284          --   Gb  - Linker created -
+__ram_from_data_flash$$Base
+                        0x2000'0000          --   Gb  - Linker created -
+__ram_from_data_flash$$Limit
+                        0x2000'0000          --   Gb  - Linker created -
+__ram_from_flash$$Base  0x2000'0000          --   Gb  - Linker created -
+__ram_from_flash$$Limit
+                        0x2000'003c          --   Gb  - Linker created -
+__ram_noinit$$Base      0x2000'0040          --   Gb  - Linker created -
+__ram_noinit$$Limit     0x2000'0464          --   Gb  - Linker created -
+__ram_noinit_nocache$$Base
+                        0x2000'0040          --   Gb  - Linker created -
+__ram_noinit_nocache$$Limit
+                        0x2000'0040          --   Gb  - Linker created -
+__ram_zero$$Base        0x2000'0468          --   Gb  - Linker created -
+__ram_zero$$Limit       0x2000'0e3c          --   Gb  - Linker created -
+__ram_zero_nocache$$Base
+                        0x2000'0040          --   Gb  - Linker created -
+__ram_zero_nocache$$Limit
+                        0x2000'0040          --   Gb  - Linker created -
+__vector_table                  0x0   0x40  Data  Gb  startup.o [4]
+adc_b_adi0_isr               0x2f71   0x26  Code  Gb  r_adc_b.o [4]
+adc_b_calculate_wait_time
+                             0x2917   0x92  Code  Lc  r_adc_b.o [4]
+adc_b_calend0_isr            0x2bf5   0xb4  Code  Gb  r_adc_b.o [4]
+adc_b_calend1_isr            0x2cc9   0xb4  Code  Gb  r_adc_b.o [4]
+adc_b_call_callback          0x2bb5   0x40  Code  Lc  r_adc_b.o [4]
+adc_b_disable_interrupts
+                             0x2acd   0x34  Code  Lc  r_adc_b.o [4]
+adc_b_enable_interrupts
+                             0x2b01   0x3a  Code  Lc  r_adc_b.o [4]
+adc_b_err0_isr               0x2e0d   0x26  Code  Gb  r_adc_b.o [4]
+adc_b_err1_isr               0x2e41   0x26  Code  Gb  r_adc_b.o [4]
+adc_b_fifoovf_isr            0x2fe1   0x3e  Code  Gb  r_adc_b.o [4]
+adc_b_fiforeq0_isr           0x3035   0x1e  Code  Gb  r_adc_b.o [4]
+adc_b_fiforeq1_isr           0x3053   0x1e  Code  Gb  r_adc_b.o [4]
+adc_b_fiforeq2_isr           0x3071   0x1e  Code  Gb  r_adc_b.o [4]
+adc_b_fiforeq3_isr           0x308f   0x1e  Code  Gb  r_adc_b.o [4]
+adc_b_fiforeq4_isr           0x30ad   0x1e  Code  Gb  r_adc_b.o [4]
+adc_b_force_stop             0x2a4d   0x34  Code  Lc  r_adc_b.o [4]
+adc_b_isr_enable             0x2b3b   0x20  Code  Lc  r_adc_b.o [4]
+adc_b_isr_handler            0x2b5b   0x5a  Code  Lc  r_adc_b.o [4]
+adc_b_limclpi_isr            0x2d9d   0x64  Code  Gb  r_adc_b.o [4]
+adc_b_open_pga               0x2a81   0x46  Code  Lc  r_adc_b.o [4]
+adc_b_resovf0_isr            0x2e99   0x5e  Code  Gb  r_adc_b.o [4]
+adc_b_resovf1_isr            0x2f15   0x5c  Code  Gb  r_adc_b.o [4]
+adc_b_update_calibrate_state
+                             0x29a9   0xa4  Code  Lc  r_adc_b.o [4]
+agt_int_isr                  0x3737   0x98  Code  Gb  r_agt.o [4]
+algorithm_disabled           0x8a15    0x2  Code  Gb  rm_motor_pm_foc_outer_fnc.o [4]
+board_ui                      0xfe9  0x128  Code  Lc  mtr_main.o [2]
+bsp_clock_freq_var_init
+                              0x113   0x24  Code  Lc  bsp_clocks.o [4]
+bsp_clock_init                0x137   0x5c  Code  Gb  bsp_clocks.o [4]
+bsp_group_irq_call            0x2fd   0x22  Code  Lc  bsp_group_irq.o [4]
+bsp_init                     0x9679    0x2  Code  Gb  board_init.o [3]
+bsp_irq_cfg                   0x365   0xb8  Code  Gb  bsp_irq.o [4]
+bsp_peripheral_clock_set
+                              0x193   0x2e  Code  Lc  bsp_clocks.o [4]
+bsp_prv_clock_set_hard_reset
+                               0xf9   0x1a  Code  Lc  bsp_clocks.o [4]
+bsp_prv_software_delay_loop
+                              0x2f1    0xa  Code  Gb  bsp_delay.o [4]
+bsp_prv_sosc_init             0x1c1    0x2  Code  Lc  bsp_clocks.o [4]
+com_f4_current_omega    0x2000'0dc4    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_current_zeta     0x2000'0dc8    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_e_obs_omega      0x2000'0dd4    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_e_obs_zeta       0x2000'0dd8    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_id_down_speed_rpm
+                        0x2000'0df0    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_id_up_speed_rpm  0x2000'0df4    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_iq_limit         0x2000'0e04    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_limit_speed_change
+                        0x2000'0e08    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_max_speed_rpm    0x2000'0df8    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_mtr_j            0x2000'0dc0    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_mtr_ld           0x2000'0db4    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_mtr_lq           0x2000'0db8    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_mtr_m            0x2000'0dbc    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_mtr_r            0x2000'0db0    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_ol_id_down_step  0x2000'0dec    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_ol_id_up_step    0x2000'0de8    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_overcurrent_limit
+                        0x2000'0e00    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_overspeed_limit_rpm
+                        0x2000'0dfc    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_pll_est_omega    0x2000'0ddc    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_pll_est_zeta     0x2000'0de0    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_ref_id           0x2000'0de4    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_ref_speed_rpm    0x2000'0dac    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_speed_omega      0x2000'0dcc    0x4  Data  Gb  r_mtr_ics.o [2]
+com_f4_speed_zeta       0x2000'0dd0    0x4  Data  Gb  r_mtr_ics.o [2]
+com_u1_enable_write     0x2000'0e39    0x1  Data  Gb  r_mtr_ics.o [2]
+com_u1_mode_system      0x2000'0e2e    0x1  Data  Gb  mtr_main.o [2]
+com_u1_sw_userif        0x2000'0e2c    0x1  Data  Gb  mtr_main.o [2]
+com_u2_mtr_pp           0x2000'0e22    0x2  Data  Gb  r_mtr_ics.o [2]
+copy_list                    0x96c4   0x20  Data  Lc  bsp_linker.o [4]
+data_flash_BLOCK$$Base   0x800'0000          --   Gb  - Linker created -
+data_flash_BLOCK$$Limit
+                         0x800'0000          --   Gb  - Linker created -
+flash_BLOCK$$Base               0x0          --   Gb  - Linker created -
+flash_BLOCK$$Limit           0xa400          --   Gb  - Linker created -
+fminf                        0x89ed         Code  Gb  fminf.o [6]
+g_adc0                       0x9c50   0x10  Data  Gb  hal_data.o [1]
+g_adc0_cfg                   0x9c38   0x18  Data  Gb  hal_data.o [1]
+g_adc0_cfg_extend            0x9b34  0x104  Data  Gb  hal_data.o [1]
+g_adc0_ctrl             0x2000'07a8   0x28  Data  Gb  hal_data.o [1]
+g_adc0_group_0_cfg           0x9ab4   0x1c  Data  Gb  hal_data.o [1]
+g_adc0_group_0_virtual_channels
+                             0x9aa0   0x10  Data  Gb  hal_data.o [1]
+g_adc0_group_1_cfg           0x9ad0   0x1c  Data  Gb  hal_data.o [1]
+g_adc0_group_1_virtual_channels
+                             0x9ab0    0x4  Data  Gb  hal_data.o [1]
+g_adc0_isr_cfg               0x9afc   0x38  Data  Gb  hal_data.o [1]
+g_adc0_scan_cfg              0x9af4    0x8  Data  Gb  hal_data.o [1]
+g_adc0_scan_cfg_groups       0x9aec    0x8  Data  Gb  hal_data.o [1]
+g_adc0_virtual_channel_0_cfg
+                             0x9a3c   0x14  Data  Gb  hal_data.o [1]
+g_adc0_virtual_channel_1_cfg
+                             0x9a50   0x14  Data  Gb  hal_data.o [1]
+g_adc0_virtual_channel_2_cfg
+                             0x9a64   0x14  Data  Gb  hal_data.o [1]
+g_adc0_virtual_channel_3_cfg
+                             0x9a78   0x14  Data  Gb  hal_data.o [1]
+g_adc0_virtual_channel_4_cfg
+                             0x9a8c   0x14  Data  Gb  hal_data.o [1]
+g_adc_on_adc_b               0x9f84   0x34  Data  Gb  r_adc_b.o [4]
+g_bsp_cfg_option_setting_ofs0
+                         0x100'a100    0x4  Data  Lc  bsp_linker.o [4]
+g_bsp_cfg_option_setting_ofs1_sec
+                         0x100'a200    0x4  Data  Lc  bsp_linker.o [4]
+g_bsp_cfg_option_setting_ofs1_sel
+                         0x100'a280    0x4  Data  Lc  bsp_linker.o [4]
+g_bsp_group_irq_sources
+                        0x2000'0520   0x40  Data  Gb  bsp_group_irq.o [4]
+g_bsp_pin_cfg                0x9f78    0xc  Data  Gb  pin_data.o [1]
+g_bsp_pin_cfg_data           0x9e48  0x130  Data  Gb  pin_data.o [1]
+g_clock_freq            0x2000'0448   0x1c  Data  Lc  bsp_clocks.o [4]
+g_elc                        0x9710    0xc  Data  Gb  common_data.o [1]
+g_elc_cfg                    0x971c   0x40  Data  Gb  elc_data.o [1]
+g_elc_ctrl              0x2000'05b0    0x8  Data  Gb  common_data.o [1]
+g_elc_on_elc                 0x9fec   0x1c  Data  Gb  r_elc.o [4]
+g_f4_angle_rad_monitor  0x2000'0d6c    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_current_ki_d_monitor
+                        0x2000'0d84    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_current_ki_q_monitor
+                        0x2000'0d8c    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_current_kp_d_monitor
+                        0x2000'0d80    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_current_kp_q_monitor
+                        0x2000'0d88    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_ed_monitor         0x2000'0d60    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_eq_monitor         0x2000'0d64    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_id_ad_monitor      0x2000'0d30    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_id_ref_monitor     0x2000'0d2c    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_iq_ad_monitor      0x2000'0d38    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_iq_ref_monitor     0x2000'0d34    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_iu_ad_monitor      0x2000'0d3c    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_iv_ad_monitor      0x2000'0d40    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_iw_ad_monitor      0x2000'0d44    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_k_e_obs_1_d_monitor
+                        0x2000'0d90    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_k_e_obs_1_q_monitor
+                        0x2000'0d98    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_k_e_obs_2_d_monitor
+                        0x2000'0d94    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_k_e_obs_2_q_monitor
+                        0x2000'0d9c    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_ki_est_speed_monitor
+                        0x2000'0da4    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_kp_est_speed_monitor
+                        0x2000'0da0    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_phase_err_monitor  0x2000'0d68    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_refu_monitor       0x2000'0d54    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_refv_monitor       0x2000'0d58    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_refw_monitor       0x2000'0d5c    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_speed_est_monitor  0x2000'0d70    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_speed_ki_monitor   0x2000'0d7c    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_speed_kp_monitor   0x2000'0d78    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_speed_ref          0x2000'0b1c    0x4  Data  Gb  mtr_main.o [2]
+g_f4_speed_ref_monitor  0x2000'0d74    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_speed_rpm_monitor  0x2000'0da8    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_vd_ref_monitor     0x2000'0d4c    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_vdc_ad_monitor     0x2000'0d48    0x4  Data  Gb  r_mtr_ics.o [2]
+g_f4_vq_ref_monitor     0x2000'0d50    0x4  Data  Gb  r_mtr_ics.o [2]
+g_fsp_version                0xa1a0    0x4  Data  Lc  bsp_common.o [4]
+g_fsp_version_build_string
+                             0xa1ac   0x44  Data  Lc  bsp_common.o [4]
+g_fsp_version_string         0xa1a4    0x8  Data  Lc  bsp_common.o [4]
+g_gpt_three_phase_on_gpt_three_phase
+                             0xa04c   0x1c  Data  Gb  r_gpt_three_phase.o [4]
+g_heap                  0x2000'0040    0x1  Data  Gb  startup.o [4]
+g_init_info                  0x96ec   0x18  Data  Gb  bsp_linker.o [4]
+g_interrupt_event_link_select
+                             0xa17c   0x20  Data  Gb  vector_data.o [1]
+g_ioport_ctrl           0x2000'05b8    0x8  Data  Gb  common_data.o [1]
+g_main_stack            0x2000'0048  0x400  Data  Gb  startup.o [4]
+g_motor0_control             0x9df0    0xc  Data  Gb  hal_data.o [1]
+g_motor0_control_cfg         0x9de0   0x10  Data  Gb  hal_data.o [1]
+g_motor0_control_ctrl   0x2000'0a80   0x1c  Data  Gb  hal_data.o [1]
+g_motor0_control_extended_cfg
+                             0x9dd8    0x8  Data  Gb  hal_data.o [1]
+g_motor0_hal_driver          0x9cfc    0xc  Data  Gb  hal_data.o [1]
+g_motor0_hal_driver_cfg
+                             0x9ce4   0x18  Data  Gb  hal_data.o [1]
+g_motor0_hal_driver_ctrl
+                        0x2000'0468   0xb8  Data  Gb  hal_data.o [1]
+g_motor0_hal_driver_extend
+                             0x9c60   0x84  Data  Gb  hal_data.o [1]
+g_motor0_pm_foc              0x9dcc    0xc  Data  Gb  hal_data.o [1]
+g_motor0_pm_foc_cfg          0x9db8   0x14  Data  Gb  hal_data.o [1]
+g_motor0_pm_foc_ctrl    0x2000'0a14   0x14  Data  Gb  hal_data.o [1]
+g_motor0_pm_foc_extend       0x9d1c   0x9c  Data  Gb  hal_data.o [1]
+g_motor0_pm_foc_inner_cfg
+                             0x9d14    0x8  Data  Gb  hal_data.o [1]
+g_motor0_pm_foc_inner_ctrl
+                        0x2000'0904  0x110  Data  Gb  hal_data.o [1]
+g_motor0_pm_foc_inner_design
+                        0x2000'0000    0x8  Data  Gb  hal_data.o [1]
+g_motor0_pm_foc_motor   0x2000'0018   0x1c  Data  Gb  hal_data.o [1]
+g_motor0_pm_foc_outer_cfg
+                             0x9d08    0xc  Data  Gb  hal_data.o [1]
+g_motor0_pm_foc_outer_ctrl
+                        0x2000'07d0  0x134  Data  Gb  hal_data.o [1]
+g_motor0_pm_foc_outer_design
+                        0x2000'0008   0x10  Data  Gb  hal_data.o [1]
+g_motor0_pm_foc_shared_data
+                        0x2000'0a28   0x58  Data  Gb  hal_data.o [1]
+g_motor0_sensor_bemf         0x9818    0xc  Data  Gb  hal_data.o [1]
+g_motor0_sensor_bemf_cfg
+                             0x9810    0x8  Data  Gb  hal_data.o [1]
+g_motor0_sensor_bemf_ctrl
+                        0x2000'05f8  0x134  Data  Gb  hal_data.o [1]
+g_motor0_sensor_bemf_extend
+                             0x97b8   0x58  Data  Gb  hal_data.o [1]
+g_motor_algorithm_on_motor_pm_foc
+                             0xa128   0x28  Data  Gb  rm_motor_pm_foc.o [4]
+g_motor_hal_driver_on_motor_hal_driver
+                             0xa0f4   0x34  Data  Gb  rm_motor_hal_driver.o [4]
+g_motor_on_motor_control
+                             0xa0bc   0x38  Data  Gb  rm_motor_control.o [4]
+g_motor_sensor_on_motor_sensor_bemf
+                             0xa160   0x1c  Data  Gb  rm_motor_sensor_bemf.o [4]
+g_poe_overcurrent            0x11e1   0x28  Code  Gb  mtr_main.o [2]
+g_poeg0                      0x9778    0xc  Data  Gb  hal_data.o [1]
+g_poeg0_cfg                  0x975c   0x1c  Data  Gb  hal_data.o [1]
+g_poeg0_ctrl            0x2000'05c0   0x18  Data  Gb  hal_data.o [1]
+g_poeg_on_poeg               0xa068   0x18  Data  Gb  r_poeg.o [4]
+g_prcr_masks                 0x9704    0xc  Data  Lc  bsp_register_protection.o [4]
+g_protect_counters      0x2000'05a4    0xc  Data  Gb  bsp_register_protection.o [4]
+g_protect_pfswe_counter
+                        0x2000'0560    0x4  Data  Gb  bsp_io.o [4]
+g_three_phase0               0x9a30    0xc  Data  Gb  hal_data.o [1]
+g_three_phase0_cfg           0x9a10   0x20  Data  Gb  hal_data.o [1]
+g_three_phase0_ctrl     0x2000'078c   0x1c  Data  Gb  hal_data.o [1]
+g_timer0                     0x9a04    0xc  Data  Gb  hal_data.o [1]
+g_timer0_cfg                 0x99e4   0x20  Data  Gb  hal_data.o [1]
+g_timer0_ctrl           0x2000'076c   0x20  Data  Gb  hal_data.o [1]
+g_timer0_extend              0x998c   0x58  Data  Gb  hal_data.o [1]
+g_timer0_pwm_extend          0x996c   0x20  Data  Gb  hal_data.o [1]
+g_timer1                     0x9960    0xc  Data  Gb  hal_data.o [1]
+g_timer1_cfg                 0x9940   0x20  Data  Gb  hal_data.o [1]
+g_timer1_ctrl           0x2000'074c   0x20  Data  Gb  hal_data.o [1]
+g_timer1_extend              0x98e8   0x58  Data  Gb  hal_data.o [1]
+g_timer1_pwm_extend          0x98c8   0x20  Data  Gb  hal_data.o [1]
+g_timer2                     0x98bc    0xc  Data  Gb  hal_data.o [1]
+g_timer2_cfg                 0x989c   0x20  Data  Gb  hal_data.o [1]
+g_timer2_ctrl           0x2000'072c   0x20  Data  Gb  hal_data.o [1]
+g_timer2_extend              0x9844   0x58  Data  Gb  hal_data.o [1]
+g_timer2_pwm_extend          0x9824   0x20  Data  Gb  hal_data.o [1]
+g_timer3                     0x97ac    0xc  Data  Gb  hal_data.o [1]
+g_timer3_cfg                 0x978c   0x20  Data  Gb  hal_data.o [1]
+g_timer3_ctrl           0x2000'05d8   0x20  Data  Gb  hal_data.o [1]
+g_timer3_extend              0x9784    0x8  Data  Gb  hal_data.o [1]
+g_timer_on_agt               0x9fb8   0x34  Data  Gb  r_agt.o [4]
+g_timer_on_gpt               0xa018   0x34  Data  Gb  r_gpt.o [4]
+g_u1_conf_control       0x2000'0b34   0x2c  Data  Gb  mtr_main.o [2]
+g_u1_conf_control_len   0x2000'0e32    0x1  Data  Gb  mtr_main.o [2]
+g_u1_conf_inverter      0x2000'0b60    0x8  Data  Gb  mtr_main.o [2]
+g_u1_conf_inverter_len  0x2000'0e33    0x1  Data  Gb  mtr_main.o [2]
+g_u1_conf_motor_type    0x2000'0b20   0x14  Data  Gb  mtr_main.o [2]
+g_u1_conf_motor_type_len
+                        0x2000'0e31    0x1  Data  Gb  mtr_main.o [2]
+g_u1_enable_write       0x2000'0e3a    0x1  Data  Gb  r_mtr_ics.o [2]
+g_u1_mode_system        0x2000'0e2f    0x1  Data  Gb  mtr_main.o [2]
+g_u1_motor_status       0x2000'0e2b    0x1  Data  Gb  mtr_main.o [2]
+g_u1_reset_req          0x2000'0e34    0x1  Data  Gb  mtr_main.o [2]
+g_u1_state_id_ref_monitor
+                        0x2000'0e37    0x1  Data  Gb  r_mtr_ics.o [2]
+g_u1_state_iq_ref_monitor
+                        0x2000'0e38    0x1  Data  Gb  r_mtr_ics.o [2]
+g_u1_stop_req           0x2000'0e30    0x1  Data  Gb  mtr_main.o [2]
+g_u1_sw_cnt             0x2000'0e35    0x1  Data  Gb  mtr_main.o [2]
+g_u1_sw_userif          0x2000'0e2d    0x1  Data  Gb  mtr_main.o [2]
+g_u1_trig_enable_write  0x2000'0e3b    0x1  Data  Gb  r_mtr_ics.o [2]
+g_u2_chk_error          0x2000'0e14    0x2  Data  Gb  mtr_main.o [2]
+g_u2_conf_hw            0x2000'0e18    0x2  Data  Gb  mtr_main.o [2]
+g_u2_conf_sw            0x2000'0e1a    0x2  Data  Gb  mtr_main.o [2]
+g_u2_conf_tool          0x2000'0e1c    0x2  Data  Gb  mtr_main.o [2]
+g_u2_max_speed_rpm      0x2000'0e12    0x2  Data  Gb  mtr_main.o [2]
+g_u2_tune_mode          0x2000'0e1e    0x2  Data  Gb  mtr_main.o [2]
+g_u2_tune_mode_pre      0x2000'0e20    0x2  Data  Gb  mtr_main.o [2]
+g_u2_vr1_ad             0x2000'0e16    0x2  Data  Gb  mtr_main.o [2]
+g_user_motor_cfg        0x2000'0b68   0x10  Data  Gb  mtr_main.o [2]
+g_user_motor_estimate_extended_cfg
+                        0x2000'0c30   0x58  Data  Gb  mtr_main.o [2]
+g_user_motor_hal_driver_cfg
+                        0x2000'0c88   0x18  Data  Gb  mtr_main.o [2]
+g_user_motor_hal_driver_extended_cfg
+                        0x2000'0ca0   0x84  Data  Gb  mtr_main.o [2]
+g_user_motor_pm_foc_cfg
+                        0x2000'0b78   0x14  Data  Gb  mtr_main.o [2]
+g_user_motor_pm_foc_extended_cfg
+                        0x2000'0b8c   0x9c  Data  Gb  mtr_main.o [2]
+g_user_motor_sensor_cfg
+                        0x2000'0c28    0x8  Data  Gb  mtr_main.o [2]
+g_vector_table                 0x40   0x40  Data  Gb  vector_data.o [1]
+get_sw1                      0x137d   0x14  Code  Lc  mtr_main.o [2]
+get_sw2                      0x1391   0x14  Code  Lc  mtr_main.o [2]
+get_vr1                      0x1367   0x16  Code  Lc  mtr_main.o [2]
+gp_prv_agt_periods      0x2000'0d24    0x8  Data  Lc  r_agt.o [4]
+gp_renesas_isr_context  0x2000'0564   0x40  Data  Gb  bsp_irq.o [4]
+gpt_calculate_duty_cycle
+                             0x418d   0xb4  Code  Lc  r_gpt.o [4]
+gpt_clock_frequency_get
+                             0x4241   0x18  Code  Lc  r_gpt.o [4]
+gpt_common_open              0x3dcd   0x30  Code  Lc  r_gpt.o [4]
+gpt_gtior_calculate          0x4259   0x48  Code  Lc  r_gpt.o [4]
+gpt_hardware_events_disable
+                             0x4131   0x1e  Code  Lc  r_gpt.o [4]
+gpt_hardware_initialize
+                             0x3e01  0x2f4  Code  Lc  r_gpt.o [4]
+hal_entry                    0x967b    0xc  Code  Gb  hal_entry.o [2]
+ics2_init                     0xd37   0x9a  Code  Gb  ICS2_RA6T2.o [2]
+ics2_watchpoint               0xb8b  0x1ac  Code  Gb  ICS2_RA6T2.o [2]
+ics_buf2nd              0x2000'0acc   0x20  Data  Lc  ICS2_RA6T2.o [2]
+ics_command_ack_raw           0x711    0xa  Code  Lc  ICS2_RA6T2.o [2]
+ics_command_error             0x71b   0x2c  Code  Lc  ICS2_RA6T2.o [2]
+ics_data1               0x2000'0aec    0x4  Data  Lc  ICS2_RA6T2.o [2]
+ics_data2               0x2000'0af0    0x4  Data  Lc  ICS2_RA6T2.o [2]
+ics_even                0x2000'0e27    0x1  Data  Lc  ICS2_RA6T2.o [2]
+ics_int_sci_rxi               0x747  0x1e4  Code  Gb  ICS2_RA6T2.o [2]
+ics_interpreter               0x92b  0x260  Code  Lc  ICS2_RA6T2.o [2]
+ics_port                0x2000'0e28    0x1  Data  Lc  ICS2_RA6T2.o [2]
+ics_port_h4             0x2000'0e29    0x1  Data  Lc  ICS2_RA6T2.o [2]
+ics_rcom                0x2000'0e26    0x1  Data  Lc  ICS2_RA6T2.o [2]
+ics_rsum                0x2000'0e25    0x1  Data  Lc  ICS2_RA6T2.o [2]
+ics_rx_cnt              0x2000'0e24    0x1  Data  Lc  ICS2_RA6T2.o [2]
+ics_send                      0xdd1   0x8e  Code  Lc  ICS2_RA6T2.o [2]
+ics_send_packet               0x6fd   0x14  Code  Lc  ICS2_RA6T2.o [2]
+ics_tmode               0x2000'0e2a    0x1  Data  Lc  ICS2_RA6T2.o [2]
+ics_tx                  0x2000'0af4   0x14  Data  Lc  ICS2_RA6T2.o [2]
+ics_ui                       0x1111   0x92  Code  Lc  mtr_main.o [2]
+ics_waddr               0x2000'0a9c   0x30  Data  Lc  ICS2_RA6T2.o [2]
+ics_wready              0x2000'0e10    0x2  Data  Lc  ICS2_RA6T2.o [2]
+led1_off                     0x13c7   0x10  Code  Lc  mtr_main.o [2]
+led1_on                      0x13a5   0x10  Code  Lc  mtr_main.o [2]
+led2_off                     0x13d7   0x10  Code  Lc  mtr_main.o [2]
+led2_on                      0x13b5   0x10  Code  Lc  mtr_main.o [2]
+led3_off                     0x148d    0x2  Code  Lc  mtr_main.o [2]
+led3_on                      0x13c5    0x2  Code  Lc  mtr_main.o [2]
+log2                         0x6599    0x6  Code  Gb  logx64.o [6]
+log2l                        0x6599    0x6  Code  Gb  logx64.o [6]
+main                         0x9655    0xa  Code  Gb  main.o [1]
+motor_control_action_table
+                             0xa08c   0x30  Data  Lc  rm_motor_control.o [4]
+motor_fsp_init               0x1209   0x8a  Code  Lc  mtr_main.o [2]
+motor_inner_angle_cyclic
+                             0x75dd   0x58  Code  Lc  rm_motor_pm_foc_inner.o [4]
+motor_inner_handle_tuner
+                             0x785f   0xfc  Code  Lc  rm_motor_pm_foc_inner.o [4]
+motor_inner_phase_voltage_get
+                             0x74ed   0xee  Code  Lc  rm_motor_pm_foc_inner.o [4]
+motor_inner_pi_calculation
+                             0x76ef   0x56  Code  Lc  rm_motor_pm_foc_inner.o [4]
+motor_inner_reset            0x7635   0xba  Code  Lc  rm_motor_pm_foc_inner.o [4]
+motor_inner_reset_shared_data
+                             0x7745   0x1a  Code  Lc  rm_motor_pm_foc_inner.o [4]
+motor_outer_error_check
+                             0x7fab   0x6e  Code  Lc  rm_motor_pm_foc_outer.o [4]
+motor_outer_fnctbl_extobsrv_ctrl
+                             0x8a45   0x84  Code  Gb  rm_motor_pm_foc_outer_fnc.o [4]
+motor_outer_fnctbl_fw_ctrl
+                             0x8ac9   0x5a  Code  Gb  rm_motor_pm_foc_outer_fnc.o [4]
+motor_outer_fnctbl_spddirct_ctrl
+                             0x8a3d    0x8  Code  Gb  rm_motor_pm_foc_outer_fnc.o [4]
+motor_outer_fnctbl_spdobsrv_ctrl
+                             0x8a17   0x26  Code  Gb  rm_motor_pm_foc_outer_fnc.o [4]
+motor_outer_reset_shared_data
+                             0x7f99   0x12  Code  Lc  rm_motor_pm_foc_outer.o [4]
+motor_outer_set_i_ref        0x7f09   0x90  Code  Lc  rm_motor_pm_foc_outer.o [4]
+motor_outer_set_speed_ref
+                             0x7eb1   0x56  Code  Lc  rm_motor_pm_foc_outer.o [4]
+motor_outer_speed_control
+                             0x7bc7   0xa8  Code  Gb  rm_motor_pm_foc_outer.o [4]
+motor_outer_speed_pi         0x7e8b   0x26  Code  Lc  rm_motor_pm_foc_outer.o [4]
+motor_outer_speed_rate_limit
+                             0x7e37   0x54  Code  Lc  rm_motor_pm_foc_outer.o [4]
+motor_outer_trajectory_call
+                             0x8021   0x66  Code  Lc  rm_motor_pm_foc_outer.o [4]
+mtr_board_led_control        0x12e1   0x50  Code  Lc  mtr_main.o [2]
+mtr_callback_event           0x129d   0x3c  Code  Gb  mtr_main.o [2]
+mtr_ics_interrupt_process
+                             0x17a5  0x158  Code  Gb  r_mtr_ics.o [2]
+mtr_ics_variables_init       0x169d   0xfa  Code  Gb  r_mtr_ics.o [2]
+mtr_init                      0xee9   0xbe  Code  Gb  mtr_main.o [2]
+mtr_main                      0xfa7   0x40  Code  Gb  mtr_main.o [2]
+mtr_remove_sw_chattering
+                             0x1331   0x36  Code  Lc  mtr_main.o [2]
+mtr_set_com_variables        0x1509  0x190  Code  Gb  r_mtr_ics.o [2]
+nocache_list                 0x96e4    0x8  Data  Lc  bsp_linker.o [4]
+option_setting_bps_BLOCK$$Base
+                         0x100'a1c0          --   Gb  - Linker created -
+option_setting_bps_BLOCK$$Limit
+                         0x100'a1c0          --   Gb  - Linker created -
+option_setting_bps_sec_BLOCK$$Base
+                         0x100'a240          --   Gb  - Linker created -
+option_setting_bps_sec_BLOCK$$Limit
+                         0x100'a240          --   Gb  - Linker created -
+option_setting_bps_sel_BLOCK$$Base
+                         0x100'a2c0          --   Gb  - Linker created -
+option_setting_bps_sel_BLOCK$$Limit
+                         0x100'a2c0          --   Gb  - Linker created -
+option_setting_ofs0_BLOCK$$Base
+                         0x100'a100          --   Gb  - Linker created -
+option_setting_ofs0_BLOCK$$Limit
+                         0x100'a104          --   Gb  - Linker created -
+option_setting_ofs1_BLOCK$$Base
+                         0x100'a180          --   Gb  - Linker created -
+option_setting_ofs1_BLOCK$$Limit
+                         0x100'a180          --   Gb  - Linker created -
+option_setting_ofs1_sec_BLOCK$$Base
+                         0x100'a200          --   Gb  - Linker created -
+option_setting_ofs1_sec_BLOCK$$Limit
+                         0x100'a204          --   Gb  - Linker created -
+option_setting_ofs1_sel_BLOCK$$Base
+                         0x100'a280          --   Gb  - Linker created -
+option_setting_ofs1_sel_BLOCK$$Limit
+                         0x100'a284          --   Gb  - Linker created -
+option_setting_pbps_BLOCK$$Base
+                         0x100'a1e0          --   Gb  - Linker created -
+option_setting_pbps_BLOCK$$Limit
+                         0x100'a1e0          --   Gb  - Linker created -
+option_setting_pbps_sec_BLOCK$$Base
+                         0x100'a260          --   Gb  - Linker created -
+option_setting_pbps_sec_BLOCK$$Limit
+                         0x100'a260          --   Gb  - Linker created -
+p_user_sensor_api       0x2000'0038    0x4  Data  Gb  r_mtr_ics.o [2]
+p_user_sensor_ctrl      0x2000'0034    0x4  Data  Gb  r_mtr_ics.o [2]
+poeg_event_isr               0x1c49   0x42  Code  Gb  r_poeg.o [4]
+r_agt_clock_frequency_get
+                             0x36e5   0x52  Code  Lc  r_agt.o [4]
+r_agt_common_preamble        0x35d1   0x44  Code  Lc  r_agt.o [4]
+r_agt_hardware_cfg           0x3615   0x70  Code  Lc  r_agt.o [4]
+r_agt_period_register_set
+                             0x3685   0x30  Code  Lc  r_agt.o [4]
+r_gpt_disable_irq            0x414f   0x20  Code  Lc  r_gpt.o [4]
+r_gpt_enable_irq             0x416f   0x1e  Code  Lc  r_gpt.o [4]
+r_gpt_init_compare_match_channel
+                             0x42a1   0x42  Code  Lc  r_gpt.o [4]
+r_gpt_write_protect_disable
+                             0x3dc7    0x6  Code  Lc  r_gpt.o [4]
+r_gpt_write_protect_disable_all
+                             0x4493    0x2  Code  Lc  r_gpt_three_phase.o [4]
+r_gpt_write_protect_enable
+                             0x3dc5    0x2  Code  Lc  r_gpt.o [4]
+r_gpt_write_protect_enable_all
+                             0x4491    0x2  Code  Lc  r_gpt_three_phase.o [4]
+r_ioport_pfs_write            0x685   0x62  Code  Lc  r_ioport.o [4]
+r_ioport_pins_config          0x64b   0x3a  Code  Lc  r_ioport.o [4]
+ram_BLOCK$$Base         0x2000'0000          --   Gb  - Linker created -
+ram_BLOCK$$Limit        0x2000'1000          --   Gb  - Linker created -
+rm_motor_bemf_obs_angle_speed_set_gain
+                             0x476b    0xe  Code  Lc  rm_motor_bemfobserver.o [4]
+rm_motor_bemf_obs_calc_d
+                             0x45c7   0x1a  Code  Gb  rm_motor_bemfobserver.o [4]
+rm_motor_bemf_obs_calc_q
+                             0x45e1   0x1e  Code  Gb  rm_motor_bemfobserver.o [4]
+rm_motor_bemf_obs_gain_calc
+                             0x4621   0xae  Code  Gb  rm_motor_bemfobserver.o [4]
+rm_motor_bemf_obs_observer
+                             0x4495  0x132  Code  Gb  rm_motor_bemfobserver.o [4]
+rm_motor_bemf_obs_pll        0x46cf   0x2a  Code  Gb  rm_motor_bemfobserver.o [4]
+rm_motor_bemf_obs_pll_gain_calc
+                             0x46f9   0x44  Code  Gb  rm_motor_bemfobserver.o [4]
+rm_motor_bemf_obs_pll_reset
+                             0x4745    0x6  Code  Gb  rm_motor_bemfobserver.o [4]
+rm_motor_bemf_obs_reset
+                             0x45ff   0x22  Code  Gb  rm_motor_bemfobserver.o [4]
+rm_motor_bemf_obs_set_gain
+                             0x474b   0x20  Code  Lc  rm_motor_bemfobserver.o [4]
+rm_motor_control_active
+                             0x1e8f   0x22  Code  Lc  rm_motor_control.o [4]
+rm_motor_control_callback
+                             0x1fb9   0xc4  Code  Gb  rm_motor_control.o [4]
+rm_motor_control_error       0x1efb   0x1e  Code  Lc  rm_motor_control.o [4]
+rm_motor_control_inactive
+                             0x1eb1   0x22  Code  Lc  rm_motor_control.o [4]
+rm_motor_control_nowork
+                             0x1ed3    0xa  Code  Lc  rm_motor_control.o [4]
+rm_motor_control_reset       0x1edd   0x1e  Code  Lc  rm_motor_control.o [4]
+rm_motor_control_statemachine_event
+                             0x1f33   0x78  Code  Lc  rm_motor_control.o [4]
+rm_motor_control_statemachine_init
+                             0x1f19    0xc  Code  Lc  rm_motor_control.o [4]
+rm_motor_control_statemachine_reset
+                             0x1f25    0xe  Code  Lc  rm_motor_control.o [4]
+rm_motor_decoupling          0x4815   0x54  Code  Gb  rm_motor_decoupling.o [4]
+rm_motor_extobserver_disturbance_get
+                             0x48f3    0x6  Code  Gb  rm_motor_extobserver.o [4]
+rm_motor_extobserver_mech_speed_get
+                             0x48ed    0x6  Code  Gb  rm_motor_extobserver.o [4]
+rm_motor_extobserver_reset
+                             0x4869   0x16  Code  Gb  rm_motor_extobserver.o [4]
+rm_motor_extobserver_start
+                             0x487f   0x6e  Code  Gb  rm_motor_extobserver.o [4]
+rm_motor_filter_first_order_lpff
+                             0x4a39   0x2e  Code  Gb  rm_motor_filter.o [4]
+rm_motor_filter_first_order_lpff_gain_calc
+                             0x49e9   0x4a  Code  Gb  rm_motor_filter.o [4]
+rm_motor_filter_first_order_lpff_init
+                             0x49d1   0x16  Code  Gb  rm_motor_filter.o [4]
+rm_motor_filter_limitf_abs
+                             0x48fd   0x3e  Code  Gb  rm_motor_filter.o [4]
+rm_motor_filter_second_order_lpff
+                             0x4977   0x5a  Code  Gb  rm_motor_filter.o [4]
+rm_motor_filter_second_order_lpff_init
+                             0x493b   0x2a  Code  Gb  rm_motor_filter.o [4]
+rm_motor_filter_second_order_lpff_reset
+                             0x4965   0x12  Code  Gb  rm_motor_filter.o [4]
+rm_motor_fluxwkn_get_vec
+                             0x4a69   0x34  Code  Lc  rm_motor_fluxwkn.o [4]
+rm_motor_fluxwkn_init        0x4b21   0x3e  Code  Gb  rm_motor_fluxwkn.o [4]
+rm_motor_fluxwkn_is_error
+                             0x4af7   0x12  Code  Lc  rm_motor_fluxwkn.o [4]
+rm_motor_fluxwkn_is_invalid_parameter
+                             0x4b09   0x16  Code  Lc  rm_motor_fluxwkn.o [4]
+rm_motor_fluxwkn_reset       0x4b5f   0x14  Code  Gb  rm_motor_fluxwkn.o [4]
+rm_motor_fluxwkn_run         0x4b75  0x17a  Code  Gb  rm_motor_fluxwkn.o [4]
+rm_motor_fluxwkn_set_iamax
+                             0x4da7   0x50  Code  Gb  rm_motor_fluxwkn.o [4]
+rm_motor_fluxwkn_set_motor
+                             0x4cfd   0xaa  Code  Gb  rm_motor_fluxwkn.o [4]
+rm_motor_fluxwkn_set_v_fwratio
+                             0x4abd   0x3a  Code  Lc  rm_motor_fluxwkn.o [4]
+rm_motor_fluxwkn_set_vamax
+                             0x4df7   0x28  Code  Gb  rm_motor_fluxwkn.o [4]
+rm_motor_fluxwkn_vec_abs
+                             0x4a9d   0x20  Code  Lc  rm_motor_fluxwkn.o [4]
+rm_motor_fundlib_limitfabs
+                             0x4779   0x3e  Code  Gb  rm_motor_fundlib.o [4]
+rm_motor_hal_driver_1shunt_current_get
+                             0x5611  0x2ca  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_hal_driver_1shunt_cyclic
+                             0x5df1   0x60  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_hal_driver_1shunt_modulation
+                             0x5945  0x320  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_hal_driver_adc_b_close
+                             0x5eed   0x1c  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_hal_driver_adc_b_open
+                             0x5e51   0x8a  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_hal_driver_current_get
+                             0x537b  0x296  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_hal_driver_cyclic
+                             0x5da1   0x46  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_hal_driver_modulation
+                             0x58db   0x6a  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_hal_driver_modulation_dpwm
+                             0x5f8f   0xa2  Code  Lc  rm_motor_hal_driver_modulation.o [4]
+rm_motor_hal_driver_modulation_get_vamax
+                             0x6201   0x3a  Code  Gb  rm_motor_hal_driver_modulation.o [4]
+rm_motor_hal_driver_modulation_limit
+                             0x6031   0x88  Code  Lc  rm_motor_hal_driver_modulation.o [4]
+rm_motor_hal_driver_modulation_run
+                             0x60b9   0xdc  Code  Gb  rm_motor_hal_driver_modulation.o [4]
+rm_motor_hal_driver_modulation_set_max_duty
+                             0x6195   0x3c  Code  Gb  rm_motor_hal_driver_modulation.o [4]
+rm_motor_hal_driver_modulation_set_min_duty
+                             0x61d1   0x2e  Code  Gb  rm_motor_hal_driver_modulation.o [4]
+rm_motor_hal_driver_modulation_svpwm
+                             0x5f09   0x86  Code  Lc  rm_motor_hal_driver_modulation.o [4]
+rm_motor_hal_driver_output_disable
+                             0x5d15   0x8c  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_hal_driver_output_enable
+                             0x5c7f   0x96  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_hal_driver_pin_cfg
+                             0x5c65   0x1a  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_hal_driver_reset
+                             0x521d   0x9a  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_hal_driver_set_uvw_duty
+                             0x52b7   0xc4  Code  Lc  rm_motor_hal_driver.o [4]
+rm_motor_inner_close         0x7267   0x56  Code  Gb  rm_motor_pm_foc_inner.o [4]
+rm_motor_inner_cyclic        0x7355  0x198  Code  Gb  rm_motor_pm_foc_inner.o [4]
+rm_motor_inner_error_check
+                             0x7761   0xf4  Code  Lc  rm_motor_pm_foc_inner.o [4]
+rm_motor_inner_error_get
+                             0x7859    0x6  Code  Gb  rm_motor_pm_foc_inner.o [4]
+rm_motor_inner_init          0x7055  0x212  Code  Gb  rm_motor_pm_foc_inner.o [4]
+rm_motor_inner_outer_ref_ctrl_mode_get
+                             0x7961   0x1a  Code  Gb  rm_motor_pm_foc_inner.o [4]
+rm_motor_inner_parameter_update
+                             0x731b   0x3a  Code  Gb  rm_motor_pm_foc_inner.o [4]
+rm_motor_inner_reset         0x72bd   0x5e  Code  Gb  rm_motor_pm_foc_inner.o [4]
+rm_motor_opl2less_iq_calc
+                             0x6cbd   0x28  Code  Gb  rm_motor_opl2less.o [4]
+rm_motor_opl2less_torque_current_calc
+                             0x6ce5   0x50  Code  Gb  rm_motor_opl2less.o [4]
+rm_motor_opl_damp_ctrl       0x6d3d   0x74  Code  Gb  rm_motor_opl_damp_ctrl.o [4]
+rm_motor_opl_damp_init       0x6db1   0x1c  Code  Gb  rm_motor_opl_damp_ctrl.o [4]
+rm_motor_opl_damp_r_set_gain
+                             0x6dd9   0x9a  Code  Gb  rm_motor_opl_damp_ctrl.o [4]
+rm_motor_opl_damp_reset
+                             0x6dcd    0xa  Code  Gb  rm_motor_opl_damp_ctrl.o [4]
+rm_motor_opl_damp_set_limit
+                             0x6e7d    0x8  Code  Gb  rm_motor_opl_damp_ctrl.o [4]
+rm_motor_outer_close         0x7ae3   0x6a  Code  Gb  rm_motor_pm_foc_outer.o [4]
+rm_motor_outer_cyclic        0x7d11  0x126  Code  Gb  rm_motor_pm_foc_outer.o [4]
+rm_motor_outer_error_get
+                             0x8019    0x6  Code  Gb  rm_motor_pm_foc_outer.o [4]
+rm_motor_outer_init          0x797d  0x166  Code  Gb  rm_motor_pm_foc_outer.o [4]
+rm_motor_outer_parameter_update
+                             0x7c71   0x9c  Code  Gb  rm_motor_pm_foc_outer.o [4]
+rm_motor_outer_reset         0x7b4d   0x7a  Code  Gb  rm_motor_pm_foc_outer.o [4]
+rm_motor_pi_ctrl             0x8765   0x50  Code  Gb  rm_motor_pi_control.o [4]
+rm_motor_pi_gain_calc        0x6e85   0x6c  Code  Gb  rm_motor_pi_gain_calc.o [4]
+rm_motor_sample_delay_comp
+                             0x47b9   0x3c  Code  Gb  rm_motor_fundlib.o [4]
+rm_motor_sensor_bemf_set_id_ref
+                             0x91fd   0xd4  Code  Lc  rm_motor_sensor_bemf.o [4]
+rm_motor_sensor_bemf_set_iq_ref
+                             0x900d  0x1e4  Code  Lc  rm_motor_sensor_bemf.o [4]
+rm_motor_sensor_ol_dbg_mode
+                             0x92d9  0x1aa  Code  Lc  rm_motor_sensor_bemf.o [4]
+rm_motor_spdobserver         0x8925   0xc8  Code  Gb  rm_motor_spdobserver.o [4]
+rm_motor_spdobserver_gain_calc
+                             0x8811  0x110  Code  Gb  rm_motor_spdobserver.o [4]
+rm_motor_spdobserver_init
+                             0x87b5   0x30  Code  Gb  rm_motor_spdobserver.o [4]
+rm_motor_spdobserver_reset
+                             0x87e5   0x2a  Code  Gb  rm_motor_spdobserver.o [4]
+rm_motor_speed_pi_gain_calc
+                             0x4e41   0x54  Code  Gb  rm_motor_gain_calc.o [4]
+rm_motor_transform_dq_uvw_abs
+                             0x8611   0xb8  Code  Gb  rm_motor_transform.o [4]
+rm_motor_transform_uvw_dq_abs
+                             0x858d   0x84  Code  Gb  rm_motor_transform.o [4]
+rm_motor_volt_error_comp_calc
+                             0x80a5  0x322  Code  Gb  rm_motor_volt_error_comp.o [4]
+rm_motor_volt_error_comp_init
+                             0x83c7  0x120  Code  Gb  rm_motor_volt_error_comp.o [4]
+rm_motor_volt_error_comp_main
+                             0x8511   0x7a  Code  Gb  rm_motor_volt_error_comp.o [4]
+rm_motor_volt_error_comp_reset
+                             0x84f5   0x1c  Code  Gb  rm_motor_volt_error_comp.o [4]
+rm_motor_voltage_limit       0x86e5   0x80  Code  Gb  rm_motor_vlimit.o [4]
+software_init                0x11a3   0x3e  Code  Lc  mtr_main.o [2]
+sqrtf                        0x4e21         Code  Gb  sqrtf.o [6]
+state_transition_table       0xa080    0xc  Data  Lc  rm_motor_control.o [4]
+u1_cnt_ics              0x2000'0e36    0x1  Data  Lc  r_mtr_ics.o [2]
+wbuf                    0x2000'0b08   0x14  Data  Lc  ICS2_RA6T2.o [2]
+zero_list                    0x96ac   0x18  Data  Lc  bsp_linker.o [4]
+
+
+[1] = C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Generated Data_10512379876834115868.dir
+[2] = C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\Program Entry_7190525443123924260.dir
+[3] = C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\board_3109224582610764880.dir
+[4] = C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Obj\fsp_1985855358446593410.dir
+[5] = dl7M_tln.a
+[6] = m7M_tls.a
+[7] = rt7M_tl.a
+[8] = shb_l.a
+
+  38'382 bytes of readonly  code memory
+   3'086 bytes of readonly  data memory
+   4'620 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
