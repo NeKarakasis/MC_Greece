@@ -1,0 +1,2995 @@
+Renesas Optimizing Linker
+_g_clock_freq
+20000448  28  data ,g
+_g_fsp_version_build_string
+0000a1ac  68  data ,g
+_g_fsp_version_string
+0000a1a4  6  data ,g
+_g_bsp_group_irq_sources
+20000520  64  data ,g
+_g_protect_pfswe_counter
+20000560  4  data ,g
+_gp_renesas_isr_context
+20000564  64  data ,g
+_copy_list
+000096c4  32  data ,g
+_g_bsp_cfg_option_setting_ofs0
+0100a100  4  data ,g
+_g_bsp_cfg_option_setting_ofs1_sec
+0100a200  4  data ,g
+_g_bsp_cfg_option_setting_ofs1_sel
+0100a280  4  data ,g
+_g_init_info
+000096ec  24  data ,g
+struct  {
+_g_init_info.zero_count
+000096ec  4  unsigned int
+_g_init_info.p_zero_list
+000096f0  4  [pointer]
+_g_init_info.copy_count
+000096f4  4  unsigned int
+_g_init_info.p_copy_list
+000096f8  4  [pointer]
+_g_init_info.nocache_count
+000096fc  4  unsigned int
+_g_init_info.p_nocache_list
+00009700  4  [pointer]
+}
+_nocache_list
+000096e4  8  data ,g
+_zero_list
+000096ac  24  data ,g
+_g_prcr_masks
+00009704  10  data ,g
+_g_protect_counters
+200005a4  10  data ,g
+_g_elc
+00009710  12  data ,g
+struct  {
+_g_elc.p_ctrl
+00009710  4  [pointer]
+_g_elc.p_cfg
+00009714  4  [pointer]
+_g_elc.p_api
+00009718  4  [pointer]
+}
+_g_elc_ctrl
+200005b0  8  data ,g
+struct  {
+_g_elc_ctrl.open
+200005b0  4  unsigned int
+_g_elc_ctrl.p_context
+200005b4  4  [pointer]
+}
+_g_ioport_ctrl
+200005b8  8  data ,g
+struct  {
+_g_ioport_ctrl.open
+200005b8  4  unsigned int
+_g_ioport_ctrl.p_context
+200005bc  4  [pointer]
+}
+_g_elc_cfg
+0000971c  64  data ,g
+struct  {
+_g_elc_cfg.link
+0000971c  60  short
+_g_elc_cfg.p_extend
+00009758  4  [pointer]
+}
+_g_adc0
+00009c50  16  data ,g
+struct  {
+_g_adc0.p_ctrl
+00009c50  4  [pointer]
+_g_adc0.p_cfg
+00009c54  4  [pointer]
+_g_adc0.p_channel_cfg
+00009c58  4  [pointer]
+_g_adc0.p_api
+00009c5c  4  [pointer]
+}
+_g_adc0_cfg
+00009c38  24  data ,g
+struct  {
+_g_adc0_cfg.unit
+00009c38  2  unsigned short
+_g_adc0_cfg.mode
+00009c3a  1  char
+_g_adc0_cfg.resolution
+00009c3b  1  char
+_g_adc0_cfg.alignment
+00009c3c  1  char
+_g_adc0_cfg.trigger
+00009c3d  1  char
+_g_adc0_cfg.scan_end_irq
+00009c3e  1  signed char
+_g_adc0_cfg.scan_end_b_irq
+00009c3f  1  signed char
+_g_adc0_cfg.scan_end_c_irq
+00009c40  1  signed char
+_g_adc0_cfg.scan_end_ipl
+00009c41  1  unsigned char
+_g_adc0_cfg.scan_end_b_ipl
+00009c42  1  unsigned char
+_g_adc0_cfg.scan_end_c_ipl
+00009c43  1  unsigned char
+_g_adc0_cfg.p_callback
+00009c44  4  [pointer]
+_g_adc0_cfg.p_context
+00009c48  4  [pointer]
+_g_adc0_cfg.p_extend
+00009c4c  4  [pointer]
+}
+_g_adc0_cfg_extend
+00009b34  260  data ,g
+struct  {
+_g_adc0_cfg_extend.pga_gain
+00009b34  16  signed int
+_g_adc0_cfg_extend.scan_group_enable
+00009b5c  4  unsigned int
+_g_adc0_cfg_extend.fifo_interrupt_enable_mask
+00009b6e  2  unsigned short
+_g_adc0_cfg_extend.calibration_adc_state
+00009b98  4  unsigned int
+_g_adc0_cfg_extend.calibration_sample_and_hold
+00009b9c  4  unsigned int
+_g_adc0_cfg_extend.p_isr_cfg
+00009ba0  4  [pointer]
+_g_adc0_cfg_extend.sample_and_hold_enable_mask
+00009bc4  1  unsigned char
+_g_adc0_cfg_extend.sample_and_hold_config_012
+00009bc8  4  unsigned int
+_g_adc0_cfg_extend.sample_and_hold_config_456
+00009bcc  4  unsigned int
+_g_adc0_cfg_extend.conversion_state
+00009bd0  4  unsigned int
+_g_adc0_cfg_extend.user_offset_tables
+00009bd4  32  signed int
+_g_adc0_cfg_extend.user_gain_tables
+00009bf4  32  unsigned int
+_g_adc0_cfg_extend.limiter_clip_interrupt_enable_mask
+00009c14  4  unsigned int
+_g_adc0_cfg_extend.limiter_clip_tables
+00009c18  32  unsigned int
+}
+_g_adc0_ctrl
+200007a8  40  data ,g
+struct  {
+_g_adc0_ctrl.adc_state
+200007a8  1  char
+_g_adc0_ctrl.cached_adtrgenr
+200007ac  4  unsigned int
+_g_adc0_ctrl.cached_adsystr
+200007b0  4  unsigned int
+_g_adc0_ctrl.trigger_disable_wait_cycles
+200007b4  4  unsigned int
+_g_adc0_ctrl.p_cfg
+200007b8  4  [pointer]
+_g_adc0_ctrl.p_callback
+200007bc  4  [pointer]
+_g_adc0_ctrl.p_callback_memory
+200007c0  4  [pointer]
+_g_adc0_ctrl.p_context
+200007c4  4  [pointer]
+_g_adc0_ctrl.initialized
+200007c8  4  unsigned int
+_g_adc0_ctrl.opened
+200007cc  4  unsigned int
+}
+_g_adc0_group_0_cfg
+00009ab4  28  data ,g
+struct  {
+_g_adc0_group_0_cfg.scan_group_id
+00009ab4  1  char
+_g_adc0_group_0_cfg.converter_selection
+00009ab5  1  char
+_g_adc0_group_0_cfg.scan_group_enable
+00009ab6  1  _Bool
+_g_adc0_group_0_cfg.virtual_channel_count
+00009ab7  1  unsigned char
+_g_adc0_group_0_cfg.scan_end_interrupt_enable
+00009ab8  1  _Bool
+_g_adc0_group_0_cfg.external_trigger_enable_mask
+00009ab9  1  char
+_g_adc0_group_0_cfg.elc_trigger_enable_mask
+00009aba  1  char
+_g_adc0_group_0_cfg.gpt_trigger_enable_mask
+00009abc  4  signed int
+_g_adc0_group_0_cfg.conversion_start_delay
+00009ac0  1  unsigned char
+_g_adc0_group_0_cfg.self_diagnosis_mask
+00009ac4  4  unsigned int
+_g_adc0_group_0_cfg.limit_clip_interrupt_enable
+00009ac8  1  _Bool
+_g_adc0_group_0_cfg.p_virtual_channels
+00009acc  4  [pointer]
+}
+_g_adc0_group_0_virtual_channels
+00009aa0  16  data ,g
+_g_adc0_group_1_cfg
+00009ad0  28  data ,g
+struct  {
+_g_adc0_group_1_cfg.scan_group_id
+00009ad0  1  char
+_g_adc0_group_1_cfg.converter_selection
+00009ad1  1  char
+_g_adc0_group_1_cfg.scan_group_enable
+00009ad2  1  _Bool
+_g_adc0_group_1_cfg.virtual_channel_count
+00009ad3  1  unsigned char
+_g_adc0_group_1_cfg.scan_end_interrupt_enable
+00009ad4  1  _Bool
+_g_adc0_group_1_cfg.external_trigger_enable_mask
+00009ad5  1  char
+_g_adc0_group_1_cfg.elc_trigger_enable_mask
+00009ad6  1  char
+_g_adc0_group_1_cfg.gpt_trigger_enable_mask
+00009ad8  4  signed int
+_g_adc0_group_1_cfg.conversion_start_delay
+00009adc  1  unsigned char
+_g_adc0_group_1_cfg.self_diagnosis_mask
+00009ae0  4  unsigned int
+_g_adc0_group_1_cfg.limit_clip_interrupt_enable
+00009ae4  1  _Bool
+_g_adc0_group_1_cfg.p_virtual_channels
+00009ae8  4  [pointer]
+}
+_g_adc0_group_1_virtual_channels
+00009ab0  4  data ,g
+_g_adc0_isr_cfg
+00009afc  56  data ,g
+struct  {
+_g_adc0_isr_cfg.calibration_end_ipl_adc_0
+00009afc  1  unsigned char
+_g_adc0_isr_cfg.calibration_end_ipl_adc_1
+00009afd  1  unsigned char
+_g_adc0_isr_cfg.conversion_error_ipl_adc_0
+00009afe  1  unsigned char
+_g_adc0_isr_cfg.conversion_error_ipl_adc_1
+00009aff  1  unsigned char
+_g_adc0_isr_cfg.fifo_overflow_ipl
+00009b00  1  unsigned char
+_g_adc0_isr_cfg.fifo_read_ipl_group_0
+00009b01  1  unsigned char
+_g_adc0_isr_cfg.fifo_read_ipl_group_1
+00009b02  1  unsigned char
+_g_adc0_isr_cfg.fifo_read_ipl_group_2
+00009b03  1  unsigned char
+_g_adc0_isr_cfg.fifo_read_ipl_group_3
+00009b04  1  unsigned char
+_g_adc0_isr_cfg.fifo_read_ipl_group_4
+00009b05  1  unsigned char
+_g_adc0_isr_cfg.fifo_read_ipl_group_5
+00009b06  1  unsigned char
+_g_adc0_isr_cfg.fifo_read_ipl_group_6
+00009b07  1  unsigned char
+_g_adc0_isr_cfg.fifo_read_ipl_group_7
+00009b08  1  unsigned char
+_g_adc0_isr_cfg.fifo_read_ipl_group_8
+00009b09  1  unsigned char
+_g_adc0_isr_cfg.fifo_read_ipl_group_5678
+00009b0a  1  unsigned char
+_g_adc0_isr_cfg.limit_clip_ipl
+00009b0b  1  unsigned char
+_g_adc0_isr_cfg.overflow_error_ipl_adc_0
+00009b0c  1  unsigned char
+_g_adc0_isr_cfg.overflow_error_ipl_adc_1
+00009b0d  1  unsigned char
+_g_adc0_isr_cfg.scan_end_ipl_group_0
+00009b0e  1  unsigned char
+_g_adc0_isr_cfg.scan_end_ipl_group_1
+00009b0f  1  unsigned char
+_g_adc0_isr_cfg.scan_end_ipl_group_2
+00009b10  1  unsigned char
+_g_adc0_isr_cfg.scan_end_ipl_group_3
+00009b11  1  unsigned char
+_g_adc0_isr_cfg.scan_end_ipl_group_4
+00009b12  1  unsigned char
+_g_adc0_isr_cfg.scan_end_ipl_group_5
+00009b13  1  unsigned char
+_g_adc0_isr_cfg.scan_end_ipl_group_6
+00009b14  1  unsigned char
+_g_adc0_isr_cfg.scan_end_ipl_group_7
+00009b15  1  unsigned char
+_g_adc0_isr_cfg.scan_end_ipl_group_8
+00009b16  1  unsigned char
+_g_adc0_isr_cfg.scan_end_ipl_group_5678
+00009b17  1  unsigned char
+_g_adc0_isr_cfg.calibration_end_irq_adc_0
+00009b18  1  signed char
+_g_adc0_isr_cfg.calibration_end_irq_adc_1
+00009b19  1  signed char
+_g_adc0_isr_cfg.conversion_error_irq_adc_0
+00009b1a  1  signed char
+_g_adc0_isr_cfg.conversion_error_irq_adc_1
+00009b1b  1  signed char
+_g_adc0_isr_cfg.fifo_overflow_irq
+00009b1c  1  signed char
+_g_adc0_isr_cfg.fifo_read_irq_group_0
+00009b1d  1  signed char
+_g_adc0_isr_cfg.fifo_read_irq_group_1
+00009b1e  1  signed char
+_g_adc0_isr_cfg.fifo_read_irq_group_2
+00009b1f  1  signed char
+_g_adc0_isr_cfg.fifo_read_irq_group_3
+00009b20  1  signed char
+_g_adc0_isr_cfg.fifo_read_irq_group_4
+00009b21  1  signed char
+_g_adc0_isr_cfg.fifo_read_irq_group_5
+00009b22  1  signed char
+_g_adc0_isr_cfg.fifo_read_irq_group_6
+00009b23  1  signed char
+_g_adc0_isr_cfg.fifo_read_irq_group_7
+00009b24  1  signed char
+_g_adc0_isr_cfg.fifo_read_irq_group_8
+00009b25  1  signed char
+_g_adc0_isr_cfg.fifo_read_irq_group_5678
+00009b26  1  signed char
+_g_adc0_isr_cfg.limit_clip_irq
+00009b27  1  signed char
+_g_adc0_isr_cfg.overflow_error_irq_adc_0
+00009b28  1  signed char
+_g_adc0_isr_cfg.overflow_error_irq_adc_1
+00009b29  1  signed char
+_g_adc0_isr_cfg.scan_end_irq_group_0
+00009b2a  1  signed char
+_g_adc0_isr_cfg.scan_end_irq_group_1
+00009b2b  1  signed char
+_g_adc0_isr_cfg.scan_end_irq_group_2
+00009b2c  1  signed char
+_g_adc0_isr_cfg.scan_end_irq_group_3
+00009b2d  1  signed char
+_g_adc0_isr_cfg.scan_end_irq_group_4
+00009b2e  1  signed char
+_g_adc0_isr_cfg.scan_end_irq_group_5
+00009b2f  1  signed char
+_g_adc0_isr_cfg.scan_end_irq_group_6
+00009b30  1  signed char
+_g_adc0_isr_cfg.scan_end_irq_group_7
+00009b31  1  signed char
+_g_adc0_isr_cfg.scan_end_irq_group_8
+00009b32  1  signed char
+_g_adc0_isr_cfg.scan_end_irq_group_5678
+00009b33  1  signed char
+}
+_g_adc0_scan_cfg
+00009af4  8  data ,g
+struct  {
+_g_adc0_scan_cfg.group_count
+00009af4  1  unsigned char
+_g_adc0_scan_cfg.p_adc_groups
+00009af8  4  [pointer]
+}
+_g_adc0_scan_cfg_groups
+00009aec  8  data ,g
+_g_adc0_virtual_channel_0_cfg
+00009a3c  20  data ,g
+struct  {
+_g_adc0_virtual_channel_0_cfg.channel_id
+00009a3c  1  char
+}
+_g_adc0_virtual_channel_1_cfg
+00009a50  20  data ,g
+struct  {
+_g_adc0_virtual_channel_1_cfg.channel_id
+00009a50  1  char
+}
+_g_adc0_virtual_channel_2_cfg
+00009a64  20  data ,g
+struct  {
+_g_adc0_virtual_channel_2_cfg.channel_id
+00009a64  1  char
+}
+_g_adc0_virtual_channel_3_cfg
+00009a78  20  data ,g
+struct  {
+_g_adc0_virtual_channel_3_cfg.channel_id
+00009a78  1  char
+}
+_g_adc0_virtual_channel_4_cfg
+00009a8c  20  data ,g
+struct  {
+_g_adc0_virtual_channel_4_cfg.channel_id
+00009a8c  1  char
+}
+_g_motor0_control
+00009df0  12  data ,g
+struct  {
+_g_motor0_control.p_ctrl
+00009df0  4  [pointer]
+_g_motor0_control.p_cfg
+00009df4  4  [pointer]
+_g_motor0_control.p_api
+00009df8  4  [pointer]
+}
+_g_motor0_control_cfg
+00009de0  16  data ,g
+struct  {
+_g_motor0_control_cfg.p_motor_speed_instance
+00009de0  4  [pointer]
+_g_motor0_control_cfg.p_callback
+00009de4  4  [pointer]
+_g_motor0_control_cfg.p_context
+00009de8  4  [pointer]
+_g_motor0_control_cfg.p_extend
+00009dec  4  [pointer]
+}
+_g_motor0_control_ctrl
+20000a80  28  data ,g
+struct  {
+_g_motor0_control_ctrl.open
+20000a80  4  unsigned int
+_g_motor0_control_ctrl.error_info
+20000a84  4  unsigned int
+_g_motor0_control_ctrl.state_machine
+20000a88  6  data ,g
+struct  {
+_g_motor0_control_ctrl.state_machine.status
+20000a88  1  char
+_g_motor0_control_ctrl.state_machine.status_next
+20000a89  1  char
+_g_motor0_control_ctrl.state_machine.current_event
+20000a8a  1  char
+_g_motor0_control_ctrl.state_machine.error_status
+20000a8c  2  unsigned short
+}
+_g_motor0_control_ctrl.speed_ref_rpm_setpoint
+20000a90  4  float
+_g_motor0_control_ctrl.speed_rpm
+20000a94  4  float
+_g_motor0_control_ctrl.p_cfg
+20000a98  4  [pointer]
+}
+_g_motor0_control_extended_cfg
+00009dd8  8  data ,g
+struct  {
+_g_motor0_control_extended_cfg.p_motor_algorithm_instance
+00009dd8  4  [pointer]
+_g_motor0_control_extended_cfg.p_motor_trajectory_instance
+00009ddc  4  [pointer]
+}
+_g_motor0_hal_driver
+00009cfc  12  data ,g
+struct  {
+_g_motor0_hal_driver.p_ctrl
+00009cfc  4  [pointer]
+_g_motor0_hal_driver.p_cfg
+00009d00  4  [pointer]
+_g_motor0_hal_driver.p_api
+00009d04  4  [pointer]
+}
+_g_motor0_hal_driver_cfg
+00009ce4  24  data ,g
+struct  {
+_g_motor0_hal_driver_cfg.p_adc_instance
+00009ce4  4  [pointer]
+_g_motor0_hal_driver_cfg.p_adc2_instance
+00009ce8  4  [pointer]
+_g_motor0_hal_driver_cfg.p_three_phase_instance
+00009cec  4  [pointer]
+_g_motor0_hal_driver_cfg.p_callback
+00009cf0  4  [pointer]
+_g_motor0_hal_driver_cfg.p_context
+00009cf4  4  [pointer]
+_g_motor0_hal_driver_cfg.p_extend
+00009cf8  4  [pointer]
+}
+_g_motor0_hal_driver_ctrl
+20000468  184  data ,g
+struct  {
+_g_motor0_hal_driver_ctrl.open
+20000468  4  unsigned int
+_g_motor0_hal_driver_ctrl.carrier_base
+2000046c  4  unsigned int
+_g_motor0_hal_driver_ctrl.deadtime_count
+20000470  2  unsigned short
+_g_motor0_hal_driver_ctrl.i_u_ad
+20000474  4  float
+_g_motor0_hal_driver_ctrl.i_v_ad
+20000478  4  float
+_g_motor0_hal_driver_ctrl.i_w_ad
+2000047c  4  float
+_g_motor0_hal_driver_ctrl.v_dc_ad
+20000480  4  float
+_g_motor0_hal_driver_ctrl.v_u_ad
+20000484  4  float
+_g_motor0_hal_driver_ctrl.v_v_ad
+20000488  4  float
+_g_motor0_hal_driver_ctrl.v_w_ad
+2000048c  4  float
+_g_motor0_hal_driver_ctrl.ref_u
+20000490  4  float
+_g_motor0_hal_driver_ctrl.ref_v
+20000494  4  float
+_g_motor0_hal_driver_ctrl.ref_w
+20000498  4  float
+_g_motor0_hal_driver_ctrl.offset_calc_flag
+2000049c  1  unsigned char
+_g_motor0_hal_driver_ctrl.offset_calc_times
+2000049e  2  unsigned short
+_g_motor0_hal_driver_ctrl.offset_calc_digit
+200004a0  2  unsigned short
+_g_motor0_hal_driver_ctrl.offset_i_u
+200004a4  4  signed int
+_g_motor0_hal_driver_ctrl.offset_i_v
+200004a8  4  signed int
+_g_motor0_hal_driver_ctrl.offset_i_w
+200004ac  4  signed int
+_g_motor0_hal_driver_ctrl.sum_i_u_ad
+200004b0  4  signed int
+_g_motor0_hal_driver_ctrl.sum_i_v_ad
+200004b4  4  signed int
+_g_motor0_hal_driver_ctrl.sum_i_w_ad
+200004b8  4  signed int
+_g_motor0_hal_driver_ctrl.active
+200004bc  1  unsigned char
+_g_motor0_hal_driver_ctrl.min_phase
+200004bd  1  char
+_g_motor0_hal_driver_ctrl.mid_phase
+200004be  1  char
+_g_motor0_hal_driver_ctrl.charge_bootstrap_flag
+200004bf  1  unsigned char
+_g_motor0_hal_driver_ctrl.charge_bootstrap_cnt
+200004c0  2  unsigned short
+_g_motor0_hal_driver_ctrl.modulation_method
+200004c2  1  unsigned char
+_g_motor0_hal_driver_ctrl.maxvoltage_flag
+200004c3  1  unsigned char
+_g_motor0_hal_driver_ctrl.gtioca_low_cfg
+200004c4  4  unsigned int
+_g_motor0_hal_driver_ctrl.gtiocb_low_cfg
+200004c8  4  unsigned int
+_g_motor0_hal_driver_ctrl.port_enable_flag
+200004cc  1  unsigned char
+_g_motor0_hal_driver_ctrl.st_modulation
+200004d0  24  data ,g
+struct  {
+_g_motor0_hal_driver_ctrl.st_modulation.v_dc
+200004d0  4  float
+_g_motor0_hal_driver_ctrl.st_modulation.voltage_error_ratio
+200004d4  4  float
+_g_motor0_hal_driver_ctrl.st_modulation.max_duty
+200004d8  4  float
+_g_motor0_hal_driver_ctrl.st_modulation.min_duty
+200004dc  4  float
+_g_motor0_hal_driver_ctrl.st_modulation.neutral_duty
+200004e0  4  float
+_g_motor0_hal_driver_ctrl.st_modulation.saturation_flag
+200004e4  1  unsigned char
+}
+_g_motor0_hal_driver_ctrl.p_cfg
+200004e8  4  [pointer]
+_g_motor0_hal_driver_ctrl.adc_callback_args
+200004f0  32  data ,g
+struct  {
+_g_motor0_hal_driver_ctrl.adc_callback_args.unit
+200004f0  2  unsigned short
+_g_motor0_hal_driver_ctrl.adc_callback_args.event
+200004f2  1  char
+_g_motor0_hal_driver_ctrl.adc_callback_args.p_context
+200004f4  4  [pointer]
+_g_motor0_hal_driver_ctrl.adc_callback_args.channel
+200004f8  1  char
+_g_motor0_hal_driver_ctrl.adc_callback_args.channel_mask
+20000500  8  unsigned long long
+_g_motor0_hal_driver_ctrl.adc_callback_args.group_mask
+20000508  2  short
+}
+_g_motor0_hal_driver_ctrl.timer_callback_args
+20000510  12  data ,g
+struct  {
+_g_motor0_hal_driver_ctrl.timer_callback_args.p_context
+20000510  4  [pointer]
+_g_motor0_hal_driver_ctrl.timer_callback_args.event
+20000514  1  char
+_g_motor0_hal_driver_ctrl.timer_callback_args.capture
+20000518  4  unsigned int
+}
+_g_motor0_hal_driver_ctrl.p_shared_instance_ctrl
+2000051c  4  [pointer]
+}
+_g_motor0_hal_driver_extend
+00009c60  132  data ,g
+struct  {
+_g_motor0_hal_driver_extend.pwm_timer_freq
+00009c60  2  unsigned short
+_g_motor0_hal_driver_extend.pwm_carrier_freq
+00009c64  4  float
+_g_motor0_hal_driver_extend.carrier_base
+00009c68  4  unsigned int
+_g_motor0_hal_driver_extend.deadtime
+00009c6c  2  unsigned short
+_g_motor0_hal_driver_extend.current_range
+00009c70  4  float
+_g_motor0_hal_driver_extend.voltage_range
+00009c74  4  float
+_g_motor0_hal_driver_extend.v_dc_range
+00009c78  4  float
+_g_motor0_hal_driver_extend.sf_ad_current
+00009c7c  4  float
+_g_motor0_hal_driver_extend.sf_ad_vdc
+00009c80  4  float
+_g_motor0_hal_driver_extend.sf_ad_voltage
+00009c84  4  float
+_g_motor0_hal_driver_extend.ad_resolution
+00009c88  2  unsigned short
+_g_motor0_hal_driver_extend.ad_current_offset
+00009c8a  2  unsigned short
+_g_motor0_hal_driver_extend.ad_voltage_offset
+00009c8c  2  short
+_g_motor0_hal_driver_extend.ad_vdc_offset
+00009c8e  2  short
+_g_motor0_hal_driver_extend.ad_voltage_conversion
+00009c90  4  float
+_g_motor0_hal_driver_extend.offset_calc_count
+00009c94  2  unsigned short
+_g_motor0_hal_driver_extend.charge_bootstrap_time
+00009c96  2  unsigned short
+_g_motor0_hal_driver_extend.modulation_method
+00009c98  1  char
+_g_motor0_hal_driver_extend.port_up
+00009c9a  2  unsigned short
+_g_motor0_hal_driver_extend.port_un
+00009c9c  2  unsigned short
+_g_motor0_hal_driver_extend.port_vp
+00009c9e  2  unsigned short
+_g_motor0_hal_driver_extend.port_vn
+00009ca0  2  unsigned short
+_g_motor0_hal_driver_extend.port_wp
+00009ca2  2  unsigned short
+_g_motor0_hal_driver_extend.port_wn
+00009ca4  2  unsigned short
+_g_motor0_hal_driver_extend.shunt
+00009ca6  1  char
+_g_motor0_hal_driver_extend.difference_minimum
+00009ca8  4  signed int
+_g_motor0_hal_driver_extend.adjust_adc_delay
+00009cac  4  signed int
+_g_motor0_hal_driver_extend.trigger_phase
+00009cb0  1  char
+_g_motor0_hal_driver_extend.adc_group
+00009cb2  2  short
+_g_motor0_hal_driver_extend.i_u_ad_ch
+00009cb4  1  char
+_g_motor0_hal_driver_extend.i_v_ad_ch
+00009cb5  1  char
+_g_motor0_hal_driver_extend.i_w_ad_ch
+00009cb6  1  char
+_g_motor0_hal_driver_extend.v_dc_ad_ch
+00009cb7  1  char
+_g_motor0_hal_driver_extend.v_u_ad_ch
+00009cb8  1  char
+_g_motor0_hal_driver_extend.v_v_ad_ch
+00009cb9  1  char
+_g_motor0_hal_driver_extend.v_w_ad_ch
+00009cba  1  char
+_g_motor0_hal_driver_extend.i_u_ad_unit
+00009cbb  1  unsigned char
+_g_motor0_hal_driver_extend.i_v_ad_unit
+00009cbc  1  unsigned char
+_g_motor0_hal_driver_extend.i_w_ad_unit
+00009cbd  1  unsigned char
+_g_motor0_hal_driver_extend.v_dc_ad_unit
+00009cbe  1  unsigned char
+_g_motor0_hal_driver_extend.v_u_ad_unit
+00009cbf  1  unsigned char
+_g_motor0_hal_driver_extend.v_v_ad_unit
+00009cc0  1  unsigned char
+_g_motor0_hal_driver_extend.v_w_ad_unit
+00009cc1  1  unsigned char
+_g_motor0_hal_driver_extend.mod_param
+00009cc4  24  data ,g
+struct  {
+_g_motor0_hal_driver_extend.mod_param.v_dc
+00009cc4  4  float
+_g_motor0_hal_driver_extend.mod_param.voltage_error_ratio
+00009cc8  4  float
+_g_motor0_hal_driver_extend.mod_param.max_duty
+00009ccc  4  float
+_g_motor0_hal_driver_extend.mod_param.min_duty
+00009cd0  4  float
+_g_motor0_hal_driver_extend.mod_param.neutral_duty
+00009cd4  4  float
+_g_motor0_hal_driver_extend.mod_param.saturation_flag
+00009cd8  1  unsigned char
+}
+_g_motor0_hal_driver_extend.interrupt_adc
+00009cdc  1  char
+_g_motor0_hal_driver_extend.p_shared_cfg
+00009ce0  4  [pointer]
+}
+_g_motor0_pm_foc
+00009dcc  12  data ,g
+struct  {
+_g_motor0_pm_foc.p_ctrl
+00009dcc  4  [pointer]
+_g_motor0_pm_foc.p_cfg
+00009dd0  4  [pointer]
+_g_motor0_pm_foc.p_api
+00009dd4  4  [pointer]
+}
+_g_motor0_pm_foc_cfg
+00009db8  20  data ,g
+struct  {
+_g_motor0_pm_foc_cfg.p_motor_hal_driver_instance
+00009db8  4  [pointer]
+_g_motor0_pm_foc_cfg.p_motor_sensor_instance
+00009dbc  4  [pointer]
+_g_motor0_pm_foc_cfg.p_motor_sensor_instance2
+00009dc0  4  [pointer]
+_g_motor0_pm_foc_cfg.p_timer_instance
+00009dc4  4  [pointer]
+_g_motor0_pm_foc_cfg.p_extend
+00009dc8  4  [pointer]
+}
+_g_motor0_pm_foc_ctrl
+20000a14  20  data ,g
+struct  {
+_g_motor0_pm_foc_ctrl.open
+20000a14  4  unsigned int
+_g_motor0_pm_foc_ctrl.sensor_control_mode
+20000a18  1  unsigned char
+_g_motor0_pm_foc_ctrl.motor_status
+20000a19  1  unsigned char
+_g_motor0_pm_foc_ctrl.p_inner_instance_ctrl
+20000a1c  4  [pointer]
+_g_motor0_pm_foc_ctrl.p_outer_instance_ctrl
+20000a20  4  [pointer]
+_g_motor0_pm_foc_ctrl.p_cfg
+20000a24  4  [pointer]
+}
+_g_motor0_pm_foc_extend
+00009d1c  156  data ,g
+struct  {
+_g_motor0_pm_foc_extend.data
+00009d1c  100  data ,g
+struct  {
+_g_motor0_pm_foc_extend.data.comp_v
+00009d1c  20  float
+_g_motor0_pm_foc_extend.data.comp_i
+00009d30  20  float
+_g_motor0_pm_foc_extend.data.comp_vdc_ref
+00009d44  4  float
+_g_motor0_pm_foc_extend.data.comp_limit_factor
+00009d48  4  float
+_g_motor0_pm_foc_extend.data.vcomp_enable
+00009d4c  1  char
+_g_motor0_pm_foc_extend.data.sample_delay_comp_enable
+00009d4d  1  char
+_g_motor0_pm_foc_extend.data.sensor_slot
+00009d4e  1  char
+_g_motor0_pm_foc_extend.data.period_magnitude_value
+00009d50  4  float
+_g_motor0_pm_foc_extend.data.inner_control_period
+00009d54  4  float
+_g_motor0_pm_foc_extend.data.current_limit
+00009d58  4  float
+_g_motor0_pm_foc_extend.data.outer_control_period
+00009d5c  4  float
+_g_motor0_pm_foc_extend.data.speed_mech_change_limit
+00009d60  4  float
+_g_motor0_pm_foc_extend.data.speed_mech_cmd_limit
+00009d64  4  float
+_g_motor0_pm_foc_extend.data.speed_lpf_omega_t
+00009d68  4  float
+_g_motor0_pm_foc_extend.data.iq_limit
+00009d6c  4  float
+_g_motor0_pm_foc_extend.data.overcurrent_limit
+00009d70  4  float
+_g_motor0_pm_foc_extend.data.overvoltage_limit
+00009d74  4  float
+_g_motor0_pm_foc_extend.data.lowvoltage_limit
+00009d78  4  float
+_g_motor0_pm_foc_extend.data.overspeed_limit
+00009d7c  4  float
+}
+_g_motor0_pm_foc_extend.pm_foc_inner_instance_ctrl
+00009d80  4  [pointer]
+_g_motor0_pm_foc_extend.pm_foc_outer_instance_ctrl
+00009d84  4  [pointer]
+_g_motor0_pm_foc_extend.pm_motor_parameter
+00009d88  4  [pointer]
+_g_motor0_pm_foc_extend.pm_inner_design_parameter
+00009d8c  4  [pointer]
+_g_motor0_pm_foc_extend.pm_outer_design_parameter
+00009d90  4  [pointer]
+_g_motor0_pm_foc_extend.p_shared_data
+00009d94  4  [pointer]
+_g_motor0_pm_foc_extend.outerfunc_table
+00009d98  16  data ,g
+struct  {
+_g_motor0_pm_foc_extend.outerfunc_table.control_mode_ctrl
+00009d98  4  [pointer]
+_g_motor0_pm_foc_extend.outerfunc_table.mtpa_ctrl
+00009d9c  4  [pointer]
+_g_motor0_pm_foc_extend.outerfunc_table.fw_ctrl
+00009da0  4  [pointer]
+_g_motor0_pm_foc_extend.outerfunc_table.spdobsv_ctrl
+00009da4  4  [pointer]
+}
+_g_motor0_pm_foc_extend.p_callback
+00009da8  4  [pointer]
+_g_motor0_pm_foc_extend.p_tuner_instance
+00009dac  4  [pointer]
+_g_motor0_pm_foc_extend.p_motor_outer_cfg
+00009db0  4  [pointer]
+_g_motor0_pm_foc_extend.p_motor_inner_cfg
+00009db4  4  [pointer]
+}
+_g_motor0_pm_foc_inner_cfg
+00009d14  8  data ,g
+struct  {
+_g_motor0_pm_foc_inner_cfg.p_context
+00009d14  4  [pointer]
+_g_motor0_pm_foc_inner_cfg.p_extend
+00009d18  4  [pointer]
+}
+_g_motor0_pm_foc_inner_ctrl
+20000904  272  data ,g
+struct  {
+_g_motor0_pm_foc_inner_ctrl.signals
+20000904  216  data ,g
+struct  {
+_g_motor0_pm_foc_inner_ctrl.signals.error_info
+20000904  4  unsigned int
+_g_motor0_pm_foc_inner_ctrl.signals.active
+20000908  1  unsigned char
+_g_motor0_pm_foc_inner_ctrl.signals.control_mode
+20000909  1  char
+_g_motor0_pm_foc_inner_ctrl.signals.to_pos_speed
+2000090c  24  data ,g
+struct  {
+_g_motor0_pm_foc_inner_ctrl.signals.to_pos_speed.i_u
+2000090c  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.to_pos_speed.i_v
+20000910  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.to_pos_speed.i_w
+20000914  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.to_pos_speed.inner_control_period
+20000918  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.to_pos_speed.outer_control_period
+2000091c  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.to_pos_speed.p_motor_params
+20000920  4  [pointer]
+}
+_g_motor0_pm_foc_inner_ctrl.signals.v_dc
+20000924  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.angle_el
+20000928  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.speed_el
+2000092c  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.v_u_ref
+20000930  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.v_v_ref
+20000934  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.v_w_ref
+20000938  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.id_pi_ctrl
+2000093c  20  data ,g
+struct  {
+_g_motor0_pm_foc_inner_ctrl.signals.id_pi_ctrl.f4_err
+2000093c  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.id_pi_ctrl.f4_kp
+20000940  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.id_pi_ctrl.f4_ki
+20000944  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.id_pi_ctrl.f4_refi
+20000948  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.id_pi_ctrl.f4_ilimit
+2000094c  4  float
+}
+_g_motor0_pm_foc_inner_ctrl.signals.iq_pi_ctrl
+20000950  20  data ,g
+struct  {
+_g_motor0_pm_foc_inner_ctrl.signals.iq_pi_ctrl.f4_err
+20000950  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.iq_pi_ctrl.f4_kp
+20000954  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.iq_pi_ctrl.f4_ki
+20000958  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.iq_pi_ctrl.f4_refi
+2000095c  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.iq_pi_ctrl.f4_ilimit
+20000960  4  float
+}
+_g_motor0_pm_foc_inner_ctrl.signals.vcomp_ctrl
+20000964  120  data ,g
+struct  {
+_g_motor0_pm_foc_inner_ctrl.signals.vcomp_ctrl.f_comp_v
+20000964  20  float
+_g_motor0_pm_foc_inner_ctrl.signals.vcomp_ctrl.f_comp_i
+20000978  20  float
+_g_motor0_pm_foc_inner_ctrl.signals.vcomp_ctrl.f_slope
+2000098c  24  float
+_g_motor0_pm_foc_inner_ctrl.signals.vcomp_ctrl.f_intcept
+200009a4  24  float
+_g_motor0_pm_foc_inner_ctrl.signals.vcomp_ctrl.f_volt_comp_array
+200009bc  12  float
+_g_motor0_pm_foc_inner_ctrl.signals.vcomp_ctrl.f_vdc
+200009c8  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.vcomp_ctrl.f_comp_limit_factor
+200009cc  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.vcomp_ctrl.f_volt_comp_limit
+200009d0  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.vcomp_ctrl.f_comp_vdc_ref
+200009d4  4  float
+_g_motor0_pm_foc_inner_ctrl.signals.vcomp_ctrl.u1_volt_err_comp_enable
+200009d8  1  char
+}
+}
+_g_motor0_pm_foc_inner_ctrl.p_cfg
+200009dc  4  [pointer]
+_g_motor0_pm_foc_inner_ctrl.p_sensor_instance
+200009e0  4  [pointer]
+_g_motor0_pm_foc_inner_ctrl.p_sensor_instance2
+200009e4  4  [pointer]
+_g_motor0_pm_foc_inner_ctrl.p_hal_driver_instance
+200009e8  4  [pointer]
+_g_motor0_pm_foc_inner_ctrl.p_angle_el
+200009ec  4  [pointer]
+_g_motor0_pm_foc_inner_ctrl.p_speed_el
+200009f0  4  [pointer]
+_g_motor0_pm_foc_inner_ctrl.p_from_pos_speed
+200009f4  4  [pointer]
+_g_motor0_pm_foc_inner_ctrl.p_speed_el_monitor
+200009f8  4  [pointer]
+_g_motor0_pm_foc_inner_ctrl.p_angle_el_monitor
+200009fc  4  [pointer]
+_g_motor0_pm_foc_inner_ctrl.p_from_outer
+20000a00  4  [pointer]
+_g_motor0_pm_foc_inner_ctrl.p_to_outer
+20000984  8  pointer
+_g_motor0_pm_foc_inner_ctrl.p_to_outer_active
+2000098c  4  [pointer]
+_g_motor0_pm_foc_inner_ctrl.p_to_outer_copy
+20000990  4  [pointer]
+}
+_g_motor0_pm_foc_inner_design
+20000000  8  data ,g
+struct  {
+_g_motor0_pm_foc_inner_design.omega
+20000000  4  float
+_g_motor0_pm_foc_inner_design.zeta
+20000004  4  float
+}
+_g_motor0_pm_foc_motor
+20000018  28  data ,g
+struct  {
+_g_motor0_pm_foc_motor.u2_mtr_pp
+20000018  2  unsigned short
+_g_motor0_pm_foc_motor.f4_mtr_r
+2000001c  4  float
+_g_motor0_pm_foc_motor.f4_mtr_ld
+20000020  4  float
+_g_motor0_pm_foc_motor.f4_mtr_lq
+20000024  4  float
+_g_motor0_pm_foc_motor.f4_mtr_m
+20000028  4  float
+_g_motor0_pm_foc_motor.f4_mtr_j
+2000002c  4  float
+_g_motor0_pm_foc_motor.f4_mtr_nominal_current
+20000030  4  float
+}
+_g_motor0_pm_foc_outer_cfg
+00009d08  12  data ,g
+struct  {
+_g_motor0_pm_foc_outer_cfg.p_context
+00009d08  4  [pointer]
+_g_motor0_pm_foc_outer_cfg.p_extend
+00009d0c  4  [pointer]
+_g_motor0_pm_foc_outer_cfg.p_trajectory_callback
+00009d10  4  [pointer]
+}
+_g_motor0_pm_foc_outer_ctrl
+200007d0  308  data ,g
+struct  {
+_g_motor0_pm_foc_outer_ctrl.signals
+200007d0  268  data ,g
+struct  {
+_g_motor0_pm_foc_outer_ctrl.signals.error_info
+200007d0  4  unsigned int
+_g_motor0_pm_foc_outer_ctrl.signals.active
+200007d4  1  unsigned char
+_g_motor0_pm_foc_outer_ctrl.signals.i_q_ref_disturbance
+200007d8  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_mech_que_ref
+200007dc  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_mech_ref
+200007e0  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_mech_lpf
+200007e4  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_mech
+200007e8  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.angle_mech
+200007ec  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.flux_weakening_ctrl
+200007f0  28  data ,g
+struct  {
+_g_motor0_pm_foc_outer_ctrl.signals.flux_weakening_ctrl.f4_ia_max
+200007f0  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.flux_weakening_ctrl.f4_va_max
+200007f4  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.flux_weakening_ctrl.f4_vfw_ratio
+200007f8  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.flux_weakening_ctrl.f4_id_demag
+200007fc  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.flux_weakening_ctrl.f4_id_min
+20000800  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.flux_weakening_ctrl.f4_v_fw
+20000804  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.flux_weakening_ctrl.u2_fw_status
+20000808  2  unsigned short
+}
+_g_motor0_pm_foc_outer_ctrl.signals.inner_mode_data
+2000080c  12  data ,g
+struct  {
+_g_motor0_pm_foc_outer_ctrl.signals.inner_mode_data.id_ref_ow
+2000080c  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.inner_mode_data.iq_ref_ow
+20000810  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.inner_mode_data.mode_outer
+20000814  1  unsigned char
+}
+_g_motor0_pm_foc_outer_ctrl.signals.speed_pi_ctrl
+20000818  20  data ,g
+struct  {
+_g_motor0_pm_foc_outer_ctrl.signals.speed_pi_ctrl.f4_err
+20000818  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_pi_ctrl.f4_kp
+2000081c  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_pi_ctrl.f4_ki
+20000820  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_pi_ctrl.f4_refi
+20000824  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_pi_ctrl.f4_ilimit
+20000828  4  float
+}
+_g_motor0_pm_foc_outer_ctrl.signals.speed_lpf_ctrl
+2000082c  20  data ,g
+struct  {
+_g_motor0_pm_foc_outer_ctrl.signals.speed_lpf_ctrl.f4_pre_output
+2000082c  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_lpf_ctrl.f4_pre_input
+20000830  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_lpf_ctrl.f4_omega_t
+20000834  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_lpf_ctrl.f4_gain_ka
+20000838  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_lpf_ctrl.f4_gain_kb
+2000083c  4  float
+}
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl
+20000840  92  data ,g
+struct  {
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_speed_rad
+20000840  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_ref_torque
+20000844  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_ref_pre_torque
+20000848  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_ref_speed_rad
+2000084c  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_ref_pre_speed_rad
+20000850  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_hpf_k1
+20000854  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_hpf_k2
+20000858  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_hpf_k3
+2000085c  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_k1
+20000860  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_k2
+20000864  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_hpf_ref_speed_rad
+20000868  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_hpf_ref_pre_speed_rad
+2000086c  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.f4_hpf_omega
+20000870  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.st_lpf
+20000874  40  data ,g
+struct  {
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.st_lpf.f4_pre_output
+20000874  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.st_lpf.f4_pre2_output
+20000878  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.st_lpf.f4_pre_input
+2000087c  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.st_lpf.f4_pre2_input
+20000880  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.st_lpf.f4_omega_t
+20000884  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.st_lpf.f4_omega2_t
+20000888  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.st_lpf.f4_omega2_t2
+2000088c  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.st_lpf.f4_gain_ka
+20000890  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.st_lpf.f4_gain_kb
+20000894  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.speed_observer_ctrl.st_lpf.f4_gain_kc
+20000898  4  float
+}
+}
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl
+2000089c  64  data ,g
+struct  {
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.f4_gain_distb_est
+2000089c  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.f4_gain_speed_est
+200008a0  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.f4_estimated_distb
+200008a4  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.f4_estimated_speed
+200008a8  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.f4_inertia_kgms2
+200008ac  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.f4_natural_freq_hz
+200008b0  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.f4_ctrl_period_s
+200008b4  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.f4_nominal_cur_peak
+200008b8  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.f4_nominal_cur
+200008bc  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.f4_outputlim_start_rad
+200008c0  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.f4_outputlim_end_rad
+200008c4  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.st_lpf
+200008c8  20  data ,g
+struct  {
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.st_lpf.f4_pre_output
+200008c8  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.st_lpf.f4_pre_input
+200008cc  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.st_lpf.f4_omega_t
+200008d0  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.st_lpf.f4_gain_ka
+200008d4  4  float
+_g_motor0_pm_foc_outer_ctrl.signals.extobserver_ctrl.st_lpf.f4_gain_kb
+200008d8  4  float
+}
+}
+}
+_g_motor0_pm_foc_outer_ctrl.p_cfg
+2000085c  4  [pointer]
+_g_motor0_pm_foc_outer_ctrl.timer_args
+20000860  12  data ,g
+struct  {
+_g_motor0_pm_foc_outer_ctrl.timer_args.p_context
+20000860  4  [pointer]
+_g_motor0_pm_foc_outer_ctrl.timer_args.event
+20000864  1  char
+_g_motor0_pm_foc_outer_ctrl.timer_args.capture
+20000868  4  unsigned int
+}
+_g_motor0_pm_foc_outer_ctrl.p_sensor_active_instance
+2000086c  4  [pointer]
+_g_motor0_pm_foc_outer_ctrl.p_from_inner
+20000870  4  [pointer]
+_g_motor0_pm_foc_outer_ctrl.p_to_inner
+20000874  8  pointer
+_g_motor0_pm_foc_outer_ctrl.p_to_outer_active
+2000087c  4  [pointer]
+_g_motor0_pm_foc_outer_ctrl.p_to_outer_copy
+20000880  4  [pointer]
+}
+_g_motor0_pm_foc_outer_design
+20000008  16  data ,g
+struct  {
+_g_motor0_pm_foc_outer_design.speed_omega
+20000008  4  float
+_g_motor0_pm_foc_outer_design.speed_zeta
+2000000c  4  float
+_g_motor0_pm_foc_outer_design.observer_omega
+20000010  4  float
+_g_motor0_pm_foc_outer_design.observer_zeta
+20000014  4  float
+}
+_g_motor0_pm_foc_shared_data
+20000a28  88  data ,g
+struct  {
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_A
+20000a28  24  data ,g
+struct  {
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_A.i_d
+20000a28  4  float
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_A.i_q
+20000a2c  4  float
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_A.v_ampl_max
+20000a30  4  float
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_A.v_d_ref
+20000a34  4  float
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_A.v_q_ref
+20000a38  4  float
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_A.current_ref_update_flag
+20000a3c  1  unsigned char
+}
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_B
+20000a40  24  data ,g
+struct  {
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_B.i_d
+20000a40  4  float
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_B.i_q
+20000a44  4  float
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_B.v_ampl_max
+20000a48  4  float
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_B.v_d_ref
+20000a4c  4  float
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_B.v_q_ref
+20000a50  4  float
+_g_motor0_pm_foc_shared_data.shared_inner_to_outer_B.current_ref_update_flag
+20000a54  1  unsigned char
+}
+_g_motor0_pm_foc_shared_data.shared_outer_to_inner_A
+20000a58  16  data ,g
+struct  {
+_g_motor0_pm_foc_shared_data.shared_outer_to_inner_A.i_d_ref
+20000a58  4  float
+_g_motor0_pm_foc_shared_data.shared_outer_to_inner_A.i_q_ref
+20000a5c  4  float
+_g_motor0_pm_foc_shared_data.shared_outer_to_inner_A.pos_speed_input_data
+20000a60  8  data ,g
+struct  {
+_g_motor0_pm_foc_shared_data.shared_outer_to_inner_A.pos_speed_input_data.speed_mech_ref_ctrl
+20000a60  4  float
+_g_motor0_pm_foc_shared_data.shared_outer_to_inner_A.pos_speed_input_data.speed_pi_status_flag
+20000a64  1  unsigned char
+}
+}
+_g_motor0_pm_foc_shared_data.shared_outer_to_inner_B
+20000a68  16  data ,g
+struct  {
+_g_motor0_pm_foc_shared_data.shared_outer_to_inner_B.i_d_ref
+20000a68  4  float
+_g_motor0_pm_foc_shared_data.shared_outer_to_inner_B.i_q_ref
+20000a6c  4  float
+_g_motor0_pm_foc_shared_data.shared_outer_to_inner_B.pos_speed_input_data
+20000a70  8  data ,g
+struct  {
+_g_motor0_pm_foc_shared_data.shared_outer_to_inner_B.pos_speed_input_data.speed_mech_ref_ctrl
+20000a70  4  float
+_g_motor0_pm_foc_shared_data.shared_outer_to_inner_B.pos_speed_input_data.speed_pi_status_flag
+20000a74  1  unsigned char
+}
+}
+_g_motor0_pm_foc_shared_data.pp_shared_outer_to_inner_active
+20000a78  4  [pointer]
+_g_motor0_pm_foc_shared_data.pp_shared_inner_to_outer_active
+20000a7c  4  [pointer]
+}
+_g_motor0_sensor_bemf
+00009818  12  data ,g
+struct  {
+_g_motor0_sensor_bemf.p_ctrl
+00009818  4  [pointer]
+_g_motor0_sensor_bemf.p_cfg
+0000981c  4  [pointer]
+_g_motor0_sensor_bemf.p_api
+00009820  4  [pointer]
+}
+_g_motor0_sensor_bemf_cfg
+00009810  8  data ,g
+struct  {
+_g_motor0_sensor_bemf_cfg.p_context
+00009810  4  [pointer]
+_g_motor0_sensor_bemf_cfg.p_extend
+00009814  4  [pointer]
+}
+_g_motor0_sensor_bemf_ctrl
+200005f8  308  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.open
+200005f8  4  unsigned int
+_g_motor0_sensor_bemf_ctrl.signals
+200005fc  296  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.speed_el
+200005fc  4  float
+_g_motor0_sensor_bemf_ctrl.signals.angle_el
+20000600  4  float
+_g_motor0_sensor_bemf_ctrl.signals.inner_control_period
+20000604  4  float
+_g_motor0_sensor_bemf_ctrl.signals.outer_control_period
+20000608  4  float
+_g_motor0_sensor_bemf_ctrl.signals.e_d
+2000060c  4  float
+_g_motor0_sensor_bemf_ctrl.signals.e_q
+20000610  4  float
+_g_motor0_sensor_bemf_ctrl.signals.angle_err_el
+20000614  4  float
+_g_motor0_sensor_bemf_ctrl.signals.speed_pi_status_flag
+20000618  1  unsigned char
+_g_motor0_sensor_bemf_ctrl.signals.pll_status_flag
+20000619  1  unsigned char
+_g_motor0_sensor_bemf_ctrl.signals.flag_id_up_executed
+2000061a  1  unsigned char
+_g_motor0_sensor_bemf_ctrl.signals.flag_down_to_ol
+2000061b  1  unsigned char
+_g_motor0_sensor_bemf_ctrl.signals.ol_iq_down_step
+2000061c  4  float
+_g_motor0_sensor_bemf_ctrl.signals.phase_err_rad_lpf
+20000620  4  float
+_g_motor0_sensor_bemf_ctrl.signals.init_phase_err_rad
+20000624  4  float
+_g_motor0_sensor_bemf_ctrl.signals.opl_torque_current
+20000628  4  float
+_g_motor0_sensor_bemf_ctrl.signals.speed_el_damp_comp
+2000062c  4  float
+_g_motor0_sensor_bemf_ctrl.signals.speed_el_lpf
+20000630  4  float
+_g_motor0_sensor_bemf_ctrl.signals.state_id_ref
+20000634  1  unsigned char
+_g_motor0_sensor_bemf_ctrl.signals.state_iq_ref
+20000635  1  unsigned char
+_g_motor0_sensor_bemf_ctrl.signals.speed_ref_el_ctrl
+20000638  4  float
+_g_motor0_sensor_bemf_ctrl.signals.to_inner
+2000063c  32  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.to_inner.i_d_ref_ow
+2000063c  4  float
+_g_motor0_sensor_bemf_ctrl.signals.to_inner.i_q_ref_ow
+20000640  4  float
+_g_motor0_sensor_bemf_ctrl.signals.to_inner.v_d_ref_inj
+20000644  4  float
+_g_motor0_sensor_bemf_ctrl.signals.to_inner.v_q_ref_inj
+20000648  4  float
+_g_motor0_sensor_bemf_ctrl.signals.to_inner.v_u_ref_ow
+2000064c  4  float
+_g_motor0_sensor_bemf_ctrl.signals.to_inner.v_v_ref_ow
+20000650  4  float
+_g_motor0_sensor_bemf_ctrl.signals.to_inner.v_w_ref_ow
+20000654  4  float
+_g_motor0_sensor_bemf_ctrl.signals.to_inner.mode_sensor
+20000658  1  unsigned char
+}
+_g_motor0_sensor_bemf_ctrl.signals.openloop_ctrl
+2000065c  28  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.openloop_ctrl.st_ed_lpf
+2000065c  20  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.openloop_ctrl.st_ed_lpf.f4_pre_output
+2000065c  4  float
+_g_motor0_sensor_bemf_ctrl.signals.openloop_ctrl.st_ed_lpf.f4_pre_input
+20000660  4  float
+_g_motor0_sensor_bemf_ctrl.signals.openloop_ctrl.st_ed_lpf.f4_omega_t
+20000664  4  float
+_g_motor0_sensor_bemf_ctrl.signals.openloop_ctrl.st_ed_lpf.f4_gain_ka
+20000668  4  float
+_g_motor0_sensor_bemf_ctrl.signals.openloop_ctrl.st_ed_lpf.f4_gain_kb
+2000066c  4  float
+}
+_g_motor0_sensor_bemf_ctrl.signals.openloop_ctrl.f_damp_comp_gain
+20000670  4  float
+_g_motor0_sensor_bemf_ctrl.signals.openloop_ctrl.f_fb_speed_limit_rate
+20000674  4  float
+}
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl
+20000678  60  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.f4_dt
+20000678  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_d_axis
+2000067c  28  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_d_axis.f4_k_e_obs_1
+2000067c  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_d_axis.f4_k_e_obs_2
+20000680  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_d_axis.f4_i_pre
+20000684  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_d_axis.f4_i_est_pre
+20000688  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_d_axis.f4_d_est
+2000068c  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_d_axis.f4_d_est_pre
+20000690  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_d_axis.f4_d_est_limit
+20000694  4  float
+}
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_q_axis
+20000698  28  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_q_axis.f4_k_e_obs_1
+20000698  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_q_axis.f4_k_e_obs_2
+2000069c  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_q_axis.f4_i_pre
+200006a0  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_q_axis.f4_i_est_pre
+200006a4  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_q_axis.f4_d_est
+200006a8  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_q_axis.f4_d_est_pre
+200006ac  4  float
+_g_motor0_sensor_bemf_ctrl.signals.bemf_obs_ctrl.st_q_axis.f4_d_est_limit
+200006b0  4  float
+}
+}
+_g_motor0_sensor_bemf_ctrl.signals.pll_est_ctrl
+200006b4  12  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.pll_est_ctrl.f4_kp_est_speed
+200006b4  4  float
+_g_motor0_sensor_bemf_ctrl.signals.pll_est_ctrl.f4_ki_est_speed
+200006b8  4  float
+_g_motor0_sensor_bemf_ctrl.signals.pll_est_ctrl.f4_i_est_speed
+200006bc  4  float
+}
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl
+200006c0  100  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl
+200006c0  60  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.f4_dt
+200006c0  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_d_axis
+200006c4  28  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_d_axis.f4_k_e_obs_1
+200006c4  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_d_axis.f4_k_e_obs_2
+200006c8  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_d_axis.f4_i_pre
+200006cc  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_d_axis.f4_i_est_pre
+200006d0  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_d_axis.f4_d_est
+200006d4  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_d_axis.f4_d_est_pre
+200006d8  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_d_axis.f4_d_est_limit
+200006dc  4  float
+}
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_q_axis
+200006e0  28  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_q_axis.f4_k_e_obs_1
+200006e0  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_q_axis.f4_k_e_obs_2
+200006e4  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_q_axis.f4_i_pre
+200006e8  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_q_axis.f4_i_est_pre
+200006ec  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_q_axis.f4_d_est
+200006f0  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_q_axis.f4_d_est_pre
+200006f4  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.bemf_obs_ctrl.st_q_axis.f4_d_est_limit
+200006f8  4  float
+}
+}
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.pll_est_ctrl
+200006fc  12  data ,g
+struct  {
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.pll_est_ctrl.f4_kp_est_speed
+200006fc  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.pll_est_ctrl.f4_ki_est_speed
+20000700  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.pll_est_ctrl.f4_i_est_speed
+20000704  4  float
+}
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.activate_ol_adjust_mode
+20000708  1  unsigned char
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.pll_engage_status
+20000709  1  unsigned char
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.pll_start_speed
+2000070c  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.speed_el_pll
+20000710  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.angle_el_pll
+20000714  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.e_d
+20000718  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.e_q
+2000071c  4  float
+_g_motor0_sensor_bemf_ctrl.signals.ol_adjust_ctrl.angle_err_el
+20000720  4  float
+}
+}
+_g_motor0_sensor_bemf_ctrl.p_from_inner
+200006a4  4  [pointer]
+_g_motor0_sensor_bemf_ctrl.p_cfg
+200006a8  4  [pointer]
+}
+_g_motor0_sensor_bemf_extend
+000097b8  88  data ,g
+struct  {
+_g_motor0_sensor_bemf_extend.ol_param
+000097b8  32  data ,g
+struct  {
+_g_motor0_sensor_bemf_extend.ol_param.f4_ol_id_up_step
+000097b8  4  float
+_g_motor0_sensor_bemf_extend.ol_param.f4_ol_id_down_step
+000097bc  4  float
+_g_motor0_sensor_bemf_extend.ol_param.f4_ol_iq_down_step_ratio
+000097c0  4  float
+_g_motor0_sensor_bemf_extend.ol_param.f4_ol_id_ref
+000097c4  4  float
+_g_motor0_sensor_bemf_extend.ol_param.f4_id_down_speed_mech_rad
+000097c8  4  float
+_g_motor0_sensor_bemf_extend.ol_param.f4_id_up_speed_mech_rad
+000097cc  4  float
+_g_motor0_sensor_bemf_extend.ol_param.f4_opl2less_sw_time
+000097d0  4  float
+_g_motor0_sensor_bemf_extend.ol_param.f4_switch_phase_err_rad
+000097d4  4  float
+}
+_g_motor0_sensor_bemf_extend.ol_sub_param
+000097d8  28  data ,g
+struct  {
+_g_motor0_sensor_bemf_extend.ol_sub_param.st_ed_lpf
+000097d8  20  data ,g
+struct  {
+_g_motor0_sensor_bemf_extend.ol_sub_param.st_ed_lpf.f4_pre_output
+000097d8  4  float
+_g_motor0_sensor_bemf_extend.ol_sub_param.st_ed_lpf.f4_pre_input
+000097dc  4  float
+_g_motor0_sensor_bemf_extend.ol_sub_param.st_ed_lpf.f4_omega_t
+000097e0  4  float
+_g_motor0_sensor_bemf_extend.ol_sub_param.st_ed_lpf.f4_gain_ka
+000097e4  4  float
+_g_motor0_sensor_bemf_extend.ol_sub_param.st_ed_lpf.f4_gain_kb
+000097e8  4  float
+}
+_g_motor0_sensor_bemf_extend.ol_sub_param.f_damp_comp_gain
+000097ec  4  float
+_g_motor0_sensor_bemf_extend.ol_sub_param.f_fb_speed_limit_rate
+000097f0  4  float
+}
+_g_motor0_sensor_bemf_extend.d_param
+000097f4  8  data ,g
+struct  {
+_g_motor0_sensor_bemf_extend.d_param.ed_hpf_omega
+000097f4  4  float
+_g_motor0_sensor_bemf_extend.d_param.ol_damping_zeta
+000097f8  4  float
+}
+_g_motor0_sensor_bemf_extend.openloop_damping
+000097fc  1  char
+_g_motor0_sensor_bemf_extend.less_switch
+000097fd  1  char
+_g_motor0_sensor_bemf_extend.e_obs_omega
+00009800  4  float
+_g_motor0_sensor_bemf_extend.e_obs_zeta
+00009804  4  float
+_g_motor0_sensor_bemf_extend.pll_est_omega
+00009808  4  float
+_g_motor0_sensor_bemf_extend.pll_est_zeta
+0000980c  4  float
+}
+_g_poeg0
+00009778  12  data ,g
+struct  {
+_g_poeg0.p_ctrl
+00009778  4  [pointer]
+_g_poeg0.p_cfg
+0000977c  4  [pointer]
+_g_poeg0.p_api
+00009780  4  [pointer]
+}
+_g_poeg0_cfg
+0000975c  28  data ,g
+struct  {
+_g_poeg0_cfg.trigger
+0000975c  2  short
+_g_poeg0_cfg.polarity
+0000975e  1  char
+_g_poeg0_cfg.noise_filter
+0000975f  1  char
+_g_poeg0_cfg.p_callback
+00009760  4  [pointer]
+_g_poeg0_cfg.p_context
+00009764  4  [pointer]
+_g_poeg0_cfg.unit
+00009768  4  unsigned int
+_g_poeg0_cfg.channel
+0000976c  4  unsigned int
+_g_poeg0_cfg.irq
+00009770  1  signed char
+_g_poeg0_cfg.ipl
+00009771  1  unsigned char
+_g_poeg0_cfg.p_extend
+00009774  4  [pointer]
+}
+_g_poeg0_ctrl
+200005c0  24  data ,g
+struct  {
+_g_poeg0_ctrl.open
+200005c0  4  unsigned int
+_g_poeg0_ctrl.p_cfg
+200005c4  4  [pointer]
+_g_poeg0_ctrl.p_reg
+200005c8  4  [pointer]
+_g_poeg0_ctrl.p_callback
+200005cc  4  [pointer]
+_g_poeg0_ctrl.p_callback_memory
+200005d0  4  [pointer]
+_g_poeg0_ctrl.p_context
+200005d4  4  [pointer]
+}
+_g_three_phase0
+00009a30  12  data ,g
+struct  {
+_g_three_phase0.p_ctrl
+00009a30  4  [pointer]
+_g_three_phase0.p_cfg
+00009a34  4  [pointer]
+_g_three_phase0.p_api
+00009a38  4  [pointer]
+}
+_g_three_phase0_cfg
+00009a10  32  data ,g
+struct  {
+_g_three_phase0_cfg.buffer_mode
+00009a10  1  char
+_g_three_phase0_cfg.p_timer_instance
+00009a14  12  pointer
+_g_three_phase0_cfg.callback_ch
+00009a20  1  char
+_g_three_phase0_cfg.channel_mask
+00009a24  4  unsigned int
+_g_three_phase0_cfg.p_context
+00009a28  4  [pointer]
+_g_three_phase0_cfg.p_extend
+00009a2c  4  [pointer]
+}
+_g_three_phase0_ctrl
+2000078c  28  data ,g
+struct  {
+_g_three_phase0_ctrl.open
+2000078c  4  unsigned int
+_g_three_phase0_ctrl.p_reg
+20000790  12  pointer
+_g_three_phase0_ctrl.channel_mask
+2000079c  4  unsigned int
+_g_three_phase0_ctrl.buffer_mode
+200007a0  1  char
+_g_three_phase0_ctrl.p_cfg
+200007a4  4  [pointer]
+}
+_g_timer0
+00009a04  12  data ,g
+struct  {
+_g_timer0.p_ctrl
+00009a04  4  [pointer]
+_g_timer0.p_cfg
+00009a08  4  [pointer]
+_g_timer0.p_api
+00009a0c  4  [pointer]
+}
+_g_timer0_cfg
+000099e4  32  data ,g
+struct  {
+_g_timer0_cfg.mode
+000099e4  1  char
+_g_timer0_cfg.period_counts
+000099e8  4  unsigned int
+_g_timer0_cfg.source_div
+000099ec  1  char
+_g_timer0_cfg.duty_cycle_counts
+000099f0  4  unsigned int
+_g_timer0_cfg.channel
+000099f4  1  unsigned char
+_g_timer0_cfg.cycle_end_ipl
+000099f5  1  unsigned char
+_g_timer0_cfg.cycle_end_irq
+000099f6  1  signed char
+_g_timer0_cfg.p_callback
+000099f8  4  [pointer]
+_g_timer0_cfg.p_context
+000099fc  4  [pointer]
+_g_timer0_cfg.p_extend
+00009a00  4  [pointer]
+}
+_g_timer0_ctrl
+2000076c  32  data ,g
+struct  {
+_g_timer0_ctrl.open
+2000076c  4  unsigned int
+_g_timer0_ctrl.p_cfg
+20000770  4  [pointer]
+_g_timer0_ctrl.p_reg
+20000774  4  [pointer]
+_g_timer0_ctrl.channel_mask
+20000778  4  unsigned int
+_g_timer0_ctrl.variant
+2000077c  1  char
+_g_timer0_ctrl.p_callback
+20000780  4  [pointer]
+_g_timer0_ctrl.p_callback_memory
+20000784  4  [pointer]
+_g_timer0_ctrl.p_context
+20000788  4  [pointer]
+}
+_g_timer0_extend
+0000998c  88  data ,g
+struct  {
+_g_timer0_extend.gtioca
+0000998c  2  data ,g
+struct  {
+_g_timer0_extend.gtioca.output_enabled
+0000998c  1  _Bool
+_g_timer0_extend.gtioca.stop_level
+0000998d  1  char
+}
+_g_timer0_extend.gtiocb
+0000998e  2  data ,g
+struct  {
+_g_timer0_extend.gtiocb.output_enabled
+0000998e  1  _Bool
+_g_timer0_extend.gtiocb.stop_level
+0000998f  1  char
+}
+_g_timer0_extend.start_source
+00009990  4  signed int
+_g_timer0_extend.stop_source
+00009994  4  signed int
+_g_timer0_extend.clear_source
+00009998  4  signed int
+_g_timer0_extend.capture_a_source
+0000999c  4  signed int
+_g_timer0_extend.capture_b_source
+000099a0  4  signed int
+_g_timer0_extend.count_up_source
+000099a4  4  signed int
+_g_timer0_extend.count_down_source
+000099a8  4  signed int
+_g_timer0_extend.capture_filter_gtioca
+000099ac  1  char
+_g_timer0_extend.capture_filter_gtiocb
+000099ad  1  char
+_g_timer0_extend.capture_a_ipl
+000099ae  1  unsigned char
+_g_timer0_extend.capture_b_ipl
+000099af  1  unsigned char
+_g_timer0_extend.compare_match_c_ipl
+000099b0  1  unsigned char
+_g_timer0_extend.compare_match_d_ipl
+000099b1  1  unsigned char
+_g_timer0_extend.compare_match_e_ipl
+000099b2  1  unsigned char
+_g_timer0_extend.compare_match_f_ipl
+000099b3  1  unsigned char
+_g_timer0_extend.capture_a_irq
+000099b4  1  signed char
+_g_timer0_extend.capture_b_irq
+000099b5  1  signed char
+_g_timer0_extend.compare_match_c_irq
+000099b6  1  signed char
+_g_timer0_extend.compare_match_d_irq
+000099b7  1  signed char
+_g_timer0_extend.compare_match_e_irq
+000099b8  1  signed char
+_g_timer0_extend.compare_match_f_irq
+000099b9  1  signed char
+_g_timer0_extend.compare_match_value
+000099bc  24  unsigned int
+_g_timer0_extend.compare_match_status
+000099d4  1  unsigned char
+_g_timer0_extend.p_pwm_cfg
+000099d8  4  [pointer]
+_g_timer0_extend.gtior_setting
+000099dc  4  data ,g
+struct  {
+}
+_g_timer0_extend.gtioca_polarity
+000099e0  1  char
+_g_timer0_extend.gtiocb_polarity
+000099e1  1  char
+}
+_g_timer0_pwm_extend
+0000996c  32  data ,g
+struct  {
+_g_timer0_pwm_extend.trough_ipl
+0000996c  1  unsigned char
+_g_timer0_pwm_extend.trough_irq
+0000996d  1  signed char
+_g_timer0_pwm_extend.poeg_link
+0000996e  1  char
+_g_timer0_pwm_extend.output_disable
+0000996f  1  char
+_g_timer0_pwm_extend.adc_trigger
+00009970  1  char
+_g_timer0_pwm_extend.dead_time_count_up
+00009974  4  unsigned int
+_g_timer0_pwm_extend.dead_time_count_down
+00009978  4  unsigned int
+_g_timer0_pwm_extend.adc_a_compare_match
+0000997c  4  unsigned int
+_g_timer0_pwm_extend.adc_b_compare_match
+00009980  4  unsigned int
+_g_timer0_pwm_extend.interrupt_skip_source
+00009984  1  char
+_g_timer0_pwm_extend.interrupt_skip_count
+00009985  1  char
+_g_timer0_pwm_extend.interrupt_skip_adc
+00009986  1  char
+_g_timer0_pwm_extend.gtioca_disable_setting
+00009987  1  char
+_g_timer0_pwm_extend.gtiocb_disable_setting
+00009988  1  char
+}
+_g_timer1
+00009960  12  data ,g
+struct  {
+_g_timer1.p_ctrl
+00009960  4  [pointer]
+_g_timer1.p_cfg
+00009964  4  [pointer]
+_g_timer1.p_api
+00009968  4  [pointer]
+}
+_g_timer1_cfg
+00009940  32  data ,g
+struct  {
+_g_timer1_cfg.mode
+00009940  1  char
+_g_timer1_cfg.period_counts
+00009944  4  unsigned int
+_g_timer1_cfg.source_div
+00009948  1  char
+_g_timer1_cfg.duty_cycle_counts
+0000994c  4  unsigned int
+_g_timer1_cfg.channel
+00009950  1  unsigned char
+_g_timer1_cfg.cycle_end_ipl
+00009951  1  unsigned char
+_g_timer1_cfg.cycle_end_irq
+00009952  1  signed char
+_g_timer1_cfg.p_callback
+00009954  4  [pointer]
+_g_timer1_cfg.p_context
+00009958  4  [pointer]
+_g_timer1_cfg.p_extend
+0000995c  4  [pointer]
+}
+_g_timer1_ctrl
+2000074c  32  data ,g
+struct  {
+_g_timer1_ctrl.open
+2000074c  4  unsigned int
+_g_timer1_ctrl.p_cfg
+20000750  4  [pointer]
+_g_timer1_ctrl.p_reg
+20000754  4  [pointer]
+_g_timer1_ctrl.channel_mask
+20000758  4  unsigned int
+_g_timer1_ctrl.variant
+2000075c  1  char
+_g_timer1_ctrl.p_callback
+20000760  4  [pointer]
+_g_timer1_ctrl.p_callback_memory
+20000764  4  [pointer]
+_g_timer1_ctrl.p_context
+20000768  4  [pointer]
+}
+_g_timer1_extend
+000098e8  88  data ,g
+struct  {
+_g_timer1_extend.gtioca
+000098e8  2  data ,g
+struct  {
+_g_timer1_extend.gtioca.output_enabled
+000098e8  1  _Bool
+_g_timer1_extend.gtioca.stop_level
+000098e9  1  char
+}
+_g_timer1_extend.gtiocb
+000098ea  2  data ,g
+struct  {
+_g_timer1_extend.gtiocb.output_enabled
+000098ea  1  _Bool
+_g_timer1_extend.gtiocb.stop_level
+000098eb  1  char
+}
+_g_timer1_extend.start_source
+000098ec  4  signed int
+_g_timer1_extend.stop_source
+000098f0  4  signed int
+_g_timer1_extend.clear_source
+000098f4  4  signed int
+_g_timer1_extend.capture_a_source
+000098f8  4  signed int
+_g_timer1_extend.capture_b_source
+000098fc  4  signed int
+_g_timer1_extend.count_up_source
+00009900  4  signed int
+_g_timer1_extend.count_down_source
+00009904  4  signed int
+_g_timer1_extend.capture_filter_gtioca
+00009908  1  char
+_g_timer1_extend.capture_filter_gtiocb
+00009909  1  char
+_g_timer1_extend.capture_a_ipl
+0000990a  1  unsigned char
+_g_timer1_extend.capture_b_ipl
+0000990b  1  unsigned char
+_g_timer1_extend.compare_match_c_ipl
+0000990c  1  unsigned char
+_g_timer1_extend.compare_match_d_ipl
+0000990d  1  unsigned char
+_g_timer1_extend.compare_match_e_ipl
+0000990e  1  unsigned char
+_g_timer1_extend.compare_match_f_ipl
+0000990f  1  unsigned char
+_g_timer1_extend.capture_a_irq
+00009910  1  signed char
+_g_timer1_extend.capture_b_irq
+00009911  1  signed char
+_g_timer1_extend.compare_match_c_irq
+00009912  1  signed char
+_g_timer1_extend.compare_match_d_irq
+00009913  1  signed char
+_g_timer1_extend.compare_match_e_irq
+00009914  1  signed char
+_g_timer1_extend.compare_match_f_irq
+00009915  1  signed char
+_g_timer1_extend.compare_match_value
+00009918  24  unsigned int
+_g_timer1_extend.compare_match_status
+00009930  1  unsigned char
+_g_timer1_extend.p_pwm_cfg
+00009934  4  [pointer]
+_g_timer1_extend.gtior_setting
+00009938  4  data ,g
+struct  {
+}
+_g_timer1_extend.gtioca_polarity
+0000993c  1  char
+_g_timer1_extend.gtiocb_polarity
+0000993d  1  char
+}
+_g_timer1_pwm_extend
+000098c8  32  data ,g
+struct  {
+_g_timer1_pwm_extend.trough_ipl
+000098c8  1  unsigned char
+_g_timer1_pwm_extend.trough_irq
+000098c9  1  signed char
+_g_timer1_pwm_extend.poeg_link
+000098ca  1  char
+_g_timer1_pwm_extend.output_disable
+000098cb  1  char
+_g_timer1_pwm_extend.adc_trigger
+000098cc  1  char
+_g_timer1_pwm_extend.dead_time_count_up
+000098d0  4  unsigned int
+_g_timer1_pwm_extend.dead_time_count_down
+000098d4  4  unsigned int
+_g_timer1_pwm_extend.adc_a_compare_match
+000098d8  4  unsigned int
+_g_timer1_pwm_extend.adc_b_compare_match
+000098dc  4  unsigned int
+_g_timer1_pwm_extend.interrupt_skip_source
+000098e0  1  char
+_g_timer1_pwm_extend.interrupt_skip_count
+000098e1  1  char
+_g_timer1_pwm_extend.interrupt_skip_adc
+000098e2  1  char
+_g_timer1_pwm_extend.gtioca_disable_setting
+000098e3  1  char
+_g_timer1_pwm_extend.gtiocb_disable_setting
+000098e4  1  char
+}
+_g_timer2
+000098bc  12  data ,g
+struct  {
+_g_timer2.p_ctrl
+000098bc  4  [pointer]
+_g_timer2.p_cfg
+000098c0  4  [pointer]
+_g_timer2.p_api
+000098c4  4  [pointer]
+}
+_g_timer2_cfg
+0000989c  32  data ,g
+struct  {
+_g_timer2_cfg.mode
+0000989c  1  char
+_g_timer2_cfg.period_counts
+000098a0  4  unsigned int
+_g_timer2_cfg.source_div
+000098a4  1  char
+_g_timer2_cfg.duty_cycle_counts
+000098a8  4  unsigned int
+_g_timer2_cfg.channel
+000098ac  1  unsigned char
+_g_timer2_cfg.cycle_end_ipl
+000098ad  1  unsigned char
+_g_timer2_cfg.cycle_end_irq
+000098ae  1  signed char
+_g_timer2_cfg.p_callback
+000098b0  4  [pointer]
+_g_timer2_cfg.p_context
+000098b4  4  [pointer]
+_g_timer2_cfg.p_extend
+000098b8  4  [pointer]
+}
+_g_timer2_ctrl
+2000072c  32  data ,g
+struct  {
+_g_timer2_ctrl.open
+2000072c  4  unsigned int
+_g_timer2_ctrl.p_cfg
+20000730  4  [pointer]
+_g_timer2_ctrl.p_reg
+20000734  4  [pointer]
+_g_timer2_ctrl.channel_mask
+20000738  4  unsigned int
+_g_timer2_ctrl.variant
+2000073c  1  char
+_g_timer2_ctrl.p_callback
+20000740  4  [pointer]
+_g_timer2_ctrl.p_callback_memory
+20000744  4  [pointer]
+_g_timer2_ctrl.p_context
+20000748  4  [pointer]
+}
+_g_timer2_extend
+00009844  88  data ,g
+struct  {
+_g_timer2_extend.gtioca
+00009844  2  data ,g
+struct  {
+_g_timer2_extend.gtioca.output_enabled
+00009844  1  _Bool
+_g_timer2_extend.gtioca.stop_level
+00009845  1  char
+}
+_g_timer2_extend.gtiocb
+00009846  2  data ,g
+struct  {
+_g_timer2_extend.gtiocb.output_enabled
+00009846  1  _Bool
+_g_timer2_extend.gtiocb.stop_level
+00009847  1  char
+}
+_g_timer2_extend.start_source
+00009848  4  signed int
+_g_timer2_extend.stop_source
+0000984c  4  signed int
+_g_timer2_extend.clear_source
+00009850  4  signed int
+_g_timer2_extend.capture_a_source
+00009854  4  signed int
+_g_timer2_extend.capture_b_source
+00009858  4  signed int
+_g_timer2_extend.count_up_source
+0000985c  4  signed int
+_g_timer2_extend.count_down_source
+00009860  4  signed int
+_g_timer2_extend.capture_filter_gtioca
+00009864  1  char
+_g_timer2_extend.capture_filter_gtiocb
+00009865  1  char
+_g_timer2_extend.capture_a_ipl
+00009866  1  unsigned char
+_g_timer2_extend.capture_b_ipl
+00009867  1  unsigned char
+_g_timer2_extend.compare_match_c_ipl
+00009868  1  unsigned char
+_g_timer2_extend.compare_match_d_ipl
+00009869  1  unsigned char
+_g_timer2_extend.compare_match_e_ipl
+0000986a  1  unsigned char
+_g_timer2_extend.compare_match_f_ipl
+0000986b  1  unsigned char
+_g_timer2_extend.capture_a_irq
+0000986c  1  signed char
+_g_timer2_extend.capture_b_irq
+0000986d  1  signed char
+_g_timer2_extend.compare_match_c_irq
+0000986e  1  signed char
+_g_timer2_extend.compare_match_d_irq
+0000986f  1  signed char
+_g_timer2_extend.compare_match_e_irq
+00009870  1  signed char
+_g_timer2_extend.compare_match_f_irq
+00009871  1  signed char
+_g_timer2_extend.compare_match_value
+00009874  24  unsigned int
+_g_timer2_extend.compare_match_status
+0000988c  1  unsigned char
+_g_timer2_extend.p_pwm_cfg
+00009890  4  [pointer]
+_g_timer2_extend.gtior_setting
+00009894  4  data ,g
+struct  {
+}
+_g_timer2_extend.gtioca_polarity
+00009898  1  char
+_g_timer2_extend.gtiocb_polarity
+00009899  1  char
+}
+_g_timer2_pwm_extend
+00009824  32  data ,g
+struct  {
+_g_timer2_pwm_extend.trough_ipl
+00009824  1  unsigned char
+_g_timer2_pwm_extend.trough_irq
+00009825  1  signed char
+_g_timer2_pwm_extend.poeg_link
+00009826  1  char
+_g_timer2_pwm_extend.output_disable
+00009827  1  char
+_g_timer2_pwm_extend.adc_trigger
+00009828  1  char
+_g_timer2_pwm_extend.dead_time_count_up
+0000982c  4  unsigned int
+_g_timer2_pwm_extend.dead_time_count_down
+00009830  4  unsigned int
+_g_timer2_pwm_extend.adc_a_compare_match
+00009834  4  unsigned int
+_g_timer2_pwm_extend.adc_b_compare_match
+00009838  4  unsigned int
+_g_timer2_pwm_extend.interrupt_skip_source
+0000983c  1  char
+_g_timer2_pwm_extend.interrupt_skip_count
+0000983d  1  char
+_g_timer2_pwm_extend.interrupt_skip_adc
+0000983e  1  char
+_g_timer2_pwm_extend.gtioca_disable_setting
+0000983f  1  char
+_g_timer2_pwm_extend.gtiocb_disable_setting
+00009840  1  char
+}
+_g_timer3
+000097ac  12  data ,g
+struct  {
+_g_timer3.p_ctrl
+000097ac  4  [pointer]
+_g_timer3.p_cfg
+000097b0  4  [pointer]
+_g_timer3.p_api
+000097b4  4  [pointer]
+}
+_g_timer3_cfg
+0000978c  32  data ,g
+struct  {
+_g_timer3_cfg.mode
+0000978c  1  char
+_g_timer3_cfg.period_counts
+00009790  4  unsigned int
+_g_timer3_cfg.source_div
+00009794  1  char
+_g_timer3_cfg.duty_cycle_counts
+00009798  4  unsigned int
+_g_timer3_cfg.channel
+0000979c  1  unsigned char
+_g_timer3_cfg.cycle_end_ipl
+0000979d  1  unsigned char
+_g_timer3_cfg.cycle_end_irq
+0000979e  1  signed char
+_g_timer3_cfg.p_callback
+000097a0  4  [pointer]
+_g_timer3_cfg.p_context
+000097a4  4  [pointer]
+_g_timer3_cfg.p_extend
+000097a8  4  [pointer]
+}
+_g_timer3_ctrl
+200005d8  32  data ,g
+struct  {
+_g_timer3_ctrl.open
+200005d8  4  unsigned int
+_g_timer3_ctrl.p_cfg
+200005dc  4  [pointer]
+_g_timer3_ctrl.p_reg
+200005e0  4  [pointer]
+_g_timer3_ctrl.is_agtw
+200005e4  1  _Bool
+_g_timer3_ctrl.period
+200005e8  4  unsigned int
+_g_timer3_ctrl.p_callback
+200005ec  4  [pointer]
+_g_timer3_ctrl.p_callback_memory
+200005f0  4  [pointer]
+_g_timer3_ctrl.p_context
+200005f4  4  [pointer]
+}
+_g_timer3_extend
+00009784  8  data ,g
+struct  {
+_g_timer3_extend.count_source
+00009784  1  char
+_g_timer3_extend.agto
+00009784  1  char
+_g_timer3_extend.measurement_mode
+00009787  1  char
+_g_timer3_extend.agtio_filter
+00009788  1  char
+_g_timer3_extend.enable_pin
+00009789  1  char
+_g_timer3_extend.trigger_edge
+0000978a  1  char
+_g_timer3_extend.counter_bit_width
+0000978b  1  char
+}
+_ics_buf2nd
+20000acc  32  data ,g
+_ics_data1
+20000aec  4  data ,g
+_ics_data2
+20000af0  4  data ,g
+_ics_even
+20000e27  1  data ,g
+_ics_port
+20000e28  1  data ,g
+_ics_port_h4
+20000e29  1  data ,g
+_ics_rcom
+20000e26  1  data ,g
+_ics_rsum
+20000e25  1  data ,g
+_ics_rx_cnt
+20000e24  1  data ,g
+_ics_tmode
+20000e2a  1  data ,g
+_ics_waddr
+20000a9c  48  data ,g
+_ics_wready
+20000e10  2  data ,g
+_com_u1_mode_system
+20000e2e  1  data ,g
+_com_u1_sw_userif
+20000e2c  1  data ,g
+_g_f4_speed_ref
+20000b1c  4  data ,g
+_g_u1_conf_control
+20000b34  41  data ,g
+_g_u1_conf_control_len
+20000e32  1  data ,g
+_g_u1_conf_inverter
+20000b60  8  data ,g
+_g_u1_conf_inverter_len
+20000e33  1  data ,g
+_g_u1_conf_motor_type
+20000b20  18  data ,g
+_g_u1_conf_motor_type_len
+20000e31  1  data ,g
+_g_u1_mode_system
+20000e2f  1  data ,g
+_g_u1_motor_status
+20000e2b  1  data ,g
+_g_u1_reset_req
+20000e34  1  data ,g
+_g_u1_stop_req
+20000e30  1  data ,g
+_g_u1_sw_cnt
+20000e35  1  data ,g
+_g_u1_sw_userif
+20000e2d  1  data ,g
+_g_u2_chk_error
+20000e14  2  data ,g
+_g_u2_conf_hw
+20000e18  2  data ,g
+_g_u2_conf_sw
+20000e1a  2  data ,g
+_g_u2_conf_tool
+20000e1c  2  data ,g
+_g_u2_max_speed_rpm
+20000e12  2  data ,g
+_g_u2_tune_mode
+20000e1e  2  data ,g
+_g_u2_tune_mode_pre
+20000e20  2  data ,g
+_g_u2_vr1_ad
+20000e16  2  data ,g
+_g_user_motor_cfg
+20000b68  16  data ,g
+struct  {
+_g_user_motor_cfg.p_motor_speed_instance
+20000b68  4  [pointer]
+_g_user_motor_cfg.p_callback
+20000b6c  4  [pointer]
+_g_user_motor_cfg.p_context
+20000b70  4  [pointer]
+_g_user_motor_cfg.p_extend
+20000b74  4  [pointer]
+}
+_g_user_motor_estimate_extended_cfg
+20000c30  88  data ,g
+struct  {
+_g_user_motor_estimate_extended_cfg.ol_param
+20000c30  32  data ,g
+struct  {
+_g_user_motor_estimate_extended_cfg.ol_param.f4_ol_id_up_step
+20000c30  4  float
+_g_user_motor_estimate_extended_cfg.ol_param.f4_ol_id_down_step
+20000c34  4  float
+_g_user_motor_estimate_extended_cfg.ol_param.f4_ol_iq_down_step_ratio
+20000c38  4  float
+_g_user_motor_estimate_extended_cfg.ol_param.f4_ol_id_ref
+20000c3c  4  float
+_g_user_motor_estimate_extended_cfg.ol_param.f4_id_down_speed_mech_rad
+20000c40  4  float
+_g_user_motor_estimate_extended_cfg.ol_param.f4_id_up_speed_mech_rad
+20000c44  4  float
+_g_user_motor_estimate_extended_cfg.ol_param.f4_opl2less_sw_time
+20000c48  4  float
+_g_user_motor_estimate_extended_cfg.ol_param.f4_switch_phase_err_rad
+20000c4c  4  float
+}
+_g_user_motor_estimate_extended_cfg.ol_sub_param
+20000c50  28  data ,g
+struct  {
+_g_user_motor_estimate_extended_cfg.ol_sub_param.st_ed_lpf
+20000c50  20  data ,g
+struct  {
+_g_user_motor_estimate_extended_cfg.ol_sub_param.st_ed_lpf.f4_pre_output
+20000c50  4  float
+_g_user_motor_estimate_extended_cfg.ol_sub_param.st_ed_lpf.f4_pre_input
+20000c54  4  float
+_g_user_motor_estimate_extended_cfg.ol_sub_param.st_ed_lpf.f4_omega_t
+20000c58  4  float
+_g_user_motor_estimate_extended_cfg.ol_sub_param.st_ed_lpf.f4_gain_ka
+20000c5c  4  float
+_g_user_motor_estimate_extended_cfg.ol_sub_param.st_ed_lpf.f4_gain_kb
+20000c60  4  float
+}
+_g_user_motor_estimate_extended_cfg.ol_sub_param.f_damp_comp_gain
+20000c64  4  float
+_g_user_motor_estimate_extended_cfg.ol_sub_param.f_fb_speed_limit_rate
+20000c68  4  float
+}
+_g_user_motor_estimate_extended_cfg.d_param
+20000c6c  8  data ,g
+struct  {
+_g_user_motor_estimate_extended_cfg.d_param.ed_hpf_omega
+20000c6c  4  float
+_g_user_motor_estimate_extended_cfg.d_param.ol_damping_zeta
+20000c70  4  float
+}
+_g_user_motor_estimate_extended_cfg.openloop_damping
+20000c74  1  char
+_g_user_motor_estimate_extended_cfg.less_switch
+20000c75  1  char
+_g_user_motor_estimate_extended_cfg.e_obs_omega
+20000c78  4  float
+_g_user_motor_estimate_extended_cfg.e_obs_zeta
+20000c7c  4  float
+_g_user_motor_estimate_extended_cfg.pll_est_omega
+20000c80  4  float
+_g_user_motor_estimate_extended_cfg.pll_est_zeta
+20000c84  4  float
+}
+_g_user_motor_hal_driver_cfg
+20000c88  24  data ,g
+struct  {
+_g_user_motor_hal_driver_cfg.p_adc_instance
+20000c88  4  [pointer]
+_g_user_motor_hal_driver_cfg.p_adc2_instance
+20000c8c  4  [pointer]
+_g_user_motor_hal_driver_cfg.p_three_phase_instance
+20000c90  4  [pointer]
+_g_user_motor_hal_driver_cfg.p_callback
+20000c94  4  [pointer]
+_g_user_motor_hal_driver_cfg.p_context
+20000c98  4  [pointer]
+_g_user_motor_hal_driver_cfg.p_extend
+20000c9c  4  [pointer]
+}
+_g_user_motor_hal_driver_extended_cfg
+20000ca0  132  data ,g
+struct  {
+_g_user_motor_hal_driver_extended_cfg.pwm_timer_freq
+20000ca0  2  unsigned short
+_g_user_motor_hal_driver_extended_cfg.pwm_carrier_freq
+20000ca4  4  float
+_g_user_motor_hal_driver_extended_cfg.carrier_base
+20000ca8  4  unsigned int
+_g_user_motor_hal_driver_extended_cfg.deadtime
+20000cac  2  unsigned short
+_g_user_motor_hal_driver_extended_cfg.current_range
+20000cb0  4  float
+_g_user_motor_hal_driver_extended_cfg.voltage_range
+20000cb4  4  float
+_g_user_motor_hal_driver_extended_cfg.v_dc_range
+20000cb8  4  float
+_g_user_motor_hal_driver_extended_cfg.sf_ad_current
+20000cbc  4  float
+_g_user_motor_hal_driver_extended_cfg.sf_ad_vdc
+20000cc0  4  float
+_g_user_motor_hal_driver_extended_cfg.sf_ad_voltage
+20000cc4  4  float
+_g_user_motor_hal_driver_extended_cfg.ad_resolution
+20000cc8  2  unsigned short
+_g_user_motor_hal_driver_extended_cfg.ad_current_offset
+20000cca  2  unsigned short
+_g_user_motor_hal_driver_extended_cfg.ad_voltage_offset
+20000ccc  2  short
+_g_user_motor_hal_driver_extended_cfg.ad_vdc_offset
+20000cce  2  short
+_g_user_motor_hal_driver_extended_cfg.ad_voltage_conversion
+20000cd0  4  float
+_g_user_motor_hal_driver_extended_cfg.offset_calc_count
+20000cd4  2  unsigned short
+_g_user_motor_hal_driver_extended_cfg.charge_bootstrap_time
+20000cd6  2  unsigned short
+_g_user_motor_hal_driver_extended_cfg.modulation_method
+20000cd8  1  char
+_g_user_motor_hal_driver_extended_cfg.port_up
+20000cda  2  unsigned short
+_g_user_motor_hal_driver_extended_cfg.port_un
+20000cdc  2  unsigned short
+_g_user_motor_hal_driver_extended_cfg.port_vp
+20000cde  2  unsigned short
+_g_user_motor_hal_driver_extended_cfg.port_vn
+20000ce0  2  unsigned short
+_g_user_motor_hal_driver_extended_cfg.port_wp
+20000ce2  2  unsigned short
+_g_user_motor_hal_driver_extended_cfg.port_wn
+20000ce4  2  unsigned short
+_g_user_motor_hal_driver_extended_cfg.shunt
+20000ce6  1  char
+_g_user_motor_hal_driver_extended_cfg.difference_minimum
+20000ce8  4  signed int
+_g_user_motor_hal_driver_extended_cfg.adjust_adc_delay
+20000cec  4  signed int
+_g_user_motor_hal_driver_extended_cfg.trigger_phase
+20000cf0  1  char
+_g_user_motor_hal_driver_extended_cfg.adc_group
+20000cf2  2  short
+_g_user_motor_hal_driver_extended_cfg.i_u_ad_ch
+20000cf4  1  char
+_g_user_motor_hal_driver_extended_cfg.i_v_ad_ch
+20000cf5  1  char
+_g_user_motor_hal_driver_extended_cfg.i_w_ad_ch
+20000cf6  1  char
+_g_user_motor_hal_driver_extended_cfg.v_dc_ad_ch
+20000cf7  1  char
+_g_user_motor_hal_driver_extended_cfg.v_u_ad_ch
+20000cf8  1  char
+_g_user_motor_hal_driver_extended_cfg.v_v_ad_ch
+20000cf9  1  char
+_g_user_motor_hal_driver_extended_cfg.v_w_ad_ch
+20000cfa  1  char
+_g_user_motor_hal_driver_extended_cfg.i_u_ad_unit
+20000cfb  1  unsigned char
+_g_user_motor_hal_driver_extended_cfg.i_v_ad_unit
+20000cfc  1  unsigned char
+_g_user_motor_hal_driver_extended_cfg.i_w_ad_unit
+20000cfd  1  unsigned char
+_g_user_motor_hal_driver_extended_cfg.v_dc_ad_unit
+20000cfe  1  unsigned char
+_g_user_motor_hal_driver_extended_cfg.v_u_ad_unit
+20000cff  1  unsigned char
+_g_user_motor_hal_driver_extended_cfg.v_v_ad_unit
+20000d00  1  unsigned char
+_g_user_motor_hal_driver_extended_cfg.v_w_ad_unit
+20000d01  1  unsigned char
+_g_user_motor_hal_driver_extended_cfg.mod_param
+20000d04  24  data ,g
+struct  {
+_g_user_motor_hal_driver_extended_cfg.mod_param.v_dc
+20000d04  4  float
+_g_user_motor_hal_driver_extended_cfg.mod_param.voltage_error_ratio
+20000d08  4  float
+_g_user_motor_hal_driver_extended_cfg.mod_param.max_duty
+20000d0c  4  float
+_g_user_motor_hal_driver_extended_cfg.mod_param.min_duty
+20000d10  4  float
+_g_user_motor_hal_driver_extended_cfg.mod_param.neutral_duty
+20000d14  4  float
+_g_user_motor_hal_driver_extended_cfg.mod_param.saturation_flag
+20000d18  1  unsigned char
+}
+_g_user_motor_hal_driver_extended_cfg.interrupt_adc
+20000d1c  1  char
+_g_user_motor_hal_driver_extended_cfg.p_shared_cfg
+20000d20  4  [pointer]
+}
+_g_user_motor_pm_foc_cfg
+20000b78  20  data ,g
+struct  {
+_g_user_motor_pm_foc_cfg.p_motor_hal_driver_instance
+20000b78  4  [pointer]
+_g_user_motor_pm_foc_cfg.p_motor_sensor_instance
+20000b7c  4  [pointer]
+_g_user_motor_pm_foc_cfg.p_motor_sensor_instance2
+20000b80  4  [pointer]
+_g_user_motor_pm_foc_cfg.p_timer_instance
+20000b84  4  [pointer]
+_g_user_motor_pm_foc_cfg.p_extend
+20000b88  4  [pointer]
+}
+_g_user_motor_pm_foc_extended_cfg
+20000b8c  156  data ,g
+struct  {
+_g_user_motor_pm_foc_extended_cfg.data
+20000b8c  100  data ,g
+struct  {
+_g_user_motor_pm_foc_extended_cfg.data.comp_v
+20000b8c  20  float
+_g_user_motor_pm_foc_extended_cfg.data.comp_i
+20000ba0  20  float
+_g_user_motor_pm_foc_extended_cfg.data.comp_vdc_ref
+20000bb4  4  float
+_g_user_motor_pm_foc_extended_cfg.data.comp_limit_factor
+20000bb8  4  float
+_g_user_motor_pm_foc_extended_cfg.data.vcomp_enable
+20000bbc  1  char
+_g_user_motor_pm_foc_extended_cfg.data.sample_delay_comp_enable
+20000bbd  1  char
+_g_user_motor_pm_foc_extended_cfg.data.sensor_slot
+20000bbe  1  char
+_g_user_motor_pm_foc_extended_cfg.data.period_magnitude_value
+20000bc0  4  float
+_g_user_motor_pm_foc_extended_cfg.data.inner_control_period
+20000bc4  4  float
+_g_user_motor_pm_foc_extended_cfg.data.current_limit
+20000bc8  4  float
+_g_user_motor_pm_foc_extended_cfg.data.outer_control_period
+20000bcc  4  float
+_g_user_motor_pm_foc_extended_cfg.data.speed_mech_change_limit
+20000bd0  4  float
+_g_user_motor_pm_foc_extended_cfg.data.speed_mech_cmd_limit
+20000bd4  4  float
+_g_user_motor_pm_foc_extended_cfg.data.speed_lpf_omega_t
+20000bd8  4  float
+_g_user_motor_pm_foc_extended_cfg.data.iq_limit
+20000bdc  4  float
+_g_user_motor_pm_foc_extended_cfg.data.overcurrent_limit
+20000be0  4  float
+_g_user_motor_pm_foc_extended_cfg.data.overvoltage_limit
+20000be4  4  float
+_g_user_motor_pm_foc_extended_cfg.data.lowvoltage_limit
+20000be8  4  float
+_g_user_motor_pm_foc_extended_cfg.data.overspeed_limit
+20000bec  4  float
+}
+_g_user_motor_pm_foc_extended_cfg.pm_foc_inner_instance_ctrl
+20000bf0  4  [pointer]
+_g_user_motor_pm_foc_extended_cfg.pm_foc_outer_instance_ctrl
+20000bf4  4  [pointer]
+_g_user_motor_pm_foc_extended_cfg.pm_motor_parameter
+20000bf8  4  [pointer]
+_g_user_motor_pm_foc_extended_cfg.pm_inner_design_parameter
+20000bfc  4  [pointer]
+_g_user_motor_pm_foc_extended_cfg.pm_outer_design_parameter
+20000c00  4  [pointer]
+_g_user_motor_pm_foc_extended_cfg.p_shared_data
+20000c04  4  [pointer]
+_g_user_motor_pm_foc_extended_cfg.outerfunc_table
+20000c08  16  data ,g
+struct  {
+_g_user_motor_pm_foc_extended_cfg.outerfunc_table.control_mode_ctrl
+20000c08  4  [pointer]
+_g_user_motor_pm_foc_extended_cfg.outerfunc_table.mtpa_ctrl
+20000c0c  4  [pointer]
+_g_user_motor_pm_foc_extended_cfg.outerfunc_table.fw_ctrl
+20000c10  4  [pointer]
+_g_user_motor_pm_foc_extended_cfg.outerfunc_table.spdobsv_ctrl
+20000c14  4  [pointer]
+}
+_g_user_motor_pm_foc_extended_cfg.p_callback
+20000c18  4  [pointer]
+_g_user_motor_pm_foc_extended_cfg.p_tuner_instance
+20000c1c  4  [pointer]
+_g_user_motor_pm_foc_extended_cfg.p_motor_outer_cfg
+20000c20  4  [pointer]
+_g_user_motor_pm_foc_extended_cfg.p_motor_inner_cfg
+20000c24  4  [pointer]
+}
+_g_user_motor_sensor_cfg
+20000c28  8  data ,g
+struct  {
+_g_user_motor_sensor_cfg.p_context
+20000c28  4  [pointer]
+_g_user_motor_sensor_cfg.p_extend
+20000c2c  4  [pointer]
+}
+_g_bsp_pin_cfg
+00009f78  12  data ,g
+struct  {
+_g_bsp_pin_cfg.number_of_pins
+00009f78  2  unsigned short
+_g_bsp_pin_cfg.p_pin_cfg_data
+00009f7c  4  [pointer]
+_g_bsp_pin_cfg.p_extend
+00009f80  4  [pointer]
+}
+_g_bsp_pin_cfg_data
+00009e48  304  data ,g
+_g_adc_on_adc_b
+00009f84  52  data ,g
+struct  {
+_g_adc_on_adc_b.open
+00009f84  4  [pointer]
+_g_adc_on_adc_b.scanCfg
+00009f88  4  [pointer]
+_g_adc_on_adc_b.scanStart
+00009f8c  4  [pointer]
+_g_adc_on_adc_b.scanGroupStart
+00009f90  4  [pointer]
+_g_adc_on_adc_b.scanStop
+00009f94  4  [pointer]
+_g_adc_on_adc_b.scanStatusGet
+00009f98  4  [pointer]
+_g_adc_on_adc_b.read
+00009f9c  4  [pointer]
+_g_adc_on_adc_b.read32
+00009fa0  4  [pointer]
+_g_adc_on_adc_b.calibrate
+00009fa4  4  [pointer]
+_g_adc_on_adc_b.offsetSet
+00009fa8  4  [pointer]
+_g_adc_on_adc_b.callbackSet
+00009fac  4  [pointer]
+_g_adc_on_adc_b.close
+00009fb0  4  [pointer]
+_g_adc_on_adc_b.infoGet
+00009fb4  4  [pointer]
+}
+_g_timer_on_agt
+00009fb8  52  data ,g
+struct  {
+_g_timer_on_agt.open
+00009fb8  4  [pointer]
+_g_timer_on_agt.start
+00009fbc  4  [pointer]
+_g_timer_on_agt.stop
+00009fc0  4  [pointer]
+_g_timer_on_agt.reset
+00009fc4  4  [pointer]
+_g_timer_on_agt.enable
+00009fc8  4  [pointer]
+_g_timer_on_agt.disable
+00009fcc  4  [pointer]
+_g_timer_on_agt.periodSet
+00009fd0  4  [pointer]
+_g_timer_on_agt.dutyCycleSet
+00009fd4  4  [pointer]
+_g_timer_on_agt.compareMatchSet
+00009fd8  4  [pointer]
+_g_timer_on_agt.infoGet
+00009fdc  4  [pointer]
+_g_timer_on_agt.statusGet
+00009fe0  4  [pointer]
+_g_timer_on_agt.callbackSet
+00009fe4  4  [pointer]
+_g_timer_on_agt.close
+00009fe8  4  [pointer]
+}
+_gp_prv_agt_periods
+20000d24  8  data ,g
+_g_elc_on_elc
+00009fec  28  data ,g
+struct  {
+_g_elc_on_elc.open
+00009fec  4  [pointer]
+_g_elc_on_elc.close
+00009ff0  4  [pointer]
+_g_elc_on_elc.softwareEventGenerate
+00009ff4  4  [pointer]
+_g_elc_on_elc.linkSet
+00009ff8  4  [pointer]
+_g_elc_on_elc.linkBreak
+00009ffc  4  [pointer]
+_g_elc_on_elc.enable
+0000a000  4  [pointer]
+_g_elc_on_elc.disable
+0000a004  4  [pointer]
+}
+_g_timer_on_gpt
+0000a018  52  data ,g
+struct  {
+_g_timer_on_gpt.open
+0000a018  4  [pointer]
+_g_timer_on_gpt.start
+0000a01c  4  [pointer]
+_g_timer_on_gpt.stop
+0000a020  4  [pointer]
+_g_timer_on_gpt.reset
+0000a024  4  [pointer]
+_g_timer_on_gpt.enable
+0000a028  4  [pointer]
+_g_timer_on_gpt.disable
+0000a02c  4  [pointer]
+_g_timer_on_gpt.periodSet
+0000a030  4  [pointer]
+_g_timer_on_gpt.dutyCycleSet
+0000a034  4  [pointer]
+_g_timer_on_gpt.compareMatchSet
+0000a038  4  [pointer]
+_g_timer_on_gpt.infoGet
+0000a03c  4  [pointer]
+_g_timer_on_gpt.statusGet
+0000a040  4  [pointer]
+_g_timer_on_gpt.callbackSet
+0000a044  4  [pointer]
+_g_timer_on_gpt.close
+0000a048  4  [pointer]
+}
+_g_gpt_three_phase_on_gpt_three_phase
+0000a04c  28  data ,g
+struct  {
+_g_gpt_three_phase_on_gpt_three_phase.open
+0000a04c  4  [pointer]
+_g_gpt_three_phase_on_gpt_three_phase.start
+0000a050  4  [pointer]
+_g_gpt_three_phase_on_gpt_three_phase.stop
+0000a054  4  [pointer]
+_g_gpt_three_phase_on_gpt_three_phase.reset
+0000a058  4  [pointer]
+_g_gpt_three_phase_on_gpt_three_phase.dutyCycleSet
+0000a05c  4  [pointer]
+_g_gpt_three_phase_on_gpt_three_phase.callbackSet
+0000a060  4  [pointer]
+_g_gpt_three_phase_on_gpt_three_phase.close
+0000a064  4  [pointer]
+}
+_com_f4_current_omega
+20000dc4  4  data ,g
+_com_f4_current_zeta
+20000dc8  4  data ,g
+_com_f4_e_obs_omega
+20000dd4  4  data ,g
+_com_f4_e_obs_zeta
+20000dd8  4  data ,g
+_com_f4_id_down_speed_rpm
+20000df0  4  data ,g
+_com_f4_id_up_speed_rpm
+20000df4  4  data ,g
+_com_f4_iq_limit
+20000e04  4  data ,g
+_com_f4_limit_speed_change
+20000e08  4  data ,g
+_com_f4_max_speed_rpm
+20000df8  4  data ,g
+_com_f4_mtr_j
+20000dc0  4  data ,g
+_com_f4_mtr_ld
+20000db4  4  data ,g
+_com_f4_mtr_lq
+20000db8  4  data ,g
+_com_f4_mtr_m
+20000dbc  4  data ,g
+_com_f4_mtr_r
+20000db0  4  data ,g
+_com_f4_ol_id_down_step
+20000dec  4  data ,g
+_com_f4_ol_id_up_step
+20000de8  4  data ,g
+_com_f4_overcurrent_limit
+20000e00  4  data ,g
+_com_f4_overspeed_limit_rpm
+20000dfc  4  data ,g
+_com_f4_pll_est_omega
+20000ddc  4  data ,g
+_com_f4_pll_est_zeta
+20000de0  4  data ,g
+_com_f4_ref_id
+20000de4  4  data ,g
+_com_f4_ref_speed_rpm
+20000dac  4  data ,g
+_com_f4_speed_omega
+20000dcc  4  data ,g
+_com_f4_speed_zeta
+20000dd0  4  data ,g
+_com_u1_enable_write
+20000e39  1  data ,g
+_com_u2_mtr_pp
+20000e22  2  data ,g
+_g_f4_angle_rad_monitor
+20000d6c  4  data ,g
+_g_f4_current_ki_d_monitor
+20000d84  4  data ,g
+_g_f4_current_ki_q_monitor
+20000d8c  4  data ,g
+_g_f4_current_kp_d_monitor
+20000d80  4  data ,g
+_g_f4_current_kp_q_monitor
+20000d88  4  data ,g
+_g_f4_ed_monitor
+20000d60  4  data ,g
+_g_f4_eq_monitor
+20000d64  4  data ,g
+_g_f4_id_ad_monitor
+20000d30  4  data ,g
+_g_f4_id_ref_monitor
+20000d2c  4  data ,g
+_g_f4_iq_ad_monitor
+20000d38  4  data ,g
+_g_f4_iq_ref_monitor
+20000d34  4  data ,g
+_g_f4_iu_ad_monitor
+20000d3c  4  data ,g
+_g_f4_iv_ad_monitor
+20000d40  4  data ,g
+_g_f4_iw_ad_monitor
+20000d44  4  data ,g
+_g_f4_k_e_obs_1_d_monitor
+20000d90  4  data ,g
+_g_f4_k_e_obs_1_q_monitor
+20000d98  4  data ,g
+_g_f4_k_e_obs_2_d_monitor
+20000d94  4  data ,g
+_g_f4_k_e_obs_2_q_monitor
+20000d9c  4  data ,g
+_g_f4_ki_est_speed_monitor
+20000da4  4  data ,g
+_g_f4_kp_est_speed_monitor
+20000da0  4  data ,g
+_g_f4_phase_err_monitor
+20000d68  4  data ,g
+_g_f4_refu_monitor
+20000d54  4  data ,g
+_g_f4_refv_monitor
+20000d58  4  data ,g
+_g_f4_refw_monitor
+20000d5c  4  data ,g
+_g_f4_speed_est_monitor
+20000d70  4  data ,g
+_g_f4_speed_ki_monitor
+20000d7c  4  data ,g
+_g_f4_speed_kp_monitor
+20000d78  4  data ,g
+_g_f4_speed_ref_monitor
+20000d74  4  data ,g
+_g_f4_speed_rpm_monitor
+20000da8  4  data ,g
+_g_f4_vd_ref_monitor
+20000d4c  4  data ,g
+_g_f4_vdc_ad_monitor
+20000d48  4  data ,g
+_g_f4_vq_ref_monitor
+20000d50  4  data ,g
+_g_u1_enable_write
+20000e3a  1  data ,g
+_g_u1_state_id_ref_monitor
+20000e37  1  data ,g
+_g_u1_state_iq_ref_monitor
+20000e38  1  data ,g
+_g_u1_trig_enable_write
+20000e3b  1  data ,g
+_p_user_sensor_api
+20000038  4  data ,g
+_p_user_sensor_ctrl
+20000034  4  data ,g
+_u1_cnt_ics
+20000e36  1  data ,g
+_g_poeg_on_poeg
+0000a068  24  data ,g
+struct  {
+_g_poeg_on_poeg.open
+0000a068  4  [pointer]
+_g_poeg_on_poeg.statusGet
+0000a06c  4  [pointer]
+_g_poeg_on_poeg.callbackSet
+0000a070  4  [pointer]
+_g_poeg_on_poeg.outputDisable
+0000a074  4  [pointer]
+_g_poeg_on_poeg.reset
+0000a078  4  [pointer]
+_g_poeg_on_poeg.close
+0000a07c  4  [pointer]
+}
+_g_motor_on_motor_control
+0000a0bc  56  data ,g
+struct  {
+_g_motor_on_motor_control.open
+0000a0bc  4  [pointer]
+_g_motor_on_motor_control.close
+0000a0c0  4  [pointer]
+_g_motor_on_motor_control.run
+0000a0c4  4  [pointer]
+_g_motor_on_motor_control.stop
+0000a0c8  4  [pointer]
+_g_motor_on_motor_control.reset
+0000a0cc  4  [pointer]
+_g_motor_on_motor_control.errorSet
+0000a0d0  4  [pointer]
+_g_motor_on_motor_control.speedSet
+0000a0d4  4  [pointer]
+_g_motor_on_motor_control.positionSet
+0000a0d8  4  [pointer]
+_g_motor_on_motor_control.statusGet
+0000a0dc  4  [pointer]
+_g_motor_on_motor_control.angleGet
+0000a0e0  4  [pointer]
+_g_motor_on_motor_control.speedGet
+0000a0e4  4  [pointer]
+_g_motor_on_motor_control.waitStopFlagGet
+0000a0e8  4  [pointer]
+_g_motor_on_motor_control.errorCheck
+0000a0ec  4  [pointer]
+_g_motor_on_motor_control.functionSelect
+0000a0f0  4  [pointer]
+}
+_motor_control_action_table
+0000a08c  48  data ,g
+_state_transition_table
+0000a080  12  data ,g
+_g_motor_hal_driver_on_motor_hal_driver
+0000a0f4  52  data ,g
+struct  {
+_g_motor_hal_driver_on_motor_hal_driver.open
+0000a0f4  4  [pointer]
+_g_motor_hal_driver_on_motor_hal_driver.close
+0000a0f8  4  [pointer]
+_g_motor_hal_driver_on_motor_hal_driver.reset
+0000a0fc  4  [pointer]
+_g_motor_hal_driver_on_motor_hal_driver.phaseVoltageSet
+0000a100  4  [pointer]
+_g_motor_hal_driver_on_motor_hal_driver.activate
+0000a104  4  [pointer]
+_g_motor_hal_driver_on_motor_hal_driver.deactivate
+0000a108  4  [pointer]
+_g_motor_hal_driver_on_motor_hal_driver.currentGet
+0000a10c  4  [pointer]
+_g_motor_hal_driver_on_motor_hal_driver.outputVoltageGet
+0000a110  4  [pointer]
+_g_motor_hal_driver_on_motor_hal_driver.flagCurrentOffsetGet
+0000a114  4  [pointer]
+_g_motor_hal_driver_on_motor_hal_driver.flagBootstrapGet
+0000a118  4  [pointer]
+_g_motor_hal_driver_on_motor_hal_driver.currentOffsetRestart
+0000a11c  4  [pointer]
+_g_motor_hal_driver_on_motor_hal_driver.parameterUpdate
+0000a120  4  [pointer]
+_g_motor_hal_driver_on_motor_hal_driver.bootstrapCharge
+0000a124  4  [pointer]
+}
+_g_motor_algorithm_on_motor_pm_foc
+0000a128  40  data ,g
+struct  {
+_g_motor_algorithm_on_motor_pm_foc.open
+0000a128  4  [pointer]
+_g_motor_algorithm_on_motor_pm_foc.close
+0000a12c  4  [pointer]
+_g_motor_algorithm_on_motor_pm_foc.reset
+0000a130  4  [pointer]
+_g_motor_algorithm_on_motor_pm_foc.run
+0000a134  4  [pointer]
+_g_motor_algorithm_on_motor_pm_foc.stop
+0000a138  4  [pointer]
+_g_motor_algorithm_on_motor_pm_foc.controlModeGet
+0000a13c  4  [pointer]
+_g_motor_algorithm_on_motor_pm_foc.controlModeSet
+0000a140  4  [pointer]
+_g_motor_algorithm_on_motor_pm_foc.statusGet
+0000a144  4  [pointer]
+_g_motor_algorithm_on_motor_pm_foc.parameterUpdate
+0000a148  4  [pointer]
+_g_motor_algorithm_on_motor_pm_foc.errorGet
+0000a14c  4  [pointer]
+}
+_g_motor_sensor_on_motor_sensor_bemf
+0000a160  28  data ,g
+struct  {
+_g_motor_sensor_on_motor_sensor_bemf.open
+0000a160  4  [pointer]
+_g_motor_sensor_on_motor_sensor_bemf.close
+0000a164  4  [pointer]
+_g_motor_sensor_on_motor_sensor_bemf.reset
+0000a168  4  [pointer]
+_g_motor_sensor_on_motor_sensor_bemf.parameterUpdate
+0000a16c  4  [pointer]
+_g_motor_sensor_on_motor_sensor_bemf.angleSpeedInit
+0000a170  4  [pointer]
+_g_motor_sensor_on_motor_sensor_bemf.angleSpeedCalc
+0000a174  4  [pointer]
+_g_motor_sensor_on_motor_sensor_bemf.positionSpeedGet
+0000a178  4  [pointer]
+}
+___vector_table
+00000000  64  data ,g
+_g_heap
+20000040  18446744073709551616  data ,g
+_g_main_stack
+20000048  1024  data ,g
+_SystemCoreClock
+20000e0c  4  data ,g
+_g_interrupt_event_link_select
+0000a17c  32  data ,g
+_g_vector_table
+00000040  64  data ,g

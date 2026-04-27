@@ -1,0 +1,17 @@
+C:\iar\ewarm-9.70.2\arm\bin\armproc.dll
+
+ C:\iar\ewarm-9.70.2\arm\bin\armjlink.dll
+
+ C:\Users\a5143778\Desktop\Customers\New_MC_Platform\RAMP_IAR\RAMP_IAR\Debug\Exe\RAMP_IAR.elf
+
+ --plugin=C:\iar\ewarm-9.70.2\arm\bin\armLibSupportUniversal.dll
+
+ --device_macro=C:\iar\ewarm-9.70.2\arm/config/debugger/Renesas/R7FA_DBGv2.dmac
+
+ --device_macro=C:\iar\ewarm-9.70.2\arm/config/debugger/Renesas/R7FA6_CLOCKv3.dmac
+
+ --device_macro=C:\iar\ewarm-9.70.2\arm/config/debugger/Renesas/R7FA6T2.dmac
+
+ 
+
+
