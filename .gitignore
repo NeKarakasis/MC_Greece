@@ -1,0 +1,41 @@
+# Build output
+build/
+Debug/
+Release/
+out/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+*.cmake.stamp
+
+# Renesas / e2 studio / RA generated artifacts kept out of VCS caches
+.api_xml
+.cache/
+
+# Toolchain output
+*.o
+*.obj
+*.a
+*.lib
+*.elf
+*.bin
+*.hex
+*.srec
+*.map
+*.rmap
+*.rpd
+*.sbd
+*.lst
+*.su
+*.d
+
+# Editor / IDE
+.vscode/.cache/
+.vs/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
