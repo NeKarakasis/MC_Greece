@@ -62,8 +62,11 @@ static void     r_app_main_ui_mainloop(void);           /* User interface contro
 static void     r_app_main_init_motor_ctrl(void);       /* Initialize motor control instance */
 static void     r_app_main_start_motor_ctrl(void);      /* Start motor control */
 static void 	app_set_motor_output_path(e_motor_id_t id); /* Implementation to toggle the output relay */
-static void 	SelfTestHookFunction(void);				    /* Implementation of SelfTestHookFunction */
 static void 	Alarm_Control(void);						/* Implementation of Error handling selftest and motor protection fautls */
+/***********************************************************************************************************************
+* public functions
+***********************************************************************************************************************/
+extern void 	SelfTestHookFunction(void);				    /* Implementation of SelfTestHookFunction it is called in the current control after the FuSa testing*/
 
 #define USE_UI 0
 #define STARTUP_MOTOR_CONTROL_DELAY		1
@@ -131,8 +134,6 @@ clrpsw_i();                                       /* Disable interrupt */
     r_app_rmw_ui_init();
 #endif
 
-//setpsw_i();                                       /* Enable interrupt */
-
 //Disable interrupt
 /*
 clrpsw_i();
@@ -192,18 +193,21 @@ FuSa_Voltage_init();
 setpsw_i();*/
 
 
-//clrpsw_i();
-    //FuSa_Startup_FullSelfTest_Init_manager(&g_cfg,&g_st);
+	clrpsw_i();
+	FuSa_Startup_FullSelfTest_Init_manager(&g_cfg,&g_st);
 
-/*     Start peripheral functions*/
-    if(g_st.Fusa_mng_error != SAFETY_NO_ERROR)  // if there is self test error, the motor should not start and wait for reset.
-    {
-    	SelfTestHookFunction();
-    	g_st_sensorless_vector.u2_error_status |= MOTOR_SENSORLESS_VECTOR_ERROR_SELFTEST;
-        motor_sensorless_vector_statemachine_event(&g_st_sensorless_vector.st_stm,
-        											&g_st_sensorless_vector,
-                                                   STATEMACHINE_EVENT_ERROR);
-    }
+	/*     Start peripheral functions*/
+
+	if(g_st.Fusa_mng_error != SAFETY_NO_ERROR)  // if there is self test error, the motor should not start and wait for reset.
+	{
+		SelfTestHookFunction();
+		g_st_sensorless_vector.u2_error_status |= MOTOR_SENSORLESS_VECTOR_ERROR_SELFTEST;
+		motor_sensorless_vector_statemachine_event(&g_st_sensorless_vector.st_stm,
+													&g_st_sensorless_vector,
+												   STATEMACHINE_EVENT_ERROR);
+	}
+
+	r_app_main_start_motor_ctrl();
     setpsw_i();                                       // Enable interrupt
 
 
@@ -456,6 +460,8 @@ void soft_reset(void)
     while (1) { }                // wait for reset
 }
 
+#pragma section P ROM_ALARM_MANAGE_FUSA_API
+
 void Alarm_Control(void)
 {
     uint8_t motor_status;
@@ -610,4 +616,4 @@ void Alarm_Control(void)
     else if(motor_restart_retry >= 50) alarm = 0x06;      // after 50 trial of critical errors, send fatal error code
 
 }
-
+#pragma section P

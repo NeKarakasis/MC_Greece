@@ -1,3 +1,5 @@
+-----29/06/26-----
+- Nektarios: Finalize the ROM and RAM areas, enable the FuSa staff to run in real time permanently and crc file (data.mot) is loaded at every debbuging session.
 
 -----31/12/25-----
 - Nektarios: add the FuSa manager and task scheduler for FuSa MCU tests. Integrate the FuSa functions and tested.

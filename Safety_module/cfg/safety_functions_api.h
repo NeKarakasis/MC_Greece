@@ -33,7 +33,7 @@ that code should be modified based of the hardware.*/
 
 
 #define RAM_TEST_START_ADDRESS   (0x00000400U)
-#define RAM_TEST_TOTAL_SIZE      (6800U)       // Total RAM size in bytes
+#define RAM_TEST_TOTAL_SIZE      (10240U)       // Total RAM size in bytes
 #define RAM_TEST_BLOCK_SIZE      (4U)          // Block size in bytes
 
 #define RAM_TEST_NUM_BLOCKS      (RAM_TEST_TOTAL_SIZE / RAM_TEST_BLOCK_SIZE)
@@ -44,8 +44,8 @@ that code should be modified based of the hardware.*/
 /*!!!!Start of ROM tests configuration!!!!!
 that code should be modified based of the hardware.*/
 
-#define ROM_START_ADDR         (0xFFFF0100UL)
-#define ROM_TOTAL_SIZE         (34UL * 1024UL)         /* 16 KB */
+#define ROM_START_ADDR         (0xFFFFCF10UL)
+#define ROM_TOTAL_SIZE         (12UL * 1024UL)         /* 12 KB */
 #define ROM_BLOCK_SIZE         (1UL * 1024UL)          /* 1 KB */
 #define ROM_NUM_BLOCKS         (ROM_TOTAL_SIZE / ROM_BLOCK_SIZE)
 #define ROM_TEST_CHUNK_SIZE    (32UL)                  /* 32 bytes per test */

@@ -37,6 +37,7 @@ uint16_t current_loop_ticks = 0;
 uint16_t available_ticks = 0;
 uint16_t current_loop_ticks_max = 0;
 uint16_t MTU_point1,MTU_point2 = 0;
+uint16_t pause_counter = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -61,9 +62,6 @@ void R_Config_S12AD0_Create_UserInit(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-/* Start user code for include. Do not edit comment generated here */
-uint16_t pause_counter;
-/* End user code. Do not edit comment generated here */
 
 #if FAST_INTERRUPT_VECTOR == VECT_S12AD_S12ADI
 #pragma interrupt r_Config_S12AD0_interrupt(vect=VECT(S12AD,S12ADI),fint)
@@ -92,11 +90,11 @@ static void r_Config_S12AD0_interrupt(void)
     }
     MTU.TRWERA.BIT.RWE = 0U;
     clrpsw_i();
-/*    FuSa_Manager_Run(&g_cfg, &g_st);
+    FuSa_Manager_Run(&g_cfg, &g_st);
     if (FuSa_Manager_HasError(&g_st))
     {
         SelfTestHookFunction();
-    }*/
+    }
     setpsw_i();
     }
     	else
